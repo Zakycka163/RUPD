@@ -21,7 +21,8 @@
 				$current_page = $_GET["page"];
 				if (isset($_GET["id"])){
 					$current_obj = $_GET["id"];
-					if ($_GET["page"] == "fgos"){$page_title = "ФГОС привет";};
+					if ($_GET["page"] == "fgos"){$page_title = "ФГОС";};
+					if ($_GET["page"] == "teachers"){$page_title = "Преподватель";};
 					require_once ($_SERVER['DOCUMENT_ROOT']."../front/body/object.php");
 				} else {
 					require_once ($_SERVER['DOCUMENT_ROOT']."../front/body/".$current_page.".php");
