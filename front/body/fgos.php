@@ -42,7 +42,7 @@
 					while($row = mysqli_fetch_array($result)){
 						$counter++;
 						echo '<tr>'. "\n" . '<td>'.$counter .'</td>'."\n";
-						echo '<td>'.$row[0].'</td>'. "\n";
+						echo '<td> <a href="?page=fgos&id='.$row[0].'">'.$row[0].'</a></td>'. "\n";
 						echo '<td>'.$row[1].'</td>'. "\n";
 						echo '<td>'.$row[2].'</td>'. "\n";
 						echo '<td>'.$row[3].'</td>'. "\n";
