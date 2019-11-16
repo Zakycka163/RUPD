@@ -14,11 +14,11 @@
 		<div class="col">
 			<div class="card border-primary form-group" style="width: 20rem; height: 12rem">
 				<div class="card-body" style="height: 6rem">
-					<h5 class="card-title">Кафедры</h5>
-					<p class="card-text">Работа с информацией по кафедрам</p>
+					<h5 class="card-title">Институты и Кафедры</h5>
+					<p class="card-text">Работа с информацией по институтам и кафедрам</p>
 				</div>
 				<div class="card-footer bg-transparent">
-					<a class="btn btn-success btn-sm btn-block" href="#">Открыть страницу</a>
+					<a class="btn btn-success btn-sm btn-block" href="?page=institutes">Открыть страницу</a>
 				</div>
 			</div>
 		</div>
@@ -51,7 +51,7 @@
 					<p class="card-text">Работа с направлениям и профилями</p>
 				</div>
 				<div class="card-footer bg-transparent">
-					<a class="btn btn-success btn-sm btn-block" href="#">Открыть страницу</a>
+					<a class="btn btn-success btn-sm btn-block" href="?page=courses">Открыть страницу</a>
 				</div>
 			</div>
 		</div>
@@ -62,7 +62,7 @@
 					<p class="card-text">Работа с профессиональными стандартами</p>
 				</div>
 				<div class="card-footer bg-transparent">
-					<a class="btn btn-success btn-sm btn-block" href="#">Открыть страницу</a>
+					<a class="btn btn-success btn-sm btn-block" href="?page=prof">Открыть страницу</a>
 				</div>
 			</div>
 		</div>
@@ -73,7 +73,7 @@
 					<p class="card-text">Работа с ОТФ, ТФ - знает, умеет, владеет</p>
 				</div>
 				<div class="card-footer bg-transparent">
-					<a class="btn btn-success btn-sm btn-block" href="#">Открыть страницу</a>
+					<a class="btn btn-success btn-sm btn-block" href="?page=otf">Открыть страницу</a>
 				</div>
 			</div>
 		</div>
@@ -84,7 +84,7 @@
 					<p class="card-text">Работа с компетенциями</p>
 				</div>
 				<div class="card-footer bg-transparent">
-					<a class="btn btn-success btn-sm btn-block" href="#">Открыть страницу</a>
+					<a class="btn btn-success btn-sm btn-block" href="?page=competencies">Открыть страницу</a>
 				</div>
 			</div>
 		</div>
