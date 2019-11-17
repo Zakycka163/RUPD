@@ -53,7 +53,7 @@
                 </div>            
                 <center>
                     <button class="btn btn-success" name="submit" type="submit">Создать</button>
-                    <a class="btn btn-danger" href="../index.php">Вернуться</a>
+                    <a class="btn btn-danger" href="../pages/users.php">Вернуться</a>
                 </center>
             </form>
             

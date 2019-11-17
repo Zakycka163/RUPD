@@ -12,6 +12,7 @@
 			$result = mysqli_query($link, $sql);
 			while($row = mysqli_fetch_array($result)){
 				$page_title = ''.$row[2].' '.$row[3].' '.$row[4].'';
+				$login = $row[0];
 				if ($row[1] = 2){
 					$admin = "Да";
 				} else {
@@ -27,22 +28,73 @@
 </div>
 <div class="form-group">
 	<div class="btn-group btn-group-sm" role="group">
-		<input class="btn btn-success btn-mg" onclick="location.href='../pages/sign_up.php'" type="button" value="Добавить">
+		<input class="btn btn-success btn-mg" type="button" value="Сохранить">
 	</div>
 </div>
-<table class="table table-bordered table-striped">
-	<thead>
+<table class="table table-borderless" style="width: 80rem">
+	<tr id="login">
+		<td class="align-middle">Логин</td>
+		<td>
+			<div class="row">
+				<div class="col" id="info_part"><?php echo $login; ?></div>
+			</div>
+		</td>
+		<td class="align-middle">Права администратора</td>
+		<td>
+			<div class="row">
+				<div class="col" id="info_part"><?php echo $admin; ?></div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="align-middle">Старый пароль</td>
+		<td>
+			<div class="row">
+				<div class="col" id="info_part"></div>
+			</div>
+		</td>
+		<td class="align-middle"></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td class="align-middle">Новый пароль</td>
+		<td>
+			<div class="row">
+				<div class="col" id="info_part"></div>
+			</div>
+		</td>
+		<td class="align-middle">Повторите пароль</td>
+		<td></td>
+	</tr>
+	<tr>
 		<tr>
-			<th scope="col" style="width: 2rem">№</th>
-			<th scope="col">Логин</th>
-			<th scope="col">Пароль</th>
-			<th scope="col">Админ</th>
-			<th scope="col">Фамилия</th>
-			<th scope="col">Имя</th>
-			<th scope="col">Отчество</th>
-		</tr>
-	</thead>
-	<tbody>
-	
-	</tbody>
+		<td class="align-middle">Фамилия</td>
+		<td>
+			<div class="row">
+				<div class="col" id="info_part"></div>
+			</div>
+		</td>
+		<td class="align-middle"></td>
+		<td></td>
+	</tr>
+	<tr id="login">
+		<td class="align-middle">Имя</td>
+		<td>
+			<div class="row">
+				<div class="col" id="info_part"></div>
+			</div>
+		</td>
+		<td class="align-middle">Отчество</td>
+		<td>
+			<div class="row">
+				<div class="col" id="info_part"></div>
+			</div>
+		</td>
+	</tr>
 </table>
+
+<script>
+$(document).ready(function() {
+	
+}
+</script>
