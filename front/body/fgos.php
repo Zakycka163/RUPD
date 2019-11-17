@@ -5,7 +5,25 @@
 		</div>
 		<div class="form-group">
 			<div class="btn-group btn-group-sm" role="group">
-				<button type="button" class="btn btn-success">Добавить</button>
+				<a type="button" class="btn btn-success">Добавить</a>
+				<script>
+				$("#create_info_fgos").click(function(){
+					var course_value = $("#input_course").val();
+					if ((course_value !== '') && (course_value !== null)){
+						$('#get_course').prop('hidden',false);
+						var course_value = $("#input_course").val();
+						$.post(
+							"../back/switch_functions.php", 
+							{functionname: 'get_course_list', param: course_value}, 
+							function(info){$('#get_course').prop('value', info);}
+						);
+						$('#course_id').text(course_value);
+					} else {
+						$('#get_course').prop('value', 'Направление не определено');
+					}
+					$('#create_fgos').modal('show');
+				});
+			</script>	
 			</div>
 		</div>
 		<table class="table table-bordered table-striped">

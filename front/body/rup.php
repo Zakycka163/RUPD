@@ -370,7 +370,7 @@ $(document).ready(function() {
 			);
 			$('#course_id').text(course_value);
 		} else {
-			$('#get_course').prop('value', 'Петеряли');
+			$('#get_course').prop('value', 'Направление не определено');
 		}
 		$('#create_fgos').modal('show');
 	});

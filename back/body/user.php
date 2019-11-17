@@ -11,26 +11,19 @@
 					WHERE acc.account_id = ".$_GET["id"]."";
 			$result = mysqli_query($link, $sql);
 			while($row = mysqli_fetch_array($result)){
-				$counter++;
-				if ($row[2] = 2){
+				$page_title = ''.$row[2].' '.$row[3].' '.$row[4].'';
+				if ($row[1] = 2){
 					$admin = "Да";
 				} else {
-					$admin = "";
+					$admin = "Нет";
 				}
-				echo '<tr>'. "\n" . '<td>'.$counter .'</td>'."\n";
-				echo '<td><a href="?id='.$row[0].'" title="Открыть аккаунт">'.$row[1].'</td>'. "\n";
-				echo '<td>********</td>'. "\n";
-				echo '<td>'.$admin.'</td>'. "\n";
-				echo '<td>'.$row[3].'</td>'. "\n";
-				echo '<td>'.$row[4].'</td>'. "\n";
-				echo '<td>'.$row[5].'</td>'. "\n";
-				echo '</tr>'. "\n";
+				
 			};
 			close();
 ?>
 
 <div class="form-group">
-	<h4 id="page_title">Аккаунт для </h3>
+	<h4 id="page_title"><?php echo $page_title; ?></h3>
 </div>
 <div class="form-group">
 	<div class="btn-group btn-group-sm" role="group">

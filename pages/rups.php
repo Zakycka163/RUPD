@@ -17,8 +17,6 @@
 				<div class="form-group">
 					<div class="btn-group btn-group-sm" role="group">
 						<button type="button" class="btn btn-success">Добавить</button>
-						<button type="button" class="btn btn-primary">Изменить</button>
-						<button type="button" class="btn btn-danger">Удалить</button>
 					</div>
 				</div>
 				<table class="table table-bordered table-striped">
