@@ -12,15 +12,17 @@
         <center>
 			<div class="p-3 bg-primary font-weight-bold text-white"><h3>Аккаунты</h3></div>
 		</center>
-		
-		<?php
-			require_once ($_SERVER['DOCUMENT_ROOT']."../back/base.php");
-			if (isset($_GET["id"])){
-				
-			} else {
-				require_once ($_SERVER['DOCUMENT_ROOT']."../front/body/users.php");
-			}
-        ?>
-		
+		<form>
+			<div class="px-4 py-3 bg-light">
+				<?php
+					require_once ($_SERVER['DOCUMENT_ROOT']."../back/base.php");
+					if (isset($_GET["id"])){
+						require_once ($_SERVER['DOCUMENT_ROOT']."../back/body/user.php");
+					} else {
+						require_once ($_SERVER['DOCUMENT_ROOT']."../front/body/users.php");
+					}
+				?>
+			</div>
+		</form>	
     </body>
 </html>
