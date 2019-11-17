@@ -15,10 +15,8 @@
 		
 		<?php
 			require_once ($_SERVER['DOCUMENT_ROOT']."../back/base.php");
-			if (isset($_GET["page"])){
-				switch($_GET["page"]){
-
-				};
+			if (isset($_GET["id"])){
+				
 			} else {
 				require_once ($_SERVER['DOCUMENT_ROOT']."../front/body/users.php");
 			}
