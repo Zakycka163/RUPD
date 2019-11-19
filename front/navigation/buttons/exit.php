@@ -10,7 +10,7 @@
 ?>
 
 <form class="form-inline">
-		<a href="../pages/404.php" id="<?php echo($id);?>" title="Личный кабинет">
+		<a href="../pages/users.php?id=<?php echo($id);?>" title="Личный кабинет">
 			<?php print("".$first." ".$second."". "\n")?>
 		</a>
 		<p class="text-light">....</p>
