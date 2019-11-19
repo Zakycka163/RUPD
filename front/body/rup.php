@@ -110,7 +110,7 @@
 			<table>
 				<tr class="multiselection">
 					<td>
-					<select class="selection_for_add form-control" id="input_mission" multiple style="height: 7rem"></select>
+						<select class="selection_for_add form-control" id="input_mission" multiple style="height: 7rem"></select>
 						<div class="input-group">
 							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
 						</div>
@@ -134,7 +134,7 @@
 			<table>
 				<tr class="multiselection">
 					<td>
-					<select class="selection_for_add form-control" id="input_lecture" multiple style="height: 10rem"></select>
+						<select class="selection_for_add form-control" id="input_lecture" multiple style="height: 10rem"></select>
 						<div class="input-group">
 							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
 						</div>
@@ -151,7 +151,7 @@
 			<table>
 				<tr class="multiselection">
 					<td>
-					<select class="selection_for_add form-control" id="input_practical" multiple style="height: 10rem"></select>
+						<select class="selection_for_add form-control" id="input_practical" multiple style="height: 10rem"></select>
 						<div class="input-group">
 							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
 						</div>
@@ -171,7 +171,7 @@
 			<table>
 				<tr class="multiselection">
 					<td>
-					<select class="selection_for_add form-control" id="input_laboratory" multiple style="height: 10rem"></select>
+						<select class="selection_for_add form-control" id="input_laboratory" multiple style="height: 10rem"></select>
 						<div class="input-group">
 							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
 						</div>
@@ -188,7 +188,7 @@
 			<table>
 				<tr class="multiselection">
 					<td>
-					<select class="selection_for_add form-control" id="input_individual" multiple style="height: 10rem"></select>
+						<select class="selection_for_add form-control" id="input_individual" multiple style="height: 10rem"></select>
 						<div class="input-group">
 							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
 						</div>
@@ -208,7 +208,7 @@
 			<table>
 				<tr class="multiselection">
 					<td>
-					<select class="selection_for_add form-control" id="input_course_work" multiple style="height: 10rem"></select>
+						<select class="selection_for_add form-control" id="input_course_work" multiple style="height: 10rem"></select>
 						<div class="input-group">
 							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
 						</div>
@@ -225,7 +225,7 @@
 			<table>
 				<tr class="multiselection">
 					<td>
-					<select class="selection_for_add form-control" id="input_course_project" multiple style="height: 10rem"></select>
+						<select class="selection_for_add form-control" id="input_course_project" multiple style="height: 10rem"></select>
 						<div class="input-group">
 							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
 						</div>

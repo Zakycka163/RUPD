@@ -20,8 +20,7 @@
 					$admin = "Да";
 				} else {
 					$admin = "Нет";
-				}
-				
+				}		
 			};
 			close();
 ?>
@@ -36,49 +35,57 @@
 </div>
 <table class="table table-borderless" style="width: 80rem">
 	<tr>
-		<tr>
-		<td class="align-middle">Фамилия</td>
+		<td class="align-middle" style="width: 15rem">Фамилия</td>
 		<td>
-			<div class="row">
-				<div class="col" id="second_name"><?php echo $second_name; ?></div>
+			<div class="input-group" style="right: 15px;">
+				<input class="form-control" type="text" id="second_name" value="<?php echo $second_name; ?>">
 			</div>
 		</td>
 		<td class="align-middle"></td>
 		<td></td>
 	</tr>
-	<tr id="login">
+	<tr>
 		<td class="align-middle">Имя</td>
 		<td>
-			<div class="row">
-				<div class="col" id="first_name"><?php echo $first_name; ?></div>
+			<div class="input-group" style="right: 15px;">
+				<input class="form-control" type="text" id="first_name" value="<?php echo $first_name; ?>">
 			</div>
 		</td>
+		<td class="align-middle"></td>
+		<td></td>
+	</tr>
+	<tr>
 		<td class="align-middle">Отчество</td>
 		<td>
-			<div class="row">
-				<div class="col" id="middle_name"><?php echo $middle_name; ?></div>
+			<div class="input-group" style="right: 15px;">
+				<input class="form-control" type="text" id="middle_name" value="<?php echo $middle_name; ?>">
 			</div>
 		</td>
+		<td class="align-middle"></td>
+		<td></td>
 	</tr>
-	<tr id="login">
+	<tr class="hr_section">
+		<td colspan="4"><hr></td>
+	</tr>
+	<tr>
 		<td class="align-middle">Логин</td>
 		<td>
-			<div class="row">
-				<div class="col" id="login"><?php echo $login; ?></div>
+			<div class="input-group" style="right: 15px;">
+				<input class="form-control" type="text" id="login" value="<?php echo $login; ?>">
 			</div>
 		</td>
-		<td class="align-middle">Права администратора</td>
-		<td>
-			<div class="row">
-				<div class="col" id="grant"><?php echo $admin; ?></div>
+		<td class="align-middle" style="width: 15rem">Права администратора</td>
+		<td style="width: 12rem">
+			<div class="input-group" style="right: 15px;">
+				<input class="form-control" type="text" disabled value="<?php echo $admin; ?>">
 			</div>
 		</td>
 	</tr>
 	<tr>
 		<td class="align-middle">Старый пароль</td>
 		<td>
-			<div class="row">
-				<div class="col" id="password"></div>
+			<div class="input-group" style="right: 15px;">
+				<input class="form-control" type="text" id="pass">
 			</div>
 		</td>
 		<td class="align-middle"></td>
@@ -87,8 +94,8 @@
 	<tr>
 		<td class="align-middle">Новый пароль</td>
 		<td>
-			<div class="row">
-				<div class="col" id="new_pass"></div>
+			<div class="input-group" style="right: 15px;">
+				<input class="form-control" type="text" id="new_pass">
 			</div>
 		</td>
 		<td class="align-middle"></td>
@@ -97,8 +104,8 @@
 	<tr>
 		<td class="align-middle">Повторите пароль</td>
 		<td>
-			<div class="row">
-				<div class="col" id="repl_pass"></div>
+			<div class="input-group" style="right: 15px;">
+				<input class="form-control" type="text" id="repl_pass">
 			</div>
 		</td>
 		<td class="align-middle"></td>
