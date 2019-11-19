@@ -5,7 +5,7 @@
 		</div>
 		<div class="form-group">
 			<div class="btn-group btn-group-sm" role="group">
-				<a type="button" class="btn btn-success">Добавить</a>
+				<input class="btn btn-success" type="button" id="create_fgos" value="Добавить">
 				<script>
 				$("#create_info_fgos").click(function(){
 					var course_value = $("#input_course").val();
