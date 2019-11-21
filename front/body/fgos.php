@@ -5,27 +5,15 @@
 		</div>
 		<div class="form-group">
 			<div class="btn-group btn-group-sm" role="group">
-				<input class="btn btn-success" type="button" id="create_fgos" value="Добавить">
+				<input class="btn btn-success" type="button" id="create_fgos_button" value="Добавить">
 				<script>
-				$("#create_info_fgos").click(function(){
-					var course_value = $("#input_course").val();
-					if ((course_value !== '') && (course_value !== null)){
-						$('#get_course').prop('hidden',false);
-						var course_value = $("#input_course").val();
-						$.post(
-							"../back/switch_functions.php", 
-							{functionname: 'get_course_list', param: course_value}, 
-							function(info){$('#get_course').prop('value', info);}
-						);
-						$('#course_id').text(course_value);
-					} else {
-						$('#get_course').prop('value', 'Направление не определено');
-					}
-					$('#create_fgos').modal('show');
-				});
-			</script>	
+					$("#create_fgos_button").click(function(){
+						$('#create_fgos').modal('show');
+					});
+				</script>	
 			</div>
 		</div>
+		<?php require_once ($_SERVER['DOCUMENT_ROOT']."../front/creationForms/fgos.php"); ?>
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
