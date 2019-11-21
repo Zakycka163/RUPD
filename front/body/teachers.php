@@ -57,7 +57,7 @@
 					while($row = mysqli_fetch_array($result)){
 						$counter++;
 						echo '<tr>'. "\n" . '<td>'.$counter .'</td>'."\n";
-						echo '<td> <a href="?page=fgos&id='.$row[0].'">'.$row[1].' '.$row[2].' '.$row[3].'</a></td>'. "\n";
+						echo '<td> <a href="?page=teachers&id='.$row[0].'">'.$row[1].' '.$row[2].' '.$row[3].'</a></td>'. "\n";
 						echo '<td>'.$row[4].'</td>'. "\n";
 						echo '<td>'.$row[5].'</td>'. "\n";
 						echo '<td>'.$row[6].'</td>'. "\n";

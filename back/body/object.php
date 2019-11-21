@@ -3,6 +3,11 @@
 		<div class="form-group">
 			<h4 id="page_title"><?php echo $page_title ?></h3>
 		</div>
+		<div class="form-group">
+			<div class="btn-group btn-group-sm" role="group">
+				<button type="button" class="btn btn-success">Добавить</button>
+			</div>
+		</div>
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
@@ -18,10 +23,5 @@
 			<tbody>
 			</tbody>
 		</table>
-		<div class="form-group">
-			<div class="btn-group btn-group-sm" role="group">
-				<button type="button" class="btn btn-success">Добавить</button>
-			</div>
-		</div>
 	</div>
 </form>	
