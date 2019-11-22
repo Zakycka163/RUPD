@@ -6,14 +6,19 @@
 		<div class="form-group">
 			<div class="btn-group btn-group-sm" role="group">
 				<input class="btn btn-success" type="button" id="create_fgos_button" value="Добавить">
+				<?php 
+					#options_present("SELECT course_id, CONCAT_WS(' ',number,name) as course FROM courses order by number");		
+				?>
 				<script>
 					$("#create_fgos_button").click(function(){
+						
+						//$('#empty_course').html();
+						$('#empty_course').prop('hidden', false);
 						$('#create_fgos').modal('show');
 					});
 				</script>	
 			</div>
 		</div>
-		<?php require_once ($_SERVER['DOCUMENT_ROOT']."../front/creationForms/fgos.php"); ?>
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
@@ -87,3 +92,4 @@
 		</nav>	
 	</div>
 </form>	
+<?php require_once ($_SERVER['DOCUMENT_ROOT']."../front/creationForms/fgos.php"); ?>
