@@ -30,6 +30,18 @@
 							<input class="form-control" type="number" id="input_number" max="99999" required>
 						</td>
 					</tr>
+					<tr>
+						<td class="align-middle">Дата регистрации</td>
+						<td>
+							<input class="form-control" type="date" id="reg_date" min="2008-01-01" max="2025-12-31" required>
+						</td>
+					</tr>
+					<tr>
+						<td class="align-middle">Номер регистрации</td>
+						<td>
+							<input class="form-control" type="number" id="reg_number" max="99999" required>
+						</td>
+					</tr>
 				</table>
 				<div class="alert alert-danger" role="alert" id="error_params" hidden>
                     Все поля должны быть заполнены! 
@@ -52,14 +64,16 @@
 		
 		if (get_course_id !== ''){
 			
-			if($("#input_date").val() !== ''){
+			if(($("#input_date").val() !== '') && ($("#reg_date").val() !== ''))){
 				var fgos_date = $("#input_date").val();
+				var fgos_reg_date = $("#reg_date").val();
 				
-				if($("#input_number").val() !== ''){
+				if(($("#input_number").val() !== '') && ($("#reg_number").val() !== '')){
 					var fgos_number = $("#input_number").val();
+					var fgos_reg_number = $("#reg_number").val();
 					$.post(
 						"../back/switch_functions.php", 
-						{functionname: 'create_fgos', course: get_course_id , date: fgos_date, number: fgos_number}, 
+						{functionname: 'create_fgos', course: get_course_id, date: fgos_date, number: fgos_number}, 
 						function(){}
 					);
 					
@@ -96,30 +110,3 @@
 		} else { $('#error_params').prop('hidden',false); };
 	});
 </script>
-
-<!-- $("#create_info_fgos").click(function(){
-			$('#get_course').prop('hidden',true);
-			$('#empty_course').prop('hidden',true);
-			var course_value = $("#input_course").val();
-			if (course_value !== ''){
-				$('#empty_course').prop('hidden',false);
-				$('#get_course').prop('hidden',true);
-				$("#get_course").empty();
-				$.post(
-					"../back/switch_functions.php", 
-					{functionname: 'get_course_list'}, 
-					function(info){$('#empty_course').html(info);}
-				);
-			} else {
-				$('#empty_course').prop('hidden',true);
-				$("#empty_course").empty();
-				$('#get_course').prop('hidden',false);
-				var course_value = $("#input_course").val();
-				$.post(
-					"../back/switch_functions.php", 
-					{functionname: 'get_course_list', param: course_value}, 
-					function(info){$('#get_course').prop('value', info);}
-				);
-			}
-			$('#myModal').show();
-		}); -->
