@@ -64,7 +64,7 @@
 		
 		if (get_course_id !== ''){
 			
-			if(($("#input_date").val() !== '') && ($("#reg_date").val() !== ''))){
+			if(($("#input_date").val() !== '') && ($("#reg_date").val() !== '')){
 				var fgos_date = $("#input_date").val();
 				var fgos_reg_date = $("#reg_date").val();
 				
