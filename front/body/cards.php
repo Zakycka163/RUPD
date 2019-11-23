@@ -91,11 +91,11 @@
 		<div class="col">
 			<div class="card border-primary form-group" style="width: 20rem; height: 12rem">
 				<div class="card-body" style="height: 6rem">
-					<h5 class="card-title">Данные</h5>
+					<h5 class="card-title">Массовое создание</h5>
 					<p class="card-text"></p>
 				</div>
 				<div class="card-footer bg-transparent">
-					<a class="btn btn-success btn-sm btn-block" href="#">Открыть страницу</a>
+					<a class="btn btn-success btn-sm btn-block" href="?page=bulk">Открыть страницу</a>
 				</div>
 			</div>
 		</div>
