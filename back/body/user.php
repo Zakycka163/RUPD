@@ -17,9 +17,9 @@
 				$middle_name = $row[4];
 				$login = $row[0];
 				if ($row[1] = 2){
-					$admin = "Да";
+					$admin = "checked";
 				} else {
-					$admin = "Нет";
+					$admin = "";
 				}		
 			};
 			close();
@@ -33,7 +33,7 @@
 		<input class="btn btn-success btn-mg" type="button" value="Сохранить">
 	</div>
 </div>
-<table class="table table-borderless" style="width: 80rem">
+<table class="table table-borderless" style="width: 65rem">
 	<tr>
 		<td class="align-middle" style="width: 15rem">Фамилия</td>
 		<td>
@@ -74,10 +74,11 @@
 				<input class="form-control" type="text" id="login" value="<?php echo $login; ?>">
 			</div>
 		</td>
-		<td class="align-middle" style="width: 15rem">Права администратора</td>
+		<td class="align-middle" style="width: 13rem">Права администратора</td>
 		<td style="width: 12rem">
-			<div class="input-group" style="right: 15px;">
-				<input class="form-control" type="text" disabled value="<?php echo $admin; ?>">
+			<div class="custom-control custom-switch" style="top: 10px">
+				<input type="checkbox" class="custom-control-input" <?php echo $admin; ?> id="switch">
+				<label class="custom-control-label"></label>
 			</div>
 		</td>
 	</tr>
