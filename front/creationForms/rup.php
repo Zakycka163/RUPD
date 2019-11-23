@@ -98,7 +98,7 @@
 						$('#complete_cretion').modal('show');
 						$('#success').append('Ваш документ сохранен на сервер как '+document_name_on_server+'.docx');
 						var link = document.createElement('a');
-						link.setAttribute('href','../Documents/'+document_name_on_server+'.docx');
+						link.setAttribute('href','../documents/'+document_name_on_server+'.docx');
 						link.setAttribute('download',''+document_name+'.docx');
 						onload=link.click();
 

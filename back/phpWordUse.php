@@ -5,7 +5,7 @@
 	date_default_timezone_set('Europe/Samara');
 	
 	function fill_parameters() {
-		$document = new \PhpOffice\PhpWord\TemplateProcessor($_SERVER['DOCUMENT_ROOT'].'../Templates/New_template.docx');
+		$document = new \PhpOffice\PhpWord\TemplateProcessor($_SERVER['DOCUMENT_ROOT'].'../templates/New_template.docx');
 		
 		$document ->setValue('year', $_POST["year"]);
 		
