@@ -369,7 +369,7 @@ $(document).ready(function() {
 				function(info){$('#get_course').prop('value', info);}
 			);
 			$('#course_id').text(course_value);
-		} else {
+		} else { 
 			$('#get_course').prop('value', 'Направление не определено');
 		}
 		$('#create_fgos').modal('show');

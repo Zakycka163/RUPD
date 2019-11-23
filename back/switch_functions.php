@@ -43,8 +43,13 @@
 		case 'get_discipline_list': 
             echo "<option selected style='display' disabled>Выбрать дисциплину</option>"."\n";
 			options_present("SELECT discipline_id, name FROM disciplines WHERE pulpit_id='".$_POST["param"]."'");
-            break; 
-		
+			break; 
+			
+		case 'get_course_list': 
+			echo "<option selected style='display' disabled>Выбрать направление</option>"."\n";
+			options_present("SELECT course_id, CONCAT_WS(' ',number,name) as course FROM courses order by number");
+			break;
+
 		#-----------Одиночные значения
 		case 'get_fgos_info': 
 			get_result("SELECT CONCAT_WS(' ','Приказ Минобрнауки РФ от',DATE_FORMAT(date, '%d-%m-%Y'),'г. №',number) FROM fgos WHERE course_id='".$_POST["param"]."'");
