@@ -75,7 +75,7 @@
 		case 'create_fgos': 
 			connect();
 			global $link;
-			mysqli_query($link,"INSERT INTO fgos (course_id, number, date) values ('".$_POST["course"]."', '".$_POST["number"]."', '".$_POST["date"]."')");
+			mysqli_query($link,"INSERT INTO fgos (course_id, number, date, reg_number, reg_date) values ('".$_POST["course"]."', '".$_POST["number"]."', '".$_POST["date"]."', '".$_POST["reg_number"]."', '".$_POST["reg_date"]."')");
             close();
 			break;	
 		

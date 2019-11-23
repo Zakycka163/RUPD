@@ -5,23 +5,7 @@
 		</div>
 		<div class="form-group">
 			<div class="btn-group btn-group-sm" role="group">
-				<input class="btn btn-success" type="button" id="create_fgos_button" value="Добавить">
-				<script>
-					$("#create_fgos_button").click(function(){
-						$.post(
-							"../back/switch_functions.php", 
-							{functionname: 'get_course_list'}, 
-							function(info){
-								$('#empty_course').html(info);
-								// $('#info_fgos').text(info);
-								$('#empty_course').prop('hidden', false);
-							}
-						);
-						//$('#empty_course').html();
-						
-						$('#create_fgos').modal('show');
-					});
-				</script>	
+				<input class="btn btn-success" type="button" id="create_fgos_button" value="Добавить">	
 			</div>
 		</div>
 		<table class="table table-bordered table-striped">
@@ -98,3 +82,16 @@
 	</div>
 </form>	
 <?php require_once ($_SERVER['DOCUMENT_ROOT']."../front/creationForms/fgos.php"); ?>
+<script>
+	$("#create_fgos_button").click(function(){
+		$.post(
+			"../back/switch_functions.php", 
+			{functionname: 'get_course_list'}, 
+			function(info){
+				$('#empty_course').html(info);
+				$('#empty_course').prop('hidden', false);
+			}
+		);
+		$('#create_fgos').modal('show');
+	});
+</script>

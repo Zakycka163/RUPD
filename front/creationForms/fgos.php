@@ -73,7 +73,11 @@
 					var fgos_reg_number = $("#reg_number").val();
 					$.post(
 						"../back/switch_functions.php", 
-						{functionname: 'create_fgos', course: get_course_id, date: fgos_date, number: fgos_number}, 
+						{functionname: 'create_fgos', course: get_course_id
+													, date: fgos_date
+													, number: fgos_number
+													, reg_date: fgos_reg_date
+													, reg_number: fgos_reg_number}, 
 						function(){}
 					);
 					
