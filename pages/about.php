@@ -22,12 +22,7 @@
 						<div class="col-6 order-1">Яницкая Т.С.</div>
 					</div>
 				</h4></br>
-				<p class="lead">
-					Система спроектирована и разработана в рамках Магистерской диссертации.
-				</p>
-				<p>
-					Версия системы - beta.0.03.121.
-				</p>
+				<?php require_once ($_SERVER['DOCUMENT_ROOT']."../README.md"); ?>
 			</div>
 		</div>
     </body>
