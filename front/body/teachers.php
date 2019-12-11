@@ -7,12 +7,6 @@
 			<div class="btn-group btn-group-sm" role="group">
 				<input class="btn btn-success" type="button" id="create_teacher" value="Добавить">
 			</div>
-			<div class="btn-group btn-group-sm" role="group" style="left: 5px;">
-				<input class="btn btn-primary" type="button" id="bulk_template" value="Получить шаблон массового создания">
-			</div>
-			<div class="btn-group btn-group-sm" role="group" style="left: 5px;">
-				<input class="btn btn-success" type="button" id="bulk_create_teacher" value="Загрузить файл для массового создания">
-			</div>
 		</div>
 		<table class="table table-bordered table-striped">
 			<thead>
