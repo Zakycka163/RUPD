@@ -14,7 +14,7 @@
 						<td width="75%">
 							<input class="form-control-plaintext" id="get_course" readonly hidden><div id="course_id" hidden></div>
 							<select class="form-control" id="empty_course" required hidden>
-								<option selected style='display' disabled>Выбрать направление</option>
+								<option selected disabled>Выбрать направление</option>
 							</select>
 						</td>
 					</tr>
