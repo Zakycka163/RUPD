@@ -1,28 +1,28 @@
 <?php
-			connect();
-			global $link;
-			$sql = "select    acc.login
-							, acc.grant_id
-							, teach.second_name
-							, teach.first_name
-							, teach.middle_name
-					FROM  `accounts` acc
-						, `teachers` teach 
-					WHERE acc.account_id = ".$_GET["id"]."";
-			$result = mysqli_query($link, $sql);
-			while($row = mysqli_fetch_array($result)){
-				$page_title = ''.$row[2].' '.$row[3].' '.$row[4].'';
-				$second_name = $row[2];
-				$first_name = $row[3];
-				$middle_name = $row[4];
-				$login = $row[0];
-				if ($row[1] = 2){
-					$admin = "checked";
-				} else {
-					$admin = "";
-				}		
-			};
-			close();
+	connect();
+	global $link;
+	$sql = "select    acc.login
+					, acc.grant_id
+					, teach.second_name
+					, teach.first_name
+					, teach.middle_name
+			FROM  `accounts` acc
+				, `teachers` teach 
+			WHERE acc.account_id = ".$_GET["id"]."";
+	$result = mysqli_query($link, $sql);
+	while($row = mysqli_fetch_array($result)){
+		$page_title = ''.$row[2].' '.$row[3].' '.$row[4].'';
+		$second_name = $row[2];
+		$first_name = $row[3];
+		$middle_name = $row[4];
+		$login = $row[0];
+		if ($row[1] = 2){
+			$admin = "checked";
+		} else {
+			$admin = "";
+		}		
+	};
+	close();
 ?>
 
 <div class="form-group">
