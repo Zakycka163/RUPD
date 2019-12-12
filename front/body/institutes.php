@@ -4,9 +4,8 @@
 			<h4 id="page_title">Институты и Кафедры</h3>
 		</div>
 		<div class="form-group">
-			<div class="btn-group btn-group-sm" role="group">
-				<input class="btn btn-success" type="button" id="create_teacher" value="Добавить">
-			</div>
+			<input class="btn btn-success btn-sm" type="button" id="create_institute" value="Добавить институт">
+			<input class="btn btn-success btn-sm" type="button" id="create_pulpit" value="Добавить кафедру">
 		</div>
 		<table class="table table-bordered table-striped">
 			<thead>

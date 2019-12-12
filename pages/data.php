@@ -30,6 +30,7 @@
 					if ($_GET["page"] == "profs"){$page_title = "Профессиональный стандарт";};
 					if ($_GET["page"] == "otf"){$page_title = "Трудовая функция";};
 					if ($_GET["page"] == "competencies"){$page_title = "Компетенция";};
+					if ($_GET["page"] == "institutes"){$page_title = "Институт";};
 
 					require_once ($_SERVER['DOCUMENT_ROOT']."../back/body/object.php");
 				} else {
