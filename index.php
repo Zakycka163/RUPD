@@ -6,7 +6,7 @@
         <title>Разработка</title>
 
         <?php
-			require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php");
+			    require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php");
         ?>
         
     </head>
