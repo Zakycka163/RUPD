@@ -6,7 +6,7 @@
         <title>Разработка</title>
 
         <?php
-			require_once ($_SERVER['DOCUMENT_ROOT']."../front/links.php");
+			require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php");
         ?>
         
     </head>
@@ -16,7 +16,7 @@
 		</center>
 		
 		<?php
-			require_once ($_SERVER['DOCUMENT_ROOT']."../back/detectors/tasks.php");
+      require_once ($_SERVER['DOCUMENT_ROOT']."/back/detectors/tasks.php");
 		?>
 		
     </body>

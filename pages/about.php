@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <title>О система</title>
 
-        <?php require_once ($_SERVER['DOCUMENT_ROOT']."../front/links.php"); ?>
+        <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php"); ?>
          
     </head>
     <body>
@@ -22,7 +22,7 @@
 						<div class="col-6 order-1">Яницкая Т.С.</div>
 					</div>
 				</h4></br>
-				<?php require_once ($_SERVER['DOCUMENT_ROOT']."../README.md"); ?>
+				<?php require_once ($_SERVER['DOCUMENT_ROOT']."/README.md"); ?>
 			</div>
 		</div>
     </body>

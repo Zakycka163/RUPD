@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <title>Создание пользователя</title>
 
-        <?php require_once ($_SERVER['DOCUMENT_ROOT']."../front/links.php"); ?>
+        <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php"); ?>
         
         <link href="../front/css/sign.css" rel="stylesheet" type="text/css">
         <link href="../front/css/background.css" rel="stylesheet" type="text/css">
@@ -39,7 +39,7 @@
                         <option selected disabled style="display:none;">Выбрать преподавателя</option>
 						
 						<?php 
-							require_once ($_SERVER['DOCUMENT_ROOT']."../back/base.php");
+							require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
                             options_present("SELECT teacher_id, CONCAT_WS(' ',second_name,CONCAT(LEFT(first_name,1),'.'),CONCAT(LEFT(middle_name,1),'.')) as teacher FROM teachers");
 						?>
 						
@@ -57,7 +57,7 @@
                 </center>
             </form>
             
-			<?php require_once ($_SERVER['DOCUMENT_ROOT']."../back/security/register.php"); ?> 
+			<?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/security/register.php"); ?> 
             
         </div>
     </body>

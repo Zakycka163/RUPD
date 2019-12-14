@@ -6,8 +6,8 @@
         <title>РУПД</title>
 
         <?php 
-            require_once ($_SERVER['DOCUMENT_ROOT']."../front/links.php");
-			require_once ($_SERVER['DOCUMENT_ROOT']."../back/base.php");
+            require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php");
+			require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
         ?>
 		
 		<link href="../css/pointer.css" rel="stylesheet" type="text/css">
@@ -22,7 +22,7 @@
 		<div class="px-4 py-3 bg-light">
 			
 			<?php 
-			require_once ($_SERVER['DOCUMENT_ROOT']."../front/body/rup.php");
+			require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/rup.php");
 			?>
 		
 		</div>

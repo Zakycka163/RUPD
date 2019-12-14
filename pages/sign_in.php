@@ -9,7 +9,7 @@
         <title>Авторизация</title>
 
         <?php
-			require_once ($_SERVER['DOCUMENT_ROOT']."../front/links.php");
+			require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php");
         ?>
         
         <link href="../front/css/sign.css" rel="stylesheet" type="text/css">
@@ -45,7 +45,7 @@
             </form>
             
             <?php
-				require_once ($_SERVER['DOCUMENT_ROOT']."../back/security/login.php");
+				require_once ($_SERVER['DOCUMENT_ROOT']."/back/security/login.php");
 			?>
             
         </div>
