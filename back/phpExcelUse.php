@@ -1,7 +1,7 @@
 <?php 
 	#session_start();
-    require_once ($_SERVER['DOCUMENT_ROOT']."../vendor/autoload.php");
-	require_once ($_SERVER['DOCUMENT_ROOT']."../back/base.php");
+    require_once ($_SERVER['DOCUMENT_ROOT']."/vendor/autoload.php");
+	require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
 	#date_default_timezone_set('Europe/Samara');
 	
 	$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');

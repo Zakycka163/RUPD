@@ -4,7 +4,7 @@
 			<a class="nav-link active" href="/index.php">Главная</a>
 		</li>
         <?php 
-			require_once ($_SERVER['DOCUMENT_ROOT']."../back/base.php");
+			require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
 		
 			if(!empty($_SESSION["id"])){
 			connect();
@@ -14,10 +14,10 @@
 			close();
 			
 			if($admin=="2"){
-				require_once ($_SERVER['DOCUMENT_ROOT']."../front/navigation/navBarAdm.php");
+				require_once ($_SERVER['DOCUMENT_ROOT']."/front/navigation/navBarAdm.php");
 			}
 			if($admin=="1"){
-				require_once ($_SERVER['DOCUMENT_ROOT']."../front/navigation/navBarTeach.php");
+				require_once ($_SERVER['DOCUMENT_ROOT']."/front/navigation/navBarTeach.php");
 			}
 		} else {
 			if($_SERVER['REQUEST_URI']<>"/index.php"){
@@ -33,9 +33,9 @@
 	</ul>
 	<?php 		
 		if(!empty($_SESSION["id"])){
-			require_once ($_SERVER['DOCUMENT_ROOT']."../front/navigation/buttons/exit.php");
+			require_once ($_SERVER['DOCUMENT_ROOT']."/front/navigation/buttons/exit.php");
 		} else {
-			require_once ($_SERVER['DOCUMENT_ROOT']."../front/navigation/buttons/sign_in.php");
+			require_once ($_SERVER['DOCUMENT_ROOT']."/front/navigation/buttons/sign_in.php");
 		}
 	?>
 </nav>

@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <title>Данные</title>
 
-        <?php require_once ($_SERVER['DOCUMENT_ROOT']."../front/links.php") ?>
+        <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php") ?>
         
     </head>
     <body>
@@ -16,12 +16,12 @@
 		</center>
         
 		<?php
-			require_once ($_SERVER['DOCUME NT_ROOT']."../back/base.php");
+			require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
 			if (isset($_GET["page"])){
 				$current_page = $_GET["page"];
-				require_once ($_SERVER['DOCUMENT_ROOT']."../front/body/".$current_page.".php");
+				require_once ($_SERVER['DOCUMENT_ROOT']."front/body/".$current_page.".php");
 			} else {
-				require_once ($_SERVER['DOCUMENT_ROOT']."../front/body/cards.php");
+				require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/cards.php");
 			};
         ?>
 		

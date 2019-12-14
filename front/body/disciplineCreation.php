@@ -6,8 +6,8 @@
         <title>Данные</title>
 
         <?php 
-            require_once ($_SERVER['DOCUMENT_ROOT']."../blocks/links.php");
-			require_once ($_SERVER['DOCUMENT_ROOT']."../blocks/base.php");			           
+            require_once ($_SERVER['DOCUMENT_ROOT']."/blocks/links.php");
+			require_once ($_SERVER['DOCUMENT_ROOT']."/blocks/base.php");			           
         ?>
         
     </head>

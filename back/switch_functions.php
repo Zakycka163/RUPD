@@ -1,5 +1,5 @@
 <?php   
-	require_once ($_SERVER['DOCUMENT_ROOT']."../back/base.php");
+	require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
 
     switch($_POST["functionname"]){ 
 
