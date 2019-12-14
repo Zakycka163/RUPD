@@ -33,6 +33,9 @@
 	<div class="px-4 py-3 bg-light">
         <div class="form-group">
 			<h4 id="page_title">Загрузите xlsx файл</h3>
-		</div>
+        </div>
     </div>
 </form>	
+<script>
+    
+</script>
