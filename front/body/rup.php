@@ -4,7 +4,7 @@
 		<td class="align-middle">Направление</td>
 		<td>
 			<select class="form-control" id="input_course">
-				<option selected style="display" disabled>Выбрать направление</option>
+				<option selected disabled>Выбрать направление</option>
 				<?php 
 					options_present("SELECT course_id, CONCAT_WS(' ',number,name) as course FROM courses order by number");		
 				?>
@@ -13,7 +13,7 @@
 		<td class="align-middle">Профиль</td>
 		<td>
 			<select class="form-control" id="input_profile" disabled>
-				<option selected style="display" disabled>Направление не определено</option>
+				<option selected disabled>Направление не определено</option>
 			</select>
 		</td>	
 	</tr>
@@ -49,7 +49,7 @@
 					<td>
 						<select class="selection_for_add form-control" multiple id="input_tf" style="height: 7rem" disabled></select>
 						<select class="element_for_add form-control" id="tf_for_add" disabled data-toggle="popover" data-placement="left" data-content="Нужно выбрать!">
-							<option selected style="display" disabled>ОТФ не определены</option>
+							<option selected disabled>ОТФ не определены</option>
 						</select>
 					</td>
 					<td width="1%"><br><br>
@@ -69,7 +69,7 @@
 		<td class="align-middle">Кафедра</td>
 		<td width="45%">
 			<select class="form-control" id="input_pulpit">
-				<option selected disabled style="display">Выбрать кафедру</option>
+				<option selected disabled>Выбрать кафедру</option>
 				<?php 
 					options_present("SELECT pulpit_id, name FROM pulpits order by institute_id");		
 				?>
@@ -78,7 +78,7 @@
 		<td class="align-middle">Дисциплина</td>
 		<td width="50%">
 			<select class="form-control" id="input_discipline" disabled>
-				<option selected style="display" disabled>Кафедра не определена</option>
+				<option selected disabled>Кафедра не определена</option>
 			</select>
 		</td>
 	</tr>	
