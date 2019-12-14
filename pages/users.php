@@ -8,9 +8,12 @@
         <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php"); ?>
         
     </head>
-    <body>     
+    <body>
+		<?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/mandatoryBlock.php"); ?> 
         <center>
-			<div class="p-3 bg-primary font-weight-bold text-white"><h3>Аккаунты</h3></div>
+			<div class="p-3 bg-primary font-weight-bold text-white">
+				<h3>Аккаунты</h3>
+			</div>
 		</center>
 		<form>
 			<div class="px-4 py-3 bg-light">

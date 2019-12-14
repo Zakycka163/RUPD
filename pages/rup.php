@@ -5,28 +5,28 @@
         <meta charset="utf-8">
         <title>РУПД</title>
 
-        <?php 
-            require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php");
-			require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
-        ?>
+        <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php"); ?>
 		
 		<link href="../css/pointer.css" rel="stylesheet" type="text/css">
         
     </head>
     <body>
+		<?php 
+			require_once ($_SERVER['DOCUMENT_ROOT']."/back/mandatoryBlock.php");
+			require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
+		?>
 		<center>
-			<div class="p-3 bg-primary font-weight-bold text-white"><h3>Разработка РУП</h3></div>
+			<div class="p-3 bg-primary font-weight-bold text-white">
+				<h3>Разработка РУП</h3>
+			</div>
 		</center>
         
 		<form class="input-group-fluid" method="post" charset="utf-8">
-		<div class="px-4 py-3 bg-light">
+			<div class="px-4 py-3 bg-light">
+				
+				<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/rup.php"); ?>
 			
-			<?php 
-			require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/rup.php");
-			?>
-		
-		</div>
+			</div>
 		</form>	
-
     </body>
 </html>

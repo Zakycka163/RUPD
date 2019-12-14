@@ -9,8 +9,11 @@
          
     </head>
     <body>
+		<?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/mandatoryBlock.php"); ?>
 		<center>
-			<div class="p-3 bg-primary font-weight-bold text-white"><h3>О системе</h3></div>
+			<div class="p-3 bg-primary font-weight-bold text-white">
+				<h3>О системе</h3>
+			</div>
 		</center>
 		<div class="jumbotron jumbotron-fluid">
 			<div class="container">

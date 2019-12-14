@@ -1,5 +1,5 @@
 <!-- Tab ico -->
-<link rel="SHORTCUT ICON" href="/front/img/ico.jpg" type="image">
+<link rel="icon" href="/front/img/ico.ico">
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -14,12 +14,3 @@
 <!-- Custom CSS -->
 <link href="/front/css/forSignOnIndex.css" rel="stylesheet" type="text/css">
 <link href="/front/css/background2.css" rel="stylesheet" type="text/css">
-
-<!-- Mandatory Blocks -->
-<?php 
-	require_once ($_SERVER['DOCUMENT_ROOT']."/back/security/validator.php");
-	if($_SERVER['REQUEST_URI']<>"/pages/sign_in.php" and $_SERVER['REQUEST_URI']<>"/pages/sign_up.php"){
-		require_once ($_SERVER['DOCUMENT_ROOT']."/back/detectors/navBar.php");
-		require_once ($_SERVER['DOCUMENT_ROOT']."/front/footer.php");
-	}	
-?>
