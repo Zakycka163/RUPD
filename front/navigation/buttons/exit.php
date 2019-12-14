@@ -1,5 +1,4 @@
 <?php 
-    #require_once ($_SERVER['DOCUMENT_ROOT']."../blocks/base.php") ;
     connect();
     $id=$_SESSION["id"];
     $first_name = mysqli_query($link, "SELECT name.first_name FROM accounts as acc, teachers as name WHERE acc.account_id='".$id."' and acc.teacher_id=name.teacher_id");

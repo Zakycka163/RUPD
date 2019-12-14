@@ -1,3 +1,11 @@
+<?php
+	if (isset($_GET["id"])){
+		$current_obj = $_GET["id"];
+		
+	} else {
+
+	};
+?>
 <div class="form-group">
 	<h4 id="page_title">Аккаунты</h3>
 </div>
