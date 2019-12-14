@@ -1,5 +1,5 @@
 <?php
-    require_once ($_SERVER['DOCUMENT_ROOT']."../back/base.php");
+    require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
     
     if(isset($_POST['submit'])){
         connect();
@@ -11,8 +11,8 @@
             header("Location: ../index.php"); 
             #exit();
         } else {
-			require_once ($_SERVER['DOCUMENT_ROOT']."../front/dialogs/loginFail.php");
+			require_once ($_SERVER['DOCUMENT_ROOT']."./front/dialogs/loginFail.php");
 		}
-        close();
+        close()
     }
 ?>
