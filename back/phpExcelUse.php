@@ -6,7 +6,7 @@
 	
 	$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 	$reader->setReadDataOnly(TRUE);
-	$spreadsheet = $reader->load('../Documents/test.xlsx');
+	$spreadsheet = $reader->load('../documents/teachers.xlsx');
 
 	$worksheet = $spreadsheet->getActiveSheet();
 	// Get the highest row and column numbers referenced in the worksheet

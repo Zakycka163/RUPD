@@ -5,7 +5,7 @@
 	date_default_timezone_set('Europe/Samara');
 	
 	function fill_parameters() {
-		$document = new \PhpOffice\PhpWord\TemplateProcessor($_SERVER['DOCUMENT_ROOT'].'../templates/New_template.docx');
+		$document = new \PhpOffice\PhpWord\TemplateProcessor($_SERVER['DOCUMENT_ROOT'].'/templates/New_template.docx');
 		
 		$document ->setValue('year', $_POST["year"]);
 		
@@ -235,7 +235,7 @@
 			$counter += 1;
 		}*/
 		
-		$document ->saveAs($_SERVER['DOCUMENT_ROOT'].'../Documents/'.$_POST["doc_name"].'.docx');
+		$document ->saveAs($_SERVER['DOCUMENT_ROOT'].'/documents/'.$_POST["doc_name"].'.docx');
 		echo ('Сохранено');
 	}
 	
