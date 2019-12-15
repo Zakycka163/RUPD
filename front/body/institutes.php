@@ -32,18 +32,18 @@
 						$counter++;
 						echo '<tr>'. "\n" . '<td>'.$counter .'</td>'."\n";
 						echo '<td> <a href="?page=institutes&id='.$row[0].'">'.$row[1].'</a></td>'. "\n";
-						$sql2 = "select    kaf.pulpit_id
+						$sql2 = "select   kaf.pulpit_id
 										, kaf.name
 								FROM  `institutes` inst
 									, `pulpits` kaf
-								WHERE inst.institute_id = ".$row[0]."
-									and  inst.institute_id = kaf.institute_id";
+								WHERE 	inst.institute_id = ".$row[0]."
+									and inst.institute_id = kaf.institute_id";
 						$result2 = mysqli_query($link, $sql2);
 						$counter2 = 0;
 						echo '<td>'."\n";
 						while($kaf = mysqli_fetch_array($result2)){
 							$counter2++;
-							echo ($counter2).'. <a href="?id='.$kaf[0].'">'.$kaf[1].'</a><br>'."\n";
+							echo ($counter2).'. <a href="?page=institutes?kafid='.$kaf[0].'">'.$kaf[1].'</a><br>'."\n";
 						};	
 						echo '</td>'."\n".'</tr>'. "\n";
 					};
