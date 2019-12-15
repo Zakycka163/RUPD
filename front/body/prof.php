@@ -1,7 +1,7 @@
 <form>
 	<div class="px-4 py-3 bg-light">
 		<div class="form-group">
-			<h4 id="page_title">ФГОС</h3>
+			<h4 id="page_title">Профессиональные стандарты</h3>
 		</div>
 		<div class="form-group">
 			<div class="btn-group btn-group-sm" role="group">
@@ -12,8 +12,8 @@
 			<thead>
 				<tr>
 					<th scope="col" style="width: 2rem">№</th>
-					<th scope="col">Код направления</th>
-					<th scope="col">Направление</th>
+					<th scope="col">ФГОС</th>
+					<th scope="col">Профессиональный стандарт</th>
 					<th scope="col">Номер приказа</th>
 					<th scope="col">Дата приказа</th>
 					<th scope="col">Номер регистации</th>
@@ -31,24 +31,29 @@
 					$sql = "select    fgos.fgos_id
 									, course.number
 									, course.name
-									, fgos.number
-									, fgos.date
-									, fgos.reg_number
-									, fgos.reg_date 
-							FROM  `courses` course
-								, `fgos` fgos 
-							WHERE fgos.course_id = course.course_id 
+									, prof.prof_standard_id
+									, prof.code
+									, prof.name
+									, prof.number
+									, prof.date
+									, prof.reg_number
+									, prof.reg_date 
+							FROM  `prof_standards` prof
+								, `fgos` fgos
+								, `courses` course
+							WHERE prof.fgos_id = fgos.fgos_id 
+							  and fgos.course_id = course.course_id 
 							LIMIT ".$limit[0]."";
 					$result = mysqli_query($link, $sql);
 					while($row = mysqli_fetch_array($result)){
 						$counter++;
 						echo '<tr>'."\n".'<td>'.$counter.'</td>'."\n";
-						echo '<td><a href="?page=fgos&id='.$row[0].'">'.$row[1].'</a></td>'."\n";
-						echo '<td>'.$row[2].'</td>'."\n";
-						echo '<td>'.$row[3].'</td>'."\n";
-						echo '<td>'.$row[4].'</td>'."\n";
-						echo '<td>'.$row[5].'</td>'."\n";
+						echo '<td><a href="?page=fgos&id='.$row[0].'">'.$row[1].' '.$row[2].'</a></td>'."\n";
+						echo '<td><a href="?page=prof&id='.$row[3].'">'.$row[4].' '.$row[5].'</td>'."\n";
 						echo '<td>'.$row[6].'</td>'."\n";
+						echo '<td>'.$row[7].'</td>'."\n";
+						echo '<td>'.$row[8].'</td>'."\n";
+						echo '<td>'.$row[9].'</td>'."\n";
 						echo '</tr>'."\n";
 					};
 					close();
