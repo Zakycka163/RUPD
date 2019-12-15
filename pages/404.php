@@ -13,7 +13,7 @@
 
     <center>
       <div class="p-3 bg-primary font-weight-bold text-white">
-        <h3>Данная страница в разработке</h3>
+        <h3>Данная страница (функция) в разработке</h3>
       </div>
     </center>
     <br><br><br>

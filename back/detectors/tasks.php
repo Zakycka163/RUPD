@@ -25,7 +25,7 @@
 						<div class="card" id="table_admin">
 							<div class="card-header"><h5>Все задачи</h5></div>
 							<div class="card-body">
-								<input class="btn btn-success btn-sm" type="submit" value="Создать">
+								<a class="btn btn-success btn-sm" href="/pages/404.php">Создать</a>
 								<br><br>
 								<p class="card-text">Тут будут задачи.</p>
 							</div>
