@@ -4,9 +4,7 @@
 			<h4 id="page_title">Профессиональные стандарты</h3>
 		</div>
 		<div class="form-group">
-			<div class="btn-group btn-group-sm" role="group">
-				<input class="btn btn-success" type="button" id="create_fgos_button" value="Добавить">	
-			</div>
+			<input class="btn btn-success btn-sm" type="button" id="create_fgos_button" value="Добавить">	
 		</div>
 		<table class="table table-bordered table-striped">
 			<thead>

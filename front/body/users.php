@@ -10,9 +10,7 @@
 	<h4 id="page_title">Аккаунты</h3>
 </div>
 <div class="form-group">
-	<div class="btn-group btn-group-sm" role="group">
-		<input class="btn btn-success btn-mg" onclick="location.href='../pages/sign_up.php'" type="button" value="Добавить">
-	</div>
+	<input class="btn btn-success btn-sm" onclick="location.href='../pages/sign_up.php'" type="button" value="Добавить">
 </div>
 <table class="table table-bordered table-striped">
 	<thead>
