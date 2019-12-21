@@ -6,18 +6,18 @@
 					<h5 class="card-title">Массовое создание</h5>
                     <div class="input-group input-group-sm" style="width: 30rem;">
                         <select class="custom-select" id="bulk_type">
-                            <option value="0" selected>Выбрать...</option>
-                            <option value="1">Преподаватели</option>
-                            <option value="2">Дисциплины</option>
-                            <option value="3">Направления</option>
-                            <option value="4">Трудовые функции</option>
+                            <option value="0" selected>Выбрать тип массового создания</option>
+                            <option value="teachers">Преподаватели</option>
+                            <option value="disciplines">Дисциплины</option>
+                            <option value="courses_fgos_profstandards">Направления</option>
+                            <option value="profstandards_otf_tf_activities">Трудовые функции</option>
                         </select>
                         <div class="input-group-append">
-                            <button class="btn btn-primary btn-sm" type="button" disabled style="width: 9rem;">Получить шаблон</button>
+                            <button class="btn btn-primary btn-sm" id="get_template" type="button" disabled style="width: 9rem;">Получить шаблон</button>
                         </div>
                     </div>
                 </div>
-				<div class="card-footer btn-group" hidden>
+				<div class="card-footer btn-group" id="file_loader" hidden>
                     <form enctype="multipart/form-data" method="post">
                         <p class="btn-group" role="group" style="width: 30rem;">
                             <input type="file" name="file" accept=".xlsx" class="btn btn-secondary btn-sm">
@@ -32,10 +32,24 @@
 <form>
 	<div class="px-4 py-3 bg-light">
         <div class="form-group">
-			<h4 id="page_title">Загрузите xlsx файл</h3>
+			<h4 id="content_title">Загрузите xlsx файл</h4>
         </div>
     </div>
 </form>	
 <script>
-    
+    $(document).ready(function() {
+        $("#bulk_type").change(function() {
+            var bulk_type = $("#bulk_type").val();
+            if (bulk_type == 0) {
+                $('#get_template').prop('disabled', true);
+                $('#file_loader').prop('hidden', true);
+            } else {
+                $('#get_template').prop('disabled', false);
+                $('#file_loader').prop('hidden', false);
+                $("#get_template").click( function() {
+                    location.href = "../templates/bulk_templates/"+bulk_type+".xlsx";
+                });
+            };
+        });
+    });
 </script>
