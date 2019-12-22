@@ -18,9 +18,9 @@
                     </div>
                 </div>
 				<div class="card-footer btn-group" id="file_loader" hidden>
-                    <form enctype="multipart/form-data" method="post">
+                    <form method="post" enctype="multipart/form-data">
                         <p class="btn-group" role="group" style="width: 30rem;">
-                            <input type="file" name="file" accept=".xlsx" class="btn btn-secondary btn-sm">
+                            <input type="file" name="userfile" accept=".xlsx" class="btn btn-secondary btn-sm">
                             <input type="submit" value="Загрузить" class="btn btn-success btn-sm">
                         </p>
                     </form>
@@ -29,10 +29,10 @@
 		</div>	
 	</div>
 </div>
-<form>
+<form id="content_form" <?php echo ((isset($_FILES['userfile'])) ? '' : 'hidden');?> >
 	<div class="px-4 py-3 bg-light">
         <div class="form-group">
-			<h4 id="content_title">Загрузите xlsx файл</h4>
+            <?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/uploader.php"); ?>
         </div>
     </div>
 </form>	
@@ -43,9 +43,11 @@
             if (bulk_type == 0) {
                 $('#get_template').prop('disabled', true);
                 $('#file_loader').prop('hidden', true);
+                $('#content_form').prop('hidden', true);
             } else {
                 $('#get_template').prop('disabled', false);
                 $('#file_loader').prop('hidden', false);
+                $('#content_form').prop('hidden', false);
                 $("#get_template").click( function() {
                     location.href = "../templates/bulk_templates/"+bulk_type+".xlsx";
                 });
