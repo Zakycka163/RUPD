@@ -4,20 +4,15 @@
             $uploaddir = '../documents/bulk/';
             $uploadfile = $uploaddir.basename($_FILES['userfile']['name']);
             if (copy($_FILES['userfile']['tmp_name'], $uploadfile)){
-                echo "<h3>Файл успешно загружен на сервер</h3>";
-                echo "<h3>Информация о загруженном на сервер файле: </h3>";
-                echo "<p><b>Оригинальное имя загруженного файла: ".$_FILES['userfile']['name']."</b></p>";
-                echo "<p><b>Mime-тип загруженного файла: ".$_FILES['userfile']['type']."</b></p>";
-                echo "<p><b>Размер загруженного файла в байтах: ".$_FILES['userfile']['size']."</b></p>";
-                echo "<p><b>Временное имя файла: ".$_FILES['userfile']['tmp_name']."</b></p>";
+                echo "<p><b>Имя загруженного файла: ".$_FILES['userfile']['name']."</b></p>";
             } else { 
-                echo "<h3>Ошибка! Не удалось загрузить файл на сервер!</h3>";
+                echo "<h4>Ошибка! Не удалось загрузить файл на сервер!</h4>";
                 echo $_FILES['userfile']['error'];
             };
         } else {
-            echo "<h3>Потеряли файл!</h3>";
+            echo "<h4>УПС! Кажется мы потеряли файл!</h4>";
         };
     } else {
-        echo "<h3>Еще ничего нет</h3>";
+        echo "<h4>Подождите, идет загрузка...</h4>";
     };   
 ?>

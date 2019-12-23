@@ -21,7 +21,7 @@
                     <form method="post" enctype="multipart/form-data">
                         <p class="btn-group" role="group" style="width: 30rem;">
                             <input type="file" name="userfile" accept=".xlsx" class="btn btn-secondary btn-sm">
-                            <input type="submit" value="Загрузить" class="btn btn-success btn-sm">
+                            <input type="submit" value="Загрузить" id="start_upload" class="btn btn-success btn-sm">
                         </p>
                     </form>
                 </div>
@@ -43,15 +43,13 @@
             if (bulk_type == 0) {
                 $('#get_template').prop('disabled', true);
                 $('#file_loader').prop('hidden', true);
-                $('#content_form').prop('hidden', true);
             } else {
                 $('#get_template').prop('disabled', false);
                 $('#file_loader').prop('hidden', false);
-                $('#content_form').prop('hidden', false);
-                $("#get_template").click( function() {
-                    location.href = "../templates/bulk_templates/"+bulk_type+".xlsx";
-                });
             };
+        });
+        $("#get_template").click(function() {
+            location.href = "../templates/bulk_templates/"+bulk_type+".xlsx";
         });
     });
 </script>
