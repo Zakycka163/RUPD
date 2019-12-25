@@ -24,29 +24,23 @@
 					<thead>
 						<tr>
 							<th scope="col" style="width: 2rem">№</th>
-							<th scope="col">Имя</th>
-							<th scope="col">Фамилия</th>
-							<th scope="col">Username</th>
+							<th scope="col">-</th>
+							<th scope="col">-</th>
+							<th scope="col">-</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td scope="row">1</td>
-							<td><a href="#">Mark</a></td>
-							<td>Otto</td>
-							<td>@mdo</td>
+							<td><a href="#">-</a></td>
+							<td>-</td>
+							<td>-</td>
 						</tr>
 						<tr>
 							<td scope="row">2</td>
-							<td>Jacob</td>
-							<td>Thornton</td>
-							<td>@fat</td>
-						</tr>
-						<tr>
-							<td scope="row">3</td>
-							<td>Larry</td>
-							<td>the Bird</td>
-							<td>@twitter</td>
+							<td>-</td>
+							<td>-</td>
+							<td>-</td>
 						</tr>
 					</tbody>
 				</table>

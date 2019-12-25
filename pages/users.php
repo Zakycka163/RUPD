@@ -4,9 +4,7 @@
     <head>
         <meta charset="utf-8">
         <title>Аккаунты</title>
-
-        <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php"); ?>
-        
+        <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php"); ?>  
     </head>
     <body>
 		<?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/mandatoryBlock.php"); ?> 

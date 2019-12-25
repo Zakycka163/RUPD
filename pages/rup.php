@@ -7,7 +7,7 @@
 
         <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php"); ?>
 		
-		<link href="../css/pointer.css" rel="stylesheet" type="text/css">
+		<link href="../front/css/pointer.css" rel="stylesheet" type="text/css">
         
     </head>
     <body>
@@ -23,9 +23,7 @@
         
 		<form class="input-group-fluid" method="post" charset="utf-8">
 			<div class="px-4 py-3 bg-light">
-				
 				<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/rup.php"); ?>
-			
 			</div>
 		</form>	
     </body>

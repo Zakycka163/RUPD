@@ -23,7 +23,6 @@
     </head>
     <body>
         <div class="container">
-
             <form class="form-signin" method="post">
                 <center><h3 class="form-signin-heading">Авторизация</h3></center>
                 <div class="input-group">
@@ -41,9 +40,7 @@
                     <a class="btn btn-danger" href="../index.php">Отмена</a>
                 </center>
             </form>
-            
-            <?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/security/login.php"); ?>
-            
+            <?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/security/login.php"); ?> 
         </div>
     </body>
 </html>
