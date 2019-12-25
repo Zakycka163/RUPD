@@ -19,6 +19,8 @@
                 </div>
 				<div class="card-footer btn-group" id="file_loader" hidden>
                     <form method="post" enctype="multipart/form-data">
+                        <input type="text" id="file_type" name="file_type" value="" hidden>
+                        <input type="text" id="file_type_ru" name="file_type_ru" value="" hidden>
                         <p class="btn-group" role="group" style="width: 30rem;">
                             <input type="file" name="userfile" accept=".xlsx" class="btn btn-secondary btn-sm">
                             <input type="submit" value="Загрузить" id="start_upload" class="btn btn-success btn-sm">
@@ -40,16 +42,19 @@
     $(document).ready(function() {
         $("#bulk_type").change(function() {
             var bulk_type = $("#bulk_type").val();
+            var bulk_type_ru = $("#bulk_type option:selected").text();
             if (bulk_type == 0) {
                 $('#get_template').prop('disabled', true);
                 $('#file_loader').prop('hidden', true);
             } else {
                 $('#get_template').prop('disabled', false);
                 $('#file_loader').prop('hidden', false);
+                $("#file_type").val(bulk_type);
+                $("#file_type_ru").val(bulk_type_ru);
+                $("#get_template").click(function() {
+                    location.href = "../templates/bulk_templates/"+bulk_type+".xlsx";
+                });
             };
-        });
-        $("#get_template").click(function() {
-            location.href = "../templates/bulk_templates/"+bulk_type+".xlsx";
         });
     });
 </script>
