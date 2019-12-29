@@ -8,6 +8,7 @@
                 echo "<p>Внимательно проверь данные! Затем сохрани данные на сервере!</p>";
                 
                 require_once ($_SERVER['DOCUMENT_ROOT']."/back/phpExcelUse.php");
+                ($_POST['file_type'] == "teachers" && $_POST['file_type'] == "disciplines") ? 'G' : (($_POST['file_type'] == "profstandards_otf_tf_activities") ? 'L' : 'M');
                 read($uploadfile,'G');
             } else { 
                 echo "<h4>Ошибка! Не удалось загрузить файл на сервер!</h4>";
