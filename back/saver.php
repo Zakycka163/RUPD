@@ -1,4 +1,5 @@
 <?php 
+    // require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
 	function read($uploadfile,$maxColumn) {
 		require_once ($_SERVER['DOCUMENT_ROOT']."/vendor/autoload.php");
 
@@ -12,10 +13,9 @@
 		$highestColumn = $maxColumn; // e.g 'F'
 		$highestColumn++;
 
-		echo '<table class="table table-bordered table-striped">' . "\n";
-		echo '<thead>' . "\n";
-		for ($row = 1; $row <= 1; ++$row) {
-			echo '<tr>' . PHP_EOL;
+        echo 'INSERT INTO ';
+		for ($row = 2; $row <= 1; ++$row) {
+			echo 'd' . PHP_EOL;
 			echo '<th>№</th>';
 			for ($col = 'A'; $col != $highestColumn; ++$col) {
 				echo '<th>' .
@@ -40,5 +40,5 @@
 		echo '</thead>' . "\n";
 		echo '</table>' . PHP_EOL;
 	};
-	// require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
+	
 ?> 
