@@ -24,9 +24,9 @@
 				if ($col == 'E') {
 					connect();
 					global $link;
-					$result = mysqli_query($link, "SELECT academic_rank_id FROM academic_ranks WHERE UPPER(short_name) = UPPER('".$value."')");
+					$result = mysqli_query($link, "SELECT academic_rank_id FROM academic_ranks WHERE UPPER(full_name) = UPPER('".$value."')");
 					while($p1 = mysqli_fetch_array($result)){
-						echo $p1;
+						echo $p1[0];
 					}
 					close();
 				} elseif ($col == 'F') {
@@ -34,7 +34,7 @@
 					global $link;
 					$result = mysqli_query($link, "SELECT academic_degree_id FROM academic_degrees WHERE UPPER(short_name) =UPPER('".$value."')");
 					while($p1 = mysqli_fetch_array($result)){
-						echo $p1;
+						echo $p1[0];
 					}
 					close();
 				} else {
