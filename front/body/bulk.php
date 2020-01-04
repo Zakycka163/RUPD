@@ -37,7 +37,14 @@
             <?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/uploader.php"); ?>
         </div>
     </div>
-</form>	
+</form>
+<div>
+    <?php 
+        require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
+        require_once ($_SERVER['DOCUMENT_ROOT']."/back/writer.php");
+        read('../documents/bulk/teachers.xlsx', 'G');
+    ?>
+</div>	
 <script>
     $(document).ready(function() {
         $("#bulk_type").change(function() {
