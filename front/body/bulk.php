@@ -6,7 +6,7 @@
 					<h5 class="card-title">Массовое создание</h5>
                     <div class="input-group input-group-sm" style="width: 30rem;">
                         <select class="custom-select" id="bulk_type">
-                            <option value="0" selected>Выбрать тип массового создания</option>
+                            <option value="0">Выбрать тип массового создания</option>
                             <option value="teachers">Преподаватели</option>
                             <option value="disciplines">Дисциплины</option>
                             <option value="courses_fgos_profstandards">Направления</option>
@@ -42,7 +42,8 @@
     <?php 
         require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
         require_once ($_SERVER['DOCUMENT_ROOT']."/back/writer.php");
-        read('../documents/bulk/teachers.xlsx', 'G');
+        read('../documents/bulk/teachers.xlsx', 'teachers');
+
     ?>
 </div>	
 <script>
