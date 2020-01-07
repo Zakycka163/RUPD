@@ -110,72 +110,9 @@
 		} else {
 			$('#error_param').prop('hidden',false);
 		}
-		/* var get_course_id = $("#course_id").text();
-		if (get_course_id === ''){
-			var get_course_id = $("#empty_course").val();
-		};
-		
-		if (get_course_id !== ''){
-			
-			if($("#input_date").val() !== ''){
-				var fgos_date = $("#input_date").val();
-				
-				if($("#input_number").val() !== ''){
-					var fgos_number = $("#input_number").val();
-					$.post(
-						"../back/switch_functions.php", 
-						{functionname: 'create_fgos', course: get_course_id , date: fgos_date, number: fgos_number}, 
-						function(){}
-					);
-					
-					$('#create_fgos').modal('hide');
-					
-					var course_value = $("#input_course").val();
-					$.post(
-						"../back/switch_functions.php", 
-						{functionname: 'get_fgos_id', param: course_value}, 
-						function(info){$('#info_fgos_id').text(info); });
-					$.post(
-						"../back/switch_functions.php", 
-						{functionname: 'get_fgos_info', param: course_value}, 
-						function(info){
-								$('#div_create_info_fgos').prop('hidden',true);
-								$('#info_fgos').text(info);
-						}
-					);
-				} else { $('#error_params').prop('hidden',false); };
-			} else { $('#error_params').prop('hidden',false); };
-		} else { $('#error_params').prop('hidden',false); }; */
 	});
 	
 	$("#rup_name").mouseenter (function(){
 		$('#error_param').prop('hidden',true);
 	});
 </script>
-
-<!-- $("#create_info_fgos").click(function(){
-			$('#get_course').prop('hidden',true);
-			$('#empty_course').prop('hidden',true);
-			var course_value = $("#input_course").val();
-			if (course_value !== ''){
-				$('#empty_course').prop('hidden',false);
-				$('#get_course').prop('hidden',true);
-				$("#get_course").empty();
-				$.post(
-					"../back/switch_functions.php", 
-					{functionname: 'get_course_list'}, 
-					function(info){$('#empty_course').html(info);}
-				);
-			} else {
-				$('#empty_course').prop('hidden',true);
-				$("#empty_course").empty();
-				$('#get_course').prop('hidden',false);
-				var course_value = $("#input_course").val();
-				$.post(
-					"../back/switch_functions.php", 
-					{functionname: 'get_course_list', param: course_value}, 
-					function(info){$('#get_course').prop('value', info);}
-				);
-			}
-			$('#myModal').show();
-		}); -->
