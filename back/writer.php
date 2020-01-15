@@ -30,6 +30,8 @@
 						if (($col == 'A') or ($col == 'B') or ($col == 'C')) {
 							$teacher_info[] = ''.$value.'';
 							$sql_insert .= "'".$value."', ";
+						} elseif ($col == 'D') {
+							$sql_insert .= "'".$value."', ";
 						} elseif ($col == 'E') {
 							connect();
 							global $link;
@@ -55,7 +57,7 @@
 							global $link;
 							$result = mysqli_query($link, "SELECT position_id FROM positions WHERE `name` = '".$value."'");
 							if (mysqli_num_rows($result) == 0) {
-								$result = mysqli_query($link, "INSERT INTO `positions` (`name`) VALUES ('".$value."')");
+								mysqli_query($link, "INSERT INTO `positions` (`name`) VALUES ('".$value."')");
 								$result = mysqli_query($link, "SELECT position_id FROM positions WHERE `name` = '".$value."'");
 							}
 							if (mysqli_num_rows($result) == 0) {
@@ -64,26 +66,24 @@
 								while($p1 = mysqli_fetch_array($result)){$sql_insert2 .= "'".$p1[0]."', "; }
 							}
 							close();
-						} else {
-							$sql_insert .= "'".$value."', ";
 						}
-					};
+					}
 					$sql_insert .= ')'.PHP_EOL;
 					connect();
 					global $link;
 					#echo $sql_insert;
-					#$result = mysqli_query($link, $sql_insert); <---------------необходимо разкомментировать
+					#mysqli_query($link, $sql_insert); <---------------необходимо разкомментировать
 					$result = mysqli_query($link, "SELECT teacher_id FROM teachers WHERE second_name = '".$teacher_info[1]."' AND first_name = '".$teacher_info[2]."' AND middle_name = '".$teacher_info[3]."'");
 					if (mysqli_num_rows($result) == 0) {
 						$sql_insert2 .= "null, ";
 					} else {
-						while($p1 = mysqli_fetch_array($result)){$sql_insert2 .= "'".$p1[0]."', ";  };
+						while($p1 = mysqli_fetch_array($result)){$sql_insert2 .= "'".$p1[0]."', ";  }
 					}
 					$sql_insert2 .= '1)'.PHP_EOL;
 					#echo $sql_insert2;
-					#$result = mysqli_query($link, $sql_insert2); <---------------необходимо разкомментировать
+					#mysqli_query($link, $sql_insert2); <---------------необходимо разкомментировать
 					close();
-				};
+				}
 				break;
 
 			case "disciplines":	
@@ -101,53 +101,55 @@
 							global $link;
 							$result = mysqli_query($link, "SELECT institute_id FROM institutes WHERE UPPER(name) = UPPER('".$value."')");
 							if (mysqli_num_rows($result) == 0) {
-								$result = mysqli_query($link, "INSERT INTO `institutes` (`name`) VALUES ('".$value."')");
+								mysqli_query($link, "INSERT INTO `institutes` (`name`) VALUES ('".$value."')");
 								$result = mysqli_query($link, "SELECT institute_id FROM institutes WHERE `name` = '".$value."'");
 							};
 							if (mysqli_num_rows($result) == 0) {
 								$sql_insert .= "null, ";
 							} else {
-								while($p1 = mysqli_fetch_array($result)){$inst_id = "'".$p1[0]."', "; };
-							};
+								while($p1 = mysqli_fetch_array($result)){$inst_id = "'".$p1[0]."', "; }
+							}
 							close();
 						} elseif ($col == 'B') {
 							connect();
 							global $link;
 							$result = mysqli_query($link, "SELECT pulpit_id FROM pulpits WHERE UPPER(name) = UPPER('".$value."') AND institute_id = ".$inst_id."");
 							if (mysqli_num_rows($result) == 0) {
-								$result = mysqli_query($link, "INSERT INTO `pulpits` (`institute_id`, `name`) VALUES (".$inst_id.",'".$value."')");
+								mysqli_query($link, "INSERT INTO `pulpits` (`institute_id`, `name`) VALUES (".$inst_id.",'".$value."')");
 								$result = mysqli_query($link, "SELECT pulpit_id FROM pulpits WHERE `name` = '".$value."' AND institute_id = ".$inst_id."");
 							};
 							if (mysqli_num_rows($result) == 0) {
 								$sql_insert .= "null, ";
 							} else {
-								while($p1 = mysqli_fetch_array($result)){$sql_insert .= "'".$p1[0]."', "; };
-							};
+								while($p1 = mysqli_fetch_array($result)){$sql_insert .= "'".$p1[0]."', "; }
+							}
 							close();
+						} elseif (($col == 'C') or ($col == 'F')) {
+							$sql_insert .= "'".$value."', ";
 						} elseif ($col == 'D') {
 							$sql_insert .= "".$value.", ";
-						} elseif ($col == 'F') {
+						} elseif ($col == 'E') {
 							connect();
 							global $link;
 							$result = mysqli_query($link, "SELECT module_id FROM modules WHERE UPPER(name) = UPPER('".$value."')");
 							if (mysqli_num_rows($result) == 0) {
-								$result = mysqli_query($link, "INSERT INTO `modules` (`name`) VALUES ('".$value."')");
+								mysqli_query($link, "INSERT INTO `modules` (`name`) VALUES ('".$value."')");
 								$result = mysqli_query($link, "SELECT module_id FROM modules WHERE `name` = '".$value."'");
-							};
+							}
 							if (mysqli_num_rows($result) == 0) {
 								$sql_insert .= "null, ";
 							} else {
-								while($p1 = mysqli_fetch_array($result)){$sql_insert .= "'".$p1[0]."', "; };
-							};
+								while($p1 = mysqli_fetch_array($result)){$sql_insert .= "'".$p1[0]."', "; }
+							}
 							close();
-						} else {
-							$sql_insert .= "'".$value."', ";
+						} elseif ($col == 'G') {
+							$sql_insert .= "".$value."";
 						}
-					};
+					}
 					$sql_insert .= ')' . PHP_EOL;
-					echo $sql_insert;
-					#$result = mysqli_query($link, $sql_insert); <---------------необходимо разкомментировать
-				};
+					#echo $sql_insert;
+					#mysqli_query($link, $sql_insert); <---------------необходимо разкомментировать
+				}
 				break;
 
 			case "profstandards_otf_tf_activities":	
@@ -161,8 +163,57 @@
 				$maxColumn = 'M';
 				$highestColumn++;
 				
-				
+				for ($row = 2; $row <= $highestRow; ++$row) {
+					$sql_insert = "INSERT INTO `courses` (`number`, `name`, `qualification_id`) VALUES (";
+					$sql_insert2 = "INSERT INTO `fgos` (`number`, `date`, `reg_number`, `reg_date`, `course_id`) VALUES (";
+					$sql_insert3 = "INSERT INTO `prof_standards` (`code`, `name`, `number`, `date`, `reg_number`, `reg_date`, `fgos_id`) VALUES (";
+					
+					unset($course_info);
+					$course_info = array('1');
+					unset($fgos_info);
+					$fgos_info = array('1');
+
+					for ($col = 'A'; $col != $highestColumn; ++$col) {
+						$value = $worksheet->getCell($col . $row)->getValue();
+		
+						if (($col == 'A') or ($col == 'B')) {
+							$course_info[] = ''.$value.'';
+							$sql_insert .= "'".$value."', ";
+						} elseif ($col == 'C') {
+							$sql_insert .= "".$value."";
+						} elseif (($col == 'D') or ($col == 'E') or ($col == 'F') or ($col == 'G')) {
+							$fgos_info[] = ''.$value.'';
+							$sql_insert2 .= "'".$value."', ";
+						} else {
+							$sql_insert3 .= "'".$value."', ";
+						}
+					}
+					$sql_insert .= ')' . PHP_EOL;
+					connect();
+					global $link;
+					#echo $sql_insert;
+					#mysqli_query($link, $sql_insert); <---------------необходимо разкомментировать
+					$result = mysqli_query($link, "SELECT course_id FROM courses WHERE `number` = '".$course_info[1]."' AND `name` = '".$course_info[2]."'");
+					if (mysqli_num_rows($result) == 0) {
+						$sql_insert2 .= "null";
+					} else {
+						while($p1 = mysqli_fetch_array($result)){$sql_insert2 .= "'".$p1[0]."'"; }
+					}
+					$sql_insert2 .= ')' . PHP_EOL;
+					#echo $sql_insert2;
+					#mysqli_query($link, $sql_insert2); <---------------необходимо разкомментировать
+					$result = mysqli_query($link, "SELECT fgos_id FROM fgos WHERE `number` = '".$fgos_info[1]."' AND `date` = '".$fgos_info[2]."' AND `reg_number` = '".$fgos_info[3]."' AND `reg_date` = '".$fgos_info[4]."'");
+					if (mysqli_num_rows($result) == 0) {
+						$sql_insert3 .= "null";
+					} else {
+						while($p1 = mysqli_fetch_array($result)){$sql_insert3 .= "'".$p1[0]."'"; }
+					}
+					$sql_insert3 .= ')' . PHP_EOL;		
+					#echo $sql_insert3;
+					#mysqli_query($link, $sql_insert3); <---------------необходимо разкомментировать
+					close();
+				}
 				break;
-		};
-	};	
+		}
+	}	
 ?> 
