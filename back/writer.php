@@ -18,8 +18,8 @@
 				#highestColumn++;
 		
 				for ($row = 2; $row <= $highestRow; ++$row) {
-					$sql_tech = "INSERT INTO `teachers` (`second_name`, `first_name`, `middle_name`, `email`, `academic_rank_id`, `academic_degree_id`) VALUES ";
-					($row == 2) ? ($sql_tech .= "(") : ($sql_tech .= ", (");
+					$sql_insert = "INSERT INTO `teachers` (`second_name`, `first_name`, `middle_name`, `email`, `academic_rank_id`, `academic_degree_id`) VALUES ";
+					($row == 2) ? ($sql_insert .= "(") : ($sql_insert .= ", (");
 		
 					for ($col = 'A'; $col != $highestColumn; ++$col) {
 						$value = $worksheet->getCell($col . $row)->getValue();
@@ -29,9 +29,9 @@
 							global $link;
 							$result = mysqli_query($link, "SELECT academic_rank_id FROM academic_ranks WHERE UPPER(full_name) = UPPER('".$value."')");
 							if (mysqli_num_rows($result) == 0) {
-								$sql_tech .= "null, ";
+								$sql_insert .= "null, ";
 							} else {
-								while($p1 = mysqli_fetch_array($result)){$sql_tech .= "'".$p1[0]."', "; };
+								while($p1 = mysqli_fetch_array($result)){$sql_insert .= "'".$p1[0]."', "; };
 							};
 							close();
 						} elseif ($col == 'F') {
@@ -39,25 +39,25 @@
 							global $link;
 							$result = mysqli_query($link, "SELECT academic_degree_id FROM academic_degrees WHERE UPPER(short_name) = UPPER('".$value."')");
 							if (mysqli_num_rows($result) == 0) {
-								$sql_tech .= "null, ";
+								$sql_insert .= "null, ";
 							} else {
-								while($p1 = mysqli_fetch_array($result)){$sql_tech .= "'".$p1[0]."', "; };
+								while($p1 = mysqli_fetch_array($result)){$sql_insert .= "'".$p1[0]."', "; };
 							};
 							close();
 						} else {
-							$sql_tech .= "'".$value."', ";
+							$sql_insert .= "'".$value."', ";
 						}
 					};
-					$sql_tech .= ')' . PHP_EOL;
-					#echo $sql_tech;
-					#$result = mysqli_query($link, $sql_tech);
+					$sql_insert .= ')' . PHP_EOL;
+					#echo $sql_insert;
+					#$result = mysqli_query($link, $sql_insert);
 				};
 
 				$highestColumn++;
 		
 				for ($row = 2; $row <= $highestRow; ++$row) {
-					$sql_tech = "INSERT INTO `teacher_positions` (`position_id`, `teacher_id`, `main_position`) VALUES ";
-					($row == 2) ? ($sql_tech .= "(") : ($sql_tech .= ", (");
+					$sql_insert = "INSERT INTO `teacher_positions` (`position_id`, `teacher_id`, `main_position`) VALUES ";
+					($row == 2) ? ($sql_insert .= "(") : ($sql_insert .= ", (");
 					
 					unset($teacher_info);
 					$teacher_info = array('1');
@@ -76,9 +76,9 @@
 								$result = mysqli_query($link, "SELECT position_id FROM positions WHERE `name` = '".$value."'");
 							};
 							if (mysqli_num_rows($result) == 0) {
-								$sql_tech .= "null, ";
+								$sql_insert .= "null, ";
 							} else {
-								while($p1 = mysqli_fetch_array($result)){$sql_tech .= "'".$p1[0]."', "; };
+								while($p1 = mysqli_fetch_array($result)){$sql_insert .= "'".$p1[0]."', "; };
 							}
 							close();
 						};
@@ -86,10 +86,15 @@
 					connect();
 					global $link;
 					$result = mysqli_query($link, "SELECT teacher_id FROM teachers WHERE second_name = '".$teacher_info[1]."' AND first_name = '".$teacher_info[2]."' AND middle_name = '".$teacher_info[3]."'");
-					while($p1 = mysqli_fetch_array($result)){$sql_tech .= "'".$p1[0]."', ";  };
+					if (mysqli_num_rows($result) == 0) {
+						$sql_insert .= "null, ";
+					} else {
+						while($p1 = mysqli_fetch_array($result)){$sql_insert .= "'".$p1[0]."', ";  };
+					}
 					close();
-					$sql_tech .= '1)' . PHP_EOL;
-					echo $sql_tech;
+					$sql_insert .= '1)' . PHP_EOL;
+					#echo $sql_insert;
+					#$result = mysqli_query($link, $sql_insert);
 				};
 
 				break;
