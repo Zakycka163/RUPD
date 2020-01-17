@@ -41,6 +41,7 @@
 <div>
     <?php 
         require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
+        require_once ($_SERVER['DOCUMENT_ROOT']."/back/reader.php");
         require_once ($_SERVER['DOCUMENT_ROOT']."/back/writer.php");
         #read('../documents/bulk/teachers.xlsx', 'teachers');
     ?>

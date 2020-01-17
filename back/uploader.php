@@ -6,9 +6,6 @@
             if (copy($_FILES['userfile']['tmp_name'], $uploadfile)){
                 echo "<p><b>Имя файла:</b> ".$_FILES['userfile']['name']."; <b>Категория данных:</b> ".$_POST['file_type_ru'].".</p>";
                 echo "<p>Внимательно проверь данные! Затем сохрани данные на сервере!</p>";
-                
-                #require_once ($_SERVER['DOCUMENT_ROOT']."/back/phpExcelUse.php");
-                #reader($uploadfile, $_POST['file_type']);
             } else { 
                 echo "<h4>Ошибка! Не удалось загрузить файл на сервер!</h4>";
                 echo $_FILES['userfile']['error'];

@@ -1,5 +1,5 @@
 <?php 
-	function reader($uploadfile, $file_type) {
+	function read($uploadfile, $file_type) {
 		require_once ($_SERVER['DOCUMENT_ROOT']."/vendor/autoload.php");
 
 		$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
@@ -23,6 +23,10 @@
 		$highestColumn = $maxColumn; // e.g 'F'
 		$highestColumn++;
 
+		echo 	'<div class="form-group">
+					<input class="btn btn-success btn-sm" type="button" id="save" value="Сохранить в системе">
+					<input class="btn btn-danger btn-sm" type="button" id="cancel" value="Отмена">
+				</div>' . "\n";
 		echo '<table class="table table-bordered table-striped">' . "\n";
 		echo '<thead>' . "\n";
 		for ($row = 1; $row <= 1; ++$row) {
