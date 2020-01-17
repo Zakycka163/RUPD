@@ -42,8 +42,7 @@
     <?php 
         require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
         require_once ($_SERVER['DOCUMENT_ROOT']."/back/writer.php");
-        read('../documents/bulk/teachers.xlsx', 'teachers');
-
+        #read('../documents/bulk/teachers.xlsx', 'teachers');
     ?>
 </div>	
 <script>

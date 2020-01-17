@@ -1,5 +1,5 @@
 <?php 
-	function read($uploadfile,$maxColumn) {
+	function read($uploadfile, $file_type) {
 		require_once ($_SERVER['DOCUMENT_ROOT']."/vendor/autoload.php");
 
 		$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
@@ -8,7 +8,18 @@
 
 		$worksheet = $spreadsheet->getActiveSheet();
 		// Get the highest row and column numbers referenced in the worksheet
-		$highestRow = $worksheet->getHighestRow(); // e.g. 10
+		$highestRow = $worksheet->getHighestRow();
+		
+		if ($file_type =='teachers') {
+			$maxColumn = 'G';
+		} elseif ($file_type =='disciplines') {
+			$maxColumn = 'G';
+		} elseif ($file_type =='courses_fgos_profstandards') {
+			$maxColumn = 'M';
+		} elseif ($file_type =='profstandards_otf_tf_activities') {
+			$maxColumn = 'L';
+		}
+
 		$highestColumn = $maxColumn; // e.g 'F'
 		$highestColumn++;
 
