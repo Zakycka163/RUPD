@@ -1,5 +1,5 @@
 <?php 
-	function read($uploadfile, $file_type) {
+	function reader($uploadfile, $file_type) {
 		require_once ($_SERVER['DOCUMENT_ROOT']."/vendor/autoload.php");
 
 		$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
