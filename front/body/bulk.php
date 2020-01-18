@@ -1,4 +1,4 @@
-<div class="px-4 py-3">
+<div class="px-4 py-3" <?php echo ((isset($_FILES['userfile'])) ? 'hidden' : '');?> >
 	<div class="row">
 		<div class="col">
 			<div class="card border-primary form-group" style="width: 35rem; height: 11rem">

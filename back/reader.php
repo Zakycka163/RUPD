@@ -24,8 +24,8 @@
 		$highestColumn++;
 
 		echo 	'<div class="form-group">
-					<input class="btn btn-success btn-sm" type="button" id="save" value="Сохранить в системе">
-					<input class="btn btn-danger btn-sm" type="button" id="cancel" value="Отмена">
+					<input class="btn btn-success" type="button" id="save" value="Сохранить в системе">
+					<input class="btn btn-danger" type="button" id="cancel" value="Отмена">
 				</div>' . "\n";
 		echo '<table class="table table-bordered table-striped">' . "\n";
 		echo '<thead>' . "\n";
@@ -55,5 +55,4 @@
 		echo '</thead>' . "\n";
 		echo '</table>' . PHP_EOL;
 	};
-	// require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
 ?> 
