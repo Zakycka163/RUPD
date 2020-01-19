@@ -38,14 +38,14 @@
         </div>
     </div>
 </form>
-<div>
+<!-- <div>
     <?php 
-        require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
-        require_once ($_SERVER['DOCUMENT_ROOT']."/back/reader.php");
-        require_once ($_SERVER['DOCUMENT_ROOT']."/back/writer.php");
+        #require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
+        #require_once ($_SERVER['DOCUMENT_ROOT']."/back/reader.php");
+        #require_once ($_SERVER['DOCUMENT_ROOT']."/back/writer.php");
         #read('../documents/bulk/teachers.xlsx', 'teachers');
     ?>
-</div>	
+</div>	 -->
 <script>
     $(document).ready(function() {
         $("#bulk_type").change(function() {
@@ -64,5 +64,21 @@
                 });
             };
         });
+        $("#save").click(function() {
+            $.post(
+				"../back/writer.php", 
+				{functionname: '<?php echo $_POST['file_type'];?>', param: <?php echo $uploadfile;?>}, 
+				function(info){
+					if (info === '') {
+						alert("Где-то ошибка! Но я не могу понять где...");
+					} else {
+						alert(info);
+					}
+				}
+			);
+        }
+        $("#cancel").click(function() {
+            //TODO...
+        }
     });
 </script>

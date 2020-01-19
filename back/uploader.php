@@ -24,8 +24,6 @@
                             </table>
                         </div>";
                 
-
-                require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
                 require_once ($_SERVER['DOCUMENT_ROOT']."/back/reader.php");
                 read($uploadfile, $_POST['file_type']);
             } else { 
