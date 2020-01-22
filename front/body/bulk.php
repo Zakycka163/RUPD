@@ -67,7 +67,7 @@
         $("#save").click(function() {
             $.post(
 				"../back/writer.php", 
-				{functionname: '<?php echo $_POST['file_type'];?>', param: <?php echo $uploadfile;?>}, 
+				{functionname: <?php echo $_POST['file_type'];?>, param: <?php echo $uploadfile;?>}, 
 				function(info){
 					if (info === '') {
 						alert("Где-то ошибка! Но я не могу понять где...");
