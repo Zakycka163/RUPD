@@ -25,9 +25,6 @@
 									}
 								);
 							});
-							$("#cancel").click(function() {
-								//TODO...
-							});
 						</script>';
                 echo "  <div class='alert alert-success'>
                             <table class='table table-borderless'>
