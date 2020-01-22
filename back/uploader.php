@@ -4,13 +4,31 @@
             $dir = '../documents/bulk/';
             $uploadfile = $dir.$_POST['file_type'].'_'.basename($_FILES['userfile']['name']);
             if (copy($_FILES['userfile']['tmp_name'], $uploadfile)){
-                echo "  <div class='alert alert-warning'>
-                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                <span aria-hidden='true'>&times;</span>
+                echo '  <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
                             </button>
                                 <strong>Внимательно проверь данные!</strong>
                                 Затем сохрани данные на сервере!
-                        </div>";
+                        </div>
+                        <script>
+							$("#save").click(function() {
+								$.post(
+									"../back/writer.php", 
+									{functionname: '.$_POST['file_type'].', param: '.$uploadfile.'}, 
+									function(info){
+										if (info === "") {
+											alert("Где-то ошибка! Но я не могу понять где...");
+										} else {
+											alert(info);
+										}
+									}
+								);
+							});
+							$("#cancel").click(function() {
+								//TODO...
+							});
+						</script>';
                 echo "  <div class='alert alert-success'>
                             <table class='table table-borderless'>
                                 <tr>
