@@ -1,22 +1,16 @@
 <?php
 	connect();
 	global $link;
-	$sql = "select    acc.login
-					, acc.grant_id
-					, teach.second_name
-					, teach.first_name
-					, teach.middle_name
-			FROM  `accounts` acc
-				, `teachers` teach 
-			WHERE acc.account_id = ".$_GET["id"]."";
+	$sql = "select * from users_presenter
+			WHERE account_id = ".$_GET["id"]."";
 	$result = mysqli_query($link, $sql);
 	while($row = mysqli_fetch_array($result)){
-		$page_title = ''.$row[2].' '.$row[3].' '.$row[4].'';
-		$second_name = $row[2];
-		$first_name = $row[3];
-		$middle_name = $row[4];
-		$login = $row[0];
-		if ($row[1] = 2){
+		$second_name = $row[3];
+		$first_name = $row[4];
+		$middle_name = $row[5];
+		$page_title = $second_name.' '.$first_name.' '.$middle_name;
+		$login = $row[1];
+		if ($row[2] = 2){
 			$admin = "checked";
 		} else {
 			$admin = "";

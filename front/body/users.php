@@ -1,9 +1,8 @@
 <?php
 	if (isset($_GET["id"])){
 		$current_obj = $_GET["id"];
-		
-	} else {
-
+		require_once ($_SERVER['DOCUMENT_ROOT']."/back/body/user.php");
+		exit();
 	};
 ?>
 <div class="form-group">
@@ -32,15 +31,7 @@
 			$result = mysqli_query($link, $sql);
 			$limit = mysqli_fetch_array($result);
 			$counter = 0;
-			$sql = "select    acc.account_id 
-							, acc.login
-							, acc.grant_id
-							, teach.second_name
-							, teach.first_name
-							, teach.middle_name
-					FROM  `accounts` acc
-						, `teachers` teach 
-					WHERE acc.teacher_id = teach.teacher_id 
+			$sql = "select * from users_presenter
 					LIMIT ".$limit[0]."";
 			$result = mysqli_query($link, $sql);
 			while($row = mysqli_fetch_array($result)){
