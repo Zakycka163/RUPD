@@ -26,24 +26,7 @@
 					$result = mysqli_query($link, $sql);
 					$limit = mysqli_fetch_array($result);
 					$counter = 0;
-					$sql = "select    tech.teacher_id
-									, tech.second_name
-									, tech.first_name
-									, tech.middle_name
-									, tech.email
-									, deg.full_name
-									, ac_rank.full_name 
-									, pos.name
-									, acc.login
-							FROM  `academic_degrees` deg
-								, `academic_ranks` ac_rank
-								, `teachers` tech
-							LEFT JOIN (`teacher_positions` poses, `positions` pos) 
-								ON tech.teacher_id = poses.teacher_id and poses.main_position = pos.position_id
-							LEFT JOIN (`accounts` acc) 
-								ON tech.teacher_id = acc.teacher_id
-							WHERE tech.academic_degree_id = deg.academic_degree_id
-							  and tech.academic_rank_id = ac_rank.academic_rank_id
+					$sql = "select * FROM teachers_presenter
 							LIMIT ".$limit[0]."";
 					$result = mysqli_query($link, $sql);
 					while($row = mysqli_fetch_array($result)){
