@@ -12,8 +12,10 @@
 		$login = $row[1];
 		if ($row[2] = 2){
 			$admin = "checked";
+			$grant_to_edit_account_name = "";
 		} else {
 			$admin = "";
+			$grant_to_edit_account_name = "disabled";
 		}		
 	};
 	close();
@@ -65,7 +67,7 @@
 		<td class="align-middle">Логин</td>
 		<td>
 			<div class="input-group" style="right: 15px;">
-				<input class="form-control" type="text" id="login" value="<?php echo $login; ?>">
+				<input class="form-control" type="text" id="login" value="<?php echo $login; ?>" <?php echo $grant_to_edit_account_name; ?> >
 			</div>
 		</td>
 		<td class="align-middle" style="width: 13rem">Права администратора</td>
