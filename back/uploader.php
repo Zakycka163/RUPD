@@ -1,7 +1,7 @@
 <?php
     if (isset($_FILES['userfile'])) {
         if (is_uploaded_file($_FILES['userfile']['tmp_name'])) {
-            $dir = '../documents/bulk/';
+            $dir = '../Documents/bulk/';
             $uploadfile = $dir.$_POST['file_type'].'_'.basename($_FILES['userfile']['name']);
             if (copy($_FILES['userfile']['tmp_name'], $uploadfile)){
                 echo '  <div class="alert alert-warning">
@@ -15,7 +15,7 @@
 							$("#save").click(function() {
 								$.post(
 									"../back/writer.php", 
-									{functionname: '.$_POST['file_type'].', param: '.$uploadfile.'}, 
+									{functionname: '.$_POST['file_type'].', param: "'.$uploadfile.'"}, 
 									function(info){
 										if (info === "") {
 											alert("Где-то ошибка! Но я не могу понять где...");
@@ -46,7 +46,7 @@
                 echo $_FILES['userfile']['error'];
             };
         } else {
-            echo "<h4>УПС! Кажется мы потеряли файл!</h4>";
+            echo "<h4>УПС! Кажется мы не нашли файл!</h4>";
         };
     } else {
         echo "<h4>Подождите, идет загрузка...</h4>";
