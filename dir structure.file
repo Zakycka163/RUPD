@@ -38,7 +38,7 @@ RUPD
             -rup.php
             -teachers.php
             -users.php
-        \creationForms
+        \forms   (old name: creationForms)
             -fgos.php
             -rup.php
         \css
