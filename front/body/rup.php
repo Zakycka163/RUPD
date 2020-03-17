@@ -2,8 +2,8 @@
 		
 	<tr id="course_and_profile">
 		<td class="align-middle">Направление</td>
-		<td>
-			<select class="form-control" id="input_course">
+		<td width="45%">
+			<select class="form-control form-control-sm" id="input_course">
 				<option selected disabled>Выбрать направление</option>
 				<?php 
 					options_present("SELECT course_id, CONCAT_WS(' ',number,name) as course FROM courses order by number");		
@@ -11,8 +11,8 @@
 			</select>
 		</td>
 		<td class="align-middle">Профиль</td>
-		<td>
-			<select class="form-control" id="input_profile" disabled>
+		<td width="50%">
+			<select class="form-control form-control-sm" id="input_profile" disabled>
 				<option selected disabled>Направление не определено</option>
 			</select>
 		</td>	
@@ -29,32 +29,30 @@
 				</div>
 			</div>
 		</td>
-		<td class="align-middle">Проффесинальный стандарт</td>
+		<td>Проффесинальный стандарт</td>
 		<td>
-			<select class="form-control" multiple id="input_prof_stad" style="height: 5rem" disabled></select>
+			<select class="form-control form-control-sm" multiple id="input_prof_stad" style="height: 5rem" disabled></select>
 		</td>	
 	</tr>
 	
 	<tr id="otf_and_tf">
-		<td><br>Обобщенные трудовые функции</td>
-		<td>
-			<table class="table table-borderless"><tr><td>
-				<select class="form-control" multiple id="input_otf" style="height: 9rem" disabled></select>
-			</td></tr></table>
+		<td>Обобщенные трудовые функции</td>
+		<td> 
+			<select class="form-control form-control-sm" multiple id="input_otf" style="height: 7rem;" disabled></select>
 		</td>
-		<td><br>Трудовые функции</td>
+		<td>Трудовые функции</td>
 		<td>
 			<table>
 				<tr class="multiselection" id="t_functions">
 					<td>
-						<select class="selection_for_add form-control" multiple id="input_tf" style="height: 7rem" disabled></select>
-						<select class="element_for_add form-control" id="tf_for_add" disabled data-toggle="popover" data-placement="left" data-content="Нужно выбрать!">
+						<select class="selection_for_add form-control form-control-sm" multiple id="input_tf" style="height: 5rem; margin-left: -10px; margin-top: -10px;" disabled></select>
+						<select class="element_for_add form-control form-control-sm" id="tf_for_add" disabled data-toggle="popover" data-placement="left" data-content="Нужно выбрать!" style="margin-left: -10px;">
 							<option selected disabled>ОТФ не определены</option>
 						</select>
 					</td>
-					<td width="1%"><br><br>
-						<span class="del_tf badge badge-danger" type="button" title="Удалить"> &minus;</span><br><br><br>
-						<span class="add_tf badge badge-success" type="button" title="Добавить">&#43;</span>
+					<td width="1%">
+						<span class="del_tf badge badge-danger" type="button" title="Удалить" style="height: 20px; margin-top: 20px; margin-left: -20px;"> &minus;</span>
+						<span class="add_tf badge badge-success" type="button" title="Добавить" style="height: 20px; margin-top: 35px; margin-left: -20px;">&#43;</span>
 					</td>
 				</tr>
 			</table>
@@ -67,8 +65,8 @@
 	
 	<tr id="pulpit_and_discipline">
 		<td class="align-middle">Кафедра</td>
-		<td width="45%">
-			<select class="form-control" id="input_pulpit">
+		<td>
+			<select class="form-control form-control-sm" id="input_pulpit">
 				<option selected disabled>Выбрать кафедру</option>
 				<?php 
 					options_present("SELECT pulpit_id, name FROM pulpits order by institute_id");		
@@ -76,8 +74,8 @@
 			</select>
 		</td>
 		<td class="align-middle">Дисциплина</td>
-		<td width="50%">
-			<select class="form-control" id="input_discipline" disabled>
+		<td>
+			<select class="form-control form-control-sm" id="input_discipline" disabled>
 				<option selected disabled>Кафедра не определена</option>
 			</select>
 		</td>
@@ -99,25 +97,23 @@
 	</tr>
 	
 	<tr id="goal_and_mission">
-		<td><br>Цель</td>
+		<td>Цель</td>
 		<td>
-			<table class="table table-borderless"><tr><td>
-				<textarea class="form-control" type="text" id="input_goal" style="height: 7rem" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!"></textarea>
-			</td></tr></table>
+			<textarea class="form-control form-control-sm" type="text" id="input_goal" style="height: 7rem" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!"></textarea>
 		</td>
-		<td><br>Задачи</td>
+		<td>Задачи</td>
 		<td>
 			<table>
 				<tr class="multiselection">
 					<td>
-						<select class="selection_for_add form-control" id="input_mission" multiple style="height: 7rem"></select>
-						<div class="input-group">
-							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
+						<select class="selection_for_add form-control form-control-sm" id="input_mission" multiple style="height: 5rem; margin-left: -10px; margin-top: -10px;"></select>
+						<div class="input-group input-group-sm">
+							<input class="element_for_add form-control form-control-sm" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!" style="margin-left: -10px; margin-right: 10px;">
 						</div>
 					</td>
-					<td width="1%"><br><br>
-						<span class="del_button badge badge-danger" type="button" title="Удалить"> &minus;</span><br><br><br>
-						<span class="add_button badge badge-success" type="button" title="Добавить">&#43;</span>
+					<td width="1%">
+						<span class="del_button badge badge-danger" type="button" title="Удалить" style="height: 20px; margin-top: 20px; margin-left: -20px;"> &minus;</span>
+						<span class="add_button badge badge-success" type="button" title="Добавить" style="height: 20px; margin-top: 35px; margin-left: -20px;">&#43;</span>
 					</td>
 				</tr>
 			</table>
@@ -129,36 +125,36 @@
 	</tr>
 	
 	<tr id="lecture_and_practical">
-		<td class="align-middle">Содержание дисциплины</td>
+		<td>Содержание дисциплины</td>
 		<td>
 			<table>
 				<tr class="multiselection">
 					<td>
-						<select class="selection_for_add form-control" id="input_lecture" multiple style="height: 10rem"></select>
+						<select class="selection_for_add form-control form-control-sm" id="input_lecture" multiple style="height: 7rem; margin-left: -10px; margin-top: -10px;"></select>
 						<div class="input-group">
-							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
+							<input class="element_for_add form-control form-control-sm" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!" style="margin-left: -10px; margin-right: 10px;">
 						</div>
 					</td>
-					<td width="1%"><br><br><br>
-						<span class="del_button badge badge-danger" type="button" title="Удалить"> &minus;</span><br><br><br><br>
-						<span class="add_button badge badge-success" type="button" title="Добавить">&#43;</span>
+					<td width="1%">
+						<span class="del_button badge badge-danger" type="button" title="Удалить" style="height: 20px; margin-top: 35px; margin-left: -20px;"> &minus;</span>
+						<span class="add_button badge badge-success" type="button" title="Добавить" style="height: 20px; margin-top: 53px; margin-left: -20px;">&#43;</span>
 					</td>
 				</tr>
 			</table>
 		</td>
-		<td class="align-middle">Содержание практических (семинарских) занятий</td>
+		<td>Содержание практических (семинарских) занятий</td>
 		<td>
 			<table>
 				<tr class="multiselection">
 					<td>
-						<select class="selection_for_add form-control" id="input_practical" multiple style="height: 10rem"></select>
+						<select class="selection_for_add form-control form-control-sm" id="input_practical" multiple style="height: 7rem; margin-left: -10px; margin-top: -10px;"></select>
 						<div class="input-group">
-							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
+							<input class="element_for_add form-control form-control-sm" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!" style="margin-left: -10px; margin-right: 10px;">
 						</div>
 					</td>
-					<td width="1%"><br><br><br>
-						<span class="del_button badge badge-danger" type="button" title="Удалить"> &minus;</span><br><br><br><br>
-						<span class="add_button badge badge-success" type="button" title="Добавить">&#43;</span>
+					<td width="1%">
+						<span class="del_button badge badge-danger" type="button" title="Удалить" style="height: 20px; margin-top: 35px; margin-left: -20px;"> &minus;</span>
+						<span class="add_button badge badge-success" type="button" title="Добавить" style="height: 20px; margin-top: 53px; margin-left: -20px;">&#43;</span>
 					</td>
 				</tr>
 			</table>
@@ -166,36 +162,36 @@
 	</tr>
 	
 	<tr id="laboratory_and_individual">
-		<td class="align-middle">Содержание лабораторных работ</td>
+		<td>Содержание лабораторных работ</td>
 		<td>
 			<table>
 				<tr class="multiselection">
 					<td>
-						<select class="selection_for_add form-control" id="input_laboratory" multiple style="height: 10rem"></select>
+						<select class="selection_for_add form-control form-control-sm" id="input_laboratory" multiple style="height: 7rem; margin-left: -10px; margin-top: -10px;"></select>
 						<div class="input-group">
-							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
+							<input class="element_for_add form-control form-control-sm" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!" style="margin-left: -10px; margin-right: 10px;">
 						</div>
 					</td>
-					<td width="1%"><br><br><br>
-						<span class="del_button badge badge-danger" type="button" title="Удалить"> &minus;</span><br><br><br><br>
-						<span class="add_button badge badge-success" type="button" title="Добавить">&#43;</span>
+					<td width="1%">
+						<span class="del_button badge badge-danger" type="button" title="Удалить" style="height: 20px; margin-top: 35px; margin-left: -20px;"> &minus;</span>
+						<span class="add_button badge badge-success" type="button" title="Добавить" style="height: 20px; margin-top: 53px; margin-left: -20px;">&#43;</span>
 					</td>
 				</tr>
 			</table>
 		</td>
-		<td class="align-middle">Содержание заданий для самостоятельной работы</td>
+		<td>Содержание заданий для самостоятельной работы</td>
 		<td>
 			<table>
 				<tr class="multiselection">
 					<td>
-						<select class="selection_for_add form-control" id="input_individual" multiple style="height: 10rem"></select>
+						<select class="selection_for_add form-control form-control-sm" id="input_individual" multiple style="height: 7rem; margin-left: -10px; margin-top: -10px;"></select>
 						<div class="input-group">
-							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
+							<input class="element_for_add form-control form-control-sm" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!" style="margin-left: -10px; margin-right: 10px;">
 						</div>
 					</td>
-					<td width="1%"><br><br><br>
-						<span class="del_button badge badge-danger" type="button" title="Удалить"> &minus;</span><br><br><br><br>
-						<span class="add_button badge badge-success" type="button" title="Добавить">&#43;</span>
+					<td width="1%">
+						<span class="del_button badge badge-danger" type="button" title="Удалить" style="height: 20px; margin-top: 35px; margin-left: -20px;"> &minus;</span>
+						<span class="add_button badge badge-success" type="button" title="Добавить" style="height: 20px; margin-top: 53px; margin-left: -20px;">&#43;</span>
 					</td>
 				</tr>
 			</table>
@@ -203,36 +199,36 @@
 	</tr>
 	
 	<tr id="course_work_and_project">
-		<td class="align-middle">Содержание тем для курсовых работ</td>
+		<td>Содержание тем для курсовых работ</td>
 		<td>
 			<table>
 				<tr class="multiselection">
 					<td>
-						<select class="selection_for_add form-control" id="input_course_work" multiple style="height: 10rem"></select>
+						<select class="selection_for_add form-control form-control-sm" id="input_course_work" multiple style="height: 7rem; margin-left: -10px; margin-top: -10px;"></select>
 						<div class="input-group">
-							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
+							<input class="element_for_add form-control form-control-sm" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!" style="margin-left: -10px; margin-right: 10px;">
 						</div>
 					</td>
-					<td width="1%"><br><br><br>
-						<span class="del_button badge badge-danger" type="button" title="Удалить"> &minus;</span><br><br><br><br>
-						<span class="add_button badge badge-success" type="button" title="Добавить">&#43;</span>
+					<td width="1%">
+						<span class="del_button badge badge-danger" type="button" title="Удалить" style="height: 20px; margin-top: 35px; margin-left: -20px;"> &minus;</span>
+						<span class="add_button badge badge-success" type="button" title="Добавить" style="height: 20px; margin-top: 53px; margin-left: -20px;">&#43;</span>
 					</td>
 				</tr>
 			</table>
 		</td>
-		<td class="align-middle">Содержание тем для курсовых проектов</td>
+		<td>Содержание тем для курсовых проектов</td>
 		<td>
 			<table>
 				<tr class="multiselection">
 					<td>
-						<select class="selection_for_add form-control" id="input_course_project" multiple style="height: 10rem"></select>
+						<select class="selection_for_add form-control form-control-sm" id="input_course_project" multiple style="height: 7rem; margin-left: -10px; margin-top: -10px;"></select>
 						<div class="input-group">
-							<input class="element_for_add form-control" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!">
+							<input class="element_for_add form-control form-control-sm" type="text" data-toggle="popover" data-placement="left" data-content="Нужно заполнить!" style="margin-left: -10px; margin-right: 10px;">
 						</div>
 					</td>
-					<td width="1%"><br><br><br>
-						<span class="del_button badge badge-danger" type="button" title="Удалить"> &minus;</span><br><br><br><br>
-						<span class="add_button badge badge-success" type="button" title="Добавить">&#43;</span>
+					<td width="1%">
+						<span class="del_button badge badge-danger" type="button" title="Удалить" style="height: 20px; margin-top: 35px; margin-left: -20px;"> &minus;</span>
+						<span class="add_button badge badge-success" type="button" title="Добавить" style="height: 20px; margin-top: 53px; margin-left: -20px;">&#43;</span>
 					</td>
 				</tr>
 			</table>
