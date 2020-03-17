@@ -38,9 +38,11 @@ RUPD
             -rup.php
             -teachers.php
             -users.php
-        \forms   (old name: creationForms)
+        \forms                      -> (old name: creationForms)
             -fgos.php
             -rup.php
+            -account_name.php       -> (new)
+            -account_pass.php       -> (new)
         \css
             -background.css
             -background2.css
