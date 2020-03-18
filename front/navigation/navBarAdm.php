@@ -21,7 +21,7 @@
     </div>
 </li>
 <li class="nav-item">
-	<a class="nav-link text-dark" href="/pages/data.php">Работа с данными</a>
+    <button class="btn btn-light" type="button" onclick="window.location.href='../pages/data.php'">Работа с данными</button>
 </li>
 <li class="nav-item dropdown">
     <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Управление</button>

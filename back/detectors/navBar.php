@@ -1,6 +1,6 @@
 <nav class="navbar bg-light">
 	<ul class="nav nav-pills">
-        <li class="nav-item">
+        <li class="nav-item" style="higth: 1rem">
 			<a class="nav-link active" href="/index.php">Главная</a>
 		</li>
         <?php 
@@ -19,16 +19,10 @@
 				if($admin=="1"){
 					require_once ($_SERVER['DOCUMENT_ROOT']."/front/navigation/navBarTeach.php");
 				}
-			} else {
-				if($_SERVER['REQUEST_URI']<>"/index.php"){
-					if($_SERVER['REQUEST_URI']<>"/pages/about.php"){
-						header("Location: ../index.php");
-					}
-				}
 			}
 		?>      
 		<li class="nav-item">
-			<a class="nav-link text-dark" href="/pages/about.php">О системе</a>
+			<button class="btn btn-light" type="button" onclick="window.location.href='../pages/about.php'">О системе</button>
 		</li>
 	</ul>
 	<?php 		
