@@ -35,7 +35,7 @@
 		<td class="align-middle" style="width: 7rem">Фамилия</td>
 		<td>
 			<div class="input-group input-group-sm" style="right: 15px;">
-				<input class="form-control" type="text" id="second_name" value="<?php echo $second_name; ?>">
+				<input class="form-control" type="text" id="second_name" value="<?php echo $second_name; ?>" maxlength="30" data-toggle="popover" data-placement="top" data-content="Не должно быть пустым!">
 			</div>
 		</td>
 		<td class="align-middle"></td>
@@ -45,7 +45,7 @@
 		<td class="align-middle">Имя</td>
 		<td>
 			<div class="input-group input-group-sm" style="right: 15px;">
-				<input class="form-control" type="text" id="first_name" value="<?php echo $first_name; ?>">
+				<input class="form-control" type="text" id="first_name" value="<?php echo $first_name; ?>" maxlength="30" data-toggle="popover" data-placement="top" data-content="Не должно быть пустым!">
 			</div>
 		</td>
 		<td class="align-middle"></td>
@@ -55,7 +55,7 @@
 		<td class="align-middle">Отчество</td>
 		<td>
 			<div class="input-group input-group-sm" style="right: 15px;">
-				<input class="form-control" type="text" id="middle_name" value="<?php echo $middle_name; ?>">
+				<input class="form-control" type="text" id="middle_name" value="<?php echo $middle_name; ?>" maxlength="30">
 			</div>
 		</td>
 		<td class="align-middle"></td>
@@ -111,7 +111,40 @@ $(document).ready(function() {
 	});
 
 	$("#save_teach_changes").click(function(){
-		
+		let second_name = $("#second_name").val();
+		let first_name = $("#first_name").val();
+		let middle_name = $("#middle_name").val();
+
+		if (second_name == '') {
+			$('#second_name').addClass('error-pointer');
+			$('#second_name').popover('show');
+		} else if (first_name == '') {
+			$('#first_name').addClass('error-pointer');
+			$('#first_name').popover('show');
+		} else {
+			$.post(
+			 	"../back/editing_users.php", 
+				{functionname: 'update_teach_name', acc_id: <?php echo $_GET["id"];?>
+												  , second_name: second_name
+												  , first_name: first_name
+												  , middle_name: middle_name}, 
+				function(info){
+					alert(info);
+					location.reload();
+				}
+			);
+		}
+
+	});
+
+	$("#second_name").mouseenter (function(){
+		$('#second_name').removeClass('error-pointer');
+		$('#second_name').popover('hide');
+	});
+
+	$("#first_name").mouseenter (function(){
+		$('#first_name').removeClass('error-pointer');
+		$('#first_name').popover('hide');
 	});
 });
 </script>
