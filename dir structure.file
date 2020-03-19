@@ -1,7 +1,5 @@
 RUPD
     \back
-        \body
-            -user.php
         \detectors
             -navBar.php
             -tasks.php
@@ -38,6 +36,7 @@ RUPD
             -prof.php
             -rup.php
             -teachers.php
+            -user.php               -> (moved from \back\body)
             -users.php
         \forms                      -> (old name: creationForms)
             -fgos.php
