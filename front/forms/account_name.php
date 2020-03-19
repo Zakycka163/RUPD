@@ -44,7 +44,7 @@
 		if (new_name == '' || new_name.length < 4) {
 			$('#new_name').addClass('error-pointer');
 			$('#new_name').popover('show');
-		} else if (pass_val == '' || new_name.length < 4) {
+		} else if (pass_val == '' || pass_val.length < 4) {
 			$('#pass_val').addClass('error-pointer');
 			$('#pass_val').popover('show');
 		} else {
@@ -61,7 +61,7 @@
 							function(info){
 								if (info == '1'){
 									$('#change_account_name_form').modal('hide');
-									alert('Логин успешно обнавлен');
+									alert('Логин успешно обновлен');
 									location.reload();
 								} else {
 									alert('Ошибка: '+info);
@@ -71,7 +71,6 @@
 					} else {
 						alert('Неверно введен Пароль '+info);
 					}
-
 				}
 			);
 		}

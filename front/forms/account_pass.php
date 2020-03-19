@@ -12,64 +12,96 @@
 					<tr>
 						<td class="align-middle">Старый пароль</td>
 						<td width="60%">
-							<input type="password" name="password" id="old_pass" minlength="4" maxlength="32" class="form-control form-control-sm">
+							<input type="password" name="password" id="old_pass" minlength="4" maxlength="32" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! от 4 до 32 символов">
 						</td>
 					</tr>
 					<tr>
 						<td class="align-middle">Новый пароль</td>
 						<td>
-							<input type="password" name="password" id="new_pass" minlength="4" maxlength="32" class="form-control form-control-sm">
+							<input type="password" name="password" id="new_pass" minlength="4" maxlength="32" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! от 4 до 32 символов">
 						</td>
 					</tr>
 					<tr>
 						<td class="align-middle">Повторите пароль</td>
 						<td>
-							<input type="password" name="password" id="repeat_pass" minlength="4" maxlength="32" class="form-control form-control-sm">
+							<input type="password" name="password" id="repeat_pass" minlength="4" maxlength="32" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! от 4 до 32 символов">
 						</td>
 					</tr>
 				</table>
 				<div class="alert alert-danger" role="alert" id="error_params" hidden>
-                    Все поля должны быть заполнены! 
+                    Пароли не совпадают!
                 </div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="save_changes">Сохранить</button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+				<button type="button" class="btn btn-sm btn-primary " id="save_pass_changes">Сохранить</button>
+				<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Закрыть</button>
 			</div>
 		</div>
 	</div>
 </div>
 <script>
-	$("#save_changes").click(function(){
+	$("#save_pass_changes").click(function(){
 		$('#error_params').prop('hidden',true);
-		var old_pass = $("#old_pass").text();
-		var new_pass = $("#new_pass").text();
-		var repeat_pass = $("#repeat_pass").text();
-		
-		if (old_pass !== '' && new_pass !== '' && repeat_pass !== ''){
-			var fgos_number = $("#input_number").val();
-			var fgos_reg_number = $("#reg_number").val();
+
+		let old_pass = $("#old_pass").val();
+		let new_pass = $("#new_pass").val();
+		let repeat_pass = $("#repeat_pass").val();
+
+		if (old_pass == '' || old_pass.length < 4) {
+			$('#old_pass').addClass('error-pointer');
+			$('#old_pass').popover('show');
+		} else if (new_pass == '' || new_pass.length < 4) {
+			$('#new_pass').addClass('error-pointer');
+			$('#new_pass').popover('show');
+		} else if (repeat_pass == '' || repeat_pass.length < 4) {
+			$('#repeat_pass').addClass('error-pointer');
+			$('#repeat_pass').popover('show');
+		} else if (new_pass !== repeat_pass) {
+			$('#error_params').prop('hidden',false);
+		} else {
 			$.post(
-				"../back/switch_functions.php", 
-				{functionname: 'create_fgos', course: get_course_id
-											, date: fgos_date
-											, number: fgos_number
-											, reg_date: fgos_reg_date
-											, reg_number: fgos_reg_number}, 
-				function(){}
-			);
-			
-			$.post(
-				"../back/switch_functions.php", 
-				{functionname: 'get_fgos_info', param: course_value}, 
-				function(info){
-						$('#div_create_info_fgos').prop('hidden',true);
-						$('#info_fgos').text(info);
+			 	"../back/switch_functions.php", 
+				 {functionname: 'pass_validate', acc_id: <?php echo $_GET["id"];?>
+											   , password: old_pass}, 
+			 	function(info){
+					if (info == '1'){
+						$.post(
+							"../back/switch_functions.php", 
+							{functionname: 'update_account_pass', acc_id: <?php echo $_GET["id"];?>
+																, account_pass: new_pass}, 
+							function(info){
+								if (info == '1'){
+									$('#change_account_pass_form').modal('hide');
+									alert('Пароль успешно обновлен');
+									location.reload();
+								} else {
+									alert('Ошибка: '+info);
+								}
+							}
+						);
+					} else {
+						alert('Неверно введен Пароль '+info);
+					}
+
 				}
 			);
+		}
+	});
 
-			$('#change_account_pass_form').modal('hide');
-			alert('Логин изменен успешно');
-		} else { $('#error_params').prop('hidden',false); };
+	$("#old_pass").mouseenter (function(){
+		$('#old_pass').removeClass('error-pointer');
+		$('#old_pass').popover('hide');
+	});
+
+	$("#new_pass").mouseenter (function(){
+		$('#new_pass').removeClass('error-pointer');
+		$('#new_pass').popover('hide');
+		$('#error_params').prop('hidden',true);
+	});
+
+	$("#repeat_pass").mouseenter (function(){
+		$('#repeat_pass').removeClass('error-pointer');
+		$('#repeat_pass').popover('hide');
+		$('#error_params').prop('hidden',true);
 	});
 </script>
