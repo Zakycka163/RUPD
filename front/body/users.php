@@ -1,12 +1,5 @@
-<?php
-	if (isset($_GET["id"])){
-		$current_obj = $_GET["id"];
-		require_once ($_SERVER['DOCUMENT_ROOT']."/back/body/user.php");
-		exit();
-	};
-?>
 <div class="form-group">
-	<h4 id="page_title">Аккаунты</h3>
+	<h4 id="page_title">Список аккаунтов</h3>
 </div>
 <div class="form-group">
 	<input class="btn btn-success btn-sm" onclick="location.href='../pages/sign_up.php'" type="button" value="Добавить">

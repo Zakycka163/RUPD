@@ -21,12 +21,13 @@
 	close();
 ?>
 
+<link href="../front/css/pointer.css" rel="stylesheet" type="text/css">
 <div class="form-group">
 	<h4 id="page_title"><?php echo $page_title; ?></h3>
 </div>
 <div class="form-group">
 	<div class="btn-group btn-group-sm" role="group">
-		<input class="btn btn-success btn-mg" type="button" value="Сохранить">
+		<input class="btn btn-success btn-mg" type="button" id="save_teach_changes" value="Сохранить">
 	</div>
 </div>
 <table class="table table-borderless" style="width: 50rem">
@@ -67,9 +68,9 @@
 		<td class="align-middle">Логин</td>
 		<td>
 			<div class="input-group input-group-sm" style="right: 15px;">
-				<input class="form-control" type="text" id="login" value="<?php echo $login; ?>" disabled>
+				<input class="form-control" type="text" id="login" value="<?php echo $login; ?>" readonly>
 				<div class="input-group-append" <?php echo $grant_to_edit_account_name; ?> >
-					<button class="btn btn-outline-primary" type="button">Изменить</button>
+					<button class="btn btn-outline-primary" id="change_account_name" type="button">Изменить</button>
 				</div>
 			</div>
 		</td>
@@ -85,9 +86,9 @@
 		<td class="align-middle">Пароль</td>
 		<td>
 			<div class="input-group input-group-sm" style="right: 15px;">
-				<input class="form-control" type="text" id="pass" value="************" disabled>
+				<input class="form-control" type="text" id="pass" value="************" readonly>
 				<div class="input-group-append" <?php echo $grant_to_edit_account_name; ?> >
-					<button class="btn btn-outline-primary" type="button">Изменить</button>
+					<button class="btn btn-outline-primary" id="change_account_pass" type="button">Изменить</button>
 				</div>
 			</div>
 		</td>
@@ -95,9 +96,22 @@
 		<td></td>
 	</tr>
 </table>
-
+<?php 
+	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/account_name.php");		
+	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/account_pass.php");		
+?>
 <script>
 $(document).ready(function() {
-	
+	$("#change_account_name").click(function(){
+		$('#change_account_name_form').modal('show');
+	});
+
+	$("#change_account_pass").click(function(){
+		$('#change_account_pass_form').modal('show');
+	});
+
+	$("#save_teach_changes").click(function(){
+		
+	});
 });
 </script>

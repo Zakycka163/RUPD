@@ -18,55 +18,72 @@
 					<tr>
 						<td class="align-middle">Новый логин</td>
 						<td id="new_name_column">
-							<input lang="en" type="login" name="login" id="new_name" minlength="4" maxlength="16" class="form-control form-control-sm">
+							<input type="login" name="login" id="new_name" minlength="4" maxlength="16" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! от 4 до 16 символов">
 						</td>
 					</tr>
 					<tr>
 						<td class="align-middle">Пароль</td>
 						<td id="pass_column">
-							<input type="password" name="password" id="pass_val" minlength="4" maxlength="32" class="form-control form-control-sm">
+							<input type="password" name="password" id="pass_val" minlength="4" maxlength="32" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! от 4 до 32 символов">
 						</td>
 					</tr>
 				</table>
-				<div class="alert alert-danger alert-sm" role="alert" id="error_params" hidden>
-                    Все поля должны быть заполнены! 
-                </div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-sm btn-primary " id="save_changes">Сохранить</button>
+				<button type="button" class="btn btn-sm btn-primary " id="save_name_changes">Сохранить</button>
 				<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Закрыть</button>
 			</div>
 		</div>
 	</div>
 </div>
 <script>
-	$("#save_changes").click(function(){
-		$('#error_params').prop('hidden',true);
-		var new_name = $("#new_name").val();
-		var pass_val = $("#pass_val").val();
-		
-		if ( (new_name !== null) && (pass_val !== null) ) {
+	$("#save_name_changes").click(function(){
+		let new_name = $("#new_name").val();
+		let pass_val = $("#pass_val").val();
+
+		if (new_name == '' || new_name.length < 4) {
+			$('#new_name').addClass('error-pointer');
+			$('#new_name').popover('show');
+		} else if (pass_val == '' || new_name.length < 4) {
+			$('#pass_val').addClass('error-pointer');
+			$('#pass_val').popover('show');
+		} else {
 			$.post(
-			 	"../back/security/login.php", 
-			 	{functionname: 'pass_validate', pass: pass_val}, 
+			 	"../back/switch_functions.php", 
+				 {functionname: 'pass_validate', acc_id: <?php echo $_GET["id"];?>
+											   , password: pass_val}, 
 			 	function(info){
 					if (info == '1'){
-						alert('Логин изменен успешно');
+						$.post(
+							"../back/switch_functions.php", 
+							{functionname: 'update_account_name', acc_id: <?php echo $_GET["id"];?>
+																, account_name: new_name}, 
+							function(info){
+								if (info == '1'){
+									$('#change_account_name_form').modal('hide');
+									alert('Логин успешно обнавлен');
+									location.reload();
+								} else {
+									alert('Ошибка: '+info);
+								}
+							}
+						);
+					} else {
+						alert('Неверно введен Пароль '+info);
 					}
+
 				}
 			);
-
-			// $('#change_account_name_form').modal('hide');
-			// alert('Логин изменен успешно2');
-		} else { $('#error_params').prop('hidden',false); }
-
+		}
 	});
 
 	$("#new_name_column").mouseenter (function(){
-		$('#error_params').prop('hidden',true);
+		$('#new_name').removeClass('error-pointer');
+		$('#new_name').popover('hide');
 	});
 
 	$("#pass_column").mouseenter (function(){
-		$('#error_params').prop('hidden',true);
+		$('#pass_val').removeClass('error-pointer');
+		$('#pass_val').popover('hide');
 	});
 </script>
