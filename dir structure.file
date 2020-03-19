@@ -10,6 +10,7 @@ RUPD
             -register.php
             -validator.php
         -base.php
+        -editing_users.php          -> (new)
         -mandatoryBlock.php
         -phpWordUse.php
         -reader.php
