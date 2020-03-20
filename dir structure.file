@@ -43,6 +43,7 @@ RUPD
             -rup.php
             -account_name.php       -> (new)
             -account_pass.php       -> (new)
+            -loader_form.php        -> (new)
         \css
             -background.css
             -background2.css
