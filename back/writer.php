@@ -18,8 +18,8 @@
 			$highestColumn++;
 	
 			for ($row = 2; $row <= $highestRow; ++$row) {
-				$sql_insert = "INSERT INTO `teachers` (`second_name`, `first_name`, `middle_name`, `email`, `academic_rank_id`, `academic_degree_id`) VALUES (";
-				$sql_insert2 = "INSERT INTO `teacher_positions` (`position_id`, `teacher_id`, `main_position`) VALUES (";
+				$teachers_insert = "INSERT INTO `teachers` (`second_name`, `first_name`, `middle_name`, `email`, `academic_rank_id`, `academic_degree_id`) VALUES (";
+				$teacher_positions_insert = "INSERT INTO `teacher_positions` (`position_id`, `teacher_id`, `main_position`) VALUES (";
 				
 				unset($teacher_info);
 				$teacher_info = array('1');
@@ -29,9 +29,9 @@
 	
 					if (($col == 'A') or ($col == 'B') or ($col == 'C')) {
 						$teacher_info[] = ''.$value.'';
-						$sql_insert .= "'".$value."', ";
+						$teachers_insert .= "'".$value."', ";
 					} elseif ($col == 'D') {
-						$sql_insert .= "'".$value."', ";
+						$teachers_insert .= "'".$value."', ";
 					} elseif ($col == 'E') {
 						connect();
 						global $link;
@@ -39,28 +39,28 @@
 													   FROM 	academic_ranks 
 													   WHERE 	UPPER(full_name) = UPPER('".$value."')");
 						if (mysqli_num_rows($result) == 0) {
-							$sql_insert .= "null, ";
+							$teachers_insert .= "null, ";
 						} else {
 							while($p1 = mysqli_fetch_array($result)) {
-								$sql_insert .= "'".$p1[0]."', ";  
+								$teachers_insert .= "'".$p1[0]."', ";  
 							}
 						}
 						close();
-					} elseif ($col == 'F') {
+					} elseif ($col == 'G') {
 						connect();
 						global $link;
 						$result = mysqli_query($link, "SELECT 	MAX(academic_degree_id)
 													   FROM 	academic_degrees 
 													   WHERE 	UPPER(short_name) = UPPER('".$value."')");
 						if (mysqli_num_rows($result) == 0) {
-							$sql_insert .= "null";
+							$teachers_insert .= "null";
 						} else {
 							while($p1 = mysqli_fetch_array($result)) {
-								$sql_insert .= "'".$p1[0]."'"; 
+								$teachers_insert .= "'".$p1[0]."'"; 
 							}
 						}
 						close();
-					} elseif ($col == 'G') {
+					} elseif ($col == 'F') {
 						connect();
 						global $link;
 						/*SELECT 
@@ -78,29 +78,29 @@
 													   FROM 	positions 
 													   WHERE 	`name` = '".$value."'");
 						if (mysqli_num_rows($result) == 0) {
-							mysqli_query($link, "INSERT INTO `positions` (`name`) VALUES ('".$value."')");
+							mysqli_query($link, "INSERT INTO positions (`name`) VALUES ('".$value."')");
 							$result = mysqli_query($link, "SELECT 	MAX(position_id)
 														   FROM 	positions 
 														   WHERE 	`name` = '".$value."'");
 						}
 						if (mysqli_num_rows($result) == 0) {
-							$sql_insert2 .= "null, ";
+							$teacher_positions_insert .= "null, ";
 						} else {
 							while($p1 = mysqli_fetch_array($result)) {
-								$sql_insert2 .= "'".$p1[0]."', "; 
+								$teacher_positions_insert .= "'".$p1[0]."', "; 
 							}
 						}
 						close();
 					}
 				}
-				$sql_insert .= ')'.PHP_EOL;
+				$teachers_insert .= ')'.PHP_EOL;
 				connect();
 				global $link;
-				#echo $sql_insert;
-				mysqli_query($link, $sql_insert);
+				#echo $teachers_insert;
+				mysqli_query($link, $teachers_insert);
 				if ($link->error) {
 					try {   
-						throw new Exception("MySQL error $link->error <br> Query:<br> $sql_insert", $link->errno);   
+						throw new Exception("MySQL error $link->error <br> Query:<br> $teachers_insert", $link->errno);   
 					} catch(Exception $e ) {
 						echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
 						echo nl2br($e->getTraceAsString());
@@ -115,18 +115,18 @@
 											   		AND first_name  = '".$teacher_info[2]."' 
 													AND middle_name = '".$teacher_info[3]."'");
 				if (mysqli_num_rows($result) == 0) {
-					$sql_insert2 .= "null, ";
+					$teacher_positions_insert .= "null, ";
 				} else {
 					while($p1 = mysqli_fetch_array($result)) {
-						$sql_insert2 .= "'".$p1[0]."', ";  
+						$teacher_positions_insert .= "'".$p1[0]."', ";  
 					}
 				}
-				$sql_insert2 .= '1)'.PHP_EOL;
-				#echo $sql_insert2;
-				mysqli_query($link, $sql_insert2);
+				$teacher_positions_insert .= '1)'.PHP_EOL;
+				#echo $teacher_positions_insert;
+				mysqli_query($link, $teacher_positions_insert);
 				if ($link->error) {
 					try {   
-						throw new Exception("MySQL error $link->error <br> Query:<br> $sql_insert2", $link->errno);   
+						throw new Exception("MySQL error $link->error <br> Query:<br> $teacher_positions_insert", $link->errno);   
 					} catch(Exception $e ) {
 						echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
 						echo nl2br($e->getTraceAsString());
