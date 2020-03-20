@@ -23,7 +23,28 @@
 		$highestColumn = $maxColumn; // e.g 'F'
 		$highestColumn++;
 
-		echo 	'<div class="form-group">
+		echo 	'<div class="alert alert-warning" id="alert_presenter">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<strong>Внимательно проверь данные!</strong>
+					Затем сохрани данные на сервере!
+				</div>
+				<div class="alert alert-success" id="success_presenter" hidden>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<strong>Успех!</strong>
+					Данные загружены и сохранены
+				</div>
+				<div class="alert alert-danger" id="error_presenter" hidden>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<strong>Возникла ошибка!</strong>
+					<div id="text_error">Устраните ее и попробуйте снова</div>
+				</div>
+				<div class="form-group">
 					<input class="btn btn-success" type="button" id="save" value="Сохранить в системе">
 					<input class="btn btn-danger" type="button" id="cancel" value="Отмена">
 				</div>' . "\n";

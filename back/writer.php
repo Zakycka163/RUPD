@@ -1,5 +1,6 @@
 <?php 
 	require_once ($_SERVER['DOCUMENT_ROOT']."/vendor/autoload.php");
+	require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
 
 	$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 	$reader->setReadDataOnly(TRUE);
@@ -97,6 +98,17 @@
 				global $link;
 				#echo $sql_insert;
 				mysqli_query($link, $sql_insert);
+				if ($link->error) {
+					try {   
+						throw new Exception("MySQL error $link->error <br> Query:<br> $sql_insert", $link->errno);   
+					} catch(Exception $e ) {
+						echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
+						echo nl2br($e->getTraceAsString());
+					}
+				} else {
+					echo '';
+				}
+
 				$result = mysqli_query($link, "SELECT 	MAX(teacher_id)
 											   FROM 	teachers 
 											   WHERE 	second_name = '".$teacher_info[1]."' 
@@ -112,9 +124,18 @@
 				$sql_insert2 .= '1)'.PHP_EOL;
 				#echo $sql_insert2;
 				mysqli_query($link, $sql_insert2);
+				if ($link->error) {
+					try {   
+						throw new Exception("MySQL error $link->error <br> Query:<br> $sql_insert2", $link->errno);   
+					} catch(Exception $e ) {
+						echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
+						echo nl2br($e->getTraceAsString());
+					}
+				} else {
+					echo '';
+				}
 				close();
 			}
-			echo 'Файл "Преподаватели" успешно сохранен в систму';
 			break;
 
 		case "disciplines":	
@@ -201,7 +222,6 @@
 				#echo $sql_insert;
 				mysqli_query($link, $sql_insert);
 			}
-			echo 'Файл "Дисциплины" успешно сохранен в систму';
 			break;
 
 		case "profstandards_otf_tf_activities":
@@ -381,7 +401,6 @@
 				mysqli_query($link, $sql_insert4_3);
 				close();
 			}
-			echo 'Файл "Направления" успешно сохранен в систму';
 			break;
 
 		case "courses_fgos_profstandards":	
@@ -450,7 +469,6 @@
 				mysqli_query($link, $sql_insert3);
 				close();
 			}
-			echo 'Файл "Трудовые функции" успешно сохранен в систму';
 		break;
 	}	
 ?> 
