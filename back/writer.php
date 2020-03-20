@@ -38,12 +38,13 @@
 						$result = mysqli_query($link, "SELECT 	MAX(academic_rank_id)
 													   FROM 	academic_ranks 
 													   WHERE 	UPPER(full_name) = UPPER('".$value."')");
-						if (mysqli_num_rows($result) == 0) {
-							$teachers_insert .= "null, ";
-						} else {
-							while($p1 = mysqli_fetch_array($result)) {
-								$teachers_insert .= "'".$p1[0]."', ";  
+						while($p1 = mysqli_fetch_array($result)) {
+							if ($p1[0] == '') {
+								$teachers_insert .= "null, ";
+							} else {
+								$teachers_insert .= "'".$p1[0]."', ";
 							}
+							 
 						}
 						close();
 					} elseif ($col == 'G') {
@@ -52,17 +53,15 @@
 						$result = mysqli_query($link, "SELECT 	MAX(academic_degree_id)
 													   FROM 	academic_degrees 
 													   WHERE 	UPPER(short_name) = UPPER('".$value."')");
-						if (mysqli_num_rows($result) == 0) {
-							$teachers_insert .= "null";
-						} else {
-							while($p1 = mysqli_fetch_array($result)) {
+						while($p1 = mysqli_fetch_array($result)) {
+							if ($p1[0] == '') {
+								$teachers_insert .= "null";
+							} else {
 								$teachers_insert .= "'".$p1[0]."'"; 
 							}
 						}
 						close();
 					} elseif ($col == 'F') {
-						connect();
-						global $link;
 						/*SELECT 
 							TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(parse.value, ',', NS.n), ',', -1)) as pos_values
 						FROM
@@ -74,19 +73,22 @@
 						INNER JOIN 
 							(SELECT 'старший преподаватель, доцент, ведущий научный сотрудник' as value FROM DUAL) parse
 						ON NS.n <= CHAR_LENGTH(parse.value) - CHAR_LENGTH(REPLACE((parse.value),',',''))+1*/
+						connect();
+						global $link;
 						$result = mysqli_query($link, "SELECT 	MAX(position_id)
 													   FROM 	positions 
 													   WHERE 	`name` = '".$value."'");
-						if (mysqli_num_rows($result) == 0) {
-							mysqli_query($link, "INSERT INTO positions (`name`) VALUES ('".$value."')");
-							$result = mysqli_query($link, "SELECT 	MAX(position_id)
-														   FROM 	positions 
-														   WHERE 	`name` = '".$value."'");
-						}
-						if (mysqli_num_rows($result) == 0) {
-							$teacher_positions_insert .= "null, ";
-						} else {
-							while($p1 = mysqli_fetch_array($result)) {
+
+						while($p1 = mysqli_fetch_array($result)) {
+							if ($p1[0] == '') {
+								mysqli_query($link, "INSERT INTO positions (`name`) VALUES ('".$value."')");
+								$result = mysqli_query($link, "SELECT 	MAX(position_id)
+														   	   FROM 	positions 
+															   WHERE 	`name` = '".$value."'");
+								while($p2 = mysqli_fetch_array($result)) {
+									$teacher_positions_insert .= "'".$p2[0]."', "; 
+								}
+							} else {
 								$teacher_positions_insert .= "'".$p1[0]."', "; 
 							}
 						}
@@ -96,7 +98,6 @@
 				$teachers_insert .= ')'.PHP_EOL;
 				connect();
 				global $link;
-				#echo $teachers_insert;
 				mysqli_query($link, $teachers_insert);
 				if ($link->error) {
 					try {   
@@ -121,8 +122,8 @@
 						$teacher_positions_insert .= "'".$p1[0]."', ";  
 					}
 				}
+				
 				$teacher_positions_insert .= '1)'.PHP_EOL;
-				#echo $teacher_positions_insert;
 				mysqli_query($link, $teacher_positions_insert);
 				if ($link->error) {
 					try {   

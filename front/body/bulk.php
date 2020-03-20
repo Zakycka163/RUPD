@@ -81,7 +81,7 @@
 				"../back/writer.php", 
 				{file_type: file_type_on_server, uploadfile: file_on_server}, 
 				function(info){
-					if (info == "") {
+					if (info == " ") {
                         $('#success_presenter').prop('hidden', false);
                         $('#loader_form').modal('hide');
                         $('#cancel').prop('hidden', false);
@@ -91,7 +91,6 @@
                         $('#cancel').prop('hidden', false);
                         $('#loader_form').modal('hide');
                         $('#text_error').text(info);
-						alert(info);
 					}
 				}
 			);

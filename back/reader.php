@@ -46,7 +46,7 @@
 				</div>
 				<div class="form-group">
 					<input class="btn btn-success" type="button" id="save" value="Сохранить в системе">
-					<input class="btn btn-danger" type="button" id="cancel" value="Отмена">
+					<input class="btn btn-danger" type="button" id="cancel" value="Вернуться">
 				</div>' . "\n";
 		echo '<table class="table table-bordered table-striped">' . "\n";
 		echo '<thead>' . "\n";
