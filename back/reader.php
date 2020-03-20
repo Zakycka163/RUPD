@@ -12,11 +12,11 @@
 		
 		if ($file_type =='teachers') {
 			$maxColumn = 'G';
-		} elseif ($file_type =='disciplines') {
+		} else if ($file_type =='disciplines') {
 			$maxColumn = 'G';
-		} elseif ($file_type =='courses_fgos_profstandards') {
+		} else if ($file_type =='courses_fgos_profstandards') {
 			$maxColumn = 'M';
-		} elseif ($file_type =='profstandards_otf_tf_activities') {
+		} else if ($file_type =='profstandards_otf_tf_activities') {
 			$maxColumn = 'L';
 		}
 
@@ -45,10 +45,10 @@
 					<div id="text_error">Устраните ее и попробуйте снова</div>
 				</div>
 				<div class="form-group">
-					<input class="btn btn-success" type="button" id="save" value="Сохранить в системе">
-					<input class="btn btn-danger" type="button" id="cancel" value="Вернуться">
+					<input class="btn btn-success btn-sm" type="button" id="save" value="Сохранить в системе">
+					<input class="btn btn-danger btn-sm" type="button" id="cancel" value="Вернуться">
 				</div>' . "\n";
-		echo '<table class="table table-bordered table-striped">' . "\n";
+		echo '<table class="table table-bordered table-striped table-sm">' . "\n";
 		echo '<thead>' . "\n";
 		for ($row = 1; $row <= 1; ++$row) {
 			echo '<tr>' . PHP_EOL;
