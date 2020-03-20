@@ -9,8 +9,8 @@ SELECT    tech.teacher_id
 		, tech.email
 		, deg.full_name as deg_name
 		, ac_rank.full_name as ac_rank_name
-		, pos.name
-		, acc.login
+		, pos.name as position
+		, acc.login as account
 FROM  `academic_degrees` deg
 	, `academic_ranks` ac_rank
 	, `teachers` tech

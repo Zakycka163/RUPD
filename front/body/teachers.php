@@ -6,7 +6,7 @@
 		<div class="form-group">
 			<input class="btn btn-success btn-sm" type="button" id="create_teacher" value="Добавить">
 		</div>
-		<table class="table table-bordered table-striped">
+		<table class="table table-bordered table-striped table-sm">
 			<thead>
 				<tr>
 					<th scope="col" style="width: 2rem">№</th>
