@@ -24,6 +24,9 @@
 			$result = mysqli_query($link, $sql);
 			$limit = mysqli_fetch_array($result);
 			$counter = 0;
+			$sql_count = "select count(*) FROM users_presenter";
+			$sql_count_result = mysqli_query($link, $sql_count);
+			$count_obj = mysqli_fetch_array($sql_count_result);
 			$sql = "select * from users_presenter
 					LIMIT ".$limit[0]."";
 			$result = mysqli_query($link, $sql);
@@ -49,7 +52,7 @@
 </table>
 <nav>
 	<ul class="pagination pagination-sm">
-		<?php if (isset($_GET["limit"])){
+		<?php if ($count_obj < $limit){
 		
 		} else {
 			echo '

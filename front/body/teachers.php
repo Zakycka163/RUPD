@@ -26,18 +26,23 @@
 					$result = mysqli_query($link, $sql);
 					$limit = mysqli_fetch_array($result);
 					$counter = 0;
+
+					$sql_count = "select count(*) FROM teachers_presenter";
+					$sql_count_result = mysqli_query($link, $sql_count);
+					$count_obj = mysqli_fetch_array($sql_count_result);
+
 					$sql = "select * FROM teachers_presenter
 							LIMIT ".$limit[0]."";
 					$result = mysqli_query($link, $sql);
 					while($row = mysqli_fetch_array($result)){
 						$counter++;
 						echo '<tr>'. "\n" . '<td>'.$counter .'</td>'."\n";
-						echo '<td> <a href="?page=teachers&id='.$row[0].'">'.$row[1].' '.$row[2].' '.$row[3].'</a></td>'. "\n";
+						echo '<td><a href="/pages/users.php?id='.$row[0].'">'.$row[1].' '.$row[2].' '.$row[3].'</a></td>'. "\n";
 						echo '<td>'.$row[4].'</td>'. "\n";
 						echo '<td>'.$row[5].'</td>'. "\n";
 						echo '<td>'.$row[6].'</td>'. "\n";
 						echo '<td>'.$row[7].'</td>'. "\n";
-						echo '<td>'.$row[8].'</td>'. "\n";
+						echo '<td><a href="/pages/users.php?id='.$row[0].'">'.$row[8].'</a></td>'. "\n";
 						echo '</tr>'. "\n";
 					};
 					close();
@@ -46,7 +51,7 @@
 		</table>
 		<nav>
 			<ul class="pagination pagination-sm">
-				<?php if (isset($_GET["limit"])){
+				<?php if ($count_obj < $limit){
 				
 				} else {
 					echo '
