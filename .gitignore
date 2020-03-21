@@ -9,3 +9,6 @@
 
 #Документы с сервера
 Documents/bulk/
+
+#Документы (мусор)
+newDBmodel/*.xlsx
