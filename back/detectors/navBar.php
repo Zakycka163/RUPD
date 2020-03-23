@@ -22,7 +22,7 @@
 			}
 		?>      
 		<li class="nav-item">
-			<button class="btn btn-light" type="button" onclick="window.location.href='../pages/about.php'">О системе</button>
+			<button class="btn btn-light" type="button" onclick="window.location.href='/pages/about.php'">О системе</button>
 		</li>
 	</ul>
 	<?php 		

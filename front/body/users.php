@@ -2,7 +2,7 @@
 	<h4 id="page_title">Список аккаунтов</h3>
 </div>
 <div class="form-group">
-	<input class="btn btn-success btn-sm" onclick="location.href='../pages/sign_up.php'" type="button" value="Добавить">
+	<input class="btn btn-success btn-sm" onclick="location.href='/pages/control/create_user.php'" type="button" value="Добавить">
 </div>
 <table class="table table-bordered table-striped table-sm">
 	<thead>

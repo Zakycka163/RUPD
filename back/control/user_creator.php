@@ -2,6 +2,7 @@
     $text1 = '';
     $text2 = '';
     $type = '';
+    $hid = 'hidden';
     if(isset($_POST['submit'])){
         $err = "";
         
@@ -41,17 +42,19 @@
             $text1 = "Успешно! ";
             $text2 = "Пользователь ".$login." создан";
             $type = "alert alert-success alert-dismissible";
+            $hid = "";
         } else { 
             $text1 = "Ошибка! ";
             $text2 = $err;
             $type = "alert alert-danger alert-dismissible";
+            $hid = "";
         }
         unset($_POST);
         close();
     }
 ?>
 
-<div class='<?php echo $type; ?>' role="alert">
+<div class='<?php echo $type; ?>' role="alert" <?php echo $hid; ?>>
     <button type="button" class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
     <strong><?php echo $text1; ?></strong><?php echo $text2; ?>
 </div>
