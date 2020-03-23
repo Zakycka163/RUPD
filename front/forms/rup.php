@@ -72,7 +72,7 @@
 
 		if ((document_name !== '') && (document_name !== null)){
 			$.post(
-				"../back/phpWordUse.php", 
+				"/back/phpWordUse.php", 
 				{functionname: 'fill_parameters', pulpit: pulpit_value
 												, discipline: discipline_value
 												, course: course_value

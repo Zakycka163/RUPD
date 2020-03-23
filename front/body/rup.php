@@ -273,13 +273,13 @@ $(document).ready(function() {
 		} else {
 			$('#input_discipline').prop('disabled', false);
 			$.post(
-				"../back/switch_functions.php", 
+				"/back/switch_functions.php", 
 				{functionname: 'get_discipline_list', param: pulpit_value}, 
 				function(info){$('#input_discipline').html(info);}
 			);
 		}
 		$.post(
-			"../back/switch_functions.php", 
+			"/back/switch_functions.php", 
 			{functionname: 'get_institute', param: pulpit_value}, 
 			function(info){$('#info_institute').text(info);}
 		);
@@ -288,7 +288,7 @@ $(document).ready(function() {
 	$("#input_discipline").change(function() {	
 		var discipline_value = $("#input_discipline").val();
 		$.post(
-			"../back/switch_functions.php", 
+			"/back/switch_functions.php", 
 			{functionname: 'get_part', param: discipline_value}, 
 			function(info){$('#info_part').text(info+' части');}
 		);
@@ -306,12 +306,12 @@ $(document).ready(function() {
 		} else {
 			$('#input_profile').prop('disabled', false);	
 			$.post(
-				"../back/switch_functions.php", 
+				"/back/switch_functions.php", 
 				{functionname: 'get_profile_list', param: course_value}, 
 				function(info){$('#input_profile').html(info);}
 			);
 			$.post(
-				"../back/switch_functions.php", 
+				"/back/switch_functions.php", 
 				{functionname: 'get_fgos_id', param: course_value}, 
 				function(info){
 					if ((info !== null) && (info !== '')){
@@ -339,7 +339,7 @@ $(document).ready(function() {
 				}
 			);
 			$.post(
-				"../back/switch_functions.php", 
+				"/back/switch_functions.php", 
 				{functionname: 'get_fgos_info', param: course_value}, 
 				function(info){
 					if (info === ''){
@@ -360,7 +360,7 @@ $(document).ready(function() {
 			$('#get_course').prop('hidden',false);
 			var course_value = $("#input_course").val();
 			$.post(
-				"../back/switch_functions.php", 
+				"/back/switch_functions.php", 
 				{functionname: 'get_course_list', param: course_value}, 
 				function(info){$('#get_course').prop('value', info);}
 			);
@@ -518,7 +518,7 @@ $(document).ready(function() {
 	
 	function get_list_options(fun_name, input_param, element_id) {
 		$.post(
-			"../back/switch_functions.php", 
+			"/back/switch_functions.php", 
 			{functionname: fun_name, param: input_param}, 
 			function(info){
 				if ((info !== null) && (info !== '')){

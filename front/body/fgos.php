@@ -84,7 +84,7 @@
 <script>
 	$("#create_fgos_button").click(function(){
 		$.post(
-			"../back/switch_functions.php", 
+			"/back/switch_functions.php", 
 			{functionname: 'get_course_list'}, 
 			function(info){
 				$('#empty_course').html(info);

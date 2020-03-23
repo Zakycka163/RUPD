@@ -78,7 +78,7 @@
             $('#cancel').prop('hidden', true);
             $('#alert_presenter').prop('hidden', true);
 			$.post(
-				"../back/writer.php", 
+				"/back/writer.php", 
 				{file_type: file_type_on_server, uploadfile: file_on_server}, 
 				function(info){
 					if (info == " ") {

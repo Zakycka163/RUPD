@@ -72,7 +72,7 @@
 					var fgos_number = $("#input_number").val();
 					var fgos_reg_number = $("#reg_number").val();
 					$.post(
-						"../back/switch_functions.php", 
+						"/back/switch_functions.php", 
 						{functionname: 'create_fgos', course: get_course_id
 													, date: fgos_date
 													, number: fgos_number
@@ -85,12 +85,12 @@
 					
 					var course_value = $("#input_course").val();
 					$.post(
-						"../back/switch_functions.php", 
+						"/back/switch_functions.php", 
 						{functionname: 'get_fgos_id', param: course_value}, 
 						function(info){
 							$('#info_fgos_id').text(info); 
 							$.post(
-								"../back/switch_functions.php", 
+								"/back/switch_functions.php", 
 								{functionname: 'get_prof_stand', param: info}, 
 								function(info1){
 									if (info1 !== null){
@@ -102,7 +102,7 @@
 						}
 					);
 					$.post(
-						"../back/switch_functions.php", 
+						"/back/switch_functions.php", 
 						{functionname: 'get_fgos_info', param: course_value}, 
 						function(info){
 								$('#div_create_info_fgos').prop('hidden',true);

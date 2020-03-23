@@ -123,7 +123,7 @@ $(document).ready(function() {
 			$('#first_name').popover('show');
 		} else {
 			$.post(
-			 	"../back/editing_users.php", 
+			 	"/back/editing_users.php", 
 				{functionname: 'update_teach_name', acc_id: <?php echo $_GET["id"];?>
 												  , second_name: second_name
 												  , first_name: first_name
