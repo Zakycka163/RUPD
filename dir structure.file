@@ -61,9 +61,6 @@ RUPD
             -PVGUS_4_2.jpg
             -pvgus_ico2.jpg
         \navigation
-            \buttons
-                -exit.php
-                -sign_in.php
             -navBarAdm.php
             -navBarTeach.php
         -footer.php

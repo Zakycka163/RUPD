@@ -1,7 +1,7 @@
 <nav class="navbar bg-light">
 	<ul class="nav nav-pills">
         <li class="nav-item" style="higth: 1rem">
-			<a class="nav-link active" href="/index.php">Главная</a>
+			<a class="nav-link active" href="/">Главная</a>
 		</li>
         <?php 
 			require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
@@ -27,10 +27,25 @@
 	</ul>
 	<?php 		
 		if(!empty($_SESSION["id"])){
-			require_once ($_SERVER['DOCUMENT_ROOT']."/front/navigation/buttons/exit.php");
-		} else {
-			require_once ($_SERVER['DOCUMENT_ROOT']."/front/navigation/buttons/sign_in.php");
-		}
-	?>
+			connect();
+			$id=$_SESSION["id"];
+			$first_name = mysqli_query($link, "SELECT name.first_name FROM accounts as acc, teachers as name WHERE acc.account_id='".$id."' and acc.teacher_id=name.teacher_id");
+			$second_name = mysqli_query($link, "SELECT name.second_name FROM accounts as acc, teachers as name WHERE acc.account_id='".$id."' and acc.teacher_id=name.teacher_id");
+			$first=implode(mysqli_fetch_assoc($first_name));
+			$second=implode(mysqli_fetch_assoc($second_name));
+			close();
+	?>	
+			<form class="form-inline">
+				<a href="../pages/users.php?id=<?php echo($id);?>" title="Личный кабинет">
+					<?php print("".$first." ".$second."". "\n")?>
+				</a>
+				<p class="text-light">....</p>
+				<input class="btn btn-danger btn-mg" onclick="location.href='../pages/sign_in.php'" type="button" value="Выход">
+			</form>
+	<?php } else { ?>
+			<form class="form-inline">
+    			<input class="btn btn-success btn-mg" onclick="location.href='/pages/sign_in.php'" type="button" value="Войти">
+			</form>
+	<?php } ?>
 </nav>
 
