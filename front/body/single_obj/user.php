@@ -1,7 +1,8 @@
 <?php
 	connect();
 	global $link;
-	$sql = "select * from users_presenter
+	$sql = "SELECT * 
+			FROM users_presenter
 			WHERE account_id = ".$_GET["id"]."";
 	$result = mysqli_query($link, $sql);
 	while($row = mysqli_fetch_array($result)){
@@ -16,7 +17,9 @@
 			$admin = "";
 		}
 		$id=$_SESSION["id"];
-		$result = mysqli_query($link, "SELECT grant_id FROM accounts WHERE account_id='".$id."'");
+		$result = mysqli_query($link, "SELECT grant_id 
+									   FROM accounts 
+									   WHERE account_id='".$id."'");
 		$grant_session = implode(mysqli_fetch_assoc($result));	
 		if ($grant_session == 2){
 			$grant_to_edit_account_name = "";
@@ -26,8 +29,6 @@
 	};
 	close();
 ?>
-
-<link href="../front/css/pointer.css" rel="stylesheet" type="text/css">
 <div class="form-group">
 	<h4 id="page_title"><?php echo $page_title; ?></h4>
 </div>

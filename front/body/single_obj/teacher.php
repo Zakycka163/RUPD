@@ -21,7 +21,7 @@
 	close();
 ?>
 
-<link href="../front/css/pointer.css" rel="stylesheet" type="text/css">
+<link href="/front/css/pointer.css" rel="stylesheet" type="text/css">
 <div class="form-group">
 	<h4 id="page_title"><?php echo $page_title; ?></h4>
 </div>
