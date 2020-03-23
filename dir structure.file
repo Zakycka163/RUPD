@@ -25,6 +25,8 @@ RUPD
         -123_03-11-2019-02-28-17.docx
     \front
         \body
+            \single_obj                 -> (new)
+                -user.php               -> (moved from \back\body)
             -bulk.php
             -cards.php
             -competencies.php
@@ -36,7 +38,6 @@ RUPD
             -prof.php
             -rup.php
             -teachers.php
-            -user.php               -> (moved from \back\body)
             -users.php
         \forms                      -> (old name: creationForms)
             -fgos.php

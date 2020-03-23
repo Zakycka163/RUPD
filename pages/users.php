@@ -18,7 +18,7 @@
 				<?php
 					require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
 					if (isset($_GET["id"])){
-						require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/user.php");
+						require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/single_obj/user.php");
 					} else {
 						require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/users.php");
 					}
