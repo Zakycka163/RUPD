@@ -2,8 +2,8 @@
     <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Работа с документами</button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 		<h6 class="dropdown-header text-primary">РУП</h6>
-		<a class="dropdown-item" href="/pages/rup.php">Создать РУП</a>
-		<a class="dropdown-item" href="/pages/rups.php">Список РУП</a>
+		<a class="dropdown-item" href="/pages/doc/rup.php">Создать РУП</a>
+		<a class="dropdown-item" href="/pages/doc/rups.php">Список РУП</a>
 			<div class="dropdown-divider" hidden></div>
 		<h6 class="dropdown-header text-primary" hidden>Учебно-методическое пособие</h6>
 		<a class="dropdown-item" href="/pages/404.php" hidden>Создать УМП</a>
@@ -21,18 +21,18 @@
     </div>
 </li>
 <li class="nav-item">
-    <button class="btn btn-light" type="button" onclick="window.location.href='../pages/data.php'">Работа с данными</button>
+    <button class="btn btn-light" type="button" onclick="window.location.href='/pages/data.php'">Работа с данными</button>
 </li>
 <li class="nav-item dropdown">
     <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Управление</button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <h6 class="dropdown-header text-primary" hidden>Отчеты</h6>
-		<a class="dropdown-item" href="/pages/reports/report1.php" hidden>Выполненные</a>
+		<a class="dropdown-item" href="/pages/404.php" hidden>Выполненные</a>
         <a class="dropdown-item" href="/pages/404.php" hidden>Возвраты на доработку</a>
         <a class="dropdown-item" href="/pages/404.php" hidden>По видам</a>
             <div class="dropdown-divider" hidden></div>
         <h6 class="dropdown-header text-primary">Аккаунты</h6>
-        <a class="dropdown-item" href="/pages/sign_up.php">Создать</a>
-        <a class="dropdown-item" href="/pages/users.php">Список</a>
+        <a class="dropdown-item" href="/pages/control/create_user.php">Создать</a>
+        <a class="dropdown-item" href="/pages/control/users.php">Список</a>
     </div>
 </li>

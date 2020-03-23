@@ -3,12 +3,12 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Создание пользователя</title>
+        <title>Создание аккаунта</title>
 
         <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php"); ?>
         
-        <link href="../front/css/sign.css" rel="stylesheet" type="text/css">
-        <link href="../front/css/background.css" rel="stylesheet" type="text/css">
+        <link href="/front/css/sign.css" rel="stylesheet" type="text/css">
+        <link href="/front/css/background.css" rel="stylesheet" type="text/css">
         
         <style type="text/css">
             body {
@@ -40,24 +40,30 @@
 						
 						<?php 
 							require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
-                            options_present("SELECT teacher_id, CONCAT_WS(' ',second_name,CONCAT(LEFT(first_name,1),'.'),CONCAT(LEFT(middle_name,1),'.')) as teacher FROM teachers");
+                            options_present("SELECT teacher_id
+                                                  , CONCAT_WS(' ',second_name,CONCAT(LEFT(first_name,1),'.'),CONCAT(LEFT(middle_name,1),'.')) as teacher 
+                                             FROM teachers_presenter 
+                                             WHERE account is null 
+                                             ORDER BY teacher");
 						?>
 						
 					</select>
                 </div>
 				<br>
-                <div class="checkbox">
+                <div class="input-group checkbox" name="admin1">
                     <label>
-                        <input type="checkbox" name="admin" value=1> Права администратора
+                        <input type="checkbox" name="admin"> Права администратора
                     </label>
                 </div>            
                 <center>
                     <button class="btn btn-success" name="submit" type="submit">Создать</button>
-                    <a class="btn btn-danger" href="../pages/users.php">Вернуться</a>
+                    <a class="btn btn-danger" href="/pages/control/users.php">Вернуться</a>
                 </center>
             </form>
             
-			<?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/security/register.php"); ?> 
+            <?php 
+                require_once ($_SERVER['DOCUMENT_ROOT']."/back/control/user_creator.php"); 
+            ?> 
             
         </div>
     </body>

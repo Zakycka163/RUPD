@@ -36,11 +36,11 @@
 			close();
 	?>	
 			<form class="form-inline">
-				<a href="../pages/users.php?id=<?php echo($id);?>" title="Личный кабинет">
+				<a href="/pages/control/users.php?id=<?php echo($id);?>" title="Личный кабинет">
 					<?php print("".$first." ".$second."". "\n")?>
 				</a>
 				<p class="text-light">....</p>
-				<input class="btn btn-danger btn-mg" onclick="location.href='../pages/sign_in.php'" type="button" value="Выход">
+				<input class="btn btn-danger btn-mg" onclick="location.href='/pages/sign_in.php'" type="button" value="Выход">
 			</form>
 	<?php } else { ?>
 			<form class="form-inline">

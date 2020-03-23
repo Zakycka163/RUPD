@@ -8,21 +8,15 @@
 		$second_name = $row[3];
 		$first_name = $row[4];
 		$middle_name = $row[5];
+		$page_title = 'Преподаватель: '.$second_name.' '.$first_name.' '.$middle_name;
 		$login = $row[1];
-		$page_title = 'Аккаунт: '.$login;
-		if ($row[2] == 2){
+		if ($row[2] = 2){
 			$admin = "checked";
-		} else {
-			$admin = "";
-		}
-		$id=$_SESSION["id"];
-		$result = mysqli_query($link, "SELECT grant_id FROM accounts WHERE account_id='".$id."'");
-		$grant_session = implode(mysqli_fetch_assoc($result));	
-		if ($grant_session == 2){
 			$grant_to_edit_account_name = "";
 		} else {
+			$admin = "";
 			$grant_to_edit_account_name = "hidden";
-		}
+		}		
 	};
 	close();
 ?>

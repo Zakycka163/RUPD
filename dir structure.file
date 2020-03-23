@@ -1,14 +1,15 @@
 RUPD
     \back
+        \control
+            user_creator.php            -> (old name: register.php; moved from \back\security)
         \detectors
             -navBar.php
             -tasks.php
         \security
             -login.php
-            -register.php
             -validator.php
         -base.php
-        -editing_users.php          -> (new)
+        -editing_users.php              -> (new)
         -mandatoryBlock.php
         -phpWordUse.php
         -reader.php
@@ -27,6 +28,7 @@ RUPD
         \body
             \single_obj                 -> (new)
                 -user.php               -> (moved from \back\body)
+                -teacher.php            -> (new)
             -bulk.php
             -cards.php
             -competencies.php
@@ -39,12 +41,12 @@ RUPD
             -rup.php
             -teachers.php
             -users.php
-        \forms                      -> (old name: creationForms)
+        \forms                          -> (old name: creationForms)
             -fgos.php
             -rup.php
-            -account_name.php       -> (new)
-            -account_pass.php       -> (new)
-            -loader_form.php        -> (new)
+            -account_name.php           -> (new)
+            -account_pass.php           -> (new)
+            -loader_form.php            -> (new)
         \css
             -background.css
             -background2.css
@@ -71,14 +73,17 @@ RUPD
         -newModel.mwb
         -newModel.mwb.bak
     \pages
+        \control                        -> (new)
+            -create_user.php            -> (old name: sign_up.php; moved from \pages)
+            -users.php                  -> (moved from \pages)
+        \doc
+            -rup.php                    -> (moved from \pages)
+            -rups.php                   -> (moved from \pages)
         -404.php
         -about.php
         -data.php
-        -home.php                   -> (new)
-        -rup.php
-        -rups.php
+        -home.php                       -> (new)
         -sign_in.php
-        -sign_up.php
         -users.php
     \Templates
         \bulk_templates

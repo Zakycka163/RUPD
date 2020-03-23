@@ -2,8 +2,8 @@
     <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Работа с документами</button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 		<h6 class="dropdown-header text-primary">РУП</h6>
-		<a class="dropdown-item" href="/pages/rup.php">Создать РУП</a>
-		<a class="dropdown-item" href="#">Список РУП</a>
+		<a class="dropdown-item" href="/pages/doc/rup.php">Создать РУП</a>
+		<a class="dropdown-item" href="/pages/doc/rups.php">Список РУП</a>
 			<div class="dropdown-divider"></div>
 		<h6 class="dropdown-header text-primary">УМП</h6>
 		<a class="dropdown-item" href="/pages/ymr.php">Создать УМП</a>

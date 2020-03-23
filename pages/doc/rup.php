@@ -7,7 +7,7 @@
 
         <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php"); ?>
 		
-		<link href="../front/css/pointer.css" rel="stylesheet" type="text/css">
+		<link href="/front/css/pointer.css" rel="stylesheet" type="text/css">
         
     </head>
     <body>
