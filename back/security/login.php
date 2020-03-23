@@ -7,7 +7,7 @@
         if(mysqli_num_rows($query) == 1){
             session_start(); 
             $_SESSION["id"]=implode(mysqli_fetch_assoc($query));
-            header("Location: ../index.php"); 
+            header("Location: ../pages/home.php"); 
         } else {
 			require_once ($_SERVER['DOCUMENT_ROOT']."/front/dialogs/loginFail.php");
 		}

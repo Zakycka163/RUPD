@@ -74,6 +74,7 @@ RUPD
         -404.php
         -about.php
         -data.php
+        -home.php                   -> (new)
         -rup.php
         -rups.php
         -sign_in.php

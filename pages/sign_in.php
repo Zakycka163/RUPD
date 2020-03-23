@@ -37,7 +37,7 @@
                 <br>
                 <center>
                     <button class="btn btn-success" name="submit" type="submit">Вход</button>
-                    <a class="btn btn-danger" href="../index.php">Отмена</a>
+                    <a class="btn btn-danger" href="/pages/home.php">Отмена</a>
                 </center>
             </form>
             <?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/security/login.php"); ?> 
