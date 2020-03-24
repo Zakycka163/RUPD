@@ -26,20 +26,21 @@ RUPD
         -123_03-11-2019-02-28-17.docx
     \front
         \body
+            \data                       -> (new)
+                -bulk.php
+                -competencies.php
+                -courses.php
+                -disciplines.php
+                -fgos.php
+                -institutes.php
+                -otf.php
+                -prof.php
+                -teachers.php
             \single_obj                 -> (new)
                 -user.php               -> (moved from \back\body)
                 -teacher.php            -> (new)
-            -bulk.php
             -cards.php
-            -competencies.php
-            -courses.php
-            -disciplines.php
-            -fgos.php
-            -institutes.php
-            -otf.php
-            -prof.php
             -rup.php
-            -teachers.php
             -users.php
         \forms                          -> (old name: creationForms)
             -fgos.php
