@@ -47,7 +47,7 @@
 					echo '<td>'.$row[5].'</td>'. "\n";
 					echo '<td>'.$row[6].'</td>'. "\n";
 					echo '<td>'.$row[7].'</td>'. "\n";
-					echo '<td><a href="/pages/control/users.php?id='.$row[0].'">'.$row[8].'</a></td>'. "\n";
+					echo '<td><a href="/pages/control/users.php?id='.$row[8].'">'.$row[9].'</a></td>'. "\n";
 					echo '</tr>'. "\n";
 				};
 				close();
