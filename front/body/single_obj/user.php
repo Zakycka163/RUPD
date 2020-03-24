@@ -33,13 +33,12 @@
 	<h4 id="page_title"><?php echo $page_title; ?></h4>
 </div>
 <div class="form-group">
-	<div class="btn-group btn-group-sm" role="group">
-		<input class="btn btn-success btn-mg" type="button" id="save_teach_changes" value="Сохранить">
-	</div>
+	<a class="btn btn-warning btn-sm" href="javascript:history.go(-1)">Вернуться</a>
+	<input class="btn btn-success btn-sm" type="button" id="save_teach_changes" value="Сохранить">
 </div>
 <table class="table table-borderless" style="width: 50rem">
 	<tr>
-		<td class="align-middle" style="width: 7rem">Фамилия</td>
+		<td class="align-middle" style="width: 6rem">Фамилия</td>
 		<td>
 			<div class="input-group input-group-sm" style="right: 15px;">
 				<input class="form-control" type="text" id="second_name" value="<?php echo $second_name; ?>" maxlength="30" data-toggle="popover" data-placement="top" data-content="Не должно быть пустым!">
@@ -141,7 +140,6 @@ $(document).ready(function() {
 				}
 			);
 		}
-
 	});
 
 	$("#second_name").mouseenter (function(){

@@ -50,20 +50,18 @@
 					</select>
                 </div>
 				<br>
-                <div class="input-group checkbox" name="admin1">
+                <div class="input-group checkbox">
                     <label>
                         <input type="checkbox" name="admin"> Права администратора
                     </label>
                 </div>            
                 <center>
                     <button class="btn btn-success" name="submit" type="submit">Создать</button>
-                    <a class="btn btn-danger" href="/pages/control/users.php">Вернуться</a>
+                    <a class="btn btn-danger" href="javascript:history.go(-1)">Вернуться</a>
                 </center>
             </form>
             
-            <?php 
-                require_once ($_SERVER['DOCUMENT_ROOT']."/back/control/user_creator.php"); 
-            ?> 
+            <?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/control/user_creator.php"); ?> 
             
         </div>
     </body>
