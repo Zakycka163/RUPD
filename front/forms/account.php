@@ -45,7 +45,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<div class="input-group checkbox">
+							<div class="input-group checkbox" style="left: 7rem; top: 1rem;">
 								<label>
 									<input type="checkbox" id="admin"> Права администратора
 								</label>
@@ -55,19 +55,20 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-sm btn-primary" id="save_name_changes">Создать</button>
+				<button type="button" class="btn btn-sm btn-primary" id="create_new_acc">Создать</button>
 				<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Закрыть</button>
 			</div>
 		</div>
 	</div>
 </div>
 <script>
-	$("#save_name_changes").click(function(){
+	$("#create_new_acc").click(function(){
 		let name_acc = $("#name_acc").val();
 		let pass_val = $("#pass_val").val();
 		let teacher = $("#teacher").val();
-		let admin = $("#admin").val();
+		let admin = $("#admin:checked").val();  // if admin=="on" { }
 
+		alert(name_acc+' '+pass_val+' '+teacher+' '+admin);
 		if (name_acc == '' || name_acc.length < 4) {
 			$('#name_acc').addClass('error-pointer');
 			$('#name_acc').popover('show');
