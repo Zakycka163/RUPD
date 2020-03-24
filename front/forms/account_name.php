@@ -30,7 +30,7 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-sm btn-primary " id="save_name_changes">Сохранить</button>
+				<button type="button" class="btn btn-sm btn-primary" id="save_name_changes">Сохранить</button>
 				<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Закрыть</button>
 			</div>
 		</div>
