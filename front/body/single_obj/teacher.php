@@ -115,9 +115,13 @@
 		<tr>
 			<td class="align-middle">Аккаунт</td>
 			<td>
-				<div class="input-group input-group-sm" style="right: 15px;">
-					<a href="/pages/control/users.php?id=<?php echo $acc_id; ?>"><?php echo $acc_name; ?></a>
-				</div>
+				<?php if ($acc_id !== '') : ?>
+					<div class="input-group input-group-sm" style="right: 15px;">
+						<a href="/pages/control/users.php?id=<?php echo $acc_id; ?>"><?php echo $acc_name; ?></a>
+					</div>
+				<?php else : ?>
+					<input class="btn btn-success btn-sm" type="button" id="create_account" value="Создать">
+				<?php endif; ?>
 			</td>
 			<td class="align-middle"></td>
 			<td></td>
@@ -157,7 +161,6 @@ $(document).ready(function() {
 				}
 			);
 		}
-
 	});
 
 	$("#second_name").mouseenter (function(){
