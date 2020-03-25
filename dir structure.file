@@ -45,6 +45,7 @@ RUPD
         \forms                          -> (old name: creationForms)
             -fgos.php
             -rup.php
+            -create_teacher.php         -> (new)
             -create_account.php         -> (new)
             -edit_account_login.php     -> (new)
             -edit_account_pass.php      -> (new)
@@ -77,7 +78,6 @@ RUPD
         -newModel.mwb.bak
     \pages
         \control                        -> (new)
-            -create_user.php            -> (old name: sign_up.php; moved from \pages)
             -users.php                  -> (moved from \pages)
         \doc
             -rup.php                    -> (moved from \pages)
