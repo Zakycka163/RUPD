@@ -60,14 +60,14 @@
 			$('#error_params').prop('hidden',false);
 		} else {
 			$.post(
-			 	"/back/control/editing_users.php", 
+			 	"/back/control/db_accounts.php", 
 				 {functionname: 'pass_validate', acc_id: <?php echo $_GET["id"];?>
 											   , password: old_pass}, 
 			 	function(info){
 					if (info == '1'){
 						$.post(
-							"/back/control/editing_users.php", 
-							{functionname: 'update_account_pass', acc_id: <?php echo $_GET["id"];?>
+							"/back/control/db_accounts.php", 
+							{functionname: 'edit_acc_pass', acc_id: <?php echo $_GET["id"];?>
 																, account_pass: new_pass}, 
 							function(info){
 								if (info == '1'){

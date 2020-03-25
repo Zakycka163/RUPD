@@ -3,6 +3,48 @@
 
     switch($_POST["functionname"]){ 
 		
+		#-----------Создание аккаунта
+		case 'create_acc': 
+			$login = htmlspecialchars(trim($_POST['login']));
+			$password = htmlspecialchars(md5(md5(trim($_POST['password']))));
+			$teacher = $_POST['teacher_id'];
+			$admin = $_POST['grant'];
+
+			connect();
+			global $link;
+			$query = mysqli_query($link, "SELECT count(account_id)
+                                          FROM accounts 
+                                          WHERE teacher_id='".mysqli_real_escape_string($link, $teacher)."'");
+			while($count = mysqli_fetch_array($query)) {
+				if ($count[0] > 0) {
+					echo "Преподаватель уже имеет аккаунт. ";
+				}
+			}
+			$query = mysqli_query($link, "SELECT count(account_id)
+												FROM accounts
+												WHERE `login`='".mysqli_real_escape_string($link, $login)."'");
+			while($count = mysqli_fetch_array($query)) {
+				if ($count[0] > 0) {
+					echo 'Логин уже используется! Попробуйте ввести другой';
+				} else {
+					$query = "INSERT INTO accounts (`login`, `password`, teacher_id, grant_id) 
+							  values ('".$login."', '".$password."', '".$teacher."', '".$admin."')";
+								
+					if ($link->error) {
+						try {   
+							throw new Exception("MySQL error $link->error <br> Query:<br> $query", $link->errno);   
+						} catch(Exception $e ) {
+							echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
+							echo nl2br($e->getTraceAsString());
+						}
+					} else {
+						echo '1';
+					}
+				}
+			}
+			close();
+			break;
+
 		#-----------Проверка пароля
 		case 'pass_validate': 
 			connect();
@@ -26,8 +68,8 @@
 			close();
 			break;	
 
-		#-----------Обновления аккаунта
-		case 'update_account_name': 
+		#-----------Изменение аккаунта
+		case 'edit_acc_name': 
 			connect();
 			global $link;
 			mysqli_query($link, "UPDATE accounts 
@@ -47,7 +89,7 @@
 			close();
 			break;
 
-			case 'update_account_pass': 
+			case 'edit_acc_pass': 
 				connect();
 				global $link;
 				mysqli_query($link, "UPDATE accounts 
@@ -66,8 +108,8 @@
 				}
 				close();
 				break;
-
-		#-----------Обновления преподавателей
+		
+		#-----------Изменение преподавателя
 		case 'update_teach_name': 
 			connect();
 			global $link;
