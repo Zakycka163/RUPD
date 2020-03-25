@@ -95,7 +95,7 @@
 					} else {
 						$('#create_account_form').modal('hide');
 						alert('Аккаунт создан');
-						location.reload();
+						location.href='/pages/control/users.php';
 					}
 				}
 			);
@@ -103,7 +103,7 @@
 	});
 
 	$("#close").click(function(){
-		location.reload();
+		location.href='/pages/control/users.php';
 	});
 
 	$("#name_acc").mouseenter (function(){

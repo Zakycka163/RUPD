@@ -1,9 +1,9 @@
 <div class="form-group">
 	<h4 id="page_title">Список аккаунтов</h3>
 </div>
-<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/account.php"); ?> 
+<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_account.php"); ?> 
 <div class="form-group">
-	<input class="btn btn-success btn-sm" id="create_acc" type="button" value="Добавить">
+	<input class="btn btn-success btn-sm" id="create_account" type="button" value="Добавить">
 </div>
 <table class="table table-bordered table-striped table-sm">
 	<thead>
@@ -77,9 +77,19 @@
 	</ul>
 </nav>
 <script>
+	function $_GET(key) {
+		var s = window.location.search;
+		s = s.match(new RegExp(key + '=([^&=]+)'));
+		return s ? s[1] : false;
+	}
 $(document).ready(function() {
-	$("#create_acc").click(function(){
-		$('#account_form').modal('show');
+	if ($_GET('action')=="create"){
+		$('#create_account_form').modal('show');
+	};
+	
+	$("#create_account").click(function(){
+		location.href='/pages/control/users.php?action=create';
 	});
+
 });
 </script>
