@@ -49,13 +49,13 @@
 			$('#pass_val').popover('show');
 		} else {
 			$.post(
-			 	"/back/editing_users.php", 
+			 	"/back/control/editing_users.php", 
 				 {functionname: 'pass_validate', acc_id: <?php echo $_GET["id"];?>
 											   , password: pass_val}, 
 			 	function(info){
 					if (info == '1'){
 						$.post(
-							"/back/editing_users.php", 
+							"/back/control/editing_users.php", 
 							{functionname: 'update_account_name', acc_id: <?php echo $_GET["id"];?>
 																, account_name: new_name}, 
 							function(info){
