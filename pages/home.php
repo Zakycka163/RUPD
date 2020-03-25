@@ -11,6 +11,6 @@
     <center>
       <div class="p-3 bg-primary font-weight-bold text-white"><h3>Главная</h3></div>
     </center>
-    <?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/detectors/tasks.php"); ?>
+    <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/tasks.php"); ?>
   </body>
 </html>

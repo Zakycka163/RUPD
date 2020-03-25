@@ -14,10 +14,10 @@
 				close();
 				
 				if($admin=="2"){
-					require_once ($_SERVER['DOCUMENT_ROOT']."/front/navigation/navBarAdm.php");
+					require_once ($_SERVER['DOCUMENT_ROOT']."/front/navBars/navBarAdm.php");
 				}
 				if($admin=="1"){
-					require_once ($_SERVER['DOCUMENT_ROOT']."/front/navigation/navBarTeach.php");
+					require_once ($_SERVER['DOCUMENT_ROOT']."/front/navBars/navBarTeach.php");
 				}
 			}
 		?>      
