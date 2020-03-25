@@ -3,7 +3,7 @@
 </div>
 <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_account.php"); ?> 
 <div class="form-group">
-	<input class="btn btn-success btn-sm" id="create_account" type="button" value="Добавить">
+	<input class="btn btn-success btn-sm" id="create_account" type="button" value="Создать">
 </div>
 <table class="table table-bordered table-striped table-sm">
 	<thead>
@@ -82,14 +82,15 @@
 		s = s.match(new RegExp(key + '=([^&=]+)'));
 		return s ? s[1] : false;
 	}
-$(document).ready(function() {
-	if ($_GET('action')=="create"){
-		$('#create_account_form').modal('show');
-	};
-	
-	$("#create_account").click(function(){
-		location.href='/pages/control/users.php?action=create';
-	});
 
-});
+	$(document).ready(function() {
+		if ($_GET('action')=="create"){
+			$('#create_account_form').modal('show');
+		};
+		
+		$("#create_account").click(function(){
+			location.href='/pages/control/users.php?action=create';
+		});
+
+	});
 </script>
