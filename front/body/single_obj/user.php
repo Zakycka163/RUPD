@@ -129,11 +129,11 @@ $(document).ready(function() {
 			$('#first_name').popover('show');
 		} else {
 			$.post(
-			 	"/back/control/editing_users.php", 
-				{functionname: 'update_teach_name', acc_id: <?php echo $_GET["id"];?>
-												  , second_name: second_name
-												  , first_name: first_name
-												  , middle_name: middle_name}, 
+			 	"/back/data/db_teachers.php", 
+				{functionname: 'edit_teach_name', acc_id: <?php echo $_GET["id"];?>
+												, second_name: second_name
+												, first_name: first_name
+												, middle_name: middle_name}, 
 				function(info){
 					alert(info);
 					location.reload();
