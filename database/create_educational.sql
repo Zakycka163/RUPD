@@ -911,7 +911,6 @@ ALTER TABLE `accounts`
   ADD PRIMARY KEY (`account_id`),
   ADD UNIQUE KEY `login_UNIQUE` (`login`),
   ADD UNIQUE KEY `idAccounts_UNIQUE` (`account_id`),
-  ADD UNIQUE KEY `password_UNIQUE` (`password`),
   ADD KEY `fk_Accounts_Users1_idx` (`teacher_id`),
   ADD KEY `fk_Accounts_Grants1_idx` (`grant_id`);
 
