@@ -1,4 +1,4 @@
-<div class="modal fade" id="account_form" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="create_account_form" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-md" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -56,7 +56,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-sm btn-primary" id="create_new_acc">Создать</button>
-				<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Закрыть</button>
+				<button type="button" class="btn btn-sm btn-secondary" id="close" data-dismiss="modal">Закрыть</button>
 			</div>
 		</div>
 	</div>
@@ -66,9 +66,8 @@
 		let name_acc = $("#name_acc").val();
 		let pass_val = $("#pass_val").val();
 		let teacher = $("#teacher").val();
-		let admin = $("#admin:checked").val();  // if admin=="on" { }
+		let admin = $("#admin:checked").val(); 
 
-		alert(name_acc+' '+pass_val+' '+teacher+' '+admin);
 		if (name_acc == '' || name_acc.length < 4) {
 			$('#name_acc').addClass('error-pointer');
 			$('#name_acc').popover('show');
@@ -79,8 +78,32 @@
 			$('#teacher').addClass('error-pointer');
 			$('#teacher').popover('show');
 		} else {
-			
+			if (admin=="on") { 
+				var grant_acc = "2";
+			} else {
+				var grant_acc = "1";
+			}
+			$.post(
+			 	"/back/control/db_accounts.php", 
+				{functionname: 'create_acc', login: name_acc
+												  , password: pass_val
+												  , teacher_id: teacher
+												  , grant: grant_acc}, 
+				function(info){
+					if (info !== '1') {
+						alert(info);
+					} else {
+						$('#create_account_form').modal('hide');
+						alert('Аккаунт создан');
+						location.reload();
+					}
+				}
+			);
 		}
+	});
+
+	$("#close").click(function(){
+		location.reload();
 	});
 
 	$("#name_acc").mouseenter (function(){

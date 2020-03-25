@@ -1,4 +1,4 @@
-<div class="modal fade" id="change_account_pass_form" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="edit_account_pass_form" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-md" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -71,7 +71,7 @@
 																, account_pass: new_pass}, 
 							function(info){
 								if (info == '1'){
-									$('#change_account_pass_form').modal('hide');
+									$('#edit_account_pass_form').modal('hide');
 									alert('Пароль успешно обновлен');
 									location.reload();
 								} else {
@@ -82,7 +82,6 @@
 					} else {
 						alert('Неверно введен Пароль '+info);
 					}
-
 				}
 			);
 		}

@@ -1,4 +1,4 @@
-<div class="modal fade" id="change_account_name_form" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="edit_account_login_form" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-md" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -30,14 +30,14 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-sm btn-primary" id="save_name_changes">Сохранить</button>
+				<button type="button" class="btn btn-sm btn-primary" id="save_login_changes">Сохранить</button>
 				<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Закрыть</button>
 			</div>
 		</div>
 	</div>
 </div>
 <script>
-	$("#save_name_changes").click(function(){
+	$("#save_login_changes").click(function(){
 		let new_name = $("#new_name").val();
 		let pass_val = $("#pass_val").val();
 
@@ -60,7 +60,7 @@
 																, account_name: new_name}, 
 							function(info){
 								if (info == '1'){
-									$('#change_account_name_form').modal('hide');
+									$('#edit_account_login_form').modal('hide');
 									alert('Логин успешно обновлен');
 									location.reload();
 								} else {

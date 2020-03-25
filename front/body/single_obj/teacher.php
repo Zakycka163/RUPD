@@ -129,12 +129,12 @@
 	</table>
 </div>
 <?php 
-	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/account_name.php");			
+	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_account.php");			
 ?>
 <script>
 $(document).ready(function() {
-	$("#change_account_name").click(function(){
-		$('#change_account_name_form').modal('show');
+	$("#create_account").click(function(){
+		$('#create_account_form').modal('show');
 	});
 
 	$("#save_teach_changes").click(function(){

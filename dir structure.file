@@ -2,10 +2,12 @@ RUPD
     \back
         \control
             -user_creator.php           -> (old name: register.php; moved from \back\security)
-            -editing_users.php          -> (new; moved from \back)
+            -db_accounts.php            -> (new)
         \security
             -login.php
             -validator.php
+        \data                           -> (new)
+            -db_teachers.php            -> (new)
         -base.php
         -mandatoryBlock.php
         -phpWordUse.php
@@ -43,8 +45,9 @@ RUPD
         \forms                          -> (old name: creationForms)
             -fgos.php
             -rup.php
-            -account_name.php           -> (new)
-            -account_pass.php           -> (new)
+            -create_account.php         -> (new)
+            -edit_account_login.php     -> (new)
+            -edit_account_pass.php      -> (new)
             -loader_form.php            -> (new)
         \css
             -background.css

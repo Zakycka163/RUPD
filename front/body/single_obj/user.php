@@ -76,7 +76,7 @@
 			<div class="input-group input-group-sm" style="right: 15px;">
 				<input class="form-control" type="text" id="login" value="<?php echo $login; ?>" readonly>
 				<div class="input-group-append" <?php echo $grant_to_edit_account_name; ?> >
-					<button class="btn btn-outline-primary" id="change_account_name" type="button">Изменить</button>
+					<button class="btn btn-outline-primary" id="edit_account_login" type="button">Изменить</button>
 				</div>
 			</div>
 		</td>
@@ -94,7 +94,7 @@
 			<div class="input-group input-group-sm" style="right: 15px;">
 				<input class="form-control" type="text" id="pass" value="************" readonly>
 				<div class="input-group-append" <?php echo $grant_to_edit_account_name; ?> >
-					<button class="btn btn-outline-primary" id="change_account_pass" type="button">Изменить</button>
+					<button class="btn btn-outline-primary" id="edit_account_pass" type="button">Изменить</button>
 				</div>
 			</div>
 		</td>
@@ -103,17 +103,17 @@
 	</tr>
 </table>
 <?php 
-	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/account_name.php");		
-	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/account_pass.php");		
+	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/edit_account_login.php");		
+	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/edit_account_pass.php");		
 ?>
 <script>
 $(document).ready(function() {
-	$("#change_account_name").click(function(){
-		$('#change_account_name_form').modal('show');
+	$("#edit_account_login").click(function(){
+		$('#edit_account_login_form').modal('show');
 	});
 
-	$("#change_account_pass").click(function(){
-		$('#change_account_pass_form').modal('show');
+	$("#edit_account_pass").click(function(){
+		$('#edit_account_pass_form').modal('show');
 	});
 
 	$("#save_teach_changes").click(function(){
