@@ -12,9 +12,11 @@ SELECT    tech.teacher_id
 		, pos.name as position
 		, acc.account_id
 		, acc.login as account
-FROM  `academic_degrees` deg
-	, `academic_ranks` ac_rank
-	, `teachers` tech
+FROM `teachers` tech
+LEFT JOIN (`academic_degrees` deg) 
+	ON tech.academic_degree_id = deg.academic_degree_id
+LEFT JOIN (`academic_ranks` ac_rank) 
+	ON tech.academic_rank_id = ac_rank.academic_rank_id
 LEFT JOIN (`teacher_positions` poses, `positions` pos) 
 	ON tech.teacher_id = poses.teacher_id and poses.main_position = pos.position_id
 LEFT JOIN (`accounts` acc) 
