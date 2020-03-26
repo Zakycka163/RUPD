@@ -1,4 +1,14 @@
-<?php   
+<?php  
+	function checkEmail($str) {
+		$str = filter_var($str, FILTER_SANITIZE_EMAIL);
+
+		if (filter_var($str, FILTER_VALIDATE_EMAIL)) {
+			return $str;
+		} else {
+			return "1";
+		}
+	}
+		
 	require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
 
     switch($_POST["functionname"]){ 
@@ -36,5 +46,5 @@
 			}
 			close();
 			break;
-    }   
+	}
 ?>
