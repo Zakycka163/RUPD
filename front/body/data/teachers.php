@@ -11,7 +11,7 @@
 	</div>
 	<div class="form-group">
 		<a class="btn btn-warning btn-sm" href="/pages/data.php">Вернуться</a>
-		<input class="btn btn-success btn-sm" type="button" id="create_teacher" value="Создать">
+		<input class="btn btn-success btn-sm" type="button" id="create_new_teacher" value="Создать">
 	</div>
 	<table class="table table-bordered table-striped table-sm">
 		<thead>
@@ -85,7 +85,7 @@
 <script>
 	$(document).ready(function() {
 	
-		$("#create_teacher").click(function(){
+		$("#create_new_teacher").click(function(){
 			$('#create_teacher_form').modal('show');
 		});
 
