@@ -21,7 +21,7 @@
 				<th scope="col">Email</th>
 				<th scope="col">Степень</th>
 				<th scope="col">Звание</th>
-				<th scope="col">Основная должность</th>
+				<th scope="col">Должность</th>
 				<th scope="col">Аккаунт</th>
 			</tr>
 		</thead>
