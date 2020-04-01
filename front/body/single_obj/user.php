@@ -38,7 +38,7 @@
 </div>
 <table class="table table-borderless" style="width: 50rem">
 	<tr>
-		<td class="align-middle" style="width: 6rem">Фамилия</td>
+		<td class="align-middle" style="width: 7rem">Фамилия<span style="color: red">*</span></td>
 		<td>
 			<div class="input-group input-group-sm" style="right: 15px;">
 				<input class="form-control" type="text" id="second_name" value="<?php echo $second_name; ?>" maxlength="30" data-toggle="popover" data-placement="right" data-content="Не должно быть пустым! Не должно быть меньше 2 символов!">
@@ -48,7 +48,7 @@
 		<td></td>
 	</tr>
 	<tr>
-		<td class="align-middle">Имя</td>
+		<td class="align-middle">Имя<span style="color: red">*</span></td>
 		<td>
 			<div class="input-group input-group-sm" style="right: 15px;">
 				<input class="form-control" type="text" id="first_name" value="<?php echo $first_name; ?>" maxlength="30" data-toggle="popover" data-placement="right" data-content="Не должно быть пустым! Не должно быть меньше 2 символов!">

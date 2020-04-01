@@ -10,7 +10,7 @@
 			<div class="modal-body">
 				<table class="table table-borderless">
 					<tr>
-						<td class="align-middle">Название документа</td>
+						<td class="align-middle">Название документа<span style="color: red">*</span></td>
 						<td>
 							<input class="form-control" type="text" id="rup_name">
 						</td>

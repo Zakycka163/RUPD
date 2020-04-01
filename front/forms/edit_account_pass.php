@@ -10,19 +10,19 @@
 			<div class="modal-body">
 				<table class="table table-borderless">
 					<tr>
-						<td class="align-middle">Старый пароль</td>
+						<td class="align-middle">Старый пароль<span style="color: red">*</span></td>
 						<td width="60%">
 							<input type="password" name="password" id="old_pass" minlength="4" maxlength="32" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! от 4 до 32 символов">
 						</td>
 					</tr>
 					<tr>
-						<td class="align-middle">Новый пароль</td>
+						<td class="align-middle">Новый пароль<span style="color: red">*</span></td>
 						<td>
 							<input type="password" name="password" id="new_pass" minlength="4" maxlength="32" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! от 4 до 32 символов">
 						</td>
 					</tr>
 					<tr>
-						<td class="align-middle">Повторите пароль</td>
+						<td class="align-middle">Повторите пароль<span style="color: red">*</span></td>
 						<td>
 							<input type="password" name="password" id="repeat_pass" minlength="4" maxlength="32" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! от 4 до 32 символов">
 						</td>

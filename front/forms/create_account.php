@@ -10,19 +10,19 @@
 			<div class="modal-body">
 				<table class="table table-borderless">
 					<tr>
-						<td class="align-middle">Логин</td>
+						<td class="align-middle">Логин<span style="color: red">*</span></td>
 						<td width="70%">
 							<input lang="en" id="name_acc" minlength="4" maxlength="16" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! от 4 до 16 символов">
 						</td>
 					</tr>
 					<tr>
-						<td class="align-middle">Пароль</td>
+						<td class="align-middle">Пароль<span style="color: red">*</span></td>
 						<td>
 							<input type="password" id="pass_val" minlength="4" maxlength="32" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! от 4 до 32 символов">
 						</td>
 					</tr>
 					<tr>
-						<td class="align-middle">Преподаватель</td>
+						<td class="align-middle">Преподаватель<span style="color: red">*</span></td>
 						<td>
 							<select class="form-control form-control-sm" id="teacher" data-toggle="popover" data-placement="right" data-content="Нужно выбрать!">
 								<option selected disabled style="display:none;">Выбрать преподавателя</option>

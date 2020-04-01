@@ -16,13 +16,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="align-middle">Новый логин</td>
+						<td class="align-middle">Новый логин<span style="color: red">*</span></td>
 						<td id="new_name_column">
 							<input type="login" name="login" id="new_name" minlength="4" maxlength="16" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! от 4 до 16 символов">
 						</td>
 					</tr>
 					<tr>
-						<td class="align-middle">Пароль</td>
+						<td class="align-middle">Пароль<span style="color: red">*</span></td>
 						<td id="pass_column">
 							<input type="password" name="password" id="pass_val" minlength="4" maxlength="32" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! от 4 до 32 символов">
 						</td>

@@ -10,13 +10,13 @@
 			<div class="modal-body">
 				<table class="table table-borderless">
 					<tr>
-						<td class="align-middle">Фамилия</td>
+						<td class="align-middle">Фамилия<span style="color: red">*</span></td>
 						<td width="70%">
 							<input type="text" id="second_name" maxlength="30" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Не должно быть пустым! Не должно быть меньше 2 символов!">
 						</td>
 					</tr>
 					<tr>
-						<td class="align-middle">Имя</td>
+						<td class="align-middle">Имя<span style="color: red">*</span></td>
 						<td>
 							<input type="text" id="first_name" maxlength="30" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Не должно быть пустым! Не должно быть меньше 2 символов!">
 						</td>
@@ -144,6 +144,8 @@
 											alert('Преподаватель создан');
 											location.reload();
 										}
+									}
+								);
 							}
 						} else {
 							alert(info);
