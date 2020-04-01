@@ -79,7 +79,7 @@
 		</ul>
 	</nav>	
 </div>
-<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/fgos.php"); ?>
+<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_fgos.php"); ?>
 <script>
 	$("#create_fgos_button").click(function(){
 		$.post(
@@ -90,6 +90,6 @@
 				$('#empty_course').prop('hidden', false);
 			}
 		);
-		$('#create_fgos').modal('show');
+		$('#create_fgos_form').modal('show');
 	});
 </script>

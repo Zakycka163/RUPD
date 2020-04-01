@@ -1,4 +1,4 @@
-<div class="modal fade" id="create_fgos" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="create_fgos_form" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -10,7 +10,7 @@
 			<div class="modal-body">
 				<table class="table table-borderless">
 					<tr>
-						<td class="align-middle">Направление</td>
+						<td class="align-middle">Направление<span style="color: red">*</span></td>
 						<td width="75%">
 							<input class="form-control-plaintext" id="get_course" readonly hidden><div id="course_id" hidden></div>
 							<select class="form-control" id="empty_course" required hidden>
@@ -19,25 +19,25 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="align-middle">Дата утверждения</td>
+						<td class="align-middle">Дата утверждения<span style="color: red">*</span></td>
 						<td>
 							<input class="form-control" type="date" id="input_date" min="2008-01-01" max="2025-12-31" required>
 						</td>
 					</tr>
 					<tr>
-						<td class="align-middle">Номер приказа</td>
+						<td class="align-middle">Номер приказа<span style="color: red">*</span></td>
 						<td>
 							<input class="form-control" type="number" id="input_number" max="99999" required>
 						</td>
 					</tr>
 					<tr>
-						<td class="align-middle">Дата регистрации</td>
+						<td class="align-middle">Дата регистрации<span style="color: red">*</span></td>
 						<td>
 							<input class="form-control" type="date" id="reg_date" min="2008-01-01" max="2025-12-31" required>
 						</td>
 					</tr>
 					<tr>
-						<td class="align-middle">Номер регистрации</td>
+						<td class="align-middle">Номер регистрации<span style="color: red">*</span></td>
 						<td>
 							<input class="form-control" type="number" id="reg_number" max="99999" required>
 						</td>
@@ -58,7 +58,7 @@
 	$("#save_fgos").click(function(){
 		$('#error_params').prop('hidden',true);
 		var get_course_id = $("#course_id").text();
-		if (get_course_id === ''){
+		if (get_course_id == ''){
 			var get_course_id = $("#empty_course").val();
 		};
 		
@@ -81,7 +81,7 @@
 						function(){}
 					);
 					
-					$('#create_fgos').modal('hide');
+					$('#create_fgos_form').modal('hide');
 					
 					var course_value = $("#input_course").val();
 					$.post(

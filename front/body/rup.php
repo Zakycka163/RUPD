@@ -25,7 +25,7 @@
 				<div class="col" id="info_fgos_id" hidden></div>
 				<div class="col" id="info_fgos">Направление не определено</div>
 				<div class="col" id="div_create_info_fgos" hidden>
-					<button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#create_fgos" id="create_info_fgos" type="button">Ввести данные ФГОС</button>
+					<button class="btn btn-outline-primary btn-sm" id="create_info_fgos" type="button">Ввести данные ФГОС</button>
 				</div>
 			</div>
 		</td>
@@ -256,7 +256,7 @@
 	<div class="col"></div>
 </div>
 <?php 
-require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/fgos.php");		
+require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_fgos.php");		
 require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/rup.php");		
 ?>
 
@@ -368,7 +368,7 @@ $(document).ready(function() {
 		} else { 
 			$('#get_course').prop('value', 'Направление не определено');
 		}
-		$('#create_fgos').modal('show');
+		$('#create_fgos_form').modal('show');
 	});
 	
 	$("#t_functions").on('click', '.add_tf', (function(){
