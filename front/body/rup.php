@@ -251,13 +251,13 @@
 		<input class="btn btn-success btn-block" type="button" id="alert_form_save_rup" value="Создать">
 	</div>
 	<div class="col" align="left">
-		<a class="btn btn-warning btn-block" href="../index.php">Остановить работу</a>
+		<a class="btn btn-warning btn-block" href="/">Остановить работу</a>
 	</div>
 	<div class="col"></div>
 </div>
 <?php 
-require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_fgos.php");		
-require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/rup.php");		
+	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_fgos.php");		
+	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/rup.php");		
 ?>
 
 <script>
@@ -267,7 +267,7 @@ $(document).ready(function() {
 		$("#input_discipline").empty();
 		$("#info_part").text('Дисциплина не определена');
 		var pulpit_value = $("#input_pulpit").val();
-		if ((pulpit_value === null) && (pulpit_value === '')){
+		if ((pulpit_value == null) && (pulpit_value == '')){
 			$("#input_discipline").empty();
 			$('#input_discipline').prop('disabled', true);
 		} else {

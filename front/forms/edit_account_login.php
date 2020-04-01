@@ -8,7 +8,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<table class="table table-borderless">
+				<table class="table table-borderless table-sm">
 					<tr>
 						<td class="align-middle">Старый логин</td>
 						<td width="60%">

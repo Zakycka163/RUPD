@@ -35,7 +35,7 @@
 		<a class="btn btn-warning btn-sm" href="?page=teachers">Вернуться</a>
 		<input class="btn btn-success btn-sm" type="button" id="edit_teach_name" value="Сохранить">
 	</div>
-	<table class="table table-borderless" style="width: 60rem">
+	<table class="table table-borderless table-sm" style="width: 50rem">
 		<tr>
 			<td class="align-middle" style="width: 6rem">Фамилия<span style="color: red">*</span></td>
 			<td>
@@ -71,7 +71,7 @@
 			<td class="align-middle">Степень</td>
 			<td>
 				<div class="input-group input-group-sm" style="right: 15px;">
-					<input class="form-control" type="text" id="deg_name" title="<?php echo $deg_name; ?>" value="<?php echo $deg_name; ?>" readonly>
+					<input class="form-control" type="text" id="deg_name" data-toggle="tooltip" data-placement="top" title="<?php echo $deg_name; ?>" value="<?php echo $deg_name; ?>" readonly>
 					<div class="input-group-append">
 						<button class="btn btn-outline-primary" id="change_deg_name" type="button">Изменить</button>
 					</div>
@@ -80,7 +80,7 @@
 			<td class="align-middle">Должность</td>
 			<td>
 				<div class="input-group input-group-sm" style="right: 15px;">
-					<input class="form-control" type="text" id="position" title="<?php echo $position; ?>" value="<?php echo $position; ?>" readonly>
+					<input class="form-control" type="text" id="position" data-toggle="tooltip" data-placement="top" title="<?php echo $position; ?>" value="<?php echo $position; ?>" readonly>
 					<div class="input-group-append">
 						<button class="btn btn-outline-primary" id="change_position" type="button">Изменить</button>
 					</div>
@@ -91,7 +91,7 @@
 			<td class="align-middle">Звание</td>
 			<td>
 				<div class="input-group input-group-sm" style="right: 15px;">
-					<input class="form-control" type="text" id="ac_rank_name" title="<?php echo $ac_rank_name; ?>" value="<?php echo $ac_rank_name; ?>" readonly>
+					<input class="form-control" type="text" id="ac_rank_name" data-toggle="tooltip" data-placement="top" title="<?php echo $ac_rank_name; ?>" value="<?php echo $ac_rank_name; ?>" readonly>
 					<div class="input-group-append">
 						<button class="btn btn-outline-primary" id="change_ac_rank_name" type="button">Изменить</button>
 					</div>
@@ -170,6 +170,18 @@ $(document).ready(function() {
 				}
 			);
 		}
+	});
+
+	$("#ac_rank_name").mouseenter (function(){
+		$('#ac_rank_name').tooltip('show');
+	});
+	
+	$("#deg_name").mouseenter (function(){
+		$('#deg_name').tooltip('show');
+	});
+
+	$("#position").mouseenter (function(){
+		$('#position').tooltip('show');
 	});
 
 	$("#second_name").mouseenter (function(){

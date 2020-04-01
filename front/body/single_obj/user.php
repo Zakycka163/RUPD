@@ -36,7 +36,7 @@
 	<a class="btn btn-warning btn-sm" href="javascript:history.go(-1)">Вернуться</a>
 	<input class="btn btn-success btn-sm" type="button" id="save_teach_changes" value="Сохранить">
 </div>
-<table class="table table-borderless" style="width: 50rem">
+<table class="table table-borderless table-sm" style="width: 40rem">
 	<tr>
 		<td class="align-middle" style="width: 7rem">Фамилия<span style="color: red">*</span></td>
 		<td>
@@ -81,7 +81,7 @@
 			</div>
 		</td>
 		<td class="align-middle" style="width: 7rem">Администратор</td>
-		<td style="width: 7rem">
+		<td style="width: 3rem">
 			<div class="custom-control custom-switch" style="top: 5px">
 				<input type="checkbox" class="custom-control-input" <?php echo $admin; ?> id="switch">
 				<label class="custom-control-label"></label>
