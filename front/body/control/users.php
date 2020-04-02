@@ -1,7 +1,6 @@
 <div class="form-group">
 	<h4 id="page_title">Список аккаунтов</h3>
 </div>
-<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_account.php"); ?> 
 <div class="form-group">
 	<input class="btn btn-success btn-sm" id="create_account" type="button" value="Создать">
 </div>
@@ -76,6 +75,7 @@
 		?>
 	</ul>
 </nav>
+<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_account.php"); ?> 
 <script>
 	function $_GET(key) {
 		var s = window.location.search;
