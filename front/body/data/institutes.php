@@ -35,7 +35,7 @@
 				while($row = mysqli_fetch_array($result)){
 					$counter++;
 					echo '<tr>'. "\n" . '<td>'.$counter .'</td>'."\n";
-					echo '<td><a href="?page=institutes&id='.$row[0].'">'.$row[1].'</a></td>'. "\n";
+					echo '<td><a href="?page=institutes&insid='.$row[0].'">'.$row[1].'</a></td>'. "\n";
 					$sql2 = "SELECT   kaf.pulpit_id
 									, kaf.name
 							 FROM  `institutes` inst
@@ -47,7 +47,7 @@
 					echo '<td>'."\n";
 					while($kaf = mysqli_fetch_array($result2)){
 						$counter2++;
-						echo ($counter2).'.<a href="?page=institutes&kafid='.$kaf[0].'">'.$kaf[1].'</a><br>'."\n";
+						echo ($counter2).'. <a href="?page=institutes&kafid='.$kaf[0].'">'.$kaf[1].'</a><br>'."\n";
 					};	
 					echo '</td>'."\n".'</tr>'. "\n";
 				};
@@ -95,7 +95,7 @@
 			$('#pulpit_form').modal('show');
 		}
 
-		if ($_GET('id')) {
+		if ($_GET('insid')) {
 			$('#institute_form').modal('show');
 			$('#institute_form_title').text('Институт:');
 			let inst_id = $_GET('id');

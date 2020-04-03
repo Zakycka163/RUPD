@@ -25,8 +25,7 @@
 			<button class="btn btn-light" type="button" onclick="window.location.href='/pages/about.php'">О системе</button>
 		</li>
 	</ul>
-	<?php 		
-		if(!empty($_SESSION["id"])){
+	<?php if(!empty($_SESSION["id"])){
 			connect();
 			$id=$_SESSION["id"];
 			$first_name = mysqli_query($link, "SELECT name.first_name FROM accounts as acc, teachers as name WHERE acc.account_id='".$id."' and acc.teacher_id=name.teacher_id");
@@ -48,4 +47,3 @@
 			</form>
 	<?php } ?>
 </nav>
-

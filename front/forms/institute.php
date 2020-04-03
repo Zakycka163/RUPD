@@ -25,8 +25,9 @@
 					</tr>
 				</table>
 			</div>
-			<div class="modal-footer">
-				<?php if (isset($_GET["id"])) { ?>
+			<div class="modal-footer">	
+				<?php if (isset($_GET["insid"])) { ?>
+					<button type="button" class="btn btn-sm btn-danger" id="delete_institute" disabled>Удалить</button>
 					<button type="button" class="btn btn-sm btn-primary" id="save_institute">Сохранить</button>
 				<?php } else { ?>
 					<button type="button" class="btn btn-sm btn-primary" id="add_new_institute">Создать</button>
@@ -43,6 +44,9 @@
 		return s ? s[1] : false;
 	}
 
+	$(".close").click(function(){
+		location.href='data.php?page=institutes';
+	});
 	$("#close").click(function(){
 		location.href='data.php?page=institutes';
 	});
