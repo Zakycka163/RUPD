@@ -97,13 +97,14 @@
 
 		if ($_GET('id')) {
 			$('#institute_form').modal('show');
-			$('#institute_form_title').text('Институт');
+			$('#institute_form_title').text('Институт:');
 			let inst_id = $_GET('id');
 			$.post(
 			 	"/back/data/db_institutes.php", 
 				{functionname: 'get_institute', id: inst_id}, 
 				function(info){
 					var inst = $.parseJSON(info);
+					$('#institute_form_title').after(inst.name);
 					$('#inst_name').val(inst.name);
 					$('#inst_description').text(inst.description);
 				}
