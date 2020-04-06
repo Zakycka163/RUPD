@@ -3,7 +3,7 @@
 		<h4 id="page_title">ОТФ, ТФ и Активности</h4>
 	</div>
 	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="/pages/data.php">Вернуться</a>
+		<a class="btn btn-warning btn-sm" href="/pages/data.php">Назад</a>
 		<input class="btn btn-success btn-sm" type="button" id="create_otf" value="Добавить ОТФ">
 		<input class="btn btn-success btn-sm" type="button" id="create_tf" value="Добавить ТФ">
 		<input class="btn btn-success btn-sm" type="button" id="create_activity" value="Добавить Активность">

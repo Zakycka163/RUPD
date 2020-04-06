@@ -10,7 +10,7 @@
 		<h4 id="page_title">Преподаватели</h4>
 	</div>
 	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="/pages/data.php">Вернуться</a>
+		<a class="btn btn-warning btn-sm" href="/pages/data.php">Назад</a>
 		<input class="btn btn-success btn-sm" type="button" id="create_new_teacher" value="Создать">
 	</div>
 	<table class="table table-bordered table-striped table-sm">

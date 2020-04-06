@@ -3,7 +3,7 @@
 		<h4 id="page_title">Институты и Кафедры</h4>
 	</div>
 	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="/pages/data.php">Вернуться</a>
+		<a class="btn btn-warning btn-sm" href="/pages/data.php">Назад</a>
 		<a class="btn btn-success btn-sm" href="data.php?page=institutes&action=create_institute">Добавить институт</a>
 		<a class="btn btn-success btn-sm" href="data.php?page=institutes&action=create_pulpit">Добавить кафедру</a>
 	</div>

@@ -3,7 +3,7 @@
 		<h4 id="page_title">Направления и Профили</h4>
 	</div>
 	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="/pages/data.php">Вернуться</a>
+		<a class="btn btn-warning btn-sm" href="/pages/data.php">Назад</a>
 		<input class="btn btn-success btn-sm" type="button" id="create_course" value="Добавить направление">
 		<input class="btn btn-success btn-sm" type="button" id="create_profile" value="Добавить профиль">
 	</div>

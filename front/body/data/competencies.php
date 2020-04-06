@@ -3,7 +3,7 @@
 		<h4 id="page_title">Компетенции</h4>
 	</div>
 	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="/pages/data.php">Вернуться</a>
+		<a class="btn btn-warning btn-sm" href="/pages/data.php">Назад</a>
 		<input class="btn btn-success btn-sm" type="button" id="create_competence" value="Добавить">	
 	</div>
 	<table class="table table-bordered table-striped table-sm">

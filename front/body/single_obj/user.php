@@ -33,7 +33,7 @@
 	<h4 id="page_title"><?php echo $page_title; ?></h4>
 </div>
 <div class="form-group">
-	<a class="btn btn-warning btn-sm" href="javascript:history.go(-1)">Вернуться</a>
+	<a class="btn btn-warning btn-sm" href="javascript:history.go(-1)">Назад</a>
 	<input class="btn btn-success btn-sm" type="button" id="save_teach_changes" value="Сохранить">
 </div>
 <table class="table table-borderless table-sm" style="width: 40rem">

@@ -32,7 +32,7 @@
 		<h4 id="page_title"><?php echo $page_title; ?></h4>
 	</div>
 	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="?page=teachers">Вернуться</a>
+		<a class="btn btn-warning btn-sm" href="?page=teachers">Назад</a>
 		<input class="btn btn-success btn-sm" type="button" id="edit_teach_name" value="Сохранить">
 	</div>
 	<table class="table table-borderless table-sm" style="width: 50rem">
