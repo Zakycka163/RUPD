@@ -32,7 +32,7 @@
 				<?php } else { ?>
 					<button type="button" class="btn btn-sm btn-primary" id="add_new_institute">Создать</button>
 				<?php }; ?>
-				<button type="button" class="btn btn-sm btn-secondary" id="close" data-dismiss="modal">Закрыть</button>
+				<button type="button" class="btn btn-sm btn-secondary close_form" data-dismiss="modal">Закрыть</button>
 			</div>
 		</div>
 	</div>
@@ -45,9 +45,6 @@
 	}
 
 	$(".close").click(function(){
-		location.href='data.php?page=institutes';
-	});
-	$("#close").click(function(){
 		location.href='data.php?page=institutes';
 	});
 
@@ -91,7 +88,7 @@
 		} else {
 			$.post(
 			 	"/back/data/db_institutes.php", 
-				{functionname: 'edit_institute', id: $_GET('id')
+				{functionname: 'edit_institute', id: $_GET('insid')
 											   , name: inst_name
 											   , description: inst_description}, 
 				function(info){
