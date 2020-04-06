@@ -14,8 +14,8 @@
 					<tr>
 						<td class="align-middle">Институт<span style="color: red">*</span></td>
 						<td>
-							<div class="input-group input-group-sm">
-								<input type="text" id="parent_inst_name" class="form-control form-control-sm" value="Отсутствует" readonly data-toggle="popover" data-placement="right" data-content="Нужно выбрать!">
+							<div class="input-group input-group-sm" id="parent_inst" data-toggle="popover" data-placement="right" data-content="Нужно выбрать!">
+								<input type="text" id="parent_inst_name" class="form-control form-control-sm" value="Отсутствует" data-toggle="tooltip" data-placement="top" readonly>
 								<div class="input-group-append">
 									<button class="btn btn-outline-success btn-sm" id="add_parent_inst_name" type="button">Выбрать</button>
 								</div>
@@ -38,7 +38,7 @@
 			</div>
 			<div class="modal-footer">	
 				<?php if (isset($_GET["kafid"])) { ?>
-					<button type="button" class="btn btn-sm btn-danger" id="delete_pulpit" disabled>Удалить</button>
+					<button type="button" class="btn btn-sm btn-danger" id="delete_pulpit">Удалить</button>
 					<button type="button" class="btn btn-sm btn-primary" id="save_pulpit">Сохранить</button>
 				<?php } else { ?>
 					<button type="button" class="btn btn-sm btn-primary" id="add_new_pulpit">Создать</button>
@@ -103,8 +103,8 @@
 	});
 
 	$("#parent_inst_name").mouseenter (function(){
-		$('#parent_inst_name').removeClass('error-pointer');
-		$('#parent_inst_name').popover('hide');
+		$('#parent_inst').removeClass('error-pointer');
+		$('#parent_inst').popover('hide');
 	});
 
 	$("#add_parent_inst_name").click(function(){
@@ -115,6 +115,7 @@
 		var inst_id = $("#inst_val").val();
 		var inst_text = $("#inst_val option:selected").text();
 		$("#parent_inst_name").val(inst_text);
+		$("#parent_inst_name").prop('title',inst_text);
 
 		if (inst_id !== "null"){
 			$("#add_parent_inst_name").removeClass('btn-outline-success');
@@ -134,8 +135,8 @@
 		let inst_id = $("#inst_val").val();
 
 		if (inst_id == "null") {
-			$('#parent_inst_name').addClass('error-pointer');
-			$('#parent_inst_name').popover('show');
+			$('#parent_inst').addClass('error-pointer');
+			$('#parent_inst').popover('show');
 		} else if (pul_name == '') {
 			$('#pul_name').addClass('error-pointer');
 			$('#pul_name').popover('show');
@@ -164,8 +165,8 @@
 		let inst_id = $("#inst_val").val();
 
 		if (inst_id == "null") {
-			$('#parent_inst_name').addClass('error-pointer');
-			$('#parent_inst_name').popover('show');
+			$('#parent_inst').addClass('error-pointer');
+			$('#parent_inst').popover('show');
 		} else if (pul_name == '') {
 			$('#pul_name').addClass('error-pointer');
 			$('#pul_name').popover('show');
@@ -182,6 +183,31 @@
 					} else {
 						$('#pulpit_form').modal('hide');
 						alert('Кафедра обновлена');
+						location.href='data.php?page=institutes';
+					}
+				}
+			);
+		}
+	});
+
+	$("#parent_inst_name").mouseenter (function(){
+		$('#parent_inst_name').tooltip('show');
+	});
+
+	$("#delete_pulpit").click(function(){
+		let pul_name = $("#pul_name").val();
+		let pulpit_form_title =$('#pulpit_form_title').text();
+
+		if (confirm('Вы действительно хотите удалить объект '+pulpit_form_title+' "'+pul_name+'"?')) {
+			$.post(
+			 	"/back/data/db_pulpits.php", 
+				{functionname: 'remove_pulpit', id: $_GET('kafid')}, 
+				function(info){
+					if (info !== '1') {
+						alert(info);
+					} else {
+						$('#pulpit_form').modal('hide');
+						alert('Кафедра удалена');
 						location.href='data.php?page=institutes';
 					}
 				}

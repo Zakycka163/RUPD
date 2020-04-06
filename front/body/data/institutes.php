@@ -132,6 +132,7 @@
 					$("#add_parent_inst_name_form").find("#inst_val option:selected").text()
 					var inst_text = $("#inst_val :selected").text();
 					$("#parent_inst_name").val(inst_text);
+					$("#parent_inst_name").prop('title',inst_text);
 					$("#add_parent_inst_name").removeClass('btn-outline-success');
 					$("#add_parent_inst_name").addClass('btn-outline-primary');
 					$("#add_parent_inst_name").text('Изменить');
