@@ -75,7 +75,7 @@
 							    , `description`='".mysqli_real_escape_string($link, $description)."'
 							  WHERE institute_id=".$id."";
 					
-					mysqli_query($link,	$query);	
+					mysqli_query($link, $query);	
 					if ($link->error) {
 						try {   
 							throw new Exception("MySQL error $link->error <br> Query:<br> $query", $link->errno);   
@@ -91,6 +91,23 @@
 			close();
 			break;
 
+		#-----------Проверка зависимостей у института
+		case 'check_institute': 
+			$id = $_POST['id'];
+
+			connect();
+			global $link;
+			$result = mysqli_query($link, "SELECT count(pul.pulpit_id)
+										   FROM institutes inst
+											  , pulpits pul
+										   WHERE inst.institute_id='".$id."'
+											 and inst.institute_id=pul.institute_id");
+			$row = mysqli_fetch_array($result);
+			echo $row[0];
+			
+			close();
+			break;
+		
 		#-----------Удаление института
 		case 'remove_institute': 
 			$id = $_POST['id'];

@@ -27,7 +27,7 @@
 			</div>
 			<div class="modal-footer">	
 				<?php if (isset($_GET["insid"])) { ?>
-					<button type="button" class="btn btn-sm btn-danger" id="delete_institute" disabled>Удалить</button>
+					<button type="button" class="btn btn-sm btn-danger" id="delete_institute">Удалить</button>
 					<button type="button" class="btn btn-sm btn-primary" id="save_institute">Сохранить</button>
 				<?php } else { ?>
 					<button type="button" class="btn btn-sm btn-primary" id="add_new_institute">Создать</button>
@@ -102,5 +102,36 @@
 				}
 			);
 		}
+	});
+
+	$("#delete_institute").click(function(){
+		let inst_name = $("#inst_name").val();
+		let institute_form_title =$('#institute_form_title').text();
+
+		$.post(
+		 	"/back/data/db_institutes.php", 
+			{functionname: 'check_institute', id: $_GET('insid')}, 
+			function(info){
+				if (info !== "0") {
+					alert('Невозможно удалить объект '+institute_form_title+' "'+inst_name+'". У объекта есть зависимости! (Кол-во: '+info+')');
+				} else {
+					if (confirm('Вы действительно хотите удалить объект '+institute_form_title+' "'+inst_name+'"?')) {
+						$.post(
+							"/back/data/db_pulpits.php", 
+							{functionname: 'remove_institute', id: $_GET('insid')}, 
+							function(info){
+								if (info !== '1') {
+									alert(info);
+								} else {
+									$('#pulpit_form').modal('hide');
+									alert('Кафедра удалена');
+									location.href='data.php?page=institutes';
+								}
+							}
+						);
+					}
+				}
+			}
+		);
 	});
 </script>
