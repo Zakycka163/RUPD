@@ -104,37 +104,23 @@
 				close();
 				break;
 		
-		#-----------Изменение преподавателя
-		case 'update_teach_name': 
+		#-----------Удаление аккаунта
+		case 'remove_acc': 
+			$id = $_POST['id'];
+
 			connect();
 			global $link;
-			$data_in_base = mysqli_query($link, "SELECT second_name
-													  , first_name 
-													  , middle_name
-												 FROM users_presenter
-												 WHERE account_id=".$_POST['acc_id']."");
-			while($data = mysqli_fetch_array($data_in_base)){
-				if ($data[0] == $_POST['second_name'] && $data[1] == $_POST['first_name'] && $data[2] == $_POST['middle_name']) {
-					echo 'Изменений не было!';
-				} else {
-					$query = "UPDATE users_presenter
-							  SET second_name='".mysqli_real_escape_string($link, htmlspecialchars(trim($_POST["second_name"])))."'
-					  			, first_name ='".mysqli_real_escape_string($link, htmlspecialchars(trim($_POST["first_name"])))."'
-					  			, middle_name='".mysqli_real_escape_string($link, htmlspecialchars(trim($_POST["middle_name"])))."'
-							  WHERE account_id=".$_POST['acc_id'].""
-					
-					mysqli_query($link, $query);
-					if ($link->error) {
-						try {   
-							throw new Exception("MySQL error $link->error <br> Query:<br> $query", $link->errno);   
-						} catch(Exception $e ) {
-							echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
-							echo nl2br($e->getTraceAsString());
-						}
-					} else {
-						echo 'Данные обновлены';
-					}
+			$query = "DELETE FROM accounts WHERE account_id=".$id."";
+			mysqli_query($link,	$query);	
+			if ($link->error) {
+				try {   
+					throw new Exception("MySQL error $link->error <br> Query:<br> $query", $link->errno);   
+				} catch(Exception $e ) {
+					echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
+					echo nl2br($e->getTraceAsString());
 				}
+			} else {
+				echo '1';
 			}
 			close();
 			break;

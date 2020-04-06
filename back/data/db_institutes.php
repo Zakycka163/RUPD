@@ -91,5 +91,25 @@
 			close();
 			break;
 
+		#-----------Удаление института
+		case 'remove_institute': 
+			$id = $_POST['id'];
+
+			connect();
+			global $link;
+			$query = "DELETE FROM institutes WHERE institute_id=".$id."";
+			mysqli_query($link,	$query);	
+			if ($link->error) {
+				try {   
+					throw new Exception("MySQL error $link->error <br> Query:<br> $query", $link->errno);   
+				} catch(Exception $e ) {
+					echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
+					echo nl2br($e->getTraceAsString());
+				}
+			} else {
+				echo '1';
+			}
+			close();
+			break;
     }   
 ?>
