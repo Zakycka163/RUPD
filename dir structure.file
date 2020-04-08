@@ -1,13 +1,14 @@
 RUPD
     \back
         \control
-            -user_creator.php           -> (old name: register.php; moved from \back\security)
             -db_accounts.php            -> (new)
+        \data                           -> (new)
+            -db_teachers.php            -> (new)
+            -db_pulpits.php             -> (new)
+            -db_teachers.php            -> (new)
         \security
             -login.php
             -validator.php
-        \data                           -> (new)
-            -db_teachers.php            -> (new)
         -base.php
         -mandatoryBlock.php
         -phpWordUse.php
@@ -35,21 +36,23 @@ RUPD
                 -otf.php
                 -prof.php
                 -teachers.php
-            \single_obj                 -> (new)
-                -user.php               -> (moved from \back\body)
-                -teacher.php            -> (new)
+            \single_obj
+                -user.php
+                -teacher.php
             -cards.php
             -rup.php
             -tasks.php                  -> (moved from \back\detectors)
             -users.php
-        \forms                          -> (old name: creationForms)
-            -fgos.php
+        \forms
+            -create_fgos.php
             -rup.php
             -create_teacher.php         -> (new)
             -create_account.php         -> (new)
             -edit_account_login.php     -> (new)
             -edit_account_pass.php      -> (new)
             -loader_form.php            -> (new)
+            -institute.php              -> (new)
+            -pulpit.php                 -> (new)
         \css
             -background.css
             -background2.css
@@ -65,12 +68,20 @@ RUPD
             -onHold.png
             -PVGUS_4_2.jpg
             -pvgus_ico2.jpg
-        \navigation
+        \js
+            -_GET.js                    -> (new)
+            -back.js                    -> (new)
+            -checkEmailMask.js          -> (new)
+        \navBars
             -navBarAdm.php
             -navBarTeach.php
+            -navBarAdmMdphp             -> (new)
+            -navBarTeachMd.php          -> (new)
+            -navBarAdmSm.php            -> (new)
+            -navBarTeachSm.php          -> (new)
         -footer.php
         -links.php
-        -navBar.php                     -> (moved from \back\detectors)
+        -navBar.php
     \newDBmodel
         -db.sql
         -example.svg

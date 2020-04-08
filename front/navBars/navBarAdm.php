@@ -32,7 +32,7 @@
         <a class="dropdown-item" href="/pages/404.php" hidden>По видам</a>
             <div class="dropdown-divider" hidden></div>
         <h6 class="dropdown-header text-primary">Аккаунты</h6>
-        <a class="dropdown-item" onclick="window.location.href='/pages/control/users.php?action=create'">Создать</a>
+        <a class="dropdown-item" onclick="window.location.href='/pages/control/users.php?action=create'">Новый аккаунт</a>
         <a class="dropdown-item" href="/pages/control/users.php">Список</a>
     </div>
 </li>
