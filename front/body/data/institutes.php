@@ -1,11 +1,13 @@
-<div class="px-4 py-3 bg-light">
-	<div class="form-group">
-		<h4 id="page_title">Институты и Кафедры</h4>
+<div class="px-4 py-2 bg-primary font-weight-bold text-white container-fluid">
+	<div class="row">
+		<a class="btn btn-warning btn-sm back" href="/pages/data.php" style="height: 35px; width: 5rem; margin-left: 1rem" title="Назад" data-toggle="tooltip" data-placement="right">&#8592; Назад</a>
+		<div class="h4" id="page_title" style="margin-left: 30%">Институты и Кафедры</div>
 	</div>
-	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="/pages/data.php">Назад</a>
-		<a class="btn btn-success btn-sm" href="data.php?page=institutes&action=create_institute">Добавить институт</a>
-		<a class="btn btn-success btn-sm" href="data.php?page=institutes&action=create_pulpit">Добавить кафедру</a>
+</div>
+<div class="px-4 py-3 bg-light">
+	<div class="alert alert-secondary col" style="height: 55px">
+	<a class="btn btn-success btn-sm" href="data.php?page=institutes&action=create_institute">Новый институт</a>
+		<a class="btn btn-success btn-sm" href="data.php?page=institutes&action=create_pulpit">Новая кафедра</a>
 	</div>
 	<table class="table table-bordered table-striped table-sm">
 		<thead>
@@ -23,7 +25,7 @@
 				$result = mysqli_query($link, $sql);
 				$limit = mysqli_fetch_array($result);
 				$counter = 0;
-				$sql_count = "select count(*) FROM institutes";
+				$sql_count = "SELECT count(*) FROM institutes";
 				$sql_count_result = mysqli_query($link, $sql_count);
 				$count_obj = mysqli_fetch_array($sql_count_result);
 				$sql = "SELECT    institute_id
@@ -85,12 +87,6 @@
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/pulpit.php"); 
 ?> 
 <script>
-	function $_GET(key) {
-		var s = window.location.search;
-		s = s.match(new RegExp(key + '=([^&=]+)'));
-		return s ? s[1] : false;
-	}
-	
 	$(document).ready(function() {
 		if ($_GET('action')=="create_institute"){
 			$('#institute_form').modal('show');
@@ -141,6 +137,10 @@
 		}
 
 		$(".close_form").click(function(){
+			location.href='data.php?page=institutes';
+		});
+
+		$(".close").click(function(){
 			location.href='data.php?page=institutes';
 		});
 	});

@@ -12,22 +12,11 @@
 		<?php 
 			require_once ($_SERVER['DOCUMENT_ROOT']."/back/mandatoryBlock.php"); 
 			require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
-		?> 
-        <center>
-			<div class="p-3 bg-primary font-weight-bold text-white">
-				<h3>Аккаунты</h3>
-			</div>
-		</center>
-		<form>
-			<div class="px-4 py-3 bg-light">
-				<?php
-					if (isset($_GET["id"])){
-						require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/single_obj/user.php");
-					} else {
-						require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/control/users.php");
-					}
-				?>
-			</div>
-		</form>	
+			if (isset($_GET["id"])){
+				require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/single_obj/user.php");
+			} else {
+				require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/control/users.php");
+			}
+		?>
     </body>
 </html>

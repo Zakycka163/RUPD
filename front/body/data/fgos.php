@@ -1,10 +1,19 @@
-<div class="px-4 py-3 bg-light">
-	<div class="form-group">
-		<h4 id="page_title">ФГОС</h4>
+<div class="px-4 py-2 bg-primary font-weight-bold text-white container-fluid">
+	<div class="row">
+		<a class="btn btn-warning btn-sm back" href="/pages/data.php" style="height: 35px; width: 5rem; margin-left: 1rem" title="Назад" data-toggle="tooltip" data-placement="right">&#8592; Назад</a>
+		<div class="h4" id="page_title" style="margin-left: 20%">Федеральные государственные образовательные стандарты</div>
 	</div>
-	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="/pages/data.php">Назад</a>
-		<input class="btn btn-success btn-sm" type="button" id="create_fgos_button" value="Добавить">	
+</div>
+<?php
+	if (isset($_GET["id"])){
+		require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/single_obj/fgos.php");
+		exit();
+	}
+?>
+
+<div class="px-4 py-3 bg-light">
+	<div class="alert alert-secondary col" style="height: 55px">
+		<input class="btn btn-success btn-sm" type="button" id="create_fgos_button" value="Новый стандарт">
 	</div>
 	<table class="table table-bordered table-striped table-sm">
 		<thead>

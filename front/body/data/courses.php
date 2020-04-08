@@ -1,11 +1,13 @@
-<div class="px-4 py-3 bg-light">
-	<div class="form-group">
-		<h4 id="page_title">Направления и Профили</h4>
+<div class="px-4 py-2 bg-primary font-weight-bold text-white container-fluid">
+	<div class="row">
+		<a class="btn btn-warning btn-sm back" href="/pages/data.php" style="height: 35px; width: 5rem; margin-left: 1rem" title="Назад" data-toggle="tooltip" data-placement="right">&#8592; Назад</a>
+		<div class="h4" id="page_title" style="margin-left: 30%">Направления и Профили</div>
 	</div>
-	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="/pages/data.php">Назад</a>
-		<input class="btn btn-success btn-sm" type="button" id="create_course" value="Добавить направление">
-		<input class="btn btn-success btn-sm" type="button" id="create_profile" value="Добавить профиль">
+</div>
+<div class="px-4 py-3 bg-light">
+	<div class="alert alert-secondary col" style="height: 55px">
+	<a class="btn btn-success btn-sm" href="data.php?page=courses&action=create_course">Новое направление</a>
+		<a class="btn btn-success btn-sm" href="data.php?page=courses&action=create_profile">Новый профиль</a>
 	</div>
 	<table class="table table-bordered table-striped table-sm">
 		<thead>

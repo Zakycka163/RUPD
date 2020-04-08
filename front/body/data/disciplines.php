@@ -1,17 +1,25 @@
-<div class="px-4 py-3 bg-light">
-	<div class="form-group">
-		<h4 id="page_title">Дисциплины</h4>
+<?php
+	if (isset($_GET["id"])){
+		require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/single_obj/discipline.php");
+		exit();
+	}
+?>
+<div class="px-4 py-2 bg-primary font-weight-bold text-white container-fluid">
+	<div class="row">
+		<a class="btn btn-warning btn-sm back" href="/pages/data.php" style="height: 35px; width: 5rem; margin-left: 1rem" title="Назад" data-toggle="tooltip" data-placement="right">&#8592; Назад</a>
+		<div class="h4" id="page_title" style="margin-left: 35%">Дисциплины</div>
 	</div>
-	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="/pages/data.php">Назад</a>
-		<input class="btn btn-success btn-sm" type="button" id="create_discipline" value="Добавить">
+</div>
+<div class="px-4 py-3 bg-light">
+	<div class="alert alert-secondary col" style="height: 55px">
+		<input class="btn btn-success btn-sm" type="button" id="create_discipline" value="Новая дисциплина">
 	</div>
 	<table class="table table-bordered table-striped table-sm">
 		<thead>
 			<tr>
 				<th scope="col" style="width: 2rem">№</th>
-				<th scope="col">Кафедра</th>
 				<th scope="col">Название дисциплины</th>
+				<th scope="col">Кафедра</th>
 				<th scope="col">Индекс</th>
 				<th scope="col">Модуль</th>
 				<th scope="col">Образовательная часть</th>
@@ -22,11 +30,14 @@
 			<?php
 				connect();
 				global $link;
-				$sql = "select value from `constants` where `key` = 'limitObj'";
+				$sql = "SELECT `value` FROM `constants` WHERE `key` = 'limitObj'";
 				$result = mysqli_query($link, $sql);
 				$limit = mysqli_fetch_array($result);
 				$counter = 0;
-				$sql = "select    kaf.pulpit_id
+				$sql_count = "SELECT count(*) FROM disciplines";
+				$sql_count_result = mysqli_query($link, $sql_count);
+				$count_obj = mysqli_fetch_array($sql_count_result);
+				$sql = "SELECT    kaf.pulpit_id
 								, kaf.name
 								, dis.discipline_id
 								, dis.name
@@ -46,8 +57,8 @@
 				while($row = mysqli_fetch_array($result)){
 					$counter++;
 					echo '<tr>'."\n".'<td>'.$counter.'</td>'."\n";
-					echo '<td><a href="?page=institutes&kafid='.$row[0].'">'.$row[1].'</a><br>'."\n";
 					echo '<td><a href="?page=disciplines&id='.$row[2].'">'.$row[3].'</a></td>'. "\n";
+					echo '<td><a href="?page=institutes&kafid='.$row[0].'">'.$row[1].'</a><br>'."\n";
 					echo '<td>'.$row[4].'</td>'."\n";
 					echo '<td>'.$row[5].'</td>'."\n";
 					echo '<td>'.$row[6].'</td>'."\n";
@@ -60,10 +71,10 @@
 	</table>
 	<nav>
 		<ul class="pagination pagination-sm">
-			<?php if (isset($_GET["limit"])){
-			
+			<?php if ($count_obj < $limit){
+				
 			} else {
-				echo '
+			?>
 				<li class="page-item disabled">
 					<a class="page-link" href="#">Предыдущая</a>
 				</li>
@@ -78,9 +89,8 @@
 				</li>
 				<li class="page-item disabled">
 					<a class="page-link" href="#">Следующая</a>
-				</li>' . "\n"; 
-			}
-			?>
+				</li>
+			<?php } ?>
 		</ul>
 	</nav>	
 </div>	

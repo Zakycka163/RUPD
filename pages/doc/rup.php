@@ -16,11 +16,10 @@
 			require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
 		?>
 		<center>
-			<div class="p-3 bg-primary font-weight-bold text-white">
-				<h3>Разработка РУП</h3>
+			<div class="p-2 bg-primary font-weight-bold text-white">
+				<h4 id="page_title">Разработка РУП</h4>
 			</div>
-		</center>
-        
+		</center>        
 		<form class="input-group-fluid" method="post" charset="utf-8">
 			<div class="px-4 py-3 bg-light">
 				<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/rup.php"); ?>

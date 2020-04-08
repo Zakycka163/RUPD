@@ -1,3 +1,9 @@
+<div class="px-4 py-2 bg-primary font-weight-bold text-white container-fluid">
+	<div class="row">
+		<a class="btn btn-warning btn-sm back" href="javascript:history.go(-1)" style="height: 35px; width: 5rem; margin-left: 1rem" title="Назад" data-toggle="tooltip" data-placement="right">&#8592; Назад</a>
+		<div class="h4" id="page_title" style="margin-left: 35%">Аккаунты</div>
+	</div>
+</div>
 <?php
 	connect();
 	global $link;
@@ -10,7 +16,7 @@
 		$first_name = $row[4];
 		$middle_name = $row[5];
 		$login = $row[1];
-		$page_title = 'Аккаунт: '.$login;
+		$page_title = ' '.$login;
 		if ($row[2] == 2){
 			$admin = "checked";
 		} else {
@@ -29,79 +35,78 @@
 	};
 	close();
 ?>
-<div class="form-group">
-	<h4 id="page_title"><?php echo $page_title; ?></h4>
-</div>
-<div class="form-group">
-	<a class="btn btn-warning btn-sm" href="javascript:history.go(-1)">Назад</a>
-	<input class="btn btn-success btn-sm" type="button" id="save_teach_changes" value="Сохранить">
-</div>
-<table class="table table-borderless table-sm" style="width: 40rem">
-	<tr>
-		<td class="align-middle" style="width: 7rem">Фамилия<span style="color: red">*</span></td>
-		<td>
-			<div class="input-group input-group-sm" style="right: 15px;">
-				<input class="form-control" type="text" id="second_name" value="<?php echo $second_name; ?>" maxlength="30" data-toggle="popover" data-placement="right" data-content="Не должно быть пустым! Не должно быть меньше 2 символов!">
-			</div>
-		</td>
-		<td class="align-middle"></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td class="align-middle">Имя<span style="color: red">*</span></td>
-		<td>
-			<div class="input-group input-group-sm" style="right: 15px;">
-				<input class="form-control" type="text" id="first_name" value="<?php echo $first_name; ?>" maxlength="30" data-toggle="popover" data-placement="right" data-content="Не должно быть пустым! Не должно быть меньше 2 символов!">
-			</div>
-		</td>
-		<td class="align-middle"></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td class="align-middle">Отчество</td>
-		<td>
-			<div class="input-group input-group-sm" style="right: 15px;">
-				<input class="form-control" type="text" id="middle_name" value="<?php echo $middle_name; ?>" maxlength="30" data-toggle="popover" data-placement="right" data-content="Не должно быть меньше 2 символов!">
-			</div>
-		</td>
-		<td class="align-middle"></td>
-		<td></td>
-	</tr>
-	<tr class="hr_section">
-		<td colspan="4"><hr></td>
-	</tr>
-	<tr>
-		<td class="align-middle">Логин</td>
-		<td>
-			<div class="input-group input-group-sm" style="right: 15px;">
-				<input class="form-control" type="text" id="login" value="<?php echo $login; ?>" readonly>
-				<div class="input-group-append" <?php echo $grant_to_edit_account_name; ?> >
-					<button class="btn btn-outline-primary" id="edit_account_login" type="button">Изменить</button>
+<div class="px-4 py-3 bg-light" style="min-width: 52rem;">
+	<div class="alert alert-info" style="height: 55px"><b>Аккаунт:</b><?php echo $page_title; ?></div> 
+	<div class="alert alert-secondary" style="height: 55px; top: -1rem">		
+		<input class="btn btn-success btn-sm" type="button" id="save_teach_changes" value="Сохранить">
+	</div>
+	<table class="table table-borderless table-sm" style="width: 40rem">
+		<tr>
+			<td class="align-middle" style="width: 7rem">Фамилия<span style="color: red">*</span></td>
+			<td>
+				<div class="input-group input-group-sm" style="right: 15px;">
+					<input class="form-control" type="text" id="second_name" value="<?php echo $second_name; ?>" maxlength="30" data-toggle="popover" data-placement="right" data-content="Не должно быть пустым! Не должно быть меньше 2 символов!">
 				</div>
-			</div>
-		</td>
-		<td class="align-middle" style="width: 7rem">Администратор</td>
-		<td style="width: 3rem">
-			<div class="custom-control custom-switch" style="top: 5px">
-				<input type="checkbox" class="custom-control-input" <?php echo $admin; ?> id="switch">
-				<label class="custom-control-label"></label>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td class="align-middle">Пароль</td>
-		<td>
-			<div class="input-group input-group-sm" style="right: 15px;">
-				<input class="form-control" type="text" id="pass" value="************" readonly>
-				<div class="input-group-append" <?php echo $grant_to_edit_account_name; ?> >
-					<button class="btn btn-outline-primary" id="edit_account_pass" type="button">Изменить</button>
+			</td>
+			<td class="align-middle"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="align-middle">Имя<span style="color: red">*</span></td>
+			<td>
+				<div class="input-group input-group-sm" style="right: 15px;">
+					<input class="form-control" type="text" id="first_name" value="<?php echo $first_name; ?>" maxlength="30" data-toggle="popover" data-placement="right" data-content="Не должно быть пустым! Не должно быть меньше 2 символов!">
 				</div>
-			</div>
-		</td>
-		<td class="align-middle"></td>
-		<td></td>
-	</tr>
-</table>
+			</td>
+			<td class="align-middle"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="align-middle">Отчество</td>
+			<td>
+				<div class="input-group input-group-sm" style="right: 15px;">
+					<input class="form-control" type="text" id="middle_name" value="<?php echo $middle_name; ?>" maxlength="30" data-toggle="popover" data-placement="right" data-content="Не должно быть меньше 2 символов!">
+				</div>
+			</td>
+			<td class="align-middle"></td>
+			<td></td>
+		</tr>
+		<tr class="hr_section">
+			<td colspan="4"><hr></td>
+		</tr>
+		<tr>
+			<td class="align-middle">Логин</td>
+			<td>
+				<div class="input-group input-group-sm" style="right: 15px;">
+					<input class="form-control" type="text" id="login" value="<?php echo $login; ?>" readonly>
+					<div class="input-group-append" <?php echo $grant_to_edit_account_name; ?> >
+						<button class="btn btn-outline-primary" id="edit_account_login" type="button">Изменить</button>
+					</div>
+				</div>
+			</td>
+			<td class="align-middle" style="width: 7rem">Администратор</td>
+			<td style="width: 3rem">
+				<div class="custom-control custom-switch" style="top: 5px">
+					<input type="checkbox" class="custom-control-input" <?php echo $admin; ?> id="switch">
+					<label class="custom-control-label"></label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="align-middle">Пароль</td>
+			<td>
+				<div class="input-group input-group-sm" style="right: 15px;">
+					<input class="form-control" type="text" id="pass" value="************" readonly>
+					<div class="input-group-append" <?php echo $grant_to_edit_account_name; ?> >
+						<button class="btn btn-outline-primary" id="edit_account_pass" type="button">Изменить</button>
+					</div>
+				</div>
+			</td>
+			<td class="align-middle"></td>
+			<td></td>
+		</tr>
+	</table>
+</div>
 <?php 
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/edit_account_login.php");		
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/edit_account_pass.php");		

@@ -1,10 +1,22 @@
-<div class="px-4 py-3 bg-light">
-	<div class="form-group">
+<center>
+	<div class="p-2 bg-primary font-weight-bold text-white">
 		<h4 id="page_title">Компетенции</h4>
 	</div>
-	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="/pages/data.php">Назад</a>
-		<input class="btn btn-success btn-sm" type="button" id="create_competence" value="Добавить">	
+</center>
+<?php
+	if (isset($_GET["id"])){
+		require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/single_obj/competence.php");
+		exit();
+	}
+?>
+
+<div class="px-5 py-3 bg-light row">
+	<a class="btn btn-warning alert alert-warning" href="/pages/data.php" style="height: 5rem; width: 5rem">
+		<h6>&#8592;</h6>Назад
+	</a>
+	<div class="alert alert-secondary col" style="height: 5rem">
+		<h6 id="page_title">Список компетенций</h6>
+		<input class="btn btn-success btn-sm" type="button" id="create_new_teacher" value="Новая компетенция">
 	</div>
 	<table class="table table-bordered table-striped table-sm">
 		<thead>
