@@ -8,15 +8,12 @@
 		<link href="/front/css/pointer.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-		<?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/mandatoryBlock.php"); ?>
-		<center>
-			<div class="p-3 bg-primary font-weight-bold text-white">
-				<h3 id="page_title">Работа с данными</h3>
-			</div>
-		</center>
-        
-		<?php
+		<script src="/front/js/back.js"></script>
+		<script src="/front/js/_GET.js"></script>
+		<?php 
+			require_once ($_SERVER['DOCUMENT_ROOT']."/back/mandatoryBlock.php");
 			require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
+
 			if (isset($_GET["page"])){
 				$current_page = $_GET["page"];
 				require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/data/".$current_page.".php");

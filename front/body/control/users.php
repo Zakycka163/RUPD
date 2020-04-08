@@ -76,13 +76,8 @@
 	</ul>
 </nav>
 <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_account.php"); ?> 
+<script src="/front/js/_GET.js"></script>
 <script>
-	function $_GET(key) {
-		var s = window.location.search;
-		s = s.match(new RegExp(key + '=([^&=]+)'));
-		return s ? s[1] : false;
-	}
-
 	$(document).ready(function() {
 		if ($_GET('action')=="create"){
 			$('#create_account_form').modal('show');

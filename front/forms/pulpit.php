@@ -87,16 +87,6 @@
 </div>
 
 <script>
-	function $_GET(key) {
-		var s = window.location.search;
-		s = s.match(new RegExp(key + '=([^&=]+)'));
-		return s ? s[1] : false;
-	}
-	
-	$(".close").click(function(){
-		location.href='data.php?page=institutes';
-	});
-
 	$("#pul_name").mouseenter (function(){
 		$('#pul_name').removeClass('error-pointer');
 		$('#pul_name').popover('hide');

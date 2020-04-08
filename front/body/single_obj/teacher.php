@@ -23,16 +23,19 @@
 		$position 		= $row[6];
 		$acc_id 		= $row[7];
 		$acc_name 		= $row[8];
-		$page_title = 'Преподаватель: '.$second_name.' '.$first_name.' '.$middle_name;
+		$teacher = ' '.$second_name.' '.$first_name.' '.$middle_name;
 	};
 	close();
 ?>
-<div class="px-4 py-3 bg-light">
-	<div class="form-group">
-		<h4 id="page_title"><?php echo $page_title; ?></h4>
+<div class="px-4 py-2 bg-primary font-weight-bold text-white container-fluid">
+	<div class="row">
+		<a class="btn btn-warning btn-sm back" href="/pages/data.php?page=teachers" style="height: 35px; width: 5rem; margin-left: 1rem" title="Назад" data-toggle="tooltip" data-placement="right">&#8592; Назад</a>
+		<div class="h4" id="page_title" style="margin-left: 35%">Преподаватели</div>
 	</div>
-	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="?page=teachers">Назад</a>
+</div>
+<div class="px-4 py-3 bg-light" style="min-width: 52rem;">
+	<div class="alert alert-info" style="height: 55px"><b>Преподаватель:</b><?php echo $teacher; ?></div> 
+	<div class="alert alert-secondary" style="height: 55px; top: -1rem">		
 		<input class="btn btn-success btn-sm" type="button" id="edit_teach_name" value="Сохранить">
 	</div>
 	<table class="table table-borderless table-sm" style="width: 50rem">
@@ -123,85 +126,74 @@
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_account.php");			
 ?>
 <script>
-function checkEmailMask(str) {
-	var lastAtPos = str.lastIndexOf('@');
-	var lastDotPos = str.lastIndexOf('.');
-	return (lastAtPos < lastDotPos 
-		 && lastAtPos > 0 
-		 && str.indexOf('@@') == -1 
-		 && lastDotPos > 2 
-		 && (str.length - lastDotPos) > 2
-	);
-}
+	$(document).ready(function() {
+		$("#create_account").click(function(){
+			$('#create_account_form').modal('show');
+		});
 
-$(document).ready(function() {
-	$("#create_account").click(function(){
-		$('#create_account_form').modal('show');
-	});
+		$("#edit_teach_name").click(function(){
+			let second_name = $("#second_name").val();
+			let first_name = $("#first_name").val();
+			let middle_name = $("#middle_name").val();
+			let email = $("#email").val(); 
 
-	$("#edit_teach_name").click(function(){
-		let second_name = $("#second_name").val();
-		let first_name = $("#first_name").val();
-		let middle_name = $("#middle_name").val();
-		let email = $("#email").val(); 
+			if (second_name == '' || second_name.length < 2) {
+				$('#second_name').addClass('error-pointer');
+				$('#second_name').popover('show');
+			} else if (first_name == '' || first_name.length < 2) {
+				$('#first_name').addClass('error-pointer');
+				$('#first_name').popover('show');
+			} else if (middle_name !== '' && middle_name.length < 2) {
+				$('#middle_name').addClass('error-pointer');
+				$('#middle_name').popover('show');
+			} else if (email == '' || !checkEmailMask(email)) {
+				$('#email').addClass('error-pointer');
+				$('#email').popover('show');
+			} else {
+				$.post(
+					"/back/data/db_teachers.php", 
+					{functionname: 'edit_teach_name', acc_id: <?php echo $_GET["id"];?>
+													, second_name: second_name
+													, first_name: first_name
+													, middle_name: middle_name}, 
+					function(info){
+						alert(info);
+						location.reload();
+					}
+				);
+			}
+		});
 
-		if (second_name == '' || second_name.length < 2) {
-			$('#second_name').addClass('error-pointer');
-			$('#second_name').popover('show');
-		} else if (first_name == '' || first_name.length < 2) {
-			$('#first_name').addClass('error-pointer');
-			$('#first_name').popover('show');
-		} else if (middle_name !== '' && middle_name.length < 2) {
-			$('#middle_name').addClass('error-pointer');
-			$('#middle_name').popover('show');
-		} else if (email == '' || !checkEmailMask(email)) {
-			$('#email').addClass('error-pointer');
-			$('#email').popover('show');
-		} else {
-			$.post(
-			 	"/back/data/db_teachers.php", 
-				{functionname: 'edit_teach_name', acc_id: <?php echo $_GET["id"];?>
-												  , second_name: second_name
-												  , first_name: first_name
-												  , middle_name: middle_name}, 
-				function(info){
-					alert(info);
-					location.reload();
-				}
-			);
-		}
-	});
+		$("#ac_rank_name").mouseenter (function(){
+			$('#ac_rank_name').tooltip('show');
+		});
+		
+		$("#deg_name").mouseenter (function(){
+			$('#deg_name').tooltip('show');
+		});
 
-	$("#ac_rank_name").mouseenter (function(){
-		$('#ac_rank_name').tooltip('show');
-	});
-	
-	$("#deg_name").mouseenter (function(){
-		$('#deg_name').tooltip('show');
-	});
+		$("#position").mouseenter (function(){
+			$('#position').tooltip('show');
+		});
 
-	$("#position").mouseenter (function(){
-		$('#position').tooltip('show');
-	});
+		$("#second_name").mouseenter (function(){
+			$('#second_name').removeClass('error-pointer');
+			$('#second_name').popover('hide');
+		});
 
-	$("#second_name").mouseenter (function(){
-		$('#second_name').removeClass('error-pointer');
-		$('#second_name').popover('hide');
-	});
+		$("#first_name").mouseenter (function(){
+			$('#first_name').removeClass('error-pointer');
+			$('#first_name').popover('hide');
+		});
 
-	$("#first_name").mouseenter (function(){
-		$('#first_name').removeClass('error-pointer');
-		$('#first_name').popover('hide');
-	});
+		$("#middle_name").mouseenter (function(){
+			$('#middle_name').removeClass('error-pointer');
+			$('#middle_name').popover('hide');
+		});
 
-	$("#middle_name").mouseenter (function(){
-		$('#middle_name').removeClass('error-pointer');
-		$('#middle_name').popover('hide');
+		$("#email").mouseenter (function(){
+			$('#email').removeClass('error-pointer');
+			$('#email').popover('hide');
+		});
 	});
-
-	$("#email").mouseenter (function(){
-		$('#email').removeClass('error-pointer');
-		$('#email').popover('hide');
-	});
-});
 </script>

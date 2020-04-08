@@ -69,7 +69,7 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-sm btn-primary" id="create_teacher">Создать</button>
+				<button type="button" class="btn btn-sm btn-primary" id="create_teach">Создать</button>
 				<button type="button" class="btn btn-sm btn-secondary" id="close" data-dismiss="modal">Закрыть</button>
 			</div>
 		</div>
@@ -188,17 +188,6 @@
 </div>
 
 <script>
-	function checkEmailMask(str) {
-		var lastAtPos = str.lastIndexOf('@');
-		var lastDotPos = str.lastIndexOf('.');
-		return (lastAtPos < lastDotPos 
-			 && lastAtPos > 0 
-			 && str.indexOf('@@') == -1 
-			 && lastDotPos > 2 
-			 && (str.length - lastDotPos) > 2
-		);
-	}
-
 	$("#add_deg_name").click(function(){
 		$("#add_deg_name_form").modal('show');
 	});
@@ -262,7 +251,7 @@
 		$("#add_position_form").modal('hide');
 	});
 
-	$("#create_teacher").click(function(){
+	$("#create_teach").click(function(){
 		let second_name = $("#second_name").val();
 		let first_name = $("#first_name").val();
 		let middle_name = $("#middle_name").val();
