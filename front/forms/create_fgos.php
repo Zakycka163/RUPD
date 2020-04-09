@@ -2,7 +2,7 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Создание: Данные ФГОС</h5>
+				<h5 class="modal-title" id="form_title">Создание ФГОС</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -72,17 +72,18 @@
 					var fgos_number = $("#input_number").val();
 					var fgos_reg_number = $("#reg_number").val();
 					$.post(
-						"/back/switch_functions.php", 
+						"/back/data/db_fgos.php", 
 						{functionname: 'create_fgos', course: get_course_id
 													, date: fgos_date
 													, number: fgos_number
 													, reg_date: fgos_reg_date
 													, reg_number: fgos_reg_number}, 
-						function(){}
+						function(info){
+							if (info == '') { 
+								$('#create_fgos_form').modal('hide');
+							}
+						}
 					);
-					
-					$('#create_fgos_form').modal('hide');
-					
 					var course_value = $("#input_course").val();
 					$.post(
 						"/back/switch_functions.php", 

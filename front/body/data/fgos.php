@@ -4,13 +4,6 @@
 		<div class="h4" id="page_title" style="margin-left: 20%">Федеральные государственные образовательные стандарты</div>
 	</div>
 </div>
-<?php
-	if (isset($_GET["id"])){
-		require_once ($_SERVER['DOCUMENT_ROOT']."/front/body/single_obj/fgos.php");
-		exit();
-	}
-?>
-
 <div class="px-4 py-3 bg-light">
 	<div class="alert alert-secondary col" style="height: 55px">
 		<input class="btn btn-success btn-sm" type="button" id="create_fgos_button" value="Новый стандарт">
@@ -19,7 +12,6 @@
 		<thead>
 			<tr>
 				<th scope="col" style="width: 2rem">№</th>
-				<th scope="col">Код направления</th>
 				<th scope="col">Направление</th>
 				<th scope="col">Номер приказа</th>
 				<th scope="col">Дата приказа</th>
@@ -39,8 +31,7 @@
 				$sql_count_result = mysqli_query($link, $sql_count);
 				$count_obj = mysqli_fetch_array($sql_count_result);
 				$sql = "SELECT    fgos.fgos_id
-								, course.number
-								, course.name
+								, CONCAT_WS(' ',course.number,course.name)
 								, fgos.number
 								, fgos.date
 								, fgos.reg_number
@@ -58,7 +49,6 @@
 					echo '<td>'.$row[3].'</td>'."\n";
 					echo '<td>'.$row[4].'</td>'."\n";
 					echo '<td>'.$row[5].'</td>'."\n";
-					echo '<td>'.$row[6].'</td>'."\n";
 					echo '</tr>'."\n";
 				};
 				close();
@@ -103,4 +93,20 @@
 		);
 		$('#create_fgos_form').modal('show');
 	});
+
+	if ($_GET('id')) {
+		$('#create_fgos_form').modal('show');
+		$('#form_title').text('ФГОС');
+			let fgos_id = $_GET('id');
+			$.post(
+			 	"/back/data/db_fgos.php", 
+				{functionname: 'get_fgos', id: fgos_id}, 
+				function(info){
+					var inst = $.parseJSON(info);
+					$('#institute_form_title').after(inst.name);
+					$('#inst_name').val(inst.name);
+					$('#inst_description').text(inst.description);
+				}
+			);
+	}
 </script>

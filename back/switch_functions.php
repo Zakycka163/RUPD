@@ -115,21 +115,5 @@
 						  and disc.part_id = part.part_id");
 			break;
 			
-		#-----------Создание объектов
-		case 'create_fgos': 
-			connect();
-			global $link;
-			mysqli_query($link,"INSERT INTO fgos (course_id
-												, number
-												, date
-												, reg_number
-												, reg_date) 
-								values ('".$_POST["course"]."'
-								      , '".$_POST["number"]."'
-									  , '".$_POST["date"]."'
-									  , '".$_POST["reg_number"]."'
-									  , '".$_POST["reg_date"]."')");
-            close();
-			break;	
     }   
 ?>

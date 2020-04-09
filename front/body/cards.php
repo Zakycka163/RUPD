@@ -1,8 +1,9 @@
-<center>
-	<div class="p-2 bg-primary font-weight-bold text-white">
-		<h4 id="page_title">Работа с данными</h4>
+<div class="px-4 py-2 bg-primary font-weight-bold text-white container-fluid">
+	<div class="row">
+		<a class="btn btn-warning btn-sm back" href="/pages/home.php" style="height: 35px; width: 5rem; margin-left: 1rem" title="Назад" data-toggle="tooltip" data-placement="right">&#8592; Назад</a>
+		<div class="h4" id="page_title" style="margin-left: 35%">Работа с данными</div>
 	</div>
-</center>
+</div>
 <div class="px-4 py-3">
 	<div class="row">
 		<div class="col">

@@ -3,6 +3,7 @@ RUPD
         \control
             -db_accounts.php            -> (new)
         \data                           -> (new)
+            -db_fgos.php               -> (new)
             -db_teachers.php            -> (new)
             -db_pulpits.php             -> (new)
             -db_teachers.php            -> (new)
