@@ -34,24 +34,30 @@
 				$result = mysqli_query($link, $sql);
 				$limit = mysqli_fetch_array($result);
 				$counter = 0;
-				$sql_count = "SELECT count(*) FROM prof_standards";
+				$sql_count = "SELECT count(*) FROM general_work_functions";
 				$sql_count_result = mysqli_query($link, $sql_count);
 				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT    fgos.fgos_id
-								, course.number
-								, course.name
-								, prof.prof_standard_id
-								, prof.code
-								, prof.name
-								, prof.number
-								, prof.date
-								, prof.reg_number
-								, prof.reg_date 
-						FROM  `prof_standards` prof
-							, `fgos` fgos
-							, `courses` course
-						WHERE prof.fgos_id = fgos.fgos_id 
-						  and fgos.course_id = course.course_id 
+				$sql = "SELECT prof.prof_standard_id
+							 , CONCAT_WS(' ',prof.code,prof.name)
+							 , otf.general_work_function_id
+						     , otf.code
+						     , otf.name
+						     , otf.level
+						     , tf.work_function_id
+						     , tf.code
+						     , tf.name
+						     , act.activity_id
+						     , act_t.name
+						     , act.name
+						     , act.competence_id
+						FROM prof_standards prof
+						   , general_work_functions otf
+						LEFT JOIN work_functions tf 
+							on otf.general_work_function_id = tf.general_work_function_id
+						LEFT JOIN activities act 
+							on tf.work_function_id = act.work_function_id
+						LEFT JOIN activity_types act_t 
+							on act.activity_type_id = act_t.activity_type_id 
 						LIMIT ".$limit[0]."";
 				$result = mysqli_query($link, $sql);
 				while($row = mysqli_fetch_array($result)){
