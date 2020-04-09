@@ -6,7 +6,7 @@
 </div>
 <div class="px-4 py-3 bg-light">
 	<div class="alert alert-secondary col" style="height: 55px">
-	<a class="btn btn-success btn-sm" href="data.php?page=institutes&action=create_institute">Новый институт</a>
+		<a class="btn btn-success btn-sm" href="data.php?page=institutes&action=create_institute">Новый институт</a>
 		<a class="btn btn-success btn-sm" href="data.php?page=institutes&action=create_pulpit">Новая кафедра</a>
 	</div>
 	<table class="table table-bordered table-striped table-sm">
@@ -42,7 +42,7 @@
 									, kaf.name
 							 FROM  `institutes` inst
 								 , `pulpits` kaf
-							 WHERE 	inst.institute_id = ".$row[0]."
+							 WHERE 	inst.institute_id = '".$row[0]."'
 								and inst.institute_id = kaf.institute_id";
 					$result2 = mysqli_query($link, $sql2);
 					$counter2 = 0;

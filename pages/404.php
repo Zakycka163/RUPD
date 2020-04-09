@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,12 +7,14 @@
   </head>
   <body>
     <?php require_once ($_SERVER['DOCUMENT_ROOT']."/back/mandatoryBlock.php"); ?>
-    <center>
-			<div class="p-2 bg-primary font-weight-bold text-white">
-				<h4 id="page_title">Данная страница (функция) в разработке</h4>
-			</div>
-		</center>
-    <br><br><br>
-    <center><img src="/front/img/onHold.png" alt="404" title="404"></center>
+    <div class="px-4 py-2 bg-primary font-weight-bold text-white container-fluid">
+      <div class="row">
+        <a class="btn btn-warning btn-sm back" href="javascript:history.go(-1)" style="height: 35px; width: 5rem; margin-left: 1rem" title="Назад" data-toggle="tooltip" data-placement="right">&#8592; Назад</a>
+        <div class="h4" id="page_title" style="margin-left: 30%">Данная страница (функция) в разработке</div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center py-2">
+      <img src="/front/img/onHold.png" title="404">
+    </div>
   </body>
 </html>

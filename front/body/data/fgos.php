@@ -31,11 +31,14 @@
 			<?php
 				connect();
 				global $link;
-				$sql = "select value from `constants` where `key` = 'limitObj'";
+				$sql = "SELECT `value` FROM `constants` WHERE `key` = 'limitObj'";
 				$result = mysqli_query($link, $sql);
 				$limit = mysqli_fetch_array($result);
 				$counter = 0;
-				$sql = "select    fgos.fgos_id
+				$sql_count = "SELECT count(*) FROM fgos";
+				$sql_count_result = mysqli_query($link, $sql_count);
+				$count_obj = mysqli_fetch_array($sql_count_result);
+				$sql = "SELECT    fgos.fgos_id
 								, course.number
 								, course.name
 								, fgos.number
@@ -64,10 +67,10 @@
 	</table>
 	<nav>
 		<ul class="pagination pagination-sm">
-			<?php if (isset($_GET["limit"])){
-			
+			<?php if ($count_obj < $limit){
+				
 			} else {
-				echo '
+			?>
 				<li class="page-item disabled">
 					<a class="page-link" href="#">Предыдущая</a>
 				</li>
@@ -82,9 +85,8 @@
 				</li>
 				<li class="page-item disabled">
 					<a class="page-link" href="#">Следующая</a>
-				</li>' . "\n"; 
-			}
-			?>
+				</li>
+			<?php } ?>
 		</ul>
 	</nav>	
 </div>

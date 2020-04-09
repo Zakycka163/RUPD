@@ -22,11 +22,14 @@
 			<?php
 				connect();
 				global $link;
-				$sql = "select value from `constants` where `key` = 'limitObj'";
+				$sql = "SELECT `value` FROM `constants` WHERE `key` = 'limitObj'";
 				$result = mysqli_query($link, $sql);
 				$limit = mysqli_fetch_array($result);
 				$counter = 0;
-				$sql = "select    cour.course_id
+				$sql_count = "SELECT count(*) FROM courses";
+				$sql_count_result = mysqli_query($link, $sql_count);
+				$count_obj = mysqli_fetch_array($sql_count_result);
+				$sql = "SELECT    cour.course_id
 								, cour.number
 								, cour.name
 								, qua.name
@@ -40,7 +43,7 @@
 					echo '<tr>'."\n".'<td>'.$counter.'</td>'."\n";
 					echo '<td><a href="?page=courses&id='.$row[0].'">'.$row[1].' '.$row[2].'</a></td>'."\n";
 					echo '<td>'.$row[3].'</td>'."\n";
-					$sql2 = "select   prof.profile_id
+					$sql2 = "SELECT   prof.profile_id
 									, prof.name
 							FROM  `profiles` prof
 							WHERE prof.course_id = ".$row[0]."";
@@ -59,10 +62,10 @@
 	</table>
 	<nav>
 		<ul class="pagination pagination-sm">
-			<?php if (isset($_GET["limit"])){
-			
+			<?php if ($count_obj < $limit){
+				
 			} else {
-				echo '
+			?>
 				<li class="page-item disabled">
 					<a class="page-link" href="#">Предыдущая</a>
 				</li>
@@ -77,9 +80,8 @@
 				</li>
 				<li class="page-item disabled">
 					<a class="page-link" href="#">Следующая</a>
-				</li>' . "\n"; 
-			}
-			?>
+				</li>
+			<?php } ?>
 		</ul>
 	</nav>	
 </div>

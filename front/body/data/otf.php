@@ -1,12 +1,18 @@
-<div class="px-4 py-3 bg-light">
-	<div class="form-group">
-		<h4 id="page_title">ОТФ, ТФ и Активности</h4>
+<?php
+	require_once ($_SERVER['DOCUMENT_ROOT']."/pages/404.php");
+	exit();
+?>
+<div class="px-4 py-2 bg-primary font-weight-bold text-white container-fluid">
+	<div class="row">
+		<a class="btn btn-warning btn-sm back" href="/pages/data.php" style="height: 35px; width: 5rem; margin-left: 1rem" title="Назад" data-toggle="tooltip" data-placement="right">&#8592; Назад</a>
+		<div class="h4" id="page_title" style="margin-left: 30%">ОТФ, ТФ и Активности</div>
 	</div>
-	<div class="form-group">
-		<a class="btn btn-warning btn-sm" href="/pages/data.php">Назад</a>
-		<input class="btn btn-success btn-sm" type="button" id="create_otf" value="Добавить ОТФ">
-		<input class="btn btn-success btn-sm" type="button" id="create_tf" value="Добавить ТФ">
-		<input class="btn btn-success btn-sm" type="button" id="create_activity" value="Добавить Активность">
+</div>
+<div class="px-4 py-3 bg-light">
+	<div class="alert alert-secondary col" style="height: 55px">
+		<input class="btn btn-success btn-sm" type="button" id="create_otf" value="Новая ОТФ">
+		<input class="btn btn-success btn-sm" type="button" id="create_tf" value="Новая ТФ">
+		<input class="btn btn-success btn-sm" type="button" id="create_activity" value="Новая Активность">
 	</div>
 	<table class="table table-bordered table-striped table-sm">
 		<thead>
@@ -24,11 +30,14 @@
 			<?php
 				connect();
 				global $link;
-				$sql = "select value from `constants` where `key` = 'limitObj'";
+				$sql = "SELECT `value` FROM `constants` WHERE `key` = 'limitObj'";
 				$result = mysqli_query($link, $sql);
 				$limit = mysqli_fetch_array($result);
 				$counter = 0;
-				$sql = "select    fgos.fgos_id
+				$sql_count = "SELECT count(*) FROM prof_standards";
+				$sql_count_result = mysqli_query($link, $sql_count);
+				$count_obj = mysqli_fetch_array($sql_count_result);
+				$sql = "SELECT    fgos.fgos_id
 								, course.number
 								, course.name
 								, prof.prof_standard_id
@@ -62,10 +71,10 @@
 	</table>
 	<nav>
 		<ul class="pagination pagination-sm">
-			<?php if (isset($_GET["limit"])){
-			
+			<?php if ($count_obj < $limit){
+				
 			} else {
-				echo '
+			?>
 				<li class="page-item disabled">
 					<a class="page-link" href="#">Предыдущая</a>
 				</li>
@@ -80,23 +89,8 @@
 				</li>
 				<li class="page-item disabled">
 					<a class="page-link" href="#">Следующая</a>
-				</li>' . "\n"; 
-			}
-			?>
+				</li> 
+			<?php } ?>
 		</ul>
 	</nav>	
 </div>
-<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/fgos.php"); ?>
-<script>
-	$("#create_fgos_button").click(function(){
-		$.post(
-			"/back/switch_functions.php", 
-			{functionname: 'get_course_list'}, 
-			function(info){
-				$('#empty_course').html(info);
-				$('#empty_course').prop('hidden', false);
-			}
-		);
-		$('#create_fgos').modal('show');
-	});
-</script>
