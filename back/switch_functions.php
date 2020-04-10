@@ -72,14 +72,6 @@
 							 WHERE pulpit_id='".$_POST["param"]."'");
 			break; 
 			
-		case 'get_course_list': 
-			echo "<option selected style='display' disabled>Выбрать направление</option>"."\n";
-			options_present("SELECT course_id
-								  , CONCAT_WS(' ',`number`,`name`) 
-							 FROM courses 
-							 order by `number`");
-			break;
-
 		#-----------Одиночные значения
 		case 'get_fgos_info': 
 			get_result("SELECT CONCAT_WS(' ','Приказ Минобрнауки РФ от',DATE_FORMAT(`date`, '%d-%m-%Y'),'г. №',`number`) 

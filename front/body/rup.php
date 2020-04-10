@@ -256,7 +256,7 @@
 	<div class="col"></div>
 </div>
 <?php 
-	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_fgos.php");		
+	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/fgos.php");		
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/rup.php");		
 ?>
 
@@ -368,7 +368,7 @@ $(document).ready(function() {
 		} else { 
 			$('#get_course').prop('value', 'Направление не определено');
 		}
-		$('#create_fgos_form').modal('show');
+		$('fgos_form').modal('show');
 	});
 	
 	$("#t_functions").on('click', '.add_tf', (function(){

@@ -5,7 +5,7 @@
 				<div>
 					<h5 class="modal-title" id="pulpit_form_title">Создание кафедры</h5>
 				</div>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close close_form" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>

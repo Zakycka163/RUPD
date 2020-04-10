@@ -87,7 +87,7 @@
 		</ul>
 	</nav>	
 </div>
-<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_fgos.php"); ?>
+<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/fgos.php"); ?>
 <script>
 	$("#create_fgos_button").click(function(){
 		$.post(

@@ -80,7 +80,7 @@
 		</ul>
 	</nav>	
 </div>
-<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_fgos.php"); ?>
+<?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/fgos.php"); ?>
 <script>
 	$("#create_fgos_button").click(function(){
 		$.post(
@@ -91,22 +91,38 @@
 				$('#empty_course').prop('hidden', false);
 			}
 		);
-		$('#create_fgos_form').modal('show');
+		$('#fgos_form').modal('show');
 	});
 
 	if ($_GET('id')) {
-		$('#create_fgos_form').modal('show');
+		$.post(
+			"/back/switch_functions.php", 
+			{functionname: 'get_course_list'}, 
+			function(info){
+				$('#empty_course').html(info);
+				$('#empty_course').prop('hidden', false);
+			}
+		);
 		$('#form_title').text('ФГОС');
-			let fgos_id = $_GET('id');
-			$.post(
-			 	"/back/data/db_fgos.php", 
-				{functionname: 'get_fgos', id: fgos_id}, 
-				function(info){
-					var inst = $.parseJSON(info);
-					$('#institute_form_title').after(inst.name);
-					$('#inst_name').val(inst.name);
-					$('#inst_description').text(inst.description);
-				}
-			);
+
+		let fgos_id = $_GET('id');
+		$.post(
+		 	"/back/data/db_fgos.php", 
+			{functionname: 'get_fgos', id: fgos_id}, 
+			function(info){
+				var fgos = $.parseJSON(info);
+				$('#empty_course option:selected').prop('selected', false);
+				$('#empty_course').val(fgos.course).prop('selected', true);
+				$('#input_number').val(fgos.number);
+				$('#input_date').val(fgos.date);
+				$('#reg_date').val(fgos.reg_date);
+				$('#reg_number').val(fgos.reg_number);
+			}
+		);
+		$('#fgos_form').modal('show');
 	}
+
+	$(".close_form").click(function(){
+		location.href='data.php?page=fgos';
+	});
 </script>

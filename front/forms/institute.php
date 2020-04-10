@@ -5,7 +5,7 @@
 				<div>
 					<h5 class="modal-title" id="institute_form_title">Создание института</h5>
 				</div>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close close_form" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -38,7 +38,7 @@
 	</div>
 </div>
 <script>
-	$(".close").click(function(){
+	$(".close_form").click(function(){
 		location.href='data.php?page=institutes';
 	});
 
