@@ -97,6 +97,10 @@
 		$('#parent_inst').popover('hide');
 	});
 
+	$("#parent_inst_name").mouseenter (function(){
+		$('#parent_inst_name').tooltip('show');
+	});
+
 	$("#add_parent_inst_name").click(function(){
 		$("#add_parent_inst_name_form").modal('show');
 	});
@@ -178,10 +182,6 @@
 				}
 			);
 		}
-	});
-
-	$("#parent_inst_name").mouseenter (function(){
-		$('#parent_inst_name').tooltip('show');
 	});
 
 	$("#delete_pulpit").click(function(){

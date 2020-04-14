@@ -38,10 +38,6 @@
 	</div>
 </div>
 <script>
-	$(".close_form").click(function(){
-		location.href='data.php?page=institutes';
-	});
-
 	$("#inst_name").mouseenter (function(){
 		$('#inst_name').removeClass('error-pointer');
 		$('#inst_name').popover('hide');
