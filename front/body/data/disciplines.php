@@ -98,45 +98,43 @@
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/pulpit.php");
 ?> 
 <script>
-	$(document).ready(function() {
-		if ($_GET('kafid')) {
-			$('#delete_pulpit').prop('hidden', true);
-			$('#add_parent_inst_name').prop('hidden', true);
-			$('#save_pulpit').prop('hidden', true);
-			$('#pul_name').prop('readonly', true);
-			$('#pul_description').prop('readonly', true);
-			
-			$('#pulpit_form').modal('show');
-			$('#pulpit_form_title').text('Кафедра:');
-			let pul_id = $_GET('kafid');
-			$.post(
-			 	"/back/data/db_pulpits.php", 
-				{functionname: 'get_pulpit', id: pul_id}, 
-				function(info){
-					var pul = $.parseJSON(info);
-					$('#pulpit_form_title').after(pul.name);
-					$('#inst_val option:selected').prop('selected', false);
-					$('#inst_val').val(pul.institute_id).prop('selected', true);
-					$('#pul_name').val(pul.name);
-					$('#pul_description').text(pul.description);
-					
-					$("#add_parent_inst_name_form").find("#inst_val option:selected").text()
-					var inst_text = $("#inst_val :selected").text();
-					$("#parent_inst_name").val(inst_text);
-					$("#parent_inst_name").prop('title',inst_text);
-					$("#add_parent_inst_name").removeClass('btn-outline-success');
-					$("#add_parent_inst_name").addClass('btn-outline-primary');
-					$("#add_parent_inst_name").text('Изменить');
-				}
-			);
-		}
+	if ($_GET('kafid')) {
+		$('#delete_pulpit').prop('hidden', true);
+		$('#add_parent_inst_name').prop('hidden', true);
+		$('#save_pulpit').prop('hidden', true);
+		$('#pul_name').prop('readonly', true);
+		$('#pul_description').prop('readonly', true);
+		
+		$('#pulpit_form').modal('show');
+		$('#pulpit_form_title').text('Кафедра:');
+		let pul_id = $_GET('kafid');
+		$.post(
+		 	"/back/data/db_pulpits.php", 
+			{functionname: 'get_pulpit', id: pul_id}, 
+			function(info){
+				var pul = $.parseJSON(info);
+				$('#pulpit_form_title').after(pul.name);
+				$('#inst_val option:selected').prop('selected', false);
+				$('#inst_val').val(pul.institute_id).prop('selected', true);
+				$('#pul_name').val(pul.name);
+				$('#pul_description').text(pul.description);
+				
+				$("#add_parent_inst_name_form").find("#inst_val option:selected").text()
+				var inst_text = $("#inst_val :selected").text();
+				$("#parent_inst_name").val(inst_text);
+				$("#parent_inst_name").prop('title',inst_text);
+				$("#add_parent_inst_name").removeClass('btn-outline-success');
+				$("#add_parent_inst_name").addClass('btn-outline-primary');
+				$("#add_parent_inst_name").text('Изменить');
+			}
+		);
+	}
 
-		$(".close_form").click(function(){
-			location.href='data.php?page=disciplines';
-		});
+	$(".close_form").click(function(){
+		location.href='data.php?page=disciplines';
+	});
 
-		$(".close").click(function(){
-			location.href='data.php?page=disciplines';
-		});
+	$(".close").click(function(){
+		location.href='data.php?page=disciplines';
 	});
 </script>

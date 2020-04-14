@@ -80,14 +80,11 @@
 <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_account.php"); ?> 
 <script src="/front/js/_GET.js"></script>
 <script>
-	$(document).ready(function() {
-		if ($_GET('action')=="create"){
-			$('#create_account_form').modal('show');
-		};
-		
-		$("#create_account").click(function(){
-			location.href='/pages/control/users.php?action=create';
-		});
-
+	if ($_GET('action')=="create"){
+		$('#create_account_form').modal('show');
+	};
+	
+	$("#create_account").click(function(){
+		location.href='/pages/control/users.php?action=create';
 	});
 </script>

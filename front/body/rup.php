@@ -261,8 +261,6 @@
 ?>
 
 <script>
-$(document).ready(function() {
-	
 	$("#input_pulpit").change(function() {	
 		$("#input_discipline").empty();
 		$("#info_part").text('Дисциплина не определена');
@@ -527,6 +525,4 @@ $(document).ready(function() {
 			 }
 		);
 	}
-	
-});
 </script>

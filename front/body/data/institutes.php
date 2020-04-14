@@ -87,61 +87,59 @@
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/pulpit.php"); 
 ?> 
 <script>
-	$(document).ready(function() {
-		if ($_GET('action')=="create_institute"){
-			$('#institute_form').modal('show');
-		} else if ($_GET('action')=="create_pulpit"){
-			$('#pulpit_form').modal('show');
-		}
+	if ($_GET('action')=="create_institute"){
+		$('#institute_form').modal('show');
+	} else if ($_GET('action')=="create_pulpit"){
+		$('#pulpit_form').modal('show');
+	}
 
-		if ($_GET('insid')) {
-			$('#institute_form').modal('show');
-			$('#institute_form_title').text('Институт:');
-			let inst_id = $_GET('insid');
-			$.post(
-			 	"/back/data/db_institutes.php", 
-				{functionname: 'get_institute', id: inst_id}, 
-				function(info){
-					var inst = $.parseJSON(info);
-					$('#institute_form_title').after(inst.name);
-					$('#inst_name').val(inst.name);
-					$('#inst_description').text(inst.description);
-				}
-			);
-		}
+	if ($_GET('insid')) {
+		$('#institute_form').modal('show');
+		$('#institute_form_title').text('Институт:');
+		let inst_id = $_GET('insid');
+		$.post(
+		 	"/back/data/db_institutes.php", 
+			{functionname: 'get_institute', id: inst_id}, 
+			function(info){
+				var inst = $.parseJSON(info);
+				$('#institute_form_title').after(inst.name);
+				$('#inst_name').val(inst.name);
+				$('#inst_description').text(inst.description);
+			}
+		);
+	}
 
-		if ($_GET('kafid')) {
-			$('#pulpit_form').modal('show');
-			$('#pulpit_form_title').text('Кафедра:');
-			let pul_id = $_GET('kafid');
-			$.post(
-			 	"/back/data/db_pulpits.php", 
-				{functionname: 'get_pulpit', id: pul_id}, 
-				function(info){
-					var pul = $.parseJSON(info);
-					$('#pulpit_form_title').after(pul.name);
-					$('#inst_val option:selected').prop('selected', false);
-					$('#inst_val').val(pul.institute_id).prop('selected', true);
-					$('#pul_name').val(pul.name);
-					$('#pul_description').text(pul.description);
-					
-					$("#add_parent_inst_name_form").find("#inst_val option:selected").text()
-					var inst_text = $("#inst_val :selected").text();
-					$("#parent_inst_name").val(inst_text);
-					$("#parent_inst_name").prop('title',inst_text);
-					$("#add_parent_inst_name").removeClass('btn-outline-success');
-					$("#add_parent_inst_name").addClass('btn-outline-primary');
-					$("#add_parent_inst_name").text('Изменить');
-				}
-			);
-		}
+	if ($_GET('kafid')) {
+		$('#pulpit_form').modal('show');
+		$('#pulpit_form_title').text('Кафедра:');
+		let pul_id = $_GET('kafid');
+		$.post(
+		 	"/back/data/db_pulpits.php", 
+			{functionname: 'get_pulpit', id: pul_id}, 
+			function(info){
+				var pul = $.parseJSON(info);
+				$('#pulpit_form_title').after(pul.name);
+				$('#inst_val option:selected').prop('selected', false);
+				$('#inst_val').val(pul.institute_id).prop('selected', true);
+				$('#pul_name').val(pul.name);
+				$('#pul_description').text(pul.description);
+				
+				$("#add_parent_inst_name_form").find("#inst_val option:selected").text()
+				var inst_text = $("#inst_val :selected").text();
+				$("#parent_inst_name").val(inst_text);
+				$("#parent_inst_name").prop('title',inst_text);
+				$("#add_parent_inst_name").removeClass('btn-outline-success');
+				$("#add_parent_inst_name").addClass('btn-outline-primary');
+				$("#add_parent_inst_name").text('Изменить');
+			}
+		);
+	}
 
-		$(".close_form").click(function(){
-			location.href='data.php?page=institutes';
-		});
+	$(".close_form").click(function(){
+		location.href='data.php?page=institutes';
+	});
 
-		$(".close").click(function(){
-			location.href='data.php?page=institutes';
-		});
+	$(".close").click(function(){
+		location.href='data.php?page=institutes';
 	});
 </script>

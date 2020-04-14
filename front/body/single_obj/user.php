@@ -112,7 +112,6 @@
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/edit_account_pass.php");		
 ?>
 <script>
-$(document).ready(function() {
 	$("#edit_account_login").click(function(){
 		$('#edit_account_login_form').modal('show');
 	});
@@ -164,5 +163,4 @@ $(document).ready(function() {
 		$('#middle_name').removeClass('error-pointer');
 		$('#middle_name').popover('hide');
 	});
-});
 </script>

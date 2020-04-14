@@ -52,52 +52,50 @@
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/loader_form.php");	
 ?>
 <script>
-    $(document).ready(function() {
-        $("#bulk_type").change(function() {
-            var bulk_type = $("#bulk_type").val();
-            var bulk_type_ru = $("#bulk_type option:selected").text();
-            if (bulk_type == 0) {
-                $('#get_template').prop('disabled', true);
-                $('#file_loader').prop('hidden', true);
-            } else {
-                $('#file_loader').prop('hidden', false);
-                $("#file_type").val(bulk_type);
-                $("#file_type_ru").val(bulk_type_ru);
-                $('#get_template').prop('disabled', false);
-                $("#get_template").click(function() {
-                    location.href = "../templates/bulk_templates/"+bulk_type+".xlsx";
-                });
-            };
-        });
+    $("#bulk_type").change(function() {
+        var bulk_type = $("#bulk_type").val();
+        var bulk_type_ru = $("#bulk_type option:selected").text();
+        if (bulk_type == 0) {
+            $('#get_template').prop('disabled', true);
+            $('#file_loader').prop('hidden', true);
+        } else {
+            $('#file_loader').prop('hidden', false);
+            $("#file_type").val(bulk_type);
+            $("#file_type_ru").val(bulk_type_ru);
+            $('#get_template').prop('disabled', false);
+            $("#get_template").click(function() {
+                location.href = "../templates/bulk_templates/"+bulk_type+".xlsx";
+            });
+        };
+    });
 
-        $("#save").click(function() {
-            var file_on_server = <?php echo ((isset($_FILES['userfile'])) ? "'".$uploadfile."'" : "''");  ?>;
-            var file_type_on_server = <?php echo ((isset($_FILES['userfile'])) ? "'".$_POST['file_type']."'" : "''");  ?>;
-            $('#loader_form').modal('show');
-            $('#save').prop('hidden', true);
-            $('#cancel').prop('hidden', true);
-            $('#alert_presenter').prop('hidden', true);
-			$.post(
-				"/back/writer.php", 
-				{file_type: file_type_on_server, uploadfile: file_on_server}, 
-				function(info){
-					if (info == " ") {
-                        $('#success_presenter').prop('hidden', false);
-                        $('#loader_form').modal('hide');
-                        $('#cancel').prop('hidden', false);
-                        alert("Успешно");
-					} else {
-                        $('#error_presenter').prop('hidden', false);
-                        $('#cancel').prop('hidden', false);
-                        $('#loader_form').modal('hide');
-                        $('#text_error').text(info);
-					}
+    $("#save").click(function() {
+        var file_on_server = <?php echo ((isset($_FILES['userfile'])) ? "'".$uploadfile."'" : "''");  ?>;
+        var file_type_on_server = <?php echo ((isset($_FILES['userfile'])) ? "'".$_POST['file_type']."'" : "''");  ?>;
+        $('#loader_form').modal('show');
+        $('#save').prop('hidden', true);
+        $('#cancel').prop('hidden', true);
+        $('#alert_presenter').prop('hidden', true);
+		$.post(
+			"/back/writer.php", 
+			{file_type: file_type_on_server, uploadfile: file_on_server}, 
+			function(info){
+				if (info == " ") {
+                    $('#success_presenter').prop('hidden', false);
+                    $('#loader_form').modal('hide');
+                    $('#cancel').prop('hidden', false);
+                    alert("Успешно");
+				} else {
+                    $('#error_presenter').prop('hidden', false);
+                    $('#cancel').prop('hidden', false);
+                    $('#loader_form').modal('hide');
+                    $('#text_error').text(info);
 				}
-			);
-        });
+			}
+		);
+    });
 
-        $("#cancel").click(function() {
-            location.href = "/pages/data.php?page=bulk";
-        });
+    $("#cancel").click(function() {
+        location.href = "/pages/data.php?page=bulk";
     });
 </script>

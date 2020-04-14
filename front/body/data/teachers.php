@@ -86,9 +86,7 @@
 <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_teacher.php"); ?>
 
 <script>
-	$(document).ready(function() {
-		$("#create_teacher").click(function(){
-			$('#create_teacher_form').modal('show');
-		});
+	$("#create_teacher").click(function(){
+		$('#create_teacher_form').modal('show');
 	});
 </script>

@@ -126,74 +126,72 @@
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_account.php");			
 ?>
 <script>
-	$(document).ready(function() {
-		$("#create_account").click(function(){
-			$('#create_account_form').modal('show');
-		});
+	$("#create_account").click(function(){
+		$('#create_account_form').modal('show');
+	});
 
-		$("#edit_teach_name").click(function(){
-			let second_name = $("#second_name").val();
-			let first_name = $("#first_name").val();
-			let middle_name = $("#middle_name").val();
-			let email = $("#email").val(); 
+	$("#edit_teach_name").click(function(){
+		let second_name = $("#second_name").val();
+		let first_name = $("#first_name").val();
+		let middle_name = $("#middle_name").val();
+		let email = $("#email").val(); 
 
-			if (second_name == '' || second_name.length < 2) {
-				$('#second_name').addClass('error-pointer');
-				$('#second_name').popover('show');
-			} else if (first_name == '' || first_name.length < 2) {
-				$('#first_name').addClass('error-pointer');
-				$('#first_name').popover('show');
-			} else if (middle_name !== '' && middle_name.length < 2) {
-				$('#middle_name').addClass('error-pointer');
-				$('#middle_name').popover('show');
-			} else if (email == '' || !checkEmailMask(email)) {
-				$('#email').addClass('error-pointer');
-				$('#email').popover('show');
-			} else {
-				$.post(
-					"/back/data/db_teachers.php", 
-					{functionname: 'edit_teach_name', acc_id: <?php echo $_GET["id"];?>
-													, second_name: second_name
-													, first_name: first_name
-													, middle_name: middle_name}, 
-					function(info){
-						alert(info);
-						location.reload();
-					}
-				);
-			}
-		});
+		if (second_name == '' || second_name.length < 2) {
+			$('#second_name').addClass('error-pointer');
+			$('#second_name').popover('show');
+		} else if (first_name == '' || first_name.length < 2) {
+			$('#first_name').addClass('error-pointer');
+			$('#first_name').popover('show');
+		} else if (middle_name !== '' && middle_name.length < 2) {
+			$('#middle_name').addClass('error-pointer');
+			$('#middle_name').popover('show');
+		} else if (email == '' || !checkEmailMask(email)) {
+			$('#email').addClass('error-pointer');
+			$('#email').popover('show');
+		} else {
+			$.post(
+				"/back/data/db_teachers.php", 
+				{functionname: 'edit_teach_name', acc_id: <?php echo $_GET["id"];?>
+												, second_name: second_name
+												, first_name: first_name
+												, middle_name: middle_name}, 
+				function(info){
+					alert(info);
+					location.reload();
+				}
+			);
+		}
+	});
 
-		$("#ac_rank_name").mouseenter (function(){
-			$('#ac_rank_name').tooltip('show');
-		});
-		
-		$("#deg_name").mouseenter (function(){
-			$('#deg_name').tooltip('show');
-		});
+	$("#ac_rank_name").mouseenter (function(){
+		$('#ac_rank_name').tooltip('show');
+	});
+	
+	$("#deg_name").mouseenter (function(){
+		$('#deg_name').tooltip('show');
+	});
 
-		$("#position").mouseenter (function(){
-			$('#position').tooltip('show');
-		});
+	$("#position").mouseenter (function(){
+		$('#position').tooltip('show');
+	});
 
-		$("#second_name").mouseenter (function(){
-			$('#second_name').removeClass('error-pointer');
-			$('#second_name').popover('hide');
-		});
+	$("#second_name").mouseenter (function(){
+		$('#second_name').removeClass('error-pointer');
+		$('#second_name').popover('hide');
+	});
 
-		$("#first_name").mouseenter (function(){
-			$('#first_name').removeClass('error-pointer');
-			$('#first_name').popover('hide');
-		});
+	$("#first_name").mouseenter (function(){
+		$('#first_name').removeClass('error-pointer');
+		$('#first_name').popover('hide');
+	});
 
-		$("#middle_name").mouseenter (function(){
-			$('#middle_name').removeClass('error-pointer');
-			$('#middle_name').popover('hide');
-		});
+	$("#middle_name").mouseenter (function(){
+		$('#middle_name').removeClass('error-pointer');
+		$('#middle_name').popover('hide');
+	});
 
-		$("#email").mouseenter (function(){
-			$('#email').removeClass('error-pointer');
-			$('#email').popover('hide');
-		});
+	$("#email").mouseenter (function(){
+		$('#email').removeClass('error-pointer');
+		$('#email').popover('hide');
 	});
 </script>
