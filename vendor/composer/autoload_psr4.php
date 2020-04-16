@@ -7,16 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Zend\\Escaper\\' => array($vendorDir . '/zendframework/zend-escaper/src'),
-    'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
-    'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
-    'Symfony\\Component\\Finder\\' => array($vendorDir . '/symfony/finder'),
     'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'PhpOffice\\PhpWord\\' => array($vendorDir . '/phpoffice/phpword/src/PhpWord'),
     'PhpOffice\\PhpSpreadsheet\\' => array($vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet'),
     'PhpOffice\\Common\\' => array($vendorDir . '/phpoffice/common/src/Common'),
-    'OpenApi\\' => array($vendorDir . '/zircote/swagger-php/src'),
     'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),
-    'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib/Doctrine/Common/Lexer'),
-    'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations'),
     'Complex\\' => array($vendorDir . '/markbaker/complex/classes/src'),
 );

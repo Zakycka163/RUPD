@@ -7,7 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInit384b9c8a9dfb172f04bb9a46dfaec85a
 {
     public static $files = array (
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'abede361264e2ae69ec1eee813a101af' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/abs.php',
         '21a5860fbef5be28db5ddfbc3cca67c4' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acos.php',
         '1546e3f9d127f2a9bb2d1b6c31c26ef1' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acosh.php',
@@ -66,19 +65,12 @@ class ComposerStaticInit384b9c8a9dfb172f04bb9a46dfaec85a
         'aa53dcba601214d17ad405b7c291b7e8' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/operations/multiply.php',
         '75c79eb1b25749b05a47976f32b0d8a2' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/operations/divideby.php',
         '6ab8ad87a734f276a6bcd5a0fe1289be' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/operations/divideinto.php',
-        '0ccdf99b8f62f02c52cba55802e0c2e7' => __DIR__ . '/..' . '/zircote/swagger-php/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'Z' => 
         array (
             'Zend\\Escaper\\' => 13,
-        ),
-        'S' => 
-        array (
-            'Symfony\\Polyfill\\Ctype\\' => 23,
-            'Symfony\\Component\\Yaml\\' => 23,
-            'Symfony\\Component\\Finder\\' => 25,
         ),
         'P' => 
         array (
@@ -87,18 +79,9 @@ class ComposerStaticInit384b9c8a9dfb172f04bb9a46dfaec85a
             'PhpOffice\\PhpSpreadsheet\\' => 25,
             'PhpOffice\\Common\\' => 17,
         ),
-        'O' => 
-        array (
-            'OpenApi\\' => 8,
-        ),
         'M' => 
         array (
             'Matrix\\' => 7,
-        ),
-        'D' => 
-        array (
-            'Doctrine\\Common\\Lexer\\' => 22,
-            'Doctrine\\Common\\Annotations\\' => 28,
         ),
         'C' => 
         array (
@@ -110,18 +93,6 @@ class ComposerStaticInit384b9c8a9dfb172f04bb9a46dfaec85a
         'Zend\\Escaper\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-escaper/src',
-        ),
-        'Symfony\\Polyfill\\Ctype\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
-        ),
-        'Symfony\\Component\\Yaml\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/yaml',
-        ),
-        'Symfony\\Component\\Finder\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/finder',
         ),
         'Psr\\SimpleCache\\' => 
         array (
@@ -139,21 +110,9 @@ class ComposerStaticInit384b9c8a9dfb172f04bb9a46dfaec85a
         array (
             0 => __DIR__ . '/..' . '/phpoffice/common/src/Common',
         ),
-        'OpenApi\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zircote/swagger-php/src',
-        ),
         'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
-        ),
-        'Doctrine\\Common\\Lexer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
-        ),
-        'Doctrine\\Common\\Annotations\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations',
         ),
         'Complex\\' => 
         array (
