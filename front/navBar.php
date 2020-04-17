@@ -22,7 +22,7 @@
 			}
 		?>      
 		<li class="nav-item">
-			<button class="btn btn-light" type="button" onclick="window.location.href='/pages/about.php'">О системе</button>
+			<a class="btn btn-light" type="button" href="/pages/about.php">О системе</a>
 		</li>
 	</ul>
 	<?php if(!empty($_SESSION["id"])){
@@ -52,14 +52,17 @@
         <li class="nav-item">
 			<a class="btn btn-primary btn-sm active" href="/">Главная</a>
 		</li>
-        <?php 
-			if($admin=="2"){
-				require_once ($_SERVER['DOCUMENT_ROOT']."/front/navBars/navBarAdmMd.php");
-			}
-			if($admin=="1"){
-				require_once ($_SERVER['DOCUMENT_ROOT']."/front/navBars/navBarTeachMd.php");
-			}
-		?>
+		<?php 
+			if(!empty($_SESSION["id"])){
+				if($admin=="2"){
+					require_once ($_SERVER['DOCUMENT_ROOT']."/front/navBars/navBarAdmMd.php");
+				}
+				if($admin=="1"){
+					require_once ($_SERVER['DOCUMENT_ROOT']."/front/navBars/navBarTeachMd.php");
+				}
+			} else { ?>
+				<a class="btn btn-light btn-sm" type="button" href="/pages/about.php">О системе</a>
+		<?php } ?>
 	</ul>
 	<?php if(!empty($_SESSION["id"])){ ?>	
 		<form class="form-inline">
@@ -107,13 +110,16 @@
 		<div class="bg-light p-1">
 			<a class="btn btn-primary btn-sm active" href="/">Главная</a>
 			<?php 
-				if($admin=="2"){
-					require_once ($_SERVER['DOCUMENT_ROOT']."/front/navBars/navBarAdmSm.php");
-				}
-				if($admin=="1"){
-					require_once ($_SERVER['DOCUMENT_ROOT']."/front/navBars/navBarTeachSm.php");
+				if(!empty($_SESSION["id"])){
+					if($admin=="2"){
+						require_once ($_SERVER['DOCUMENT_ROOT']."/front/navBars/navBarAdmSm.php");
+					}
+					if($admin=="1"){
+						require_once ($_SERVER['DOCUMENT_ROOT']."/front/navBars/navBarTeachSm.php");
+					}
 				}
 			?>
+			<a class="btn btn-sm btn-light" type="button" href="/pages/about.php">О системе</a>
 		</div>
   	</div>
 </div>
