@@ -10,7 +10,7 @@
 				 , position
 				 , account_id
 				 , account
-			FROM teachers_presenter
+			FROM view_teachers
 			WHERE teacher_id = ".$_GET["id"]."";
 	$result = mysqli_query($link, $sql);
 	while($row = mysqli_fetch_array($result)){

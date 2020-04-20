@@ -78,13 +78,13 @@
 			$data_in_base = mysqli_query($link, "SELECT second_name
 													  , first_name 
 													  , middle_name
-												 FROM teachers_presenter
+												 FROM view_teachers
 												 WHERE account_id=".$_POST['acc_id']."");
 			while($data = mysqli_fetch_array($data_in_base)){
 				if ($data[0] == $_POST['second_name'] && $data[1] == $_POST['first_name'] && $data[2] == $_POST['middle_name']) {
 					echo 'Изменений не было!';
 				} else {
-					$query = "UPDATE teachers_presenter
+					$query = "UPDATE view_teachers
 							  SET second_name='".mysqli_real_escape_string($link, htmlspecialchars(trim($_POST["second_name"])))."'
 					  			, first_name ='".mysqli_real_escape_string($link, htmlspecialchars(trim($_POST["first_name"])))."'
 					  			, middle_name='".mysqli_real_escape_string($link, htmlspecialchars(trim($_POST["middle_name"])))."'

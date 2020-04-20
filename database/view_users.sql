@@ -1,6 +1,6 @@
 CREATE
 /* [DEFINER = { user | CURRENT_USER }]*/
-VIEW users_presenter
+VIEW view_users
 AS (
 SELECT    acc.account_id 
 		, acc.login

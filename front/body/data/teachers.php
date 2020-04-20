@@ -36,10 +36,10 @@
 				$result = mysqli_query($link, $sql);
 				$limit = mysqli_fetch_array($result);
 				$counter = 0;
-				$sql_count = "SELECT count(*) FROM teachers_presenter";
+				$sql_count = "SELECT count(*) FROM view_teachers";
 				$sql_count_result = mysqli_query($link, $sql_count);
 				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT * FROM teachers_presenter
+				$sql = "SELECT * FROM view_teachers
 						LIMIT ".$limit[0]."";
 				$result = mysqli_query($link, $sql);
 				while($row = mysqli_fetch_array($result)){

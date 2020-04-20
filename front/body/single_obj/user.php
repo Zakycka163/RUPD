@@ -8,7 +8,7 @@
 	connect();
 	global $link;
 	$sql = "SELECT * 
-			FROM users_presenter
+			FROM view_users
 			WHERE account_id = ".$_GET["id"]."";
 	$result = mysqli_query($link, $sql);
 	while($row = mysqli_fetch_array($result)){

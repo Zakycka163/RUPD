@@ -35,7 +35,7 @@
 																	  ,CONCAT(LEFT(first_name,1),'.')
 																	  ,CONCAT(LEFT(middle_name,1),'.')
 																	) as teacher 
-													 FROM teachers_presenter 
+													 FROM view_teachers 
 													 WHERE account is null 
 													 ORDER BY teacher");
 								?>

@@ -1,6 +1,6 @@
 CREATE
 /* [DEFINER = { user | CURRENT_USER }]*/
-VIEW teachers_presenter
+VIEW view_teachers
 AS (
 SELECT    tech.teacher_id
 		, tech.second_name

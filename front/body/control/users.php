@@ -27,10 +27,10 @@
 				$result = mysqli_query($link, $sql);
 				$limit = mysqli_fetch_array($result);
 				$counter = 0;
-				$sql_count = "SELECT count(*) FROM users_presenter";
+				$sql_count = "SELECT count(*) FROM view_users";
 				$sql_count_result = mysqli_query($link, $sql_count);
 				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT * FROM users_presenter
+				$sql = "SELECT * FROM view_users
 						LIMIT ".$limit[0]."";
 				$result = mysqli_query($link, $sql);
 				while($row = mysqli_fetch_array($result)){
