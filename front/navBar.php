@@ -1,5 +1,5 @@
 <nav class="navbar bg-light sticky-top d-none d-lg-flex">
-    <ul class="nav nav-pills">
+    <ul class="nav nav-pills" style="margin-left:10px">
         <li class="nav-item">
             <a class="btn btn-primary active" href="/">Главная</a>
         </li>
