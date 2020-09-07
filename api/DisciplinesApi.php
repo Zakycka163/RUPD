@@ -48,10 +48,10 @@ class DisciplinesApi extends Api
                 $number++;
                 $disciplines[] = $discipline;
             }
-            close();
             $response_body['disciplines'] = $disciplines;
             return $this->response($response_body, 200);
         }
+        close();
         return $this->response('No Content', 204);
     }
 
@@ -90,6 +90,7 @@ class DisciplinesApi extends Api
                 }
                 return $this->response($discipline, 200);
             } return $this->response('No Content', 204);
+            close();
         }
         return $this->response('Bad Request', 400);
     }
@@ -105,14 +106,13 @@ class DisciplinesApi extends Api
         $name = $this->requestParams['name'] ?? '';
         $email = $this->requestParams['email'] ?? '';
         if($name && $email){
-            $db = (new Db())->getConnect();
-            $user = new Users($db, [
-                'name' => $name,
-                'email' => $email
-            ]);
-            if($user = $user->saveNew()){
-                return $this->response('Data saved.', 200);
-            }
+            
+            connect();
+            global $link;
+            
+            #TODO
+            return $this->response('Data saved.', 200);
+            close();
         }
         return $this->response("Saving error", 500);
     }
@@ -128,20 +128,17 @@ class DisciplinesApi extends Api
         $parse_url = parse_url($this->requestUri[0]);
         $userId = $parse_url['path'] ?? null;
 
-        $db = (new Db())->getConnect();
-
-        if(!$userId || !Users::getById($db, $userId)){
-            return $this->response("User with id=$userId not found", 404);
-        }
+        connect();
+        global $link;
 
         $name = $this->requestParams['name'] ?? '';
         $email = $this->requestParams['email'] ?? '';
 
         if($name && $email){
-            if($user = Users::update($db, $userId, $name, $email)){
-                return $this->response('Data updated.', 200);
-            }
+            #TODO
+            return $this->response('Data updated.', 200);
         }
+        close();
         return $this->response("Update error", 400);
     }
 
@@ -156,14 +153,13 @@ class DisciplinesApi extends Api
         $parse_url = parse_url($this->requestUri[0]);
         $userId = $parse_url['path'] ?? null;
 
-        $db = (new Db())->getConnect();
+        connect();
+        global $link;
 
-        if(!$userId || !Users::getById($db, $userId)){
-            return $this->response("User with id=$userId not found", 404);
-        }
-        if(Users::deleteById($db, $userId)){
-            return $this->response('Data deleted.', 200);
-        }
-        return $this->response("Delete error", 500);
+        #TODO
+        return $this->response('Data deleted.', 200);
+        
+        close();
+
     }
 }
