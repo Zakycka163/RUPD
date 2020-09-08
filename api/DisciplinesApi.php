@@ -26,7 +26,7 @@ class DisciplinesApi extends Api
         $count_obj = mysqli_fetch_array($count_result);
         
         if ( (int)$count_obj[0] > 0) {
-            $response_body = array('total' => (int)$count_obj[0], 'limit' => (int)$limit[0],'round' => $round);
+            $response_body = array('total' => (int)$count_obj[0], 'limit' => (int)$limit[0],'round' => (int) $round);
             $sql_columns = "SHOW COLUMNS FROM view_disciplines";
             $sql_main = "SELECT * FROM view_disciplines LIMIT ".$start.",".$limit[0]."";
             $result_columns = mysqli_query($link, $sql_columns);
@@ -38,7 +38,7 @@ class DisciplinesApi extends Api
             while($row = mysqli_fetch_array($result_main)){
                 for($i = 0, $size = count($columns); $i < $size; ++$i) {
                     if ($i == 0) {
-                        $discipline['n'] = $number;
+                        $discipline['#'] = $number;
                     }
                     if(is_numeric($row[$i])){
                         $row[$i] = $row[$i] * 1;
@@ -85,6 +85,9 @@ class DisciplinesApi extends Api
                 $discipline = array();
                 while($row = mysqli_fetch_array($result_main)){
                     for($i = 0, $size = count($columns); $i < $size; ++$i) {
+                        if(is_numeric($row[$i])){
+                            $row[$i] = $row[$i] * 1;
+                        }
                         $discipline[$columns[$i]] = $row[$i];
                     }
                 }
