@@ -10,6 +10,7 @@ class DisciplinesApi extends Api
      * Метод GET
      * Вывод списка всех записей
      * http://ДОМЕН/disciplines
+     * http://ДОМЕН/disciplines?round=
      * @return string
      */
     public function indexAction()
