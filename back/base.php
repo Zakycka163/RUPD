@@ -1,15 +1,23 @@
 <?php
-    $link=false;
+	$link = false;
+	$host = 'localhost';
+	$user = 'root';
+	$password = '';
+	$db_name = 'create_educational';
 	
     function connect(){
-        global $link;
-        $link=mysqli_connect("localhost", "root", "", "create_educational") or die ('Не удалось соединиться с БД');
+		global $link;
+		global $host;
+		global $user;
+		global $password;
+		global $db_name;
+        $link = mysqli_connect($host, $user, $password, $db_name) or die ('Не удалось соединиться с БД');
         mysqli_query($link, "SET NAMES utf8");
     }
-    
+
     function close(){
         global $link;
-        $link->close(); 
+        mysqli_close($link);
     }
 	
 	function options_present($sql){
