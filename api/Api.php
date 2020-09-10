@@ -200,7 +200,7 @@ abstract class Api
     /*
      * Метод POST
      * Создание новой записи
-     * http://ДОМЕН/parts + JSON
+     * http://ДОМЕН/${table_name} + JSON
      * 
     {
         "name": string
@@ -231,7 +231,7 @@ abstract class Api
     /*
      * Метод PUT
      * Обновление отдельной записи (по ее id)
-     * http://ДОМЕН/parts?id= + JSON
+     * http://ДОМЕН/${table_name}?id= + JSON
      * 
     { 
         "name": string 
