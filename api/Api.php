@@ -120,19 +120,56 @@ abstract class Api
                     if(is_numeric($row[$i])){
                         $row[$i] = $row[$i] * 1;
                     }
-                    $part[$columns[$i]] = $row[$i];
+                    $obj[$columns[$i]] = $row[$i];
                 }
                 $number++;
-                $parts[] = $part;
+                $objs[] = $obj;
             }
-            $response_body['parts'] = $parts;
+            $response_body[$this->table_name] = $objs;
             return $this->response($response_body, 200);
         }
         $link = $database->close_db_link();
         return $this->response('No Content', 204);
     }
 
-    abstract protected function viewAction();
+    /**
+     * Метод GET
+     * Просмотр отдельной записи (по id)
+     * http://ДОМЕН/${table_name}?id=
+     * @return string
+     */
+    public function viewAction()
+    {
+        $id = $this->requestParams['id'] ?? '';
+
+        if( is_numeric($id) ){
+
+            $database = new Database();
+            $link = $database->get_db_link();
+            $sql_check = "SELECT * FROM `".$this->table_name."` WHERE id = ".$id."";
+            $result = mysqli_query($link, $sql_check);
+
+            if (mysqli_num_rows($result) == 1) {
+                $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
+                $result_columns = mysqli_query($link, $sql_columns);
+                while($row = mysqli_fetch_array($result_columns)){
+                    $columns[] = $row['Field'];
+                }
+                while($row = mysqli_fetch_array($result)){
+                    for($i = 0, $size = count($columns); $i < $size; ++$i) {
+                        if(is_numeric($row[$i])){
+                            $row[$i] = $row[$i] * 1;
+                        }
+                        $obj[$columns[$i]] = $row[$i];
+                    }
+                }
+                return $this->response($obj, 200);
+            } return $this->response('No Content', 204);
+            $link = $database->close_db_link();
+        }
+        return $this->response('Bad Request', 400);
+    }
+
     abstract protected function createAction();
     abstract protected function updateAction();
     abstract protected function deleteAction();
