@@ -9,6 +9,8 @@ abstract class Api
 
     protected $action = ''; //Название метод для выполнения
 
+    protected $table_name;
+
 
     public function __construct() {
         #header("Access-Control-Allow-Orgin: *");
@@ -85,7 +87,51 @@ abstract class Api
         }
     }
 
-    abstract protected function indexAction();
+    /**
+     * Метод GET
+     * Вывод списка всех записей
+     * http://ДОМЕН/${table_name}
+     * http://ДОМЕН/${table_name}?round=
+     * @return string
+     */
+    public function indexAction()
+    {
+        $round = $this->requestParams['round'] ?? 1;
+        $database = new Database();
+        $link = $database->get_db_link();
+        $limit = $database->get_db_limit();
+		$start = ($round - 1) * $limit;
+		$sql_count = "SELECT count(*) FROM `".$this->table_name."`";
+		$count_result = mysqli_query($link, $sql_count);
+        $count_obj = mysqli_fetch_array($count_result);
+        
+        if ( (int)$count_obj[0] > 0) {
+            $response_body = array('total' => (int)$count_obj[0], 'limit' => (int)$limit,'round' => (int) $round);
+            $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
+            $sql_main = "SELECT * FROM `".$this->table_name."` LIMIT ".$start.",".$limit."";
+            $result_columns = mysqli_query($link, $sql_columns);
+            while($row = mysqli_fetch_array($result_columns)){
+                $columns[] = $row['Field'];
+            }
+            $result_main = mysqli_query($link, $sql_main);
+            $number = 1;
+            while($row = mysqli_fetch_array($result_main)){
+                for($i = 0, $size = count($columns); $i < $size; ++$i) {
+                    if(is_numeric($row[$i])){
+                        $row[$i] = $row[$i] * 1;
+                    }
+                    $part[$columns[$i]] = $row[$i];
+                }
+                $number++;
+                $parts[] = $part;
+            }
+            $response_body['parts'] = $parts;
+            return $this->response($response_body, 200);
+        }
+        $link = $database->close_db_link();
+        return $this->response('No Content', 204);
+    }
+
     abstract protected function viewAction();
     abstract protected function createAction();
     abstract protected function updateAction();
