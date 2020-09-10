@@ -9,7 +9,12 @@ class CurrentApi extends Api
     /*
      * Метод POST
      * Создание новой записи
-     * http://ДОМЕН/parts + параметры запроса name, email
+     * http://ДОМЕН/parts + JSON
+     * 
+    {
+        "name": string
+    }
+     * 
      * @return string
      */
     public function createAction()
@@ -21,7 +26,7 @@ class CurrentApi extends Api
             $database = new Database();
             $link = $database->get_db_link();
             $sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$data->name."')";
-            if ($link->query($sql) === TRUE){
+            if (mysqli_query($link, $sql)){
                 return $this->response('Data saved', 200);
             } else {
                 return $this->response(mysqli_error($link), 500);
