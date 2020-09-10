@@ -101,21 +101,18 @@ abstract class Api
         $link = $database->get_db_link();
         $limit = $database->get_db_limit();
 		$start = ($round - 1) * $limit;
-		$sql_count = "SELECT count(*) FROM `".$this->table_name."`";
-		$count_result = mysqli_query($link, $sql_count);
-        $count_obj = mysqli_fetch_array($count_result);
+		$sql = "SELECT * FROM `".$this->table_name."` LIMIT ".$start.",".$limit."";
+		$result = mysqli_query($link, $sql);
         
-        if ( (int)$count_obj[0] > 0) {
-            $response_body = array('total' => (int)$count_obj[0], 'limit' => (int)$limit,'round' => (int) $round);
-            $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
-            $sql_main = "SELECT * FROM `".$this->table_name."` LIMIT ".$start.",".$limit."";
+        if ( mysqli_num_rows($result) > 0) {
+            $response_body = array('total' => (int)mysqli_num_rows($result), 'limit' => (int)$limit,'round' => (int) $round);
+            $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";   
             $result_columns = mysqli_query($link, $sql_columns);
             while($row = mysqli_fetch_array($result_columns)){
                 $columns[] = $row['Field'];
             }
-            $result_main = mysqli_query($link, $sql_main);
             $number = 1;
-            while($row = mysqli_fetch_array($result_main)){
+            while($row = mysqli_fetch_array($result)){
                 for($i = 0, $size = count($columns); $i < $size; ++$i) {
                     if(is_numeric($row[$i])){
                         $row[$i] = $row[$i] * 1;
@@ -129,7 +126,7 @@ abstract class Api
             return $this->response($response_body, 200);
         }
         $link = $database->close_db_link();
-        return $this->response('No Content', 204);
+        return $this->response('Not Found objects', 204);
     }
 
     /**
@@ -146,8 +143,8 @@ abstract class Api
 
             $database = new Database();
             $link = $database->get_db_link();
-            $sql_check = "SELECT * FROM `".$this->table_name."` WHERE id = ".$id."";
-            $result = mysqli_query($link, $sql_check);
+            $sql = "SELECT * FROM `".$this->table_name."` WHERE id = ".$id."";
+            $result = mysqli_query($link, $sql);
 
             if (mysqli_num_rows($result) == 1) {
                 $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
@@ -164,7 +161,37 @@ abstract class Api
                     }
                 }
                 return $this->response($obj, 200);
-            } return $this->response('No Content', 204);
+            } return $this->response('Not Found object with id = '.$id.'', 204);
+            $link = $database->close_db_link();
+        }
+        return $this->response('Bad Request', 400);
+    }
+
+    /**
+     * Метод DELETE
+     * Удаление отдельной записи (по ее id)
+     * http://ДОМЕН/${table_name}?id=
+     * @return string
+     */
+    public function deleteAction()
+    {
+        $id = $this->requestParams['id'] ?? '';
+        if( is_numeric($id) ){
+
+            $database = new Database();
+            $link = $database->get_db_link();
+            $sql_check = "SELECT * FROM `".$this->table_name."` WHERE id = ".$id."";
+            $result_check = mysqli_query($link, $sql_check);
+
+            if (mysqli_num_rows($result_check) == 1){
+                $sql = "DELETE FROM `".$this->table_name."` WHERE id = ".$id."";
+                if (mysqli_query($link, $sql)){
+                    return $this->response('Object deleted', 200);
+                }
+                return $this->response('Internal Server Error', 500);
+            }
+            return $this->response('Not Found object with id = '.$id.'', 204);
+
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
@@ -172,5 +199,5 @@ abstract class Api
 
     abstract protected function createAction();
     abstract protected function updateAction();
-    abstract protected function deleteAction();
+    
 }

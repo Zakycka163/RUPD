@@ -14,9 +14,9 @@ class CurrentApi extends Api
      */
     public function createAction()
     {
-        $name = $this->requestParams['name'] ?? '';
-        $email = $this->requestParams['email'] ?? '';
-        if($name && $email){
+        $data = json_decode(file_get_contents("php://input"));
+
+        if(!empty($data->name)){
             
             $database = new Database();
             $link = $database->get_db_link();
@@ -52,25 +52,5 @@ class CurrentApi extends Api
         $link = $database->close_db_link();
         return $this->response("Update error", 400);
     }
-
-    /**
-     * Метод DELETE
-     * Удаление отдельной записи (по ее id)
-     * http://ДОМЕН/users/1
-     * @return string
-     */
-    public function deleteAction()
-    {
-        $parse_url = parse_url($this->requestUri[0]);
-        $userId = $parse_url['path'] ?? null;
-
-        $database = new Database();
-        $link = $database->get_db_link();
-
-        #TODO
-        return $this->response('Data deleted.', 200);
-        
-        $link = $database->close_db_link();
-
-    }
+    
 }
