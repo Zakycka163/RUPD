@@ -9,7 +9,17 @@ class CurrentApi extends Api
     /*
      * Метод POST
      * Создание новой записи
-     * http://ДОМЕН/disciplines + параметры запроса name, email
+     * http://ДОМЕН/disciplines + JSON
+     * 
+    {
+        "pulpit_id": int
+        "part_id": int
+        "module_id": int
+        "index_info": string
+        "name": string
+        "time": int
+    }
+     * 
      * @return string
      */
     public function createAction()
@@ -20,37 +30,61 @@ class CurrentApi extends Api
             
             $database = new Database();
             $link = $database->get_db_link();
-            
-            #TODO
-            return $this->response('Data saved.', 200);
+            $sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$data->name."')";
+            if (mysqli_query($link, $sql)){
+                return $this->response('Data saved', 200);
+            } else {
+                return $this->response(mysqli_error($link), 500);
+            }
             $link = $database->close_db_link();
+        } else {
+            return $this->response("Bad Request", 400);
         }
-        return $this->response("Saving error", 500);
     }
 
-    /**
+    /*
      * Метод PUT
      * Обновление отдельной записи (по ее id)
-     * http://ДОМЕН/users/1 + параметры запроса name, email
+     * http://ДОМЕН/disciplines?id= + JSON
+     * 
+    {
+        "pulpit_id": int
+        "part_id": int
+        "module_id": int
+        "index_info": string
+        "name": string
+        "time": int    
+    }
+     * 
      * @return string
      */
     public function updateAction()
     {
-        $parse_url = parse_url($this->requestUri[0]);
-        $userId = $parse_url['path'] ?? null;
+        $id = $this->requestParams['id'] ?? '';
+        $data = json_decode(file_get_contents("php://input"));
 
-        $database = new Database();
-        $link = $database->get_db_link();
+        if( is_numeric($id) and !empty($data->name)){
 
-        $name = $this->requestParams['name'] ?? '';
-        $email = $this->requestParams['email'] ?? '';
+            $database = new Database();
+            $link = $database->get_db_link();
+            $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE id = ".$id."";
+            $result_check = mysqli_query($link, $sql_check);
 
-        if($name && $email){
-            #TODO
-            return $this->response('Data updated.', 200);
+            if (mysqli_num_rows($result_check) == 1){
+                
+                $sql = "UPDATE `".$this->table_name."` SET `name` = '".$data->name."' WHERE id = ".$id."";
+                if (mysqli_query($link, $sql)) {
+                    return $this->response('Object updated.', 200);
+                }
+                return $this->response(mysqli_error($link), 500);
+               
+            } 
+            return $this->response('Not Found object with id = '.$id.'', 204);
+
+            $link = $database->close_db_link();
         }
-        $link = $database->close_db_link();
-        return $this->response("Update error", 400);
+        return $this->response('Bad Request', 400);
     }
+
     
 }
