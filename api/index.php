@@ -7,16 +7,17 @@
         $is_api = $requestUri[0];
         $filename = $requestUri[1];
 
-        if($is_api == 'api' || file_exists('tables/'.$filename.'.php')){
+        if($is_api == 'api' and file_exists('tables/'.$filename.'.php')){
             
             require_once 'tables/'.$filename.'.php';
             $api = new CurrentApi();
             echo $api->run();
             
         } else {
-            throw new RuntimeException('API Not Found', 404);
+            throw new RuntimeException('API Not Found');
         }
     } catch (Exception $e) {
+        http_response_code(404);
         echo json_encode(Array('error' => $e->getMessage()));
     }
 ?>
