@@ -1,0 +1,40 @@
+- [ ] academic_degrees
+- [ ] academic_ranks
+- [ ] accounts
+- [ ] activities
+- [x] activity_types
+- [ ] competence_types
+- [ ] competencies
+- [ ] connections_opop
+- [ ] constants
+- [x] control_forms
+- [ ] courses
+- [ ] disciplines
+- [x] educations
+- [ ] fgos
+- [ ] general_work_functions
+- [ ] grants
+- [ ] groups
+- [ ] institutes
+- [ ] missions
+- [x] modules
+- [x] parts
+- [x] positions
+- [ ] profiles
+- [ ] prof_standards
+- [ ] pulpits
+- [x] qualifications
+- [ ] rup
+- [ ] second_works
+- [x] seminars
+- [x] statuses
+- [ ] study_forms
+- [ ] study_plan
+- [ ] tasks
+- [ ] teachers
+- [ ] teacher_educations
+- [ ] teacher_positions
+- [ ] topics
+- [x] topic_types
+- [ ] work_functions
+- [x] work_types
