@@ -1,10 +1,11 @@
 <?php
-require_once 'Api.php';
-require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
+require_once './Api.php';
+require_once './config/database.php';
 
-class DisciplinesApi extends Api
+class CurrentApi extends Api
 {
-    public $apiName = 'disciplines';
+    #public $apiName = 'disciplines';
+    private $table_name = "disciplines";
 
     /**
      * Метод GET
@@ -16,8 +17,8 @@ class DisciplinesApi extends Api
     public function indexAction()
     {
         $round = $this->requestParams['round'] ?? 1;
-        connect();
-        global $link;
+        $database = new Database();
+        $link = $database->get_db_link();
         $sql = "SELECT MAX(`value`) FROM `constants` WHERE `key` = 'limitObj'";
         $limit_request = mysqli_query($link, $sql);
         $limit = mysqli_fetch_array($limit_request);
@@ -52,7 +53,7 @@ class DisciplinesApi extends Api
             $response_body['disciplines'] = $disciplines;
             return $this->response($response_body, 200);
         }
-        close();
+        $link = $database->close_db_link();
         return $this->response('No Content', 204);
     }
 
@@ -68,8 +69,8 @@ class DisciplinesApi extends Api
 
         if( is_numeric($id) ){
 
-            connect();
-            global $link;
+            $database = new Database();
+            $link = $database->get_db_link();
             $sql_check = "SELECT 1 FROM view_disciplines WHERE discipline_id = ".$id."";
 
             $check_result = mysqli_query($link, $sql_check);
@@ -94,7 +95,7 @@ class DisciplinesApi extends Api
                 }
                 return $this->response($discipline, 200);
             } return $this->response('No Content', 204);
-            close();
+            $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
     }
@@ -111,12 +112,12 @@ class DisciplinesApi extends Api
         $email = $this->requestParams['email'] ?? '';
         if($name && $email){
             
-            connect();
-            global $link;
+            $database = new Database();
+            $link = $database->get_db_link();
             
             #TODO
             return $this->response('Data saved.', 200);
-            close();
+            $link = $database->close_db_link();
         }
         return $this->response("Saving error", 500);
     }
@@ -132,8 +133,8 @@ class DisciplinesApi extends Api
         $parse_url = parse_url($this->requestUri[0]);
         $userId = $parse_url['path'] ?? null;
 
-        connect();
-        global $link;
+        $database = new Database();
+        $link = $database->get_db_link();
 
         $name = $this->requestParams['name'] ?? '';
         $email = $this->requestParams['email'] ?? '';
@@ -142,7 +143,7 @@ class DisciplinesApi extends Api
             #TODO
             return $this->response('Data updated.', 200);
         }
-        close();
+        $link = $database->close_db_link();
         return $this->response("Update error", 400);
     }
 
@@ -157,13 +158,13 @@ class DisciplinesApi extends Api
         $parse_url = parse_url($this->requestUri[0]);
         $userId = $parse_url['path'] ?? null;
 
-        connect();
-        global $link;
+        $database = new Database();
+        $link = $database->get_db_link();
 
         #TODO
         return $this->response('Data deleted.', 200);
         
-        close();
+        $link = $database->close_db_link();
 
     }
 }
