@@ -2,11 +2,9 @@
 
 abstract class Api
 {
-    public $apiName = ''; //Название API
 
     protected $method = ''; //GET|POST|PUT|DELETE
 
-    public $requestUri = [];
     public $requestParams = [];
 
     protected $action = ''; //Название метод для выполнения
@@ -16,8 +14,6 @@ abstract class Api
         #header("Access-Control-Allow-Orgin: *");
         #header("Access-Control-Allow-Methods: *");
         header("Content-Type: application/json");
-
-        $this->requestUri = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
 
         //Массив GET параметров
         $this->requestParams = $_REQUEST;
@@ -36,10 +32,6 @@ abstract class Api
     }
 
     public function run() {
-        //Первые 2 элемента массива URI должны быть "api" и название таблицы
-        if(array_shift($this->requestUri) !== 'api' || array_shift($this->requestUri) !== $this->apiName){
-            throw new RuntimeException('API Not Found', 404);
-        }
         //Определение действия для обработки
         $this->action = $this->getAction();
 
