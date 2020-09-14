@@ -6,7 +6,7 @@
 - [ ] competence_types
 - [ ] competencies
 - [ ] connections_opop
-- [ ] constants
+- [x] constants
 - [x] control_forms
 - [ ] courses
 - [ ] disciplines
