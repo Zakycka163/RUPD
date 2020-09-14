@@ -53,6 +53,7 @@ abstract class Api
     private function requestStatus($code) {
         $status = array(
             200 => 'OK',
+            201 => 'Created',
             204 => 'No Content',
             400 => 'Bad Request',
             404 => 'Not Found',
@@ -67,7 +68,7 @@ abstract class Api
         $method = $this->method;
         switch ($method) {
             case 'GET':
-                if(isset($this->requestParams['id'])){
+                if(isset($this->requestParams['id']) or isset($this->requestParams['key'])){
                     return 'viewAction';
                 } else {
                     return 'indexAction';
@@ -126,7 +127,7 @@ abstract class Api
             return $this->response($response_body, 200);
         }
         $link = $database->close_db_link();
-        return $this->response('Not Found objects', 204);
+        return $this->response('Not Found objects', 404);
     }
 
     /**
@@ -161,7 +162,79 @@ abstract class Api
                     }
                 }
                 return $this->response($obj, 200);
-            } return $this->response('Not Found object with id = '.$id.'', 204);
+            } return $this->response('Not Found object with id = '.$id.'', 404);
+            $link = $database->close_db_link();
+        }
+        return $this->response('Bad Request', 400);
+    }
+
+    /*
+     * Метод POST
+     * Создание новой записи
+     * http://ДОМЕН/${table_name} + JSON
+     * 
+    {
+        "name": string
+    }
+     * 
+     * @return string
+     */
+    public function createAction()
+    {
+        $data = json_decode(file_get_contents("php://input"));
+        $name = $data->name ?? '';
+
+        if(!empty($name)){
+            
+            $database = new Database();
+            $link = $database->get_db_link();
+            $sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$name."')";
+            if (mysqli_query($link, $sql)){
+                return $this->response('Object created', 201);
+            } else {
+                return $this->response(mysqli_error($link), 500);
+            }
+            $link = $database->close_db_link();
+        } else {
+            return $this->response("Bad Request", 400);
+        }
+    }
+
+    /*
+     * Метод PUT
+     * Обновление отдельной записи (по ее id)
+     * http://ДОМЕН/${table_name}?id= + JSON
+     * 
+    { 
+        "name": string 
+    }
+     * 
+     * @return string
+     */
+    public function updateAction()
+    {
+        $id = $this->requestParams['id'] ?? '';
+        $data = json_decode(file_get_contents("php://input"));
+        $name = $data->name ?? '';
+
+        if( is_numeric($id) and !empty($name)){
+
+            $database = new Database();
+            $link = $database->get_db_link();
+            $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE id = ".$id."";
+            $result_check = mysqli_query($link, $sql_check);
+
+            if (mysqli_num_rows($result_check) == 1){
+                
+                $sql = "UPDATE `".$this->table_name."` SET `name` = '".$name."' WHERE id = ".$id."";
+                if (mysqli_query($link, $sql)) {
+                    return $this->response('Object updated.', 200);
+                }
+                return $this->response(mysqli_error($link), 500);
+               
+            } 
+            return $this->response('Not Found object with id = '.$id.'', 204);
+
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
@@ -190,76 +263,6 @@ abstract class Api
                 }
                 return $this->response('Internal Server Error', 500);
             }
-            return $this->response('Not Found object with id = '.$id.'', 204);
-
-            $link = $database->close_db_link();
-        }
-        return $this->response('Bad Request', 400);
-    }
-
-    /*
-     * Метод POST
-     * Создание новой записи
-     * http://ДОМЕН/${table_name} + JSON
-     * 
-    {
-        "name": string
-    }
-     * 
-     * @return string
-     */
-    public function createAction()
-    {
-        $data = json_decode(file_get_contents("php://input"));
-
-        if(!empty($data->name)){
-            
-            $database = new Database();
-            $link = $database->get_db_link();
-            $sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$data->name."')";
-            if (mysqli_query($link, $sql)){
-                return $this->response('Object created', 200);
-            } else {
-                return $this->response(mysqli_error($link), 500);
-            }
-            $link = $database->close_db_link();
-        } else {
-            return $this->response("Bad Request", 400);
-        }
-    }
-
-    /*
-     * Метод PUT
-     * Обновление отдельной записи (по ее id)
-     * http://ДОМЕН/${table_name}?id= + JSON
-     * 
-    { 
-        "name": string 
-    }
-     * 
-     * @return string
-     */
-    public function updateAction()
-    {
-        $id = $this->requestParams['id'] ?? '';
-        $data = json_decode(file_get_contents("php://input"));
-
-        if( is_numeric($id) and !empty($data->name)){
-
-            $database = new Database();
-            $link = $database->get_db_link();
-            $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE id = ".$id."";
-            $result_check = mysqli_query($link, $sql_check);
-
-            if (mysqli_num_rows($result_check) == 1){
-                
-                $sql = "UPDATE `".$this->table_name."` SET `name` = '".$data->name."' WHERE id = ".$id."";
-                if (mysqli_query($link, $sql)) {
-                    return $this->response('Object updated.', 200);
-                }
-                return $this->response(mysqli_error($link), 500);
-               
-            } 
             return $this->response('Not Found object with id = '.$id.'', 204);
 
             $link = $database->close_db_link();
