@@ -234,15 +234,17 @@ CREATE TABLE `connections_opop` (
 
 CREATE TABLE `constants` (
   `key` varchar(10) NOT NULL,
-  `value` varchar(60) NOT NULL
+  `text_val` varchar(60) DEFAULT NULL,
+  `int_val` int(10) DEFAULT NULL,
+  `value` varchar(180) GENERATED ALWAYS AS (coalesce(concat(`text_val`),concat(`int_val`))) VIRTUAL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `constants`
 --
 
-INSERT INTO `constants` (`key`, `value`) VALUES
-('limitObj', '20');
+INSERT INTO `constants` (`key`, `text_val`, `int_val`) VALUES
+('limitObj', NULL, 20);
 
 -- --------------------------------------------------------
 
