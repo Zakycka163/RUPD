@@ -21,8 +21,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `academic_degrees` (
   `id` int(10) UNSIGNED NOT NULL,
-  `full_name` varchar(50) NOT NULL,
-  `short_name` varchar(25) NOT NULL
+  `full_name` varchar(60) NOT NULL,
+  `short_name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -86,8 +86,8 @@ INSERT INTO `academic_degrees` (`id`, `full_name`, `short_name`) VALUES
 
 CREATE TABLE `academic_ranks` (
   `id` int(10) UNSIGNED NOT NULL,
-  `full_name` varchar(50) NOT NULL,
-  `short_name` varchar(25) NOT NULL
+  `full_name` varchar(60) NOT NULL,
+  `short_name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -111,8 +111,8 @@ INSERT INTO `academic_ranks` (`id`, `full_name`, `short_name`) VALUES
 
 CREATE TABLE `accounts` (
   `id` int(10) UNSIGNED NOT NULL,
-  `login` varchar(16) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `login` varchar(30) NOT NULL,
+  `password` varchar(60) NOT NULL,
   `teacher_id` int(10) UNSIGNED NOT NULL,
   `grant_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -134,7 +134,7 @@ CREATE TABLE `activities` (
   `id` int(10) UNSIGNED NOT NULL,
   `activity_type_id` int(10) UNSIGNED NOT NULL,
   `work_function_id` int(10) UNSIGNED DEFAULT NULL,
-  `name` varchar(200) NOT NULL,
+  `name` varchar(180) NOT NULL,
   `competence_id` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -164,7 +164,7 @@ INSERT INTO `activities` (`id`, `activity_type_id`, `work_function_id`, `name`, 
 
 CREATE TABLE `activity_types` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(20) NOT NULL
+  `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -187,8 +187,8 @@ INSERT INTO `activity_types` (`id`, `name`) VALUES
 
 CREATE TABLE `competence_types` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `code` varchar(3) NOT NULL
+  `name` varchar(60) NOT NULL,
+  `code` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -210,7 +210,7 @@ CREATE TABLE `competencies` (
   `id` int(10) UNSIGNED NOT NULL,
   `fgos_id` int(10) UNSIGNED NOT NULL,
   `competence_type_id` int(10) UNSIGNED DEFAULT NULL,
-  `number` varchar(5) NOT NULL,
+  `number` varchar(10) NOT NULL,
   `name` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -223,7 +223,7 @@ CREATE TABLE `competencies` (
 CREATE TABLE `connections_opop` (
   `general_work_function_id` int(10) UNSIGNED NOT NULL,
   `competence_id` int(10) UNSIGNED NOT NULL,
-  `description` varchar(45) DEFAULT NULL
+  `description` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -252,7 +252,7 @@ INSERT INTO `constants` (`key`, `value`) VALUES
 
 CREATE TABLE `control_forms` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(25) NOT NULL
+  `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -275,7 +275,7 @@ INSERT INTO `control_forms` (`id`, `name`) VALUES
 
 CREATE TABLE `courses` (
   `id` int(10) UNSIGNED NOT NULL,
-  `number` varchar(8) NOT NULL,
+  `number` varchar(10) NOT NULL,
   `name` varchar(60) NOT NULL,
   `qualification_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -309,7 +309,7 @@ CREATE TABLE `disciplines` (
   `part_id` int(10) UNSIGNED NOT NULL,
   `module_id` int(11) UNSIGNED NOT NULL,
   `index_info` varchar(10) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `name` varchar(180) NOT NULL,
   `time` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -329,7 +329,7 @@ INSERT INTO `disciplines` (`id`, `pulpit_id`, `part_id`, `module_id`, `index_inf
 
 CREATE TABLE `educations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(100) NOT NULL
+  `name` varchar(180) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -341,7 +341,7 @@ CREATE TABLE `educations` (
 CREATE TABLE `fgos` (
   `id` int(10) UNSIGNED NOT NULL,
   `course_id` int(10) UNSIGNED NOT NULL,
-  `number` varchar(5) NOT NULL,
+  `number` varchar(10) NOT NULL,
   `date` date NOT NULL,
   `reg_number` varchar(10) NOT NULL,
   `reg_date` date NOT NULL
@@ -364,8 +364,8 @@ INSERT INTO `fgos` (`id`, `course_id`, `number`, `date`, `reg_number`, `reg_date
 CREATE TABLE `general_work_functions` (
   `id` int(10) UNSIGNED NOT NULL,
   `prof_standard_id` int(10) UNSIGNED NOT NULL,
-  `code` varchar(2) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `code` varchar(10) NOT NULL,
+  `name` varchar(180) NOT NULL,
   `level` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -385,8 +385,8 @@ INSERT INTO `general_work_functions` (`id`, `prof_standard_id`, `code`, `name`, 
 
 CREATE TABLE `grants` (
   `id` int(10) UNSIGNED NOT NULL,
-  `access` varchar(15) NOT NULL,
-  `description` varchar(60) DEFAULT NULL
+  `access` varchar(30) NOT NULL,
+  `description` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -408,7 +408,7 @@ CREATE TABLE `groups` (
   `name` varchar(10) NOT NULL,
   `profile_id` int(10) UNSIGNED NOT NULL,
   `study_form_id` int(10) UNSIGNED NOT NULL,
-  `description` varchar(60) DEFAULT NULL
+  `description` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -427,7 +427,7 @@ INSERT INTO `groups` (`id`, `name`, `profile_id`, `study_form_id`, `description`
 CREATE TABLE `institutes` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(60) NOT NULL,
-  `description` varchar(60) DEFAULT NULL
+  `description` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -450,7 +450,7 @@ INSERT INTO `institutes` (`id`, `name`, `description`) VALUES
 CREATE TABLE `missions` (
   `id` int(10) UNSIGNED NOT NULL,
   `rup_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(100) NOT NULL
+  `name` varchar(180) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -479,7 +479,7 @@ INSERT INTO `modules` (`id`, `name`) VALUES
 
 CREATE TABLE `parts` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(12) NOT NULL
+  `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -498,7 +498,7 @@ INSERT INTO `parts` (`id`, `name`) VALUES
 
 CREATE TABLE `positions` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL
+  `name` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -529,8 +529,8 @@ INSERT INTO `positions` (`id`, `name`) VALUES
 CREATE TABLE `profiles` (
   `id` int(10) UNSIGNED NOT NULL,
   `course_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `description` varchar(60) DEFAULT NULL
+  `name` varchar(60) NOT NULL,
+  `description` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -549,9 +549,9 @@ INSERT INTO `profiles` (`id`, `course_id`, `name`, `description`) VALUES
 CREATE TABLE `prof_standards` (
   `id` int(10) UNSIGNED NOT NULL,
   `fgos_id` int(10) UNSIGNED NOT NULL,
-  `code` varchar(7) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `number` varchar(5) NOT NULL,
+  `code` varchar(10) NOT NULL,
+  `name` varchar(180) NOT NULL,
+  `number` varchar(10) NOT NULL,
   `date` date NOT NULL,
   `reg_number` varchar(10) NOT NULL,
   `reg_date` date NOT NULL
@@ -575,7 +575,7 @@ CREATE TABLE `pulpits` (
   `id` int(10) UNSIGNED NOT NULL,
   `institute_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(60) NOT NULL,
-  `description` varchar(60) DEFAULT NULL
+  `description` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -608,7 +608,7 @@ INSERT INTO `pulpits` (`id`, `institute_id`, `name`, `description`) VALUES
 
 CREATE TABLE `qualifications` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(15) NOT NULL
+  `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -630,9 +630,9 @@ CREATE TABLE `rup` (
   `id` int(10) UNSIGNED NOT NULL,
   `discipline_id` int(10) UNSIGNED NOT NULL,
   `profile_id` int(10) UNSIGNED NOT NULL,
-  `goal` varchar(120) NOT NULL,
+  `goal` varchar(180) NOT NULL,
   `task_id` int(10) UNSIGNED DEFAULT NULL,
-  `path` varchar(60) DEFAULT NULL
+  `path` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -680,7 +680,7 @@ INSERT INTO `seminars` (`id`, `description`) VALUES
 
 CREATE TABLE `statuses` (
   `id` int(10) UNSIGNED NOT NULL,
-  `value` varchar(15) NOT NULL
+  `value` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -691,7 +691,7 @@ CREATE TABLE `statuses` (
 
 CREATE TABLE `study_forms` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(12) NOT NULL
+  `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -731,7 +731,7 @@ CREATE TABLE `study_plan` (
 
 CREATE TABLE `tasks` (
   `id` int(10) UNSIGNED NOT NULL,
-  `objective` varchar(100) NOT NULL,
+  `objective` varchar(180) NOT NULL,
   `due_date` date NOT NULL,
   `status_id` int(10) UNSIGNED NOT NULL,
   `account_id` int(10) UNSIGNED NOT NULL
@@ -748,7 +748,7 @@ CREATE TABLE `teachers` (
   `first_name` varchar(30) NOT NULL,
   `middle_name` varchar(30) DEFAULT NULL,
   `second_name` varchar(30) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `email` varchar(60) NOT NULL,
   `academic_degree_id` int(10) UNSIGNED DEFAULT NULL,
   `academic_rank_id` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -771,7 +771,7 @@ CREATE TABLE `teacher_educations` (
   `education_id` int(10) UNSIGNED NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
-  `description` varchar(60) DEFAULT NULL
+  `description` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -803,8 +803,8 @@ CREATE TABLE `topics` (
   `id` int(10) UNSIGNED NOT NULL,
   `topic_type_id` int(10) UNSIGNED NOT NULL,
   `discipline_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `description` varchar(60) DEFAULT NULL
+  `name` varchar(180) NOT NULL,
+  `description` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -815,7 +815,7 @@ CREATE TABLE `topics` (
 
 CREATE TABLE `topic_types` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(25) NOT NULL
+  `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -827,8 +827,8 @@ CREATE TABLE `topic_types` (
 CREATE TABLE `work_functions` (
   `id` int(10) UNSIGNED NOT NULL,
   `general_work_function_id` int(10) UNSIGNED NOT NULL,
-  `code` varchar(6) NOT NULL,
-  `name` varchar(100) NOT NULL
+  `code` varchar(10) NOT NULL,
+  `name` varchar(180) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1419,152 +1419,152 @@ ALTER TABLE `work_types`
 -- Ограничения внешнего ключа таблицы `accounts`
 --
 ALTER TABLE `accounts`
-  ADD CONSTRAINT `fk_Accounts_Grants1` FOREIGN KEY (`grant_id`) REFERENCES `grants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Accounts_Users1` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_accounts_grants` FOREIGN KEY (`grant_id`) REFERENCES `grants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_accounts_users` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `activities`
 --
 ALTER TABLE `activities`
-  ADD CONSTRAINT `fk_Activities_ActionSkillKnowledge1` FOREIGN KEY (`activity_type_id`) REFERENCES `activity_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Activities_WorkFunctions1` FOREIGN KEY (`work_function_id`) REFERENCES `work_functions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_activities_competencies1` FOREIGN KEY (`competence_id`) REFERENCES `competencies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_activities_activity_types` FOREIGN KEY (`activity_type_id`) REFERENCES `activity_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_activities_work_functions` FOREIGN KEY (`work_function_id`) REFERENCES `work_functions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_activities_competencies` FOREIGN KEY (`competence_id`) REFERENCES `competencies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `competencies`
 --
 ALTER TABLE `competencies`
-  ADD CONSTRAINT `fk_Сompetencies_Fgoses1` FOREIGN KEY (`fgos_id`) REFERENCES `fgos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Сompetencies_TypesСompetence1` FOREIGN KEY (`competence_type_id`) REFERENCES `competence_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_competencies_fgos` FOREIGN KEY (`fgos_id`) REFERENCES `fgos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_competencies_competence_types` FOREIGN KEY (`competence_type_id`) REFERENCES `competence_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `connections_opop`
 --
 ALTER TABLE `connections_opop`
-  ADD CONSTRAINT `fk_GeneralWorkFunctions_has_Сompetencies_GeneralWorkFunctions1` FOREIGN KEY (`general_work_function_id`) REFERENCES `general_work_functions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_GeneralWorkFunctions_has_Сompetencies_Сompetencies1` FOREIGN KEY (`competence_id`) REFERENCES `competencies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_connections_opop_has_general_work_functions` FOREIGN KEY (`general_work_function_id`) REFERENCES `general_work_functions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_connections_opop_has_competencies` FOREIGN KEY (`competence_id`) REFERENCES `competencies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `courses`
 --
 ALTER TABLE `courses`
-  ADD CONSTRAINT `fk_courses_qualifications1` FOREIGN KEY (`qualification_id`) REFERENCES `qualifications` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_courses_qualifications` FOREIGN KEY (`qualification_id`) REFERENCES `qualifications` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `disciplines`
 --
 ALTER TABLE `disciplines`
-  ADD CONSTRAINT `fk_Disciplines_Parts1` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_disciplines_modules1` FOREIGN KEY (`module_id`) REFERENCES `modules` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_disciplines_pulpits1` FOREIGN KEY (`pulpit_id`) REFERENCES `pulpits` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_disciplines_parts` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_disciplines_modules` FOREIGN KEY (`module_id`) REFERENCES `modules` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_disciplines_pulpits` FOREIGN KEY (`pulpit_id`) REFERENCES `pulpits` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `fgos`
 --
 ALTER TABLE `fgos`
-  ADD CONSTRAINT `fk_Fgoses_Courses1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_fgoses_courses` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `general_work_functions`
 --
 ALTER TABLE `general_work_functions`
-  ADD CONSTRAINT `fk_GeneralWorkFunctions_ProfStandards1` FOREIGN KEY (`prof_standard_id`) REFERENCES `prof_standards` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_general_work_functions_prof_standards` FOREIGN KEY (`prof_standard_id`) REFERENCES `prof_standards` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `groups`
 --
 ALTER TABLE `groups`
-  ADD CONSTRAINT `fk_Groups_Profiles1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Groups_StudyForms1` FOREIGN KEY (`study_form_id`) REFERENCES `study_forms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_groups_profiles` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_groups_study_forms` FOREIGN KEY (`study_form_id`) REFERENCES `study_forms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `missions`
 --
 ALTER TABLE `missions`
-  ADD CONSTRAINT `fk_Missions_RUP1` FOREIGN KEY (`rup_id`) REFERENCES `rup` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_missions_rup` FOREIGN KEY (`rup_id`) REFERENCES `rup` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `profiles`
 --
 ALTER TABLE `profiles`
-  ADD CONSTRAINT `fk_Profiles_Courses1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_profiles_courses` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `prof_standards`
 --
 ALTER TABLE `prof_standards`
-  ADD CONSTRAINT `fk_ProfStandards_Fgoses1` FOREIGN KEY (`fgos_id`) REFERENCES `fgos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_prof_standards_fgos` FOREIGN KEY (`fgos_id`) REFERENCES `fgos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `pulpits`
 --
 ALTER TABLE `pulpits`
-  ADD CONSTRAINT `fk_pulpits_institutes1` FOREIGN KEY (`institute_id`) REFERENCES `institutes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_pulpits_institutes` FOREIGN KEY (`institute_id`) REFERENCES `institutes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `rup`
 --
 ALTER TABLE `rup`
-  ADD CONSTRAINT `fk_RUP_Disciplines1` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_RUP_Profiles1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_RUP_Tasks1` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rup_disciplines` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rup_profiles` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rup_tasks` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `second_works`
 --
 ALTER TABLE `second_works`
-  ADD CONSTRAINT `fk_SecondWorks_RUP1` FOREIGN KEY (`rup_id`) REFERENCES `rup` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_SecondWorks_WorkTypes1` FOREIGN KEY (`work_type_id`) REFERENCES `work_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_second_works_rup` FOREIGN KEY (`rup_id`) REFERENCES `rup` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_second_works_work_types` FOREIGN KEY (`work_type_id`) REFERENCES `work_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `study_plan`
 --
 ALTER TABLE `study_plan`
-  ADD CONSTRAINT `fk_Disciplines_has_Seminars_ControlForms1` FOREIGN KEY (`control_form_id`) REFERENCES `control_forms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Disciplines_has_Seminars_Seminars1` FOREIGN KEY (`seminar_id`) REFERENCES `seminars` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_study_plan_disciplines1` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_study_plan_study_forms1` FOREIGN KEY (`study_form_id`) REFERENCES `study_forms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_study_plan_has_control_forms` FOREIGN KEY (`control_form_id`) REFERENCES `control_forms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_study_plan_has_seminars` FOREIGN KEY (`seminar_id`) REFERENCES `seminars` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_study_plan_disciplines` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_study_plan_study_forms` FOREIGN KEY (`study_form_id`) REFERENCES `study_forms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `tasks`
 --
 ALTER TABLE `tasks`
-  ADD CONSTRAINT `fk_Tasks_Statuses2` FOREIGN KEY (`status_id`) REFERENCES `statuses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tasks_accounts1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_tasks_statuses` FOREIGN KEY (`status_id`) REFERENCES `statuses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tasks_accounts` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `teachers`
 --
 ALTER TABLE `teachers`
-  ADD CONSTRAINT `fk_teachers_academic_degrees1` FOREIGN KEY (`academic_degree_id`) REFERENCES `academic_degrees` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_teachers_academic_ranks1` FOREIGN KEY (`academic_rank_id`) REFERENCES `academic_ranks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_teachers_academic_degrees` FOREIGN KEY (`academic_degree_id`) REFERENCES `academic_degrees` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_teachers_academic_ranks` FOREIGN KEY (`academic_rank_id`) REFERENCES `academic_ranks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `teacher_educations`
 --
 ALTER TABLE `teacher_educations`
-  ADD CONSTRAINT `fk_teachers_has_educations_educations1` FOREIGN KEY (`education_id`) REFERENCES `educations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_teachers_has_educations_teachers1` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_teachers_has_educations_educations` FOREIGN KEY (`education_id`) REFERENCES `educations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_teachers_has_educations_teachers` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `teacher_positions`
 --
 ALTER TABLE `teacher_positions`
-  ADD CONSTRAINT `fk_teachers_has_positions_positions1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_teachers_has_positions_teachers1` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_teachers_has_positions_positions` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_teachers_has_positions_teachers` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `topics`
 --
 ALTER TABLE `topics`
-  ADD CONSTRAINT `fk_Topics_Disciplines1` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Topics_TopicTypes1` FOREIGN KEY (`topic_type_id`) REFERENCES `topic_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_topics_disciplines` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_topics_topic_types` FOREIGN KEY (`topic_type_id`) REFERENCES `topic_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `work_functions`
 --
 ALTER TABLE `work_functions`
-  ADD CONSTRAINT `fk_WorkFunctions_GeneralWorkFunctions1` FOREIGN KEY (`general_work_function_id`) REFERENCES `general_work_functions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_work_functions_general_work_functions` FOREIGN KEY (`general_work_function_id`) REFERENCES `general_work_functions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
