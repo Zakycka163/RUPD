@@ -32,7 +32,7 @@ class CurrentApi extends Api
             $link = $database->get_db_link();
             $sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$data->name."')";
             if (mysqli_query($link, $sql)){
-                return $this->response('Data saved', 200);
+                return $this->response('Object created', 201);
             } else {
                 return $this->response(mysqli_error($link), 500);
             }
