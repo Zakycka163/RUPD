@@ -53,7 +53,7 @@ class CurrentApi extends Api
 
         $key = htmlspecialchars(trim($this->requestParams['key'] ?? ''));
 
-        if( is_string($key) ){
+        if( is_string($key) and strlen($key) <= 10 and strlen($key) > 0){
 
             $database = new Database();
             $link = $database->get_db_link();
@@ -82,29 +82,14 @@ class CurrentApi extends Api
 
     }
 
-     /*
-     * Метод POST
-     * Создание новой записи
-     * http://ДОМЕН/constants + JSON
-     * 
-    {
-        "key": string
-        "value": string
-    }
-     * 
-     * @return string
-     */
-    public function createAction(){
-        return $this->response('Method Not Allowed', 405);
-    }
-
     /*
      * Метод PUT
      * Обновление отдельной записи (по ее key)
      * http://ДОМЕН/constants?key= + JSON
      * 
     { 
-        "value": string 
+        "text_val": string
+        "int_val": int 
     }
      * 
      * @return string
@@ -112,9 +97,18 @@ class CurrentApi extends Api
     public function updateAction(){
         $key = htmlspecialchars(trim($this->requestParams['key'] ?? ''));
         $data = json_decode(file_get_contents("php://input"));
-        $value = $data->value ?? '';
-
-        if( is_string($key) and !empty($value)){
+        $data_ok = 'NO';
+        if ( !isset($data->int_val) and isset($data->text_val) and is_string($data->text_val)){
+            $text_val = $data->text_val ?? '';
+            $sql = "UPDATE `".$this->table_name."` SET `text_val` = '".$text_val."' WHERE `key` = '".$key."'";
+            $data_ok = 'YES';
+        } elseif ( !isset($data->text_val) and isset($data->int_val) and is_int($data->int_val)){
+            $int_val = $data->int_val ?? '';
+            $sql = "UPDATE `".$this->table_name."` SET `text_val` = '".$int_val."' WHERE `key` = '".$key."'";
+            $data_ok = 'YES';
+        }
+        
+        if( is_string($key) and strlen($key) <= 10 and strlen($key) > 0 and $data_ok == 'YES'){
 
             $database = new Database();
             $link = $database->get_db_link();
@@ -123,7 +117,6 @@ class CurrentApi extends Api
 
             if (mysqli_num_rows($result_check) == 1){
                 
-                $sql = "UPDATE `".$this->table_name."` SET `value` = '".$value."' WHERE `key` = '".$key."'";
                 if (mysqli_query($link, $sql)) {
                     return $this->response('Object updated.', 200);
                 }
@@ -135,6 +128,23 @@ class CurrentApi extends Api
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
+    }
+
+    /*
+     * Метод POST
+     * Создание новой записи
+     * http://ДОМЕН/constants + JSON
+     * 
+    {
+        "key": string
+        "text_val": string
+        "int_val": int
+    }
+     * 
+     * @return string
+     */
+    public function createAction(){
+        return $this->response('Method Not Allowed', 405);
     }
 
     /**
