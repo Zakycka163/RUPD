@@ -4,26 +4,29 @@
 
 ### varchar
 #### varchar(10)
-- [ ] competence_types
-- [ ] competencies
-- [ ] constants
-- [ ] courses
-- [ ] disciplines
-- [ ] fgos
-- [ ] general_work_functions
-- [ ] groups
-- [ ] prof_standards
-- [ ] work_functions
+- [ ] competence_types          .code
+- [ ] competencies              .number
+- [x] constants                 .key
+- [ ] courses                   .number
+- [ ] disciplines               .index_info
+- [ ] fgos                      .number
+- [ ] fgos                      .reg_number
+- [ ] general_work_functions    .code
+- [ ] groups                    .name
+- [ ] prof_standards            .code
+- [ ] prof_standards            .number
+- [ ] prof_standards            .reg_number
+- [ ] work_functions            .code
 
 #### varchar(30)
-- [ ] academic_degrees
-- [ ] academic_ranks
-- [ ] activity_types
+- [ ] academic_degrees          .short_name
+- [ ] academic_ranks            .short_name
+- [ ] activity_types            .name
 - [ ] control_forms
 - [ ] parts
 - [ ] teachers
 - [ ] work_types
-- [ ] accounts
+- [ ] accounts                  .login
 - [ ] grants
 - [ ] qualifications
 - [ ] statuses
@@ -31,11 +34,11 @@
 - [ ] topic_types
 
 #### varchar(60)
-- [ ] academic_degrees
-- [ ] academic_ranks
-- [ ] competence_types
-- [ ] competencies
-- [ ] constants
+- [ ] academic_degrees          .full_name
+- [ ] academic_ranks            .full_name
+- [ ] competence_types          .name
+- [ ] competencies              .name
+- [ ] constants                 .text_val
 - [ ] courses
 - [ ] institutes
 - [ ] modules
@@ -43,12 +46,12 @@
 - [ ] profiles
 - [ ] pulpits
 - [ ] teachers
-- [ ] accounts
+- [ ] accounts                  .password
 - [ ] seminars
 
 #### varchar(180)
-- [ ] activities
-- [ ] connections_opop
+- [ ] activities                .name
+- [ ] connections_opop          .description
 - [ ] disciplines
 - [ ] educations
 - [ ] general_work_functions
@@ -64,3 +67,4 @@
 - [ ] teacher_educations
 - [ ] topics
 - [ ] work_functions
+- [x] constants                 .value
