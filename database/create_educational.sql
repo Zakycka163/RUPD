@@ -682,7 +682,7 @@ INSERT INTO `seminars` (`id`, `description`) VALUES
 
 CREATE TABLE `statuses` (
   `id` int(10) UNSIGNED NOT NULL,
-  `value` varchar(30) NOT NULL
+  `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
