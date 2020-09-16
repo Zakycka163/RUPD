@@ -657,14 +657,14 @@ CREATE TABLE `second_works` (
 
 CREATE TABLE `seminars` (
   `id` int(10) UNSIGNED NOT NULL,
-  `description` varchar(60) NOT NULL
+  `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `seminars`
 --
 
-INSERT INTO `seminars` (`id`, `description`) VALUES
+INSERT INTO `seminars` (`id`, `name`) VALUES
 (1, '1 курс 1 семестр'),
 (2, '1 курс 2 семестр'),
 (3, '2 курс 3 семестр'),
