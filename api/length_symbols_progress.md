@@ -34,13 +34,14 @@
 - [x] statuses                  .name
 - [ ] study_forms               .name
 - [x] topic_types               .name
+- [x] seminars                  .name
 
 #### varchar(60)
 - [ ] academic_degrees          .full_name
 - [ ] academic_ranks            .full_name
 - [ ] competence_types          .name
 - [ ] competencies              .name
-- [ ] constants                 .text_val
+- [x] constants                 .text_val
 - [ ] courses                   .name
 - [ ] institutes                .name
 - [x] modules                   .name
@@ -49,7 +50,6 @@
 - [ ] pulpits                   .name
 - [ ] teachers                  .email
 - [ ] accounts                  .password
-- [ ] seminars                  .description
 
 #### varchar(180)
 - [ ] activities                .name
