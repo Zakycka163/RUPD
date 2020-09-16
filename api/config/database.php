@@ -27,6 +27,7 @@
             return $this->link;
         }
 
+        // достаем лимит на отображение
         public function get_db_limit(){
             $database = new Database();
             $link = $database->get_db_link();
@@ -40,6 +41,24 @@
 
             return $this->limit;
 
+        }
+
+        public function get_max_length_for_fields_in_table($table_name){
+            $database = new Database();
+            $link = $database->get_db_link();
+            $length = array();
+
+            $sql_length = "SELECT COLUMN_NAME as 'Field', COALESCE(CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION) as 'Length'
+                           FROM INFORMATION_SCHEMA.COLUMNS 
+                           WHERE table_name = '".$table_name."'";
+
+            if ($result_length = mysqli_query($link, $sql_length)) {
+                while($row = mysqli_fetch_array($result_length)){
+                    $length += array($row[0] => $row[1]);
+                }
+            }
+            return $length;
+            $link = $database->close_db_link();
         }
     }
 ?>

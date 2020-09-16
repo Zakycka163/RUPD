@@ -190,17 +190,8 @@ abstract class Api
             $database = new Database();
             $link = $database->get_db_link();
 
-            $sql_length = "SELECT CHARACTER_MAXIMUM_LENGTH 
-                           FROM INFORMATION_SCHEMA.COLUMNS 
-                           WHERE table_name = '".$this->table_name."' 
-                           AND COLUMN_NAME = 'name'"; 
-
-            if ($result_length = mysqli_query($link, $sql_length)) {
-                while($row = mysqli_fetch_array($result_length)){
-                    (int) $length = $row[0];
-                }
-            }
-
+            $arr_length = $database->get_max_length_for_fields_in_table($this->table_name);
+            $length = $arr_length["name"];
             if (strlen($name) > 0 and strlen($name) <= $length) {
 
                 $sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$name."')";
@@ -238,16 +229,8 @@ abstract class Api
             $database = new Database();
             $link = $database->get_db_link();
 
-            $sql_length = "SELECT CHARACTER_MAXIMUM_LENGTH 
-                           FROM INFORMATION_SCHEMA.COLUMNS 
-                           WHERE table_name = '".$this->table_name."' 
-                           AND COLUMN_NAME = 'name'"; 
-
-            if ($result_length = mysqli_query($link, $sql_length)) {
-                while($row = mysqli_fetch_array($result_length)){
-                    (int) $length = $row[0];
-                }
-            }
+            $arr_length = $database->get_max_length_for_fields_in_table($this->table_name);
+            $length = $arr_length["name"];
 
             if (strlen($name) > 0 and strlen($name) <= $length) {
                 $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE id = ".$id."";
