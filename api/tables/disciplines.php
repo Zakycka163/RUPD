@@ -26,20 +26,37 @@ class CurrentApi extends Api
     {
         $data = json_decode(file_get_contents("php://input"));
 
-        if(!empty($data->name)){
-            
+        if (     
+            isset($data->pulpit_id)     and is_int($data->pulpit_id)
+        and isset($data->part_id)       and is_int($data->part_id)
+        and isset($data->module_id)     and is_int($data->module_id)
+        and isset($data->index_info)    and is_string($data->index_info)
+        and isset($data->name)          and is_string($data->name)
+        and isset($data->time)          and is_int($data->time)
+            ){
+
+            (int) $pulpit_id        = htmlspecialchars($data->pulpit_id) ?? '';
+            (int) $part_id          = htmlspecialchars($data->part_id) ?? '';
+            (int) $module_id        = htmlspecialchars($data->module_id) ?? '';
+            (int) $time             = htmlspecialchars($data->time ) ?? 0;
+            (string) $index_info    = htmlspecialchars(trim($data->index_info)) ?? '';
+            (string) $name          = htmlspecialchars(trim($data->name)) ?? '';
+
             $database = new Database();
             $link = $database->get_db_link();
+
+            $arr_length = $database->get_max_length_for_fields_in_table($this->table_name);
+            
             $sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$data->name."')";
-            if (mysqli_query($link, $sql)){
-                return $this->response('Object created', 201);
-            } else {
-                return $this->response(mysqli_error($link), 500);
-            }
-            $link = $database->close_db_link();
-        } else {
-            return $this->response("Bad Request", 400);
+                if (mysqli_query($link, $sql)){
+                    return $this->response('Object created', 201);
+                } else {
+                    return $this->response(mysqli_error($link), 500);
+                }
+                $link = $database->close_db_link();
+            
         }
+        return $this->response("Bad Request", 400);
     }
 
     /*
