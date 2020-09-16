@@ -49,11 +49,11 @@ class CurrentApi extends Api
      * http://ДОМЕН/constants?key=
      * @return string
      */
-    public function viewAction(){
+    public function viewAction(){   
 
-        $key = htmlspecialchars(trim($this->requestParams['key'] ?? ''));
+        if( isset($this->requestParams['key']) and is_string($this->requestParams['key']) ){
 
-        if( is_string($key) and strlen($key) <= 10 and strlen($key) > 0){
+            $key = htmlspecialchars(trim($this->requestParams['key'] ?? ''));
 
             $database = new Database();
             $link = $database->get_db_link();
@@ -95,37 +95,66 @@ class CurrentApi extends Api
      * @return string
      */
     public function updateAction(){
-        $key = htmlspecialchars(trim($this->requestParams['key'] ?? ''));
+
         $data = json_decode(file_get_contents("php://input"));
-        $data_ok = 'NO';
-        if ( !isset($data->int_val) and isset($data->text_val) and is_string($data->text_val)){
-            $text_val = $data->text_val ?? '';
-            $sql = "UPDATE `".$this->table_name."` SET `text_val` = '".$text_val."' WHERE `key` = '".$key."'";
-            $data_ok = 'YES';
-        } elseif ( !isset($data->text_val) and isset($data->int_val) and is_int($data->int_val)){
-            $int_val = $data->int_val ?? '';
-            $sql = "UPDATE `".$this->table_name."` SET `text_val` = '".$int_val."' WHERE `key` = '".$key."'";
-            $data_ok = 'YES';
-        }
-        
-        if( is_string($key) and strlen($key) <= 10 and strlen($key) > 0 and $data_ok == 'YES'){
 
-            $database = new Database();
-            $link = $database->get_db_link();
-            $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE `key` = '".$key."'";
-            $result_check = mysqli_query($link, $sql_check);
+        if (     
+            isset($this->requestParams['key']) 
+        and is_string($this->requestParams['key']) 
+        and (   (isset($data->int_val) and is_int($data->int_val))) 
+             or (isset($data->text_val) and is_string($data->text_val))
+            ){
 
-            if (mysqli_num_rows($result_check) == 1){
-                
-                if (mysqli_query($link, $sql)) {
-                    return $this->response('Object updated.', 200);
+            $key = htmlspecialchars(trim($this->requestParams['key'] ?? ''));
+            
+            $data_ok = 'YES';
+            $field = 'non';
+            if ( isset($data->text_val) and !empty($data->text_val)){
+                $val = htmlspecialchars($data->text_val) ?? '';
+                $field = 'text_val';
+                $null_field = 'int_val';
+            } elseif ( isset($data->int_val) ){
+                $val = htmlspecialchars(trim($data->int_val)) ?? '';
+                $field = 'int_val';
+                $null_field = 'text_val';
+            } else {
+                $data_ok = 'NO';
+            }
+            
+            if( $data_ok == 'YES' and $field != 'non'){
+
+                $database = new Database();
+                $link = $database->get_db_link();
+
+                $sql_length = "SELECT COALESCE(CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION) 
+                               FROM INFORMATION_SCHEMA.COLUMNS 
+                               WHERE table_name = '".$this->table_name."' 
+                               AND COLUMN_NAME = '".$field."'";
+
+                if ($result_length = mysqli_query($link, $sql_length)) {
+                    while($row = mysqli_fetch_array($result_length)){
+                        (int) $length = $row[0];
+                    }
                 }
-                return $this->response(mysqli_error($link), 500);
-               
-            } 
-            return $this->response('Not Found object with key = '.$key.'', 404);
 
-            $link = $database->close_db_link();
+                if (strlen($val) > 0 and strlen($val) <= $length) {
+                    $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE `key` = '".$key."'";
+                    $result_check = mysqli_query($link, $sql_check);
+
+                    if (mysqli_num_rows($result_check) == 1){
+                        
+                        $sql = "UPDATE `".$this->table_name."` SET `".$field."` = '".$val."', `".$null_field."` = null WHERE `key` = '".$key."'";
+                        if (mysqli_query($link, $sql)) {
+                            return $this->response('Object updated.', 200);
+                        }
+                        return $this->response(mysqli_error($link), 500);
+                    } 
+                    return $this->response('Not Found object with key = '.$key.'', 404);
+                }
+                return $this->response("Param '".$field."' length must be greater than 0 and less than " . $length . "!", 400);
+                $link = $database->close_db_link();
+            }
+            return $this->response('Data is ok ('.$data_ok. '). Field =' . $field, 500);
         }
         return $this->response('Bad Request', 400);
     }
