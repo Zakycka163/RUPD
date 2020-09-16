@@ -97,7 +97,7 @@ abstract class Api
      */
     public function indexAction()
     {
-        $round = $this->requestParams['round'] ?? 1;
+        $round = htmlspecialchars(trim($this->requestParams['round'])) ?? 1;
         $database = new Database();
         $link = $database->get_db_link();
         $limit = $database->get_db_limit();
@@ -140,7 +140,7 @@ abstract class Api
     {
         if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) ){
 
-            $id = $this->requestParams['id'] ?? '';
+            $id = htmlspecialchars(trim($this->requestParams['id'])) ?? '';
 
             $database = new Database();
             $link = $database->get_db_link();
@@ -185,7 +185,7 @@ abstract class Api
         
         if( isset($data->name) ){
 
-            $name = $data->name ?? '';
+            $name = htmlspecialchars($data->name) ?? '';
         
             $database = new Database();
             $link = $database->get_db_link();
@@ -232,8 +232,8 @@ abstract class Api
 
         if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) and isset($data->name)){
 
-            $id = $this->requestParams['id'] ?? '';
-            $name = $data->name ?? '';
+            $id = htmlspecialchars(trim($this->requestParams['id'])) ?? '';
+            $name = htmlspecialchars($data->name) ?? '';
 
             $database = new Database();
             $link = $database->get_db_link();
@@ -277,9 +277,10 @@ abstract class Api
      */
     public function deleteAction()
     {
-        $id = $this->requestParams['id'] ?? '';
-        if( is_numeric($id) ){
-
+        if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) ){
+            
+            $id = htmlspecialchars(trim($this->requestParams['id'])) ?? '';
+        
             $database = new Database();
             $link = $database->get_db_link();
             $sql_check = "SELECT * FROM `".$this->table_name."` WHERE id = ".$id."";
