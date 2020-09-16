@@ -21,19 +21,19 @@
 #### varchar(30)
 - [ ] academic_degrees          .short_name
 - [ ] academic_ranks            .short_name
-- [ ] activity_types            .name
-- [ ] control_forms             .name
-- [ ] parts                     .name
+- [x] activity_types            .name
+- [x] control_forms             .name
+- [x] parts                     .name
 - [ ] teachers                  .first_name
 - [ ] teachers                  .middle_name
 - [ ] teachers                  .second_name
-- [ ] work_types                .name
+- [x] work_types                .name
 - [ ] accounts                  .login
 - [ ] grants                    .access
-- [ ] qualifications            .name
-- [ ] statuses                  .name
+- [x] qualifications            .name
+- [x] statuses                  .name
 - [ ] study_forms               .name
-- [ ] topic_types               .name
+- [x] topic_types               .name
 
 #### varchar(60)
 - [ ] academic_degrees          .full_name
@@ -43,8 +43,8 @@
 - [ ] constants                 .text_val
 - [ ] courses                   .name
 - [ ] institutes                .name
-- [ ] modules                   .name
-- [ ] positions                 .name
+- [x] modules                   .name
+- [x] positions                 .name
 - [ ] profiles                  .name
 - [ ] pulpits                   .name
 - [ ] teachers                  .email
@@ -55,7 +55,7 @@
 - [ ] activities                .name
 - [ ] connections_opop          .description
 - [ ] disciplines               .name
-- [ ] educations                .name
+- [x] educations                .name
 - [ ] general_work_functions    .name
 - [ ] grants                    .description
 - [ ] groups                    .description

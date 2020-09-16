@@ -138,9 +138,9 @@ abstract class Api
      */
     public function viewAction()
     {
-        $id = $this->requestParams['id'] ?? '';
+        if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) ){
 
-        if( is_numeric($id) ){
+            $id = $this->requestParams['id'] ?? '';
 
             $database = new Database();
             $link = $database->get_db_link();
@@ -182,22 +182,37 @@ abstract class Api
     public function createAction()
     {
         $data = json_decode(file_get_contents("php://input"));
-        $name = $data->name ?? '';
+        
+        if( isset($data->name) ){
 
-        if(!empty($name)){
-            
+            $name = $data->name ?? '';
+        
             $database = new Database();
             $link = $database->get_db_link();
-            $sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$name."')";
-            if (mysqli_query($link, $sql)){
-                return $this->response('Object created', 201);
-            } else {
+
+            $sql_length = "SELECT CHARACTER_MAXIMUM_LENGTH 
+                           FROM INFORMATION_SCHEMA.COLUMNS 
+                           WHERE table_name = '".$this->table_name."' 
+                           AND COLUMN_NAME = 'name'"; 
+
+            if ($result_length = mysqli_query($link, $sql_length)) {
+                while($row = mysqli_fetch_array($result_length)){
+                    (int) $length = $row[0];
+                }
+            }
+
+            if (strlen($name) > 0 and strlen($name) <= $length) {
+
+                $sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$name."')";
+                if (mysqli_query($link, $sql)){
+                    return $this->response('Object created', 201);
+                }
                 return $this->response(mysqli_error($link), 500);
             }
+            return $this->response("Name length must be greater than 0 and less than " . $length . "!", 400);
             $link = $database->close_db_link();
-        } else {
-            return $this->response("Bad Request", 400);
-        }
+        } 
+        return $this->response("Bad Request", 400);
     }
 
     /*
@@ -213,28 +228,42 @@ abstract class Api
      */
     public function updateAction()
     {
-        $id = $this->requestParams['id'] ?? '';
         $data = json_decode(file_get_contents("php://input"));
-        $name = $data->name ?? '';
 
-        if( is_numeric($id) and !empty($name)){
+        if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) and isset($data->name)){
+
+            $id = $this->requestParams['id'] ?? '';
+            $name = $data->name ?? '';
 
             $database = new Database();
             $link = $database->get_db_link();
-            $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE id = ".$id."";
-            $result_check = mysqli_query($link, $sql_check);
 
-            if (mysqli_num_rows($result_check) == 1){
-                
-                $sql = "UPDATE `".$this->table_name."` SET `name` = '".$name."' WHERE id = ".$id."";
-                if (mysqli_query($link, $sql)) {
-                    return $this->response('Object updated.', 200);
+            $sql_length = "SELECT CHARACTER_MAXIMUM_LENGTH 
+                           FROM INFORMATION_SCHEMA.COLUMNS 
+                           WHERE table_name = '".$this->table_name."' 
+                           AND COLUMN_NAME = 'name'"; 
+
+            if ($result_length = mysqli_query($link, $sql_length)) {
+                while($row = mysqli_fetch_array($result_length)){
+                    (int) $length = $row[0];
                 }
-                return $this->response(mysqli_error($link), 500);
-               
-            } 
-            return $this->response('Not Found object with id = '.$id.'', 204);
+            }
 
+            if (strlen($name) > 0 and strlen($name) <= $length) {
+                $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE id = ".$id."";
+                $result_check = mysqli_query($link, $sql_check);
+
+                if (mysqli_num_rows($result_check) == 1){
+                    
+                    $sql = "UPDATE `".$this->table_name."` SET `name` = '".$name."' WHERE id = ".$id."";
+                    if (mysqli_query($link, $sql)) {
+                        return $this->response('Object updated.', 200);
+                    }
+                    return $this->response(mysqli_error($link), 500);
+                } 
+                return $this->response('Not Found object with id = '.$id.'', 204);
+            }
+            return $this->response("Name length must be greater than 0 and less than " . $length . "!", 400);
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
