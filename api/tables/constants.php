@@ -126,10 +126,9 @@ class CurrentApi extends Api
                 $database = new Database();
                 $link = $database->get_db_link();
 
-                $arr_length = $database->get_max_length_for_fields_in_table($this->table_name);
-                $length = $arr_length[$field];
+                $errors = $database->validate_input_data($this->table_name, array($field => $val));
 
-                if (strlen($val) > 0 and strlen($val) <= $length) {
+                if (empty($errors)) {
                     $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE `key` = '".$key."'";
                     $result_check = mysqli_query($link, $sql_check);
 
@@ -143,7 +142,7 @@ class CurrentApi extends Api
                     } 
                     return $this->response('Not Found object with key = '.$key.'', 404);
                 }
-                return $this->response("Param '".$field."' length must be less than " . $length . "!", 400);
+                return $this->response($errors, 400);
                 $link = $database->close_db_link();
             }
             return $this->response('Data is ok ('.$data_ok. '). Field =' . $field, 500);
