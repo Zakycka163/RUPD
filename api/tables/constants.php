@@ -88,8 +88,8 @@ class CurrentApi extends Api
      * http://ДОМЕН/constants?key= + JSON
      * 
     { 
-        "text_val": string
-        "int_val": int 
+        "text_val": "string",
+        "int_val": "int"
     }
      * 
      * @return string
@@ -143,7 +143,7 @@ class CurrentApi extends Api
                     } 
                     return $this->response('Not Found object with key = '.$key.'', 404);
                 }
-                return $this->response("Param '".$field."' length must be greater than 0 and less than " . $length . "!", 400);
+                return $this->response("Param '".$field."' length must be less than " . $length . "!", 400);
                 $link = $database->close_db_link();
             }
             return $this->response('Data is ok ('.$data_ok. '). Field =' . $field, 500);
@@ -157,9 +157,9 @@ class CurrentApi extends Api
      * http://ДОМЕН/constants + JSON
      * 
     {
-        "key": string
-        "text_val": string
-        "int_val": int
+        "key": "string",
+        "text_val": "string",
+        "int_val": "int"
     }
      * 
      * @return string
