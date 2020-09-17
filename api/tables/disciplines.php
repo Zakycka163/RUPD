@@ -38,22 +38,9 @@ class CurrentApi extends Api
             $database = new Database();
             $link = $database->get_db_link();
 
-            $arr_length = $database->get_max_length_for_fields_in_table($this->table_name);
-
-            // Проблемное место
-
-            $arr_fields = array_keys($arr_length);
-            $arr_error = array();
-
-            while($row = $arr_fields){ 
-                
-                if (!(strlen($data->$row[0]) > 0 and strlen($data->$row[0]) <= $arr_length[$row[0]])){
-                    $arr_error += array($row[0] => "Value length must be less than " . $arr_length[$row[0]] . "!");
-                    return $this->response('Object created', 201);
-                }
-            }
+            $errors = $database->validate_input_data($this->table_name, $data);
             
-            if (empty($arr_error)) {
+            if (empty($errors)) {
 
                 return $this->response('Object created', 201);
                 /*$sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$data->name."')";
@@ -65,7 +52,7 @@ class CurrentApi extends Api
  
             }
             $link = $database->close_db_link();
-            return $this->response($arr_error, 400);
+            return $this->response($errors, 400);
         }
         return $this->response("Bad Request", 400);
     }
