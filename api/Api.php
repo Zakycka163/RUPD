@@ -97,7 +97,9 @@ abstract class Api
      */
     public function indexAction()
     {
-        $round = htmlspecialchars(trim($this->requestParams['round'])) ?? 1;
+        if (isset($this->requestParams['round'])){
+            $round = htmlspecialchars(trim($this->requestParams['round'])) ?? 1;
+        } else { $round = 1; }
         $database = new Database();
         $link = $database->get_db_link();
         $limit = $database->get_db_limit();
