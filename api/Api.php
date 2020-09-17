@@ -192,17 +192,16 @@ abstract class Api
             $database = new Database();
             $link = $database->get_db_link();
 
-            $arr_length = $database->get_max_length_for_fields_in_table($this->table_name);
-            $length = $arr_length["name"];
-            if (strlen($name) > 0 and strlen($name) <= $length) {
+            $errors = $database->validate_input_data($this->table_name, $data);
 
+            if (empty($errors)) {
                 $sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$name."')";
                 if (mysqli_query($link, $sql)){
                     return $this->response('Object created', 201);
                 }
                 return $this->response(mysqli_error($link), 500);
             }
-            return $this->response("Name length must be less than " . $length . "!", 400);
+            return $this->response($errors, 400);
             $link = $database->close_db_link();
         } 
         return $this->response("Bad Request", 400);
@@ -231,10 +230,9 @@ abstract class Api
             $database = new Database();
             $link = $database->get_db_link();
 
-            $arr_length = $database->get_max_length_for_fields_in_table($this->table_name);
-            $length = $arr_length["name"];
+            $errors = $database->validate_input_data($this->table_name, $data);
 
-            if (strlen($name) > 0 and strlen($name) <= $length) {
+            if (empty($errors)) {
                 $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE id = ".$id."";
                 $result_check = mysqli_query($link, $sql_check);
 
@@ -248,7 +246,7 @@ abstract class Api
                 } 
                 return $this->response('Not Found object with id = '.$id.'', 204);
             }
-            return $this->response("Name length must be less than " . $length . "!", 400);
+            return $this->response($errors, 400);
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
