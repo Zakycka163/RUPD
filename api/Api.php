@@ -174,7 +174,7 @@ abstract class Api
      * http://ДОМЕН/${table_name} + JSON
      * 
     {
-        "name": string
+        "name": "string"
     }
      * 
      * @return string
@@ -200,7 +200,7 @@ abstract class Api
                 }
                 return $this->response(mysqli_error($link), 500);
             }
-            return $this->response("Name length must be greater than 0 and less than " . $length . "!", 400);
+            return $this->response("Name length must be less than " . $length . "!", 400);
             $link = $database->close_db_link();
         } 
         return $this->response("Bad Request", 400);
@@ -212,7 +212,7 @@ abstract class Api
      * http://ДОМЕН/${table_name}?id= + JSON
      * 
     { 
-        "name": string 
+        "name": "string"
     }
      * 
      * @return string
@@ -246,7 +246,7 @@ abstract class Api
                 } 
                 return $this->response('Not Found object with id = '.$id.'', 204);
             }
-            return $this->response("Name length must be greater than 0 and less than " . $length . "!", 400);
+            return $this->response("Name length must be less than " . $length . "!", 400);
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
