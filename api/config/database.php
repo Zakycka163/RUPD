@@ -43,7 +43,7 @@
 
         }
 
-        public function get_max_length_for_fields_in_table($table_name){
+        private function get_max_length_for_fields_in_table(string $table_name){
             $database = new Database();
             $link = $database->get_db_link();
             $length = array();
@@ -59,6 +59,19 @@
             }
             return $length;
             $link = $database->close_db_link();
+        }
+
+        public function validate_input_data(string $table_name, $data){
+            
+            $arr_length = $this->get_max_length_for_fields_in_table($table_name);
+            $arr_errors = array();
+
+            foreach($arr_length as $key => $value){ 
+                if (isset($data->$key) and !(strlen($data->$key) > 0 and strlen($data->$key) <= $value)){
+                    $arr_errors += array($key => "Value length must be less than " . $value . "!");
+                }
+            }
+            return $arr_errors;
         }
     }
 ?>
