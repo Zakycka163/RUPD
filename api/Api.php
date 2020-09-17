@@ -142,16 +142,18 @@ abstract class Api
     {
         if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) ){
 
-            $id = htmlspecialchars(trim($this->requestParams['id'])) ?? '';
+            $id = htmlspecialchars(trim($this->requestParams['id'] ?? ''));
 
             $database = new Database();
             $link = $database->get_db_link();
-            $sql = "SELECT * FROM `".$this->table_name."` WHERE id = ".$id."";
-            $result = mysqli_query($link, $sql);
+            
+            if ($database->exist_in_table($id, $this->table_name)) {
+                $sql = "SELECT * FROM `".$this->table_name."` WHERE id = ".$id."";
+                $result = mysqli_query($link, $sql);
 
-            if (mysqli_num_rows($result) == 1) {
                 $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
                 $result_columns = mysqli_query($link, $sql_columns);
+
                 while($row = mysqli_fetch_array($result_columns)){
                     $columns[] = $row['Field'];
                 }
@@ -224,7 +226,7 @@ abstract class Api
 
         if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) and isset($data->name)){
 
-            $id = htmlspecialchars(trim($this->requestParams['id'])) ?? '';
+            $id = htmlspecialchars(trim($this->requestParams['id'] ?? ''));
             $name = htmlspecialchars($data->name) ?? '';
 
             $database = new Database();
@@ -233,11 +235,7 @@ abstract class Api
             $errors = $database->validate_input_data($this->table_name, $data);
 
             if (empty($errors)) {
-                $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE id = ".$id."";
-                $result_check = mysqli_query($link, $sql_check);
-
-                if (mysqli_num_rows($result_check) == 1){
-                    
+                if ($database->exist_in_table($id, $this->table_name)){                 
                     $sql = "UPDATE `".$this->table_name."` SET `name` = '".$name."' WHERE id = ".$id."";
                     if (mysqli_query($link, $sql)) {
                         return $this->response('Object updated.', 200);
@@ -266,10 +264,8 @@ abstract class Api
         
             $database = new Database();
             $link = $database->get_db_link();
-            $sql_check = "SELECT * FROM `".$this->table_name."` WHERE id = ".$id."";
-            $result_check = mysqli_query($link, $sql_check);
 
-            if (mysqli_num_rows($result_check) == 1){
+            if ($database->exist_in_table($id, $this->table_name)){
                 $sql = "DELETE FROM `".$this->table_name."` WHERE id = ".$id."";
                 if (mysqli_query($link, $sql)){
                     return $this->response('Object deleted', 200);
