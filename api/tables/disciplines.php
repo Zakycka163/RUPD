@@ -12,12 +12,12 @@ class CurrentApi extends Api
      * http://ДОМЕН/disciplines + JSON
      * 
     {
-        "pulpit_id": int
-        "part_id": int
-        "module_id": int
-        "index_info": string
-        "name": string
-        "time": int
+        "pulpit_id": "int",
+        "part_id": "int",
+        "module_id": "int",
+        "index_info": "string",
+        "name": "string",
+        "time": "int"
     }
      * 
      * @return string
@@ -34,27 +34,38 @@ class CurrentApi extends Api
         and isset($data->name)          and is_string($data->name)
         and isset($data->time)          and is_int($data->time)
             ){
-
-            (int) $pulpit_id        = htmlspecialchars($data->pulpit_id) ?? '';
-            (int) $part_id          = htmlspecialchars($data->part_id) ?? '';
-            (int) $module_id        = htmlspecialchars($data->module_id) ?? '';
-            (int) $time             = htmlspecialchars($data->time ) ?? 0;
-            (string) $index_info    = htmlspecialchars(trim($data->index_info)) ?? '';
-            (string) $name          = htmlspecialchars(trim($data->name)) ?? '';
-
+            
             $database = new Database();
             $link = $database->get_db_link();
 
             $arr_length = $database->get_max_length_for_fields_in_table($this->table_name);
+
+            // Проблемное место
+
+            $arr_fields = array_keys($arr_length);
+            $arr_error = array();
+
+            while($row = $arr_fields){ 
+                
+                if (!(strlen($data->$row[0]) > 0 and strlen($data->$row[0]) <= $arr_length[$row[0]])){
+                    $arr_error += array($row[0] => "Value length must be less than " . $arr_length[$row[0]] . "!");
+                    return $this->response('Object created', 201);
+                }
+            }
             
-            $sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$data->name."')";
+            if (empty($arr_error)) {
+
+                return $this->response('Object created', 201);
+                /*$sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$data->name."')";
                 if (mysqli_query($link, $sql)){
                     return $this->response('Object created', 201);
                 } else {
                     return $this->response(mysqli_error($link), 500);
-                }
-                $link = $database->close_db_link();
-            
+                }*/
+ 
+            }
+            $link = $database->close_db_link();
+            return $this->response($arr_error, 400);
         }
         return $this->response("Bad Request", 400);
     }
@@ -65,12 +76,12 @@ class CurrentApi extends Api
      * http://ДОМЕН/disciplines?id= + JSON
      * 
     {
-        "pulpit_id": int
-        "part_id": int
-        "module_id": int
-        "index_info": string
-        "name": string
-        "time": int    
+        "pulpit_id": "int",
+        "part_id": "int",
+        "module_id": "int",
+        "index_info": "string",
+        "name": "string",
+        "time": "int" 
     }
      * 
      * @return string
