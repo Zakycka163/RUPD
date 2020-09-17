@@ -42,14 +42,37 @@ class CurrentApi extends Api
             
             if (empty($errors)) {
 
-                return $this->response('Object created', 201);
-                /*$sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$data->name."')";
-                if (mysqli_query($link, $sql)){
-                    return $this->response('Object created', 201);
-                } else {
-                    return $this->response(mysqli_error($link), 500);
-                }*/
- 
+                $check_exist = array("pulpit_id = ".$data->pulpit_id."" => $database->exist_in_table($data->pulpit_id, "pulpits"));
+                $check_exist += array("part_id = ".$data->part_id."" => $database->exist_in_table($data->part_id, "parts"));
+                $check_exist += array("module_id = ".$data->module_id."" => $database->exist_in_table($data->module_id, "modules"));
+
+                foreach ($check_exist as $key => $val){
+                    if ($val){
+                        unset($check_exist[$key]);
+                    } else {
+                        $check_exist[$key] = "Object not found";
+                    }
+                }
+                if (empty($check_exist)) {
+                    $sql = "INSERT INTO `".$this->table_name."` (  `pulpit_id`
+                                                                , `part_id`
+                                                                , `module_id`
+                                                                , `index_info`
+                                                                , `name`
+                                                                , `time`) 
+                            VALUES                              ('".$data->pulpit_id."'
+                                                                ,'".$data->part_id."'
+                                                                ,'".$data->module_id."'
+                                                                ,'".$data->index_info."'
+                                                                ,'".$data->name."'
+                                                                ,'".$data->time."')";
+                    if (mysqli_query($link, $sql)){
+                        return $this->response('Object created', 201);
+                    } else {
+                        return $this->response(mysqli_error($link), 500);
+                    }
+                }
+                return $this->response($check_exist, 400);
             }
             $link = $database->close_db_link();
             return $this->response($errors, 400);
@@ -75,27 +98,58 @@ class CurrentApi extends Api
      */
     public function updateAction()
     {
-        $id = $this->requestParams['id'] ?? '';
+        
         $data = json_decode(file_get_contents("php://input"));
 
-        if( is_numeric($id) and !empty($data->name)){
+        if( 
+            isset($this->requestParams['id'])   and is_numeric($this->requestParams['id'])
+        and isset($data->pulpit_id)             and is_int($data->pulpit_id)
+        and isset($data->part_id)               and is_int($data->part_id)
+        and isset($data->module_id)             and is_int($data->module_id)
+        and isset($data->index_info)            and is_string($data->index_info)
+        and isset($data->name)                  and is_string($data->name)
+        and isset($data->time)                  and is_int($data->time)
+            ){
 
+            $id = htmlspecialchars(trim($this->requestParams['id'])) ?? '';
             $database = new Database();
             $link = $database->get_db_link();
-            $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE id = ".$id."";
-            $result_check = mysqli_query($link, $sql_check);
 
-            if (mysqli_num_rows($result_check) == 1){
+            if ($database->exist_in_table($id, $this->table_name)){
                 
-                $sql = "UPDATE `".$this->table_name."` SET `name` = '".$data->name."' WHERE id = ".$id."";
-                if (mysqli_query($link, $sql)) {
-                    return $this->response('Object updated.', 200);
+                $errors = $database->validate_input_data($this->table_name, $data);
+                if (empty($errors)) {
+
+                    $check_exist = array("pulpit_id = ".$data->pulpit_id."" => $database->exist_in_table($data->pulpit_id, "pulpits"));
+                    $check_exist += array("part_id = ".$data->part_id."" => $database->exist_in_table($data->part_id, "parts"));
+                    $check_exist += array("module_id = ".$data->module_id."" => $database->exist_in_table($data->module_id, "modules"));
+
+                    foreach ($check_exist as $key => $val){
+                        if ($val){
+                            unset($check_exist[$key]);
+                        } else {
+                            $check_exist[$key] = "Object not found";
+                        }
+                    }
+                    if (empty($check_exist)) {
+                        $sql = "UPDATE `".$this->table_name."` SET `pulpit_id` = '".$data->pulpit_id."'
+                                                                 , `part_id` = '".$data->part_id."'
+                                                                 , `module_id` = '".$data->module_id."'
+                                                                 , `index_info` = '".$data->index_info."'
+                                                                 , `name` = '".$data->name."'
+                                                                 , `time` = '".$data->time."'
+                                                                WHERE id = ".$id."";
+                        if (mysqli_query($link, $sql)) {
+                            return $this->response('Object updated.', 200);
+                        }
+                        return $this->response(mysqli_error($link), 500);
+                    }
+                    return $this->response($check_exist, 400);
+
                 }
-                return $this->response(mysqli_error($link), 500);
-               
+                return $this->response($errors, 400);
             } 
             return $this->response('Not Found object with id = '.$id.'', 204);
-
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);

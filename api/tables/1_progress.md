@@ -9,7 +9,7 @@
 - [x] constants
 - [x] control_forms
 - [ ] courses
-- [ ] disciplines
+- [x] disciplines
 - [x] educations
 - [ ] fgos
 - [ ] general_work_functions
