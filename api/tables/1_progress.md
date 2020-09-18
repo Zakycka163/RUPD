@@ -3,7 +3,7 @@
 - [ ] accounts
 - [ ] activities
 - [x] activity_types
-- [ ] competence_types
+- [x] competence_types
 - [ ] competencies
 - [ ] connections_opop
 - [x] constants
