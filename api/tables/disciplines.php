@@ -46,7 +46,7 @@ class CurrentApi extends Api
                                                          ,array("pulpits",          "parts",        "modules"));
 
                 if (empty($errors)) {
-                    $sql = "INSERT INTO `".$this->table_name."` (  `pulpit_id`
+                    $sql = "INSERT INTO `".$this->table_name."` ( `pulpit_id`
                                                                 , `part_id`
                                                                 , `module_id`
                                                                 , `index_info`
