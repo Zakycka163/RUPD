@@ -1,5 +1,5 @@
-- [ ] academic_degrees
-- [ ] academic_ranks
+- [x] academic_degrees
+- [x] academic_ranks
 - [ ] accounts
 - [ ] activities
 - [x] activity_types
