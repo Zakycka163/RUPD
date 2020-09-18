@@ -15,7 +15,7 @@
 - [ ] general_work_functions
 - [ ] grants
 - [ ] groups
-- [ ] institutes
+- [x] institutes
 - [ ] missions
 - [x] modules
 - [x] parts

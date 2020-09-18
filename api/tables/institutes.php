@@ -12,8 +12,8 @@ class CurrentApi extends Api
      * http://ДОМЕН/institutes + JSON
      * 
     {
-        "name": string,
-        "description": string
+        "name": "string",
+        "description": "string"
     }
      * 
      * @return string
@@ -22,7 +22,12 @@ class CurrentApi extends Api
     {
         $data = json_decode(file_get_contents("php://input"));
 
-        if(!empty($data->name)){
+        if (     
+                isset($data->name)          and is_string($data->name) 
+            and ( 
+                (isset($data->description)  and is_string($data->description) ))
+                or (!isset($data->description))
+            ){
 
             if (!isset($data->description)){
                 $data->description = '';
@@ -30,12 +35,17 @@ class CurrentApi extends Api
             
             $database = new Database();
             $link = $database->get_db_link();
-            $sql = "INSERT INTO `".$this->table_name."` (`name`, `description`) VALUES ('".$data->name."', )";
-            if (mysqli_query($link, $sql)){
-                return $this->response('Object created', 200);
-            } else {
-                return $this->response(mysqli_error($link), 500);
+            $errors = $database->validate_input_data($this->table_name, $data);
+
+            if (empty($errors)) {
+                $sql = "INSERT INTO `".$this->table_name."` (`name`, `description`) VALUES ('".$data->name."', '".$data->description."')";
+                if (mysqli_query($link, $sql)){
+                    return $this->response('Object created', 201);
+                } else {
+                    return $this->response(mysqli_error($link), 500);
+                }
             }
+            return $this->response($errors, 400);
             $link = $database->close_db_link();
         } else {
             return $this->response("Bad Request", 400);
@@ -48,8 +58,8 @@ class CurrentApi extends Api
      * http://ДОМЕН/institutes?id= + JSON
      * 
     { 
-        "name": string,
-        "description": string 
+        "name": "string",
+        "description": "string"
     }
      * 
      * @return string
@@ -59,21 +69,21 @@ class CurrentApi extends Api
         $id = $this->requestParams['id'] ?? '';
         $data = json_decode(file_get_contents("php://input"));
 
-        if( is_numeric($id) and !empty($data->name)){
+        if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) ){
 
             $database = new Database();
             $link = $database->get_db_link();
 
             if ($database->exist_in_table($id, $this->table_name)){
                 
-                $sql = "UPDATE `".$this->table_name."` SET `name` = '".$data->name."' WHERE id = ".$id."";
+                $sql = "UPDATE `".$this->table_name."` SET `name` = '".$data->name."', `description` = '".$data->description."' WHERE id = ".$id."";
                 if (mysqli_query($link, $sql)) {
                     return $this->response('Object updated.', 200);
                 }
                 return $this->response(mysqli_error($link), 500);
                
             } 
-            return $this->response('Not Found object with id = '.$id.'', 204);
+            return $this->response('Not Found object with id = '.$id.'', 404);
 
             $link = $database->close_db_link();
         }
