@@ -42,18 +42,10 @@ class CurrentApi extends Api
             
             if (empty($errors)) {
 
-                $check_exist = array("pulpit_id = ".$data->pulpit_id."" => $database->exist_in_table($data->pulpit_id, "pulpits"));
-                $check_exist += array("part_id = ".$data->part_id."" => $database->exist_in_table($data->part_id, "parts"));
-                $check_exist += array("module_id = ".$data->module_id."" => $database->exist_in_table($data->module_id, "modules"));
+                $errors = $database->ids_exists_in_tables(array($data->pulpit_id, $data->part_id, $data->module_id)
+                                                         ,array("pulpits",          "parts",        "modules"));
 
-                foreach ($check_exist as $key => $val){
-                    if ($val){
-                        unset($check_exist[$key]);
-                    } else {
-                        $check_exist[$key] = "Object not found";
-                    }
-                }
-                if (empty($check_exist)) {
+                if (empty($errors)) {
                     $sql = "INSERT INTO `".$this->table_name."` (  `pulpit_id`
                                                                 , `part_id`
                                                                 , `module_id`
@@ -72,7 +64,7 @@ class CurrentApi extends Api
                         return $this->response(mysqli_error($link), 500);
                     }
                 }
-                return $this->response($check_exist, 400);
+                return $this->response($errors, 400);
             }
             $link = $database->close_db_link();
             return $this->response($errors, 400);
@@ -120,18 +112,10 @@ class CurrentApi extends Api
                 $errors = $database->validate_input_data($this->table_name, $data);
                 if (empty($errors)) {
 
-                    $check_exist = array("pulpit_id = ".$data->pulpit_id."" => $database->exist_in_table($data->pulpit_id, "pulpits"));
-                    $check_exist += array("part_id = ".$data->part_id."" => $database->exist_in_table($data->part_id, "parts"));
-                    $check_exist += array("module_id = ".$data->module_id."" => $database->exist_in_table($data->module_id, "modules"));
+                    $errors = $database->ids_exists_in_tables(array($data->pulpit_id, $data->part_id, $data->module_id)
+                                                             ,array("pulpits",          "parts",        "modules"));
 
-                    foreach ($check_exist as $key => $val){
-                        if ($val){
-                            unset($check_exist[$key]);
-                        } else {
-                            $check_exist[$key] = "Object not found";
-                        }
-                    }
-                    if (empty($check_exist)) {
+                    if (empty($errors)) {
                         $sql = "UPDATE `".$this->table_name."` SET `pulpit_id` = '".$data->pulpit_id."'
                                                                  , `part_id` = '".$data->part_id."'
                                                                  , `module_id` = '".$data->module_id."'
@@ -144,7 +128,7 @@ class CurrentApi extends Api
                         }
                         return $this->response(mysqli_error($link), 500);
                     }
-                    return $this->response($check_exist, 400);
+                    return $this->response($errors, 400);
 
                 }
                 return $this->response($errors, 400);
