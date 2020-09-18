@@ -28,7 +28,7 @@
 - [ ] second_works
 - [x] seminars
 - [x] statuses
-- [ ] study_forms
+- [x] study_forms
 - [ ] study_plan
 - [ ] tasks
 - [x] teachers
