@@ -138,6 +138,5 @@ class CurrentApi extends Api
         }
         return $this->response('Bad Request', 400);
     }
-
     
 }
