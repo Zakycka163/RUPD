@@ -9,7 +9,7 @@ class CurrentApi extends Api
     /*
      * Метод POST
      * Создание новой записи
-     * http://ДОМЕН/institutes + JSON
+     * http://ДОМЕН/${table_name} + JSON
      * 
     {
         "name": "string",
@@ -55,7 +55,7 @@ class CurrentApi extends Api
     /*
      * Метод PUT
      * Обновление отдельной записи (по ее id)
-     * http://ДОМЕН/institutes?id= + JSON
+     * http://ДОМЕН/${table_name}?id= + JSON
      * 
     { 
         "name": "string",

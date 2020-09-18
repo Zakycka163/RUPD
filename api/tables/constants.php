@@ -9,7 +9,7 @@ class CurrentApi extends Api
     /**
      * Метод GET
      * Вывод списка всех записей
-     * http://ДОМЕН/constants
+     * http://ДОМЕН/${table_name}
      * @return string
      */
     public function indexAction(){
@@ -46,7 +46,7 @@ class CurrentApi extends Api
     /**
      * Метод GET
      * Просмотр отдельной записи (по key)
-     * http://ДОМЕН/constants?key=
+     * http://ДОМЕН/${table_name}?key=
      * @return string
      */
     public function viewAction(){   
@@ -85,7 +85,7 @@ class CurrentApi extends Api
     /*
      * Метод PUT
      * Обновление отдельной записи (по ее key)
-     * http://ДОМЕН/constants?key= + JSON
+     * http://ДОМЕН/${table_name}?key= + JSON
      * 
     { 
         "text_val": "string",
@@ -153,7 +153,7 @@ class CurrentApi extends Api
     /*
      * Метод POST
      * Создание новой записи
-     * http://ДОМЕН/constants + JSON
+     * http://ДОМЕН/${table_name} + JSON
      * 
     {
         "key": "string",
@@ -170,7 +170,7 @@ class CurrentApi extends Api
     /**
      * Метод DELETE
      * Удаление отдельной записи (по ее key)
-     * http://ДОМЕН/constants?key=
+     * http://ДОМЕН/${table_name}?key=
      * @return string
      */
     public function deleteAction(){
