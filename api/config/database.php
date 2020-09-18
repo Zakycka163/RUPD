@@ -48,7 +48,7 @@
             $data_to_validation = array_combine($table_names, $ids); 
             $result = array();
             foreach ($data_to_validation as $table => $id){
-                if ($this->exist_in_table($id, $table)){
+                if ($id != null and $this->exist_in_table($id, $table)){
                     $result += array($table => "Not Found object with key = '.$id.'");
                 }
             }
@@ -90,7 +90,7 @@
             $arr_length = $this->get_max_length_for_fields_in_table($table_name);
             $arr_errors = array();
             foreach($arr_length as $key => $value){ 
-                if (isset($data->$key) and strlen($data->$key) <= $value){
+                if (isset($data->$key) and strlen($data->$key) > $value){
                     $arr_errors += array($key => "Value length must be less than " . $value . "!");
                 }
             }
