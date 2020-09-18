@@ -116,13 +116,14 @@ class CurrentApi extends Api
                                                              ,array("pulpits",          "parts",        "modules"));
 
                     if (empty($errors)) {
-                        $sql = "UPDATE `".$this->table_name."` SET `pulpit_id` = '".$data->pulpit_id."'
-                                                                 , `part_id` = '".$data->part_id."'
-                                                                 , `module_id` = '".$data->module_id."'
-                                                                 , `index_info` = '".$data->index_info."'
-                                                                 , `name` = '".$data->name."'
-                                                                 , `time` = '".$data->time."'
-                                                                WHERE id = ".$id."";
+                        $sql = "UPDATE `".$this->table_name."` 
+                                SET `pulpit_id`     = '".$data->pulpit_id."'
+                                  , `part_id`       = '".$data->part_id."'
+                                  , `module_id`     = '".$data->module_id."'
+                                  , `index_info`    = '".$data->index_info."'
+                                  , `name`          = '".$data->name."'
+                                  , `time`          = '".$data->time."'
+                                WHERE id = ".$id."";
                         if (mysqli_query($link, $sql)) {
                             return $this->response('Object updated.', 200);
                         }
@@ -133,7 +134,7 @@ class CurrentApi extends Api
                 }
                 return $this->response($errors, 400);
             } 
-            return $this->response('Not Found object with id = '.$id.'', 204);
+            return $this->response('Not Found object with id = '.$id.'', 404);
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
