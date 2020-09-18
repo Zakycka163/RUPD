@@ -52,9 +52,9 @@ class CurrentApi extends Api
                                                                 , `index_info`
                                                                 , `name`
                                                                 , `time`) 
-                            VALUES                              ('".$data->pulpit_id."'
-                                                                ,'".$data->part_id."'
-                                                                ,'".$data->module_id."'
+                            VALUES                              (".$data->pulpit_id."
+                                                                ,".$data->part_id."
+                                                                ,".$data->module_id."
                                                                 ,'".$data->index_info."'
                                                                 ,'".$data->name."'
                                                                 ,'".$data->time."')";
@@ -117,9 +117,9 @@ class CurrentApi extends Api
 
                     if (empty($errors)) {
                         $sql = "UPDATE `".$this->table_name."` 
-                                SET `pulpit_id`     = '".$data->pulpit_id."'
-                                  , `part_id`       = '".$data->part_id."'
-                                  , `module_id`     = '".$data->module_id."'
+                                SET `pulpit_id`     = ".$data->pulpit_id."
+                                  , `part_id`       = ".$data->part_id."
+                                  , `module_id`     = ".$data->module_id."
                                   , `index_info`    = '".$data->index_info."'
                                   , `name`          = '".$data->name."'
                                   , `time`          = '".$data->time."'
