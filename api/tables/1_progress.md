@@ -31,7 +31,7 @@
 - [ ] study_forms
 - [ ] study_plan
 - [ ] tasks
-- [ ] teachers
+- [x] teachers
 - [ ] teacher_educations
 - [ ] teacher_positions
 - [ ] topics
