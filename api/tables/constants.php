@@ -99,10 +99,10 @@ class CurrentApi extends Api
         $data = json_decode(file_get_contents("php://input"));
 
         if (     
-            isset($this->requestParams['key']) 
-        and is_string($this->requestParams['key']) 
-        and (   (isset($data->int_val) and is_int($data->int_val))) 
-             or (isset($data->text_val) and is_string($data->text_val))
+            isset($this->requestParams['key'])  and is_string($this->requestParams['key']) 
+        and (   
+                (isset($data->int_val)          and is_int($data->int_val))) 
+             or (isset($data->text_val)         and is_string($data->text_val))
             ){
 
             $key = htmlspecialchars(trim($this->requestParams['key'] ?? ''));
