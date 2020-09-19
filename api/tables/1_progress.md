@@ -1,7 +1,7 @@
 - [x] academic_degrees
 - [x] academic_ranks
 - [ ] accounts
-- [ ] activities
+- [x] activities
 - [x] activity_types
 - [x] competence_types
 - [ ] competencies
