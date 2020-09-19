@@ -27,12 +27,12 @@ class CurrentApi extends Api
         $data = json_decode(file_get_contents("php://input"));
 
         if (     
-            isset($data->pulpit_id)     and is_int($data->pulpit_id)
-        and isset($data->part_id)       and is_int($data->part_id)
-        and isset($data->module_id)     and is_int($data->module_id)
+            isset($data->pulpit_id)     and is_numeric($data->pulpit_id)
+        and isset($data->part_id)       and is_numeric($data->part_id)
+        and isset($data->module_id)     and is_numeric($data->module_id)
         and isset($data->index_info)    and is_string($data->index_info)
         and isset($data->name)          and is_string($data->name)
-        and isset($data->time)          and is_int($data->time)
+        and isset($data->time)          and is_numeric($data->time)
             ){
             
             $database = new Database();
@@ -95,12 +95,12 @@ class CurrentApi extends Api
 
         if( 
             isset($this->requestParams['id'])   and is_numeric($this->requestParams['id'])
-        and isset($data->pulpit_id)             and is_int($data->pulpit_id)
-        and isset($data->part_id)               and is_int($data->part_id)
-        and isset($data->module_id)             and is_int($data->module_id)
+        and isset($data->pulpit_id)             and is_numeric($data->pulpit_id)
+        and isset($data->part_id)               and is_numeric($data->part_id)
+        and isset($data->module_id)             and is_numeric($data->module_id)
         and isset($data->index_info)            and is_string($data->index_info)
         and isset($data->name)                  and is_string($data->name)
-        and isset($data->time)                  and is_int($data->time)
+        and isset($data->time)                  and is_numeric($data->time)
             ){
 
             $id = htmlspecialchars(trim($this->requestParams['id'])) ?? '';

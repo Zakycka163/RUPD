@@ -101,7 +101,7 @@ class CurrentApi extends Api
         if (     
             isset($this->requestParams['key'])  and is_string($this->requestParams['key']) 
         and (   
-                (isset($data->int_val)          and is_int($data->int_val))) 
+                (isset($data->int_val)          and is_numeric($data->int_val))) 
              or (isset($data->text_val)         and is_string($data->text_val))
             ){
 

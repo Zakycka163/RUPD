@@ -97,7 +97,7 @@ abstract class Api
      */
     public function indexAction()
     {
-        if (isset($this->requestParams['round'])){
+        if (isset($this->requestParams['round']) and is_numeric($this->requestParams['round'])){
             $round = htmlspecialchars(trim($this->requestParams['round'])) ?? 1;
         } else { $round = 1; }
         $database = new Database();
