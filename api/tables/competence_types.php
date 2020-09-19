@@ -23,8 +23,8 @@ class CurrentApi extends Api
         $data = json_decode(file_get_contents("php://input"));
 
         if (     
-            isset($data->name)     and is_int($data->name)
-        and isset($data->code)     and is_int($data->code)
+            isset($data->name)     and is_string($data->name)
+        and isset($data->code)     and is_string($data->code)
             ){
             
             $database = new Database();
@@ -68,8 +68,8 @@ class CurrentApi extends Api
 
         if( 
             isset($this->requestParams['id'])   and is_numeric($this->requestParams['id'])
-        and isset($data->name)                  and is_int($data->name)
-        and isset($data->code)                  and is_int($data->code)
+        and isset($data->name)                  and is_string($data->name)
+        and isset($data->code)                  and is_string($data->code)
             ){
 
             $id = htmlspecialchars(trim($this->requestParams['id'])) ?? '';
