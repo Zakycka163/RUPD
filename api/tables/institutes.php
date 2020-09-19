@@ -23,10 +23,8 @@ class CurrentApi extends Api
         $data = json_decode(file_get_contents("php://input"));
 
         if (     
-                isset($data->name)          and is_string($data->name) 
-            and ( 
-                (isset($data->description)  and is_string($data->description) ))
-                or (!isset($data->description))
+                isset($data->name)         and is_string($data->name) 
+          and ((isset($data->description)  and is_string($data->description) )) or (!isset($data->description))
             ){
 
             if (!isset($data->description)){
@@ -69,7 +67,10 @@ class CurrentApi extends Api
         $id = $this->requestParams['id'] ?? '';
         $data = json_decode(file_get_contents("php://input"));
 
-        if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) ){
+        if(   isset($this->requestParams['id'])   and is_numeric($this->requestParams['id']) 
+        and   isset($data->name)                  and is_string($data->name) 
+        and ((isset($data->description)           and is_string($data->description) )) or (!isset($data->description))
+        ){
 
             $database = new Database();
             $link = $database->get_db_link();
