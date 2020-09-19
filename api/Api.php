@@ -105,8 +105,7 @@ abstract class Api
         $limit = $database->get_db_limit();
 		$start = ($round - 1) * $limit;
 		$sql = "SELECT * FROM `".$this->table_name."` LIMIT ".$start.",".$limit."";
-		$result = mysqli_query($link, $sql);
-        
+		$result = mysqli_query($link, $sql);   
         if ( mysqli_num_rows($result) > 0) {
             $response_body = array('total' => (int)mysqli_num_rows($result), 'limit' => (int)$limit,'round' => (int) $round);
             $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";   
@@ -141,19 +140,14 @@ abstract class Api
     public function viewAction()
     {
         if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) ){
-
             $id = htmlspecialchars(trim($this->requestParams['id'] ?? ''));
-
             $database = new Database();
-            $link = $database->get_db_link();
-            
+            $link = $database->get_db_link();           
             if ($database->exist_in_table($id, $this->table_name)) {
                 $sql = "SELECT * FROM `".$this->table_name."` WHERE id = ".$id."";
                 $result = mysqli_query($link, $sql);
-
                 $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
                 $result_columns = mysqli_query($link, $sql_columns);
-
                 while($row = mysqli_fetch_array($result_columns)){
                     $columns[] = $row['Field'];
                 }
@@ -185,17 +179,12 @@ abstract class Api
      */
     public function createAction()
     {
-        $data = json_decode(file_get_contents("php://input"));
-        
+        $data = json_decode(file_get_contents("php://input"));  
         if( isset($data->name) ){
-
             $name = htmlspecialchars($data->name) ?? '';
-        
             $database = new Database();
             $link = $database->get_db_link();
-
             $errors = $database->validate_input_data($this->table_name, $data);
-
             if (empty($errors)) {
                 $sql = "INSERT INTO `".$this->table_name."` (`name`) VALUES ('".$name."')";
                 if (mysqli_query($link, $sql)){
@@ -223,17 +212,12 @@ abstract class Api
     public function updateAction()
     {
         $data = json_decode(file_get_contents("php://input"));
-
         if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) and isset($data->name)){
-
             $id = htmlspecialchars(trim($this->requestParams['id'] ?? ''));
             $name = htmlspecialchars($data->name) ?? '';
-
             $database = new Database();
             $link = $database->get_db_link();
-
             $errors = $database->validate_input_data($this->table_name, $data);
-
             if (empty($errors)) {
                 if ($database->exist_in_table($id, $this->table_name)){                 
                     $sql = "UPDATE `".$this->table_name."` SET `name` = '".$name."' WHERE id = ".$id."";
@@ -258,13 +242,10 @@ abstract class Api
      */
     public function deleteAction()
     {
-        if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) ){
-            
+        if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) ){     
             $id = htmlspecialchars(trim($this->requestParams['id'])) ?? '';
-        
             $database = new Database();
             $link = $database->get_db_link();
-
             if ($database->exist_in_table($id, $this->table_name)){
                 $sql = "DELETE FROM `".$this->table_name."` WHERE id = ".$id."";
                 if (mysqli_query($link, $sql)){
@@ -273,10 +254,8 @@ abstract class Api
                 return $this->response('Internal Server Error', 500);
             }
             return $this->response('Not Found object with id = '.$id.'', 204);
-
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
     }
-    
 }

@@ -52,14 +52,11 @@ class CurrentApi extends Api
     public function viewAction(){   
 
         if( isset($this->requestParams['key']) and is_string($this->requestParams['key']) ){
-
             $key = htmlspecialchars(trim($this->requestParams['key'] ?? ''));
-
             $database = new Database();
             $link = $database->get_db_link();
             $sql = "SELECT * FROM `".$this->table_name."` WHERE `key` = '".$key."'";
             $result = mysqli_query($link, $sql);
-
             if (mysqli_num_rows($result) == 1) {
                 $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
                 $result_columns = mysqli_query($link, $sql_columns);
@@ -95,18 +92,12 @@ class CurrentApi extends Api
      * @return string
      */
     public function updateAction(){
-
         $data = json_decode(file_get_contents("php://input"));
-
-        if (     
-            isset($this->requestParams['key'])  and is_string($this->requestParams['key']) 
-        and (   
-                (isset($data->int_val)          and is_numeric($data->int_val))) 
+        if (isset($this->requestParams['key'])  and is_string($this->requestParams['key']) 
+        and (   (isset($data->int_val)          and is_numeric($data->int_val))) 
              or (isset($data->text_val)         and is_string($data->text_val))
             ){
-
             $key = htmlspecialchars(trim($this->requestParams['key'] ?? ''));
-            
             $data_ok = 'YES';
             $field = 'non';
             if ( isset($data->text_val) and !empty($data->text_val)){
@@ -120,20 +111,14 @@ class CurrentApi extends Api
             } else {
                 $data_ok = 'NO';
             }
-            
             if( $data_ok == 'YES' and $field != 'non'){
-
                 $database = new Database();
                 $link = $database->get_db_link();
-
                 $errors = $database->validate_input_data($this->table_name, array($field => $val));
-
                 if (empty($errors)) {
                     $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE `key` = '".$key."'";
                     $result_check = mysqli_query($link, $sql_check);
-
-                    if (mysqli_num_rows($result_check) == 1){
-                        
+                    if (mysqli_num_rows($result_check) == 1){               
                         $sql = "UPDATE `".$this->table_name."` SET `".$field."` = '".$val."', `".$null_field."` = null WHERE `key` = '".$key."'";
                         if (mysqli_query($link, $sql)) {
                             return $this->response('Object updated.', 200);
