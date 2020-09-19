@@ -25,28 +25,20 @@ class CurrentApi extends Api
     public function createAction()
     {
         $data = json_decode(file_get_contents("php://input"));
-
-        if (     
-              isset($data->first_name)           and is_string($data->first_name)
+        if (  isset($data->first_name)           and is_string($data->first_name)
         and   isset($data->second_name)          and is_string($data->second_name)
         and   isset($data->email)                and is_string($data->email)
         and ((isset($data->middle_name)          and is_string($data->middle_name))         or !isset($data->middle_name))
         and ((isset($data->academic_degree_id)   and is_numeric($data->academic_degree_id)) or !isset($data->academic_degree_id))
         and ((isset($data->academic_rank_id)     and is_numeric($data->academic_rank_id))   or !isset($data->academic_rank_id))
-            ){
-            
-            $data->middle_name = (!isset($data->middle_name))?'':htmlspecialchars($data->middle_name);
-            
+            ){     
+            $data->middle_name = (!isset($data->middle_name))?'':htmlspecialchars($data->middle_name);  
             $database = new Database();
             $link = $database->get_db_link();
-
-            $errors = $database->validate_input_data($this->table_name, $data);
-            
+            $errors = $database->validate_input_data($this->table_name, $data); 
             if (empty($errors)) {
-
                 $errors = $database->ids_exists_in_tables(array($data->academic_degree_id, $data->academic_rank_id)
                                                          ,array("academic_degrees",          "academic_ranks"));
-
                 if (empty($errors)) {
                     $sql = "INSERT INTO `".$this->table_name."` ( `first_name`
                                                                 , `middle_name`
@@ -62,9 +54,8 @@ class CurrentApi extends Api
                                                                 ,".(!isset($data->academic_rank_id)?"NULL":$data->academic_rank_id).")";
                     if (mysqli_query($link, $sql)){
                         return $this->response('Object created', 201);
-                    } else {
-                        return $this->response($sql. '\n'.mysqli_error($link), 500);
                     }
+                    return $this->response(mysqli_error($link), 500);
                 }
                 return $this->response($errors, 400);
             }
@@ -92,11 +83,8 @@ class CurrentApi extends Api
      */
     public function updateAction()
     {
-        
         $data = json_decode(file_get_contents("php://input"));
-
-        if( 
-              isset($this->requestParams['id'])  and is_numeric($this->requestParams['id'])
+        if(   isset($this->requestParams['id'])  and is_numeric($this->requestParams['id'])
         and   isset($data->first_name)           and is_string($data->first_name)
         and   isset($data->second_name)          and is_string($data->second_name)
         and   isset($data->email)                and is_string($data->email)
@@ -104,29 +92,15 @@ class CurrentApi extends Api
         and ((isset($data->academic_degree_id)   and is_numeric($data->academic_degree_id)) or !isset($data->academic_degree_id))
         and ((isset($data->academic_rank_id)     and is_numeric($data->academic_rank_id))   or !isset($data->academic_rank_id))
             ){
-
             $id = htmlspecialchars(trim($this->requestParams['id'])) ?? '';
-            if (!isset($data->middle_name)){
-                $data->middle_name = '';
-            }
-            if (!isset($data->academic_degree_id)){
-                $data->academic_degree_id = null;
-            }
-            if (!isset($data->academic_rank_id)){
-                $data->academic_rank_id = null;
-            }
-
+            $data->middle_name = (!isset($data->middle_name))?'':htmlspecialchars($data->middle_name);
             $database = new Database();
             $link = $database->get_db_link();
-
             if ($database->exist_in_table($id, $this->table_name)){
-                
                 $errors = $database->validate_input_data($this->table_name, $data);
                 if (empty($errors)) {
-
                     $errors = $database->ids_exists_in_tables(array($data->academic_degree_id, $data->academic_rank_id)
                                                              ,array("academic_degrees",          "academic_ranks"));
-
                     if (empty($errors)) {
                         $sql = "UPDATE `".$this->table_name."` 
                                 SET `first_name`            = '".$data->first_name."'
@@ -142,7 +116,6 @@ class CurrentApi extends Api
                         return $this->response(mysqli_error($link), 500);
                     }
                     return $this->response($errors, 400);
-
                 }
                 return $this->response($errors, 400);
             } 
@@ -151,5 +124,4 @@ class CurrentApi extends Api
         }
         return $this->response('Bad Request', 400);
     }
-    
 }
