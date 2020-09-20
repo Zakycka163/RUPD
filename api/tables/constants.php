@@ -6,6 +6,20 @@ class CurrentApi extends Api
 {
     protected $table_name = "constants";
 
+    /* JSON:
+    { 
+        "text_val": "string",
+        "int_val": "int"
+    }
+    */
+    public function json_validation($data){
+        if (  (isset($data->int_val)    and is_numeric($data->int_val)) 
+           or (isset($data->text_val)   and is_string($data->text_val))){
+            return TRUE;
+        }
+        return FALSE;
+    }
+
     /**
      * Метод GET
      * Вывод списка всех записей
@@ -79,73 +93,47 @@ class CurrentApi extends Api
 
     }
 
-    /*
+    /**
      * Метод PUT
      * Обновление отдельной записи (по ее key)
      * http://ДОМЕН/${table_name}?key= + JSON
-     * 
-    { 
-        "text_val": "string",
-        "int_val": "int"
-    }
-     * 
      * @return string
      */
     public function updateAction(){
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($this->requestParams['key'])  and is_string($this->requestParams['key']) 
-        and (   (isset($data->int_val)          and is_numeric($data->int_val))) 
-             or (isset($data->text_val)         and is_string($data->text_val))
-            ){
+        if (isset($this->requestParams['key']) and is_string($this->requestParams['key']) and $this->json_validation($data)){
             $key = htmlspecialchars(trim($this->requestParams['key'] ?? ''));
-            $data_ok = 'YES';
-            $field = 'non';
-            if ( isset($data->text_val) and !empty($data->text_val)){
-                $val = htmlspecialchars($data->text_val) ?? '';
-                $field = 'text_val';
-                $null_field = 'int_val';
-            } elseif ( isset($data->int_val) ){
-                $val = htmlspecialchars(trim($data->int_val)) ?? '';
-                $field = 'int_val';
-                $null_field = 'text_val';
-            } else {
-                $data_ok = 'NO';
+            if ( isset($data->int_val) ){
+                $data->text_val = null;
             }
-            if( $data_ok == 'YES' and $field != 'non'){
-                $database = new Database();
-                $link = $database->get_db_link();
-                $errors = $database->validate_input_data($this->table_name, array($field => $val));
-                if (empty($errors)) {
-                    $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE `key` = '".$key."'";
-                    $result_check = mysqli_query($link, $sql_check);
-                    if (mysqli_num_rows($result_check) == 1){               
-                        $sql = "UPDATE `".$this->table_name."` SET `".$field."` = '".$val."', `".$null_field."` = null WHERE `key` = '".$key."'";
-                        if (mysqli_query($link, $sql)) {
-                            return $this->response('Object updated.', 200);
-                        }
-                        return $this->response(mysqli_error($link), 500);
-                    } 
-                    return $this->response('Not Found object with key = '.$key.'', 404);
-                }
-                return $this->response($errors, 400);
-                $link = $database->close_db_link();
+            $database = new Database();
+            $link = $database->get_db_link();
+            $errors = $database->validate_input_data($this->table_name, $data);
+            if (empty($errors)) {
+                $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE `key` = '".$key."'";
+                $result_check = mysqli_query($link, $sql_check);
+                if (mysqli_num_rows($result_check) == 1){               
+                    $sql = "UPDATE `".$this->table_name."` 
+                            SET int_val = ".isset($data->int_val)?($data->int_val):("NULL")."
+                              , text_val = ".isset($data->text_val)?("'".$data->text_val."'"):("NULL")."
+                            WHERE `key` = '".$key."'";
+                    if (mysqli_query($link, $sql)) {
+                        return $this->response('Object updated.', 200);
+                    }
+                    return $this->response(mysqli_error($link), 500);
+                } 
+                return $this->response('Not Found object with key = '.$key.'', 404);
             }
-            return $this->response('Data is ok ('.$data_ok. '). Field =' . $field, 500);
+            return $this->response($errors, 400);
+            $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
     }
 
-    /*
+    /**
      * Метод POST
      * Создание новой записи
      * http://ДОМЕН/${table_name} + JSON
-     * 
-    {
-        "key": "string",
-        "text_val": "string",
-        "int_val": "int"
-    }
-     * 
      * @return string
      */
     public function createAction(){
