@@ -6,8 +6,7 @@ class CurrentApi extends Api
 {
     protected $table_name = "qualifications";
 
-    /* 
-    JSON:
+    /* JSON:
     {
         "name": "string"
     } 
