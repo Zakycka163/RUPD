@@ -6,4 +6,16 @@ class CurrentApi extends Api
 {
     protected $table_name = "topic_types";
 
+    /* 
+    JSON:
+    {
+        "name": "string"
+    } 
+    */    
+    public function json_validation($data){
+        if (isset($data->name) and is_string($data->name)){
+            return TRUE;
+        }
+        return FALSE;
+    }
 }
