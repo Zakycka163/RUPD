@@ -182,9 +182,8 @@ abstract class Api
                 $result = $database->insert_data_to_table($data, $this->table_name);
                 if ($result == 'ok'){
                     return $this->response('Object created', 201);
-                } else {
-                    return $this->response($result, 500);
                 }
+                return $this->response($result, 500);
             }
             return $this->response($errors, 400);
         } 
@@ -200,8 +199,7 @@ abstract class Api
     public function updateAction()
     {
         $data = json_decode(file_get_contents("php://input"));
-        if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) 
-        and $this->json_validation($data)){
+        if(isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) and $this->json_validation($data)){
             $id = htmlspecialchars(trim($this->requestParams['id'] ?? ''));
             $database = new Database();
             $errors = $database->validate_input_data($this->table_name, $data);
@@ -210,9 +208,8 @@ abstract class Api
                     $result = $database->update_data_to_table($id, $data, $this->table_name);
                     if ($result == 'ok'){
                         return $this->response('Object updated', 200);
-                    } else {
-                        return $this->response($result, 500);
-                    }      
+                    }
+                    return $this->response($result, 500); 
                 } 
                 return $this->response('Not Found object with id = '.$id.'', 204);
             }
