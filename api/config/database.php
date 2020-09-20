@@ -96,5 +96,71 @@
             }
             return $arr_errors;
         }
+
+        // Инсерт данных по полям
+        public function insert_data_to_table($data, string $table_name){            
+            $database = new Database();
+            $link = $database->get_db_link();         
+            $sql_fields = "SELECT COLUMN_NAME as 'Field'
+                           FROM INFORMATION_SCHEMA.COLUMNS 
+                           WHERE table_name = '".$table_name."'";
+            $fields = mysqli_query($link, $sql_fields);
+            $arr_fields = array();
+            while($row = mysqli_fetch_array($fields)){
+                $arr_fields += array($row[0] => null);
+            }
+            $fields_to_insert = '';
+            $data_to_insert = '';
+            foreach($data as $field => $value){ 
+                if (array_key_exists($field, $arr_fields)){
+                    $arr_fields[$field] = $value;
+                    if (empty($fields_to_insert)){
+                        $fields_to_insert .= '`'.$field.'`';
+                        $data_to_insert .= isset($value)?("'".$value."'"):("NULL");
+                    } else {
+                        $fields_to_insert .= ', `'.$field.'`';
+                        $data_to_insert .= isset($value)?(", '".$value."'"):(", NULL");
+                    }
+                }
+            }
+            $sql = "INSERT INTO `".$table_name."` (".$fields_to_insert.") VALUES (".$data_to_insert.")";
+            if(mysqli_query($link, $sql)){
+                return "ok";
+            }
+            return $sql.' - '.mysqli_error($link);
+            $link = $database->close_db_link();
+        }
+
+        // Инсерт данных по полям
+        public function update_data_to_table(int $id, $data, string $table_name){            
+            $database = new Database();
+            $link = $database->get_db_link();         
+            $sql_fields = "SELECT COLUMN_NAME as 'Field'
+                           FROM INFORMATION_SCHEMA.COLUMNS 
+                           WHERE table_name = '".$table_name."'";
+            $fields = mysqli_query($link, $sql_fields);
+            $arr_fields = array();
+            while($row = mysqli_fetch_array($fields)){
+                $arr_fields += array($row[0] => null);
+            }
+            $data_to_update = '';
+            foreach($data as $field => $value){ 
+                if (array_key_exists($field, $arr_fields)){
+                    if (empty($data_to_update)){
+                        $data_to_update .= '`'.$field.'` = ';
+                        $data_to_update .= isset($value)?("'".$value."'"):("NULL").'';
+                    } else {
+                        $data_to_update .= ', `'.$field.'` = ';
+                        $data_to_update .= isset($value)?("'".$value."'"):("NULL").'';
+                    }
+                }
+            }
+            $sql = "UPDATE `".$table_name."` SET ".$data_to_update." WHERE id = ".$id."";
+            if(mysqli_query($link, $sql)){
+                return "ok";
+            }
+            return $sql.' - '.mysqli_error($link);
+            $link = $database->close_db_link();
+        }
     }
 ?>
