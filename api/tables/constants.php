@@ -114,9 +114,11 @@ class CurrentApi extends Api
                 $result_check = mysqli_query($link, $sql_check);
                 if (mysqli_num_rows($result_check) == 1){               
                     $sql = "UPDATE `".$this->table_name."` 
-                            SET int_val = ".isset($data->int_val)?($data->int_val):("NULL")."
-                              , text_val = ".isset($data->text_val)?("'".$data->text_val."'"):("NULL")."
-                            WHERE `key` = '".$key."'";
+                            SET int_val = ";
+                    $sql .= isset($data->int_val)?($data->int_val):("NULL");
+                    $sql .= ", text_val = ";
+                    $sql .= isset($data->text_val)?("'".$data->text_val."'"):("NULL");
+                    $sql .= " WHERE `key` = '".$key."'";
                     if (mysqli_query($link, $sql)) {
                         return $this->response('Object updated.', 200);
                     }
