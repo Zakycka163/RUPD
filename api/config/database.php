@@ -43,18 +43,6 @@
 
         }
 
-        // проверка существования списка id в последовательном списке таблиц
-        public function ids_exists_in_tables(array $ids, array $table_names){
-            $data_to_validation = array_combine($table_names, $ids); 
-            $result = array();
-            foreach ($data_to_validation as $table => $id){
-                if ($id != null and $this->exist_in_table($id, $table)){
-                    $result += array($table => "Not Found object with key = '.$id.'");
-                }
-            }
-            return $result;
-        }
-
         // проверка существования в таблице
         public function exist_in_table(int $id, string $table_name){
             $database = new Database();
@@ -66,16 +54,31 @@
             } else { return FALSE; }
         }
 
+        // достаем foreign_keys для полей в таблице
+        private function get_foreign_keys(string $table_name){
+            $database = new Database();
+            $link = $database->get_db_link();
+            $foreign_keys = array();
+            $sql = "SELECT COLUMN_NAME, REFERENCED_TABLE_NAME 
+                    FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE 
+                    WHERE TABLE_NAME = '".$table_name."'
+                    AND REFERENCED_TABLE_NAME is not null";
+            if ($result = mysqli_query($link, $sql)) {
+                while($row = mysqli_fetch_array($result)){
+                    $foreign_keys += array($row[0] => $row[1]);
+                }
+            }
+            return $foreign_keys;
+        }
+
         // достаем max_length для полей в таблице
         private function get_max_length_for_fields_in_table(string $table_name){
             $database = new Database();
             $link = $database->get_db_link();
             $length = array();
-
             $sql_length = "SELECT COLUMN_NAME as 'Field', COALESCE(CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION) as 'Length'
                            FROM INFORMATION_SCHEMA.COLUMNS 
                            WHERE table_name = '".$table_name."'";
-
             if ($result_length = mysqli_query($link, $sql_length)) {
                 while($row = mysqli_fetch_array($result_length)){
                     $length += array($row[0] => $row[1]);
@@ -85,13 +88,23 @@
             $link = $database->close_db_link();
         }
 
-        // Проверяем, что инфа не превышает max_length для поля
-        public function validate_input_data(string $table_name, $data){            
+        // Проверяем, что инфа соответсвует
+        public function validate_input_data(string $table_name, $data){             
+            $arr_errors = (object) array();
+            // Проверка существования внешних ключей
+            $foreign_keys = $this->get_foreign_keys($table_name);
+            if (isset($foreign_keys)){
+                foreach ($foreign_keys as $key => $table){
+                    if (isset($data->$key) and !$this->exist_in_table($data->$key, $table)){
+                        $arr_errors->$key = "Not Found object with id = ".$data->$key."!";
+                    }
+                }
+            }
+            // Проверка лимита длины входных данных
             $arr_length = $this->get_max_length_for_fields_in_table($table_name);
-            $arr_errors = array();
             foreach($arr_length as $key => $value){ 
                 if (isset($data->$key) and strlen($data->$key) > $value){
-                    $arr_errors += array($key => "Value length must be less than " . $value . "!");
+                    $arr_errors->$key = "Value length must be less than ". $value ."!";
                 }
             }
             return $arr_errors;
@@ -131,7 +144,7 @@
             $link = $database->close_db_link();
         }
 
-        // Инсерт данных по полям
+        // Обновление данных по полям
         public function update_data_to_table(int $id, $data, string $table_name){            
             $database = new Database();
             $link = $database->get_db_link();         
