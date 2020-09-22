@@ -10,8 +10,7 @@ abstract class Api
     protected $action = ''; //Название метод для выполнения
 
     protected $table_name;
-
-
+    
     public function __construct() {
         #header("Access-Control-Allow-Orgin: *");
         #header("Access-Control-Allow-Methods: *");
@@ -202,18 +201,18 @@ abstract class Api
         if(isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) and $this->json_validation($data)){
             $id = htmlspecialchars(trim($this->requestParams['id'] ?? ''));
             $database = new Database();
-            $errors = $database->validate_input_data($this->table_name, $data);
-            if (empty($errors)) {
-                if ($database->exist_in_table($id, $this->table_name)){   
+            if ($database->exist_in_table($id, $this->table_name)){
+                $errors = $database->validate_input_data($this->table_name, $data);
+                if (empty($errors)) {
                     $result = $database->update_data_to_table($id, $data, $this->table_name);
                     if ($result == 'ok'){
                         return $this->response('Object updated', 200);
                     }
                     return $this->response($result, 500); 
                 } 
-                return $this->response('Not Found object with id = '.$id.'', 404);
+                return $this->response($errors, 400);
             }
-            return $this->response($errors, 400);
+            return $this->response('Not Found object with id = '.$id.'', 404);
         }
         return $this->response('Bad Request', 400);
     }
@@ -232,10 +231,10 @@ abstract class Api
             $link = $database->get_db_link();
             if ($database->exist_in_table($id, $this->table_name)){
                 $sql = "DELETE FROM `".$this->table_name."` WHERE id = ".$id."";
-                if (mysqli_query($link, $sql)){
+                if ($result = mysqli_query($link, $sql)){
                     return $this->response('Object deleted', 200);
                 }
-                return $this->response('Internal Server Error', 500);
+                return $this->response($result, 500);
             }
             return $this->response('Not Found object with id = '.$id.'', 404);
             $link = $database->close_db_link();
@@ -244,4 +243,5 @@ abstract class Api
     }
 
     abstract function json_validation($data);
+
 }
