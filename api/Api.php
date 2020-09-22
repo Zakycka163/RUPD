@@ -211,7 +211,7 @@ abstract class Api
                     }
                     return $this->response($result, 500); 
                 } 
-                return $this->response('Not Found object with id = '.$id.'', 204);
+                return $this->response('Not Found object with id = '.$id.'', 404);
             }
             return $this->response($errors, 400);
         }
@@ -237,7 +237,7 @@ abstract class Api
                 }
                 return $this->response('Internal Server Error', 500);
             }
-            return $this->response('Not Found object with id = '.$id.'', 204);
+            return $this->response('Not Found object with id = '.$id.'', 404);
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
