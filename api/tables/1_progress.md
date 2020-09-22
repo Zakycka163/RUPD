@@ -8,13 +8,13 @@
 - [ ] connections_opop
 - [x] constants
 - [x] control_forms
-- [ ] courses
+- [x] courses
 - [x] disciplines
 - [x] educations
 - [ ] fgos
 - [ ] general_work_functions
 - [x] grants
-- [ ] groups
+- [x] groups
 - [x] institutes
 - [ ] missions
 - [x] modules
