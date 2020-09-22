@@ -20,9 +20,9 @@
 - [x] modules
 - [x] parts
 - [x] positions
-- [ ] profiles
+- [x] profiles
 - [ ] prof_standards
-- [ ] pulpits
+- [x] pulpits
 - [x] qualifications
 - [ ] rup
 - [ ] second_works
