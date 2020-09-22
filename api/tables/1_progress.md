@@ -13,7 +13,7 @@
 - [x] educations
 - [ ] fgos
 - [ ] general_work_functions
-- [ ] grants
+- [x] grants
 - [ ] groups
 - [x] institutes
 - [ ] missions
