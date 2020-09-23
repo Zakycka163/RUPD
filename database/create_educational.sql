@@ -451,7 +451,7 @@ INSERT INTO `institutes` (`id`, `name`, `description`) VALUES
 
 CREATE TABLE `missions` (
   `id` int(10) UNSIGNED NOT NULL,
-  `rup_id` int(10) UNSIGNED NOT NULL,
+  `document_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(180) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -625,10 +625,10 @@ INSERT INTO `qualifications` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `rup`
+-- Структура таблицы `documents`
 --
 
-CREATE TABLE `rup` (
+CREATE TABLE `documents` (
   `id` int(10) UNSIGNED NOT NULL,
   `discipline_id` int(10) UNSIGNED NOT NULL,
   `profile_id` int(10) UNSIGNED NOT NULL,
@@ -640,13 +640,13 @@ CREATE TABLE `rup` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `second_works`
+-- Структура таблицы `works`
 --
 
-CREATE TABLE `second_works` (
+CREATE TABLE `works` (
   `id` int(10) UNSIGNED NOT NULL,
   `work_type_id` int(10) UNSIGNED NOT NULL,
-  `rup_id` int(10) UNSIGNED NOT NULL
+  `document_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1020,7 +1020,7 @@ ALTER TABLE `missions`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name_UNIQUE` (`name`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`) USING BTREE,
-  ADD KEY `fk_missions_rup_idx` (`rup_id`) USING BTREE;
+  ADD KEY `fk_missions_documents_idx` (`document_id`) USING BTREE;
 
 --
 -- Индексы таблицы `modules`
@@ -1081,23 +1081,23 @@ ALTER TABLE `qualifications`
   ADD UNIQUE KEY `id_UNIQUE` (`id`) USING BTREE;
 
 --
--- Индексы таблицы `rup`
+-- Индексы таблицы `documents`
 --
-ALTER TABLE `rup`
+ALTER TABLE `documents`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`) USING BTREE,
-  ADD KEY `fk_rup_disciplines_idx` (`discipline_id`) USING BTREE,
-  ADD KEY `fk_rup_tasks_idx` (`task_id`) USING BTREE,
-  ADD KEY `fk_rup_profiles_idx` (`profile_id`) USING BTREE;
+  ADD KEY `fk_documents_disciplines_idx` (`discipline_id`) USING BTREE,
+  ADD KEY `fk_documents_tasks_idx` (`task_id`) USING BTREE,
+  ADD KEY `fk_documents_profiles_idx` (`profile_id`) USING BTREE;
 
 --
--- Индексы таблицы `second_works`
+-- Индексы таблицы `works`
 --
-ALTER TABLE `second_works`
+ALTER TABLE `works`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`) USING BTREE,
-  ADD KEY `fk_second_works_rup_idx` (`rup_id`) USING BTREE,
-  ADD KEY `fk_second_works_work_types_idx` (`work_type_id`) USING BTREE;
+  ADD KEY `fk_works_documents_idx` (`document_id`) USING BTREE,
+  ADD KEY `fk_works_work_types_idx` (`work_type_id`) USING BTREE;
 
 --
 -- Индексы таблицы `seminars`
@@ -1348,15 +1348,15 @@ ALTER TABLE `qualifications`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT для таблицы `rup`
+-- AUTO_INCREMENT для таблицы `documents`
 --
-ALTER TABLE `rup`
+ALTER TABLE `documents`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT для таблицы `second_works`
+-- AUTO_INCREMENT для таблицы `works`
 --
-ALTER TABLE `second_works`
+ALTER TABLE `works`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -1483,7 +1483,7 @@ ALTER TABLE `groups`
 -- Ограничения внешнего ключа таблицы `missions`
 --
 ALTER TABLE `missions`
-  ADD CONSTRAINT `fk_missions_rup` FOREIGN KEY (`rup_id`) REFERENCES `rup` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_missions_documents` FOREIGN KEY (`document_id`) REFERENCES `documents` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `profiles`
@@ -1504,19 +1504,19 @@ ALTER TABLE `pulpits`
   ADD CONSTRAINT `fk_pulpits_institutes` FOREIGN KEY (`institute_id`) REFERENCES `institutes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `rup`
+-- Ограничения внешнего ключа таблицы `documents`
 --
-ALTER TABLE `rup`
-  ADD CONSTRAINT `fk_rup_disciplines` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rup_profiles` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_rup_tasks` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `documents`
+  ADD CONSTRAINT `fk_documents_disciplines` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_documents_profiles` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_documents_tasks` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `second_works`
+-- Ограничения внешнего ключа таблицы `works`
 --
-ALTER TABLE `second_works`
-  ADD CONSTRAINT `fk_second_works_rup` FOREIGN KEY (`rup_id`) REFERENCES `rup` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_second_works_work_types` FOREIGN KEY (`work_type_id`) REFERENCES `work_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `works`
+  ADD CONSTRAINT `fk_works_documents` FOREIGN KEY (`document_id`) REFERENCES `documents` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_works_work_types` FOREIGN KEY (`work_type_id`) REFERENCES `work_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `study_plan`

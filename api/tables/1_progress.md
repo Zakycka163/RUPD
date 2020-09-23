@@ -10,6 +10,7 @@
 - [x] control_forms
 - [x] courses
 - [x] disciplines
+- [ ] documents
 - [x] educations
 - [x] fgos
 - [x] general_work_functions
@@ -24,8 +25,6 @@
 - [x] prof_standards
 - [x] pulpits
 - [x] qualifications
-- [ ] rup
-- [ ] second_works
 - [x] seminars
 - [x] statuses
 - [x] study_forms
@@ -36,5 +35,6 @@
 - [ ] teacher_positions
 - [x] topics
 - [x] topic_types
+- [ ] works
 - [x] work_functions
 - [x] work_types
