@@ -103,6 +103,8 @@ class CurrentApi extends Api
             $key = htmlspecialchars(trim($this->requestParams['key'] ?? ''));
             if ( isset($data->int_val) ){
                 $data->text_val = null;
+            } elseif ( isset($data->text_val) ){
+                $data->int_val = null;
             }
             $database = new Database();
             $link = $database->get_db_link();
