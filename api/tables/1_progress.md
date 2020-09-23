@@ -30,7 +30,7 @@
 - [x] statuses
 - [x] study_forms
 - [ ] study_plan
-- [ ] tasks
+- [x] tasks
 - [x] teachers
 - [ ] teacher_educations
 - [ ] teacher_positions
