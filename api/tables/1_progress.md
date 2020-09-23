@@ -12,7 +12,7 @@
 - [x] disciplines
 - [x] educations
 - [x] fgos
-- [ ] general_work_functions
+- [x] general_work_functions
 - [x] grants
 - [x] groups
 - [x] institutes
