@@ -43,15 +43,27 @@
 
         }
 
+        // трансформация и валидация даты
+        public function is_date($date)
+        {
+            $str = str_replace('/', '-', $date);     
+            $stamp = strtotime($str);
+            if (is_numeric($stamp)){  
+                $month = date( 'm', $stamp ); 
+                $day   = date( 'd', $stamp ); 
+                $year  = date( 'Y', $stamp ); 
+                return checkdate($month, $day, $year); 
+            }  
+            return false;
+        }
+
         // проверка существования в таблице
         public function exist_in_table(int $id, string $table_name){
             $database = new Database();
             $link = $database->get_db_link();
             $sql = "SELECT 1 FROM `".$table_name."` WHERE id = ".$id."";
             $result = mysqli_num_rows(mysqli_query($link, $sql));
-            if ($result == 1) {
-                return TRUE;
-            } else { return FALSE; }
+            return $result == 1;
         }
 
         // достаем foreign_keys для полей в таблице
@@ -78,7 +90,8 @@
             $length = array();
             $sql_length = "SELECT COLUMN_NAME as 'Field', COALESCE(CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION) as 'Length'
                            FROM INFORMATION_SCHEMA.COLUMNS 
-                           WHERE table_name = '".$table_name."'";
+                           WHERE table_name = '".$table_name."'
+                           AND DATA_TYPE not in ('date')";
             if ($result_length = mysqli_query($link, $sql_length)) {
                 while($row = mysqli_fetch_array($result_length)){
                     $length += array($row[0] => $row[1]);
