@@ -36,5 +36,5 @@
 - [ ] teacher_positions
 - [ ] topics
 - [x] topic_types
-- [ ] work_functions
+- [x] work_functions
 - [x] work_types
