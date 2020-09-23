@@ -209,7 +209,7 @@ INSERT INTO `competence_types` (`id`, `name`, `code`) VALUES
 CREATE TABLE `competencies` (
   `id` int(10) UNSIGNED NOT NULL,
   `fgos_id` int(10) UNSIGNED NOT NULL,
-  `competence_type_id` int(10) UNSIGNED DEFAULT NULL,
+  `competence_type_id` int(10) UNSIGNED NOT NULL,
   `number` varchar(10) NOT NULL,
   `name` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
