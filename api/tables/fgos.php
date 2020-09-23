@@ -16,13 +16,12 @@ class CurrentApi extends Api
     }
     */
     public function json_validation($data){
-        if ( isset($data->course_id)  and is_numeric($data->course_id)
-         and isset($data->number)     and is_string($data->number)
-         and isset($data->date)       and is_date($data->date)
-         and isset($data->reg_number) and is_string($data->reg_number)
-         and isset($data->reg_date)   and is_numeric($data->reg_date)){
-            return TRUE;
-        }
-        return FALSE;
+        $database = new Database();
+        return (isset($data->course_id)  and is_numeric($data->course_id)
+            and isset($data->number)     and is_string($data->number)
+            and isset($data->date)       and $database->is_date($data->date)
+            and isset($data->reg_number) and is_string($data->reg_number)
+            and isset($data->reg_date)   and $database->is_date($data->reg_date)
+        );
     }
 }

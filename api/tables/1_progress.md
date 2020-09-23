@@ -11,7 +11,7 @@
 - [x] courses
 - [x] disciplines
 - [x] educations
-- [ ] fgos
+- [x] fgos
 - [ ] general_work_functions
 - [x] grants
 - [x] groups
