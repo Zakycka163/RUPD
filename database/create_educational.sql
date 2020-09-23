@@ -1111,7 +1111,7 @@ ALTER TABLE `seminars`
 --
 ALTER TABLE `statuses`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `value_UNIQUE` (`value`),
+  ADD UNIQUE KEY `name_UNIQUE` (`name`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`) USING BTREE;
 
 --
