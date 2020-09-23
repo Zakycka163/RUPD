@@ -177,7 +177,7 @@ abstract class Api
         if($this->json_validation($data)){
             $database = new Database();
             $errors = $database->validate_input_data($this->table_name, $data);
-            if (empty($errors)) {
+            if (empty((array)$errors)) {
                 $result = $database->insert_data_to_table($data, $this->table_name);
                 if ($result == 'ok'){
                     return $this->response('Object created', 201);
@@ -203,7 +203,7 @@ abstract class Api
             $database = new Database();
             if ($database->exist_in_table($id, $this->table_name)){
                 $errors = $database->validate_input_data($this->table_name, $data);
-                if (empty($errors)) {
+                if (empty((array)$errors)) {
                     $result = $database->update_data_to_table($id, $data, $this->table_name);
                     if ($result == 'ok'){
                         return $this->response('Object updated', 200);
