@@ -4,7 +4,7 @@
 - [x] activities
 - [x] activity_types
 - [x] competence_types
-- [ ] competencies
+- [x] competencies
 - [ ] connections_opop
 - [x] constants
 - [x] control_forms
