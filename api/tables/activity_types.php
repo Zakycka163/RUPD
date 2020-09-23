@@ -12,9 +12,6 @@ class CurrentApi extends Api
     } 
     */    
     public function json_validation($data){
-        if (isset($data->name) and is_string($data->name)){
-            return TRUE;
-        }
-        return FALSE;
+        return (isset($data->name) and is_string($data->name));
     }
 }

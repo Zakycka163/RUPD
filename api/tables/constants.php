@@ -13,11 +13,9 @@ class CurrentApi extends Api
     }
     */
     public function json_validation($data){
-        if (  (isset($data->int_val)    and is_numeric($data->int_val)) 
-           or (isset($data->text_val)   and is_string($data->text_val))){
-            return TRUE;
-        }
-        return FALSE;
+        return ((isset($data->int_val)    and is_numeric($data->int_val)) 
+             or (isset($data->text_val)   and is_string($data->text_val))
+        );
     }
 
     /**
@@ -109,7 +107,7 @@ class CurrentApi extends Api
             $database = new Database();
             $link = $database->get_db_link();
             $errors = $database->validate_input_data($this->table_name, $data);
-            if (empty($errors)) {
+            if (empty((array)$errors)) {
                 $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE `key` = '".$key."'";
                 $result_check = mysqli_query($link, $sql_check);
                 if (mysqli_num_rows($result_check) == 1){               

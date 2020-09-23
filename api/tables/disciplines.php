@@ -17,14 +17,12 @@ class CurrentApi extends Api
     } 
     */    
     public function json_validation($data){
-        if (isset($data->pulpit_id)     and is_numeric($data->pulpit_id)
-        and isset($data->part_id)       and is_numeric($data->part_id)
-        and isset($data->module_id)     and is_numeric($data->module_id)
-        and isset($data->index_info)    and is_string($data->index_info)
-        and isset($data->name)          and is_string($data->name)
-        and isset($data->time)          and is_numeric($data->time)){
-            return TRUE;
-        }
-        return FALSE;
+        return (isset($data->pulpit_id)     and is_numeric($data->pulpit_id)
+            and isset($data->part_id)       and is_numeric($data->part_id)
+            and isset($data->module_id)     and is_numeric($data->module_id)
+            and isset($data->index_info)    and is_string($data->index_info)
+            and isset($data->name)          and is_string($data->name)
+            and isset($data->time)          and is_numeric($data->time)
+        );
     }
 }

@@ -15,12 +15,10 @@ class CurrentApi extends Api
     }
     */
     public function json_validation($data){
-        if (  isset($data->activity_type_id)  and is_numeric($data->activity_type_id)
-        and   isset($data->name)              and is_string($data->name)
-        and ((isset($data->work_function_id)  and is_numeric($data->work_function_id)) or (!isset($data->work_function_id)))
-        and ((isset($data->competence_id)     and is_numeric($data->competence_id)) or (!isset($data->competence_id)))){
-            return TRUE;
-        }
-        return FALSE;
+        return (isset($data->activity_type_id)  and is_numeric($data->activity_type_id)
+          and   isset($data->name)              and is_string($data->name)
+          and ((isset($data->work_function_id)  and is_numeric($data->work_function_id)) or (!isset($data->work_function_id)))
+          and ((isset($data->competence_id)     and is_numeric($data->competence_id)) or (!isset($data->competence_id)))
+        );
     }
 }
