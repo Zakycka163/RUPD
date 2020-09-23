@@ -21,7 +21,7 @@
 - [x] parts
 - [x] positions
 - [x] profiles
-- [ ] prof_standards
+- [x] prof_standards
 - [x] pulpits
 - [x] qualifications
 - [ ] rup
