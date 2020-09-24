@@ -637,17 +637,6 @@ CREATE TABLE `documents` (
   `path` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `works`
---
-
-CREATE TABLE `works` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `work_type_id` int(10) UNSIGNED NOT NULL,
-  `document_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1091,15 +1080,6 @@ ALTER TABLE `documents`
   ADD KEY `fk_documents_profiles_idx` (`profile_id`) USING BTREE;
 
 --
--- Индексы таблицы `works`
---
-ALTER TABLE `works`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`) USING BTREE,
-  ADD KEY `fk_works_documents_idx` (`document_id`) USING BTREE,
-  ADD KEY `fk_works_work_types_idx` (`work_type_id`) USING BTREE;
-
---
 -- Индексы таблицы `seminars`
 --
 ALTER TABLE `seminars`
@@ -1354,12 +1334,6 @@ ALTER TABLE `documents`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT для таблицы `works`
---
-ALTER TABLE `works`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT для таблицы `seminars`
 --
 ALTER TABLE `seminars`
@@ -1510,13 +1484,6 @@ ALTER TABLE `documents`
   ADD CONSTRAINT `fk_documents_disciplines` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_documents_profiles` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_documents_tasks` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Ограничения внешнего ключа таблицы `works`
---
-ALTER TABLE `works`
-  ADD CONSTRAINT `fk_works_documents` FOREIGN KEY (`document_id`) REFERENCES `documents` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_works_work_types` FOREIGN KEY (`work_type_id`) REFERENCES `work_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `study_plan`
