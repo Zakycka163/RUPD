@@ -18,7 +18,7 @@
 - [x] grants
 - [x] groups
 - [x] institutes
-- [ ] missions
+- [x] missions
 - [x] modules
 - [x] parts
 - [x] positions
