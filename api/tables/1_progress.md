@@ -11,6 +11,7 @@
 - [x] courses
 - [x] disciplines
 - [ ] documents
+- [x] document_types
 - [x] educations
 - [x] fgos
 - [x] general_work_functions
@@ -35,6 +36,4 @@
 - [ ] teacher_positions
 - [x] topics
 - [x] topic_types
-- [ ] works
 - [x] work_functions
-- [x] work_types
