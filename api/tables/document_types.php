@@ -4,7 +4,7 @@ require_once './config/database.php';
 
 class CurrentApi extends Api
 {
-    protected $table_name = "work_types";
+    protected $table_name = "document_types";
 
     /* JSON:
     {

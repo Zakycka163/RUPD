@@ -630,6 +630,7 @@ INSERT INTO `qualifications` (`id`, `name`) VALUES
 
 CREATE TABLE `documents` (
   `id` int(10) UNSIGNED NOT NULL,
+  `document_type_id` int(10) UNSIGNED NOT NULL,
   `discipline_id` int(10) UNSIGNED NOT NULL,
   `profile_id` int(10) UNSIGNED NOT NULL,
   `goal` varchar(180) NOT NULL,
@@ -834,10 +835,10 @@ INSERT INTO `work_functions` (`id`, `general_work_function_id`, `code`, `name`) 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `work_types`
+-- Структура таблицы `document_types`
 --
 
-CREATE TABLE `work_types` (
+CREATE TABLE `document_types` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1077,6 +1078,7 @@ ALTER TABLE `documents`
   ADD UNIQUE KEY `id_UNIQUE` (`id`) USING BTREE,
   ADD KEY `fk_documents_disciplines_idx` (`discipline_id`) USING BTREE,
   ADD KEY `fk_documents_tasks_idx` (`task_id`) USING BTREE,
+  ADD KEY `fk_documents_document_types_idx` (`document_type_id`) USING BTREE,
   ADD KEY `fk_documents_profiles_idx` (`profile_id`) USING BTREE;
 
 --
@@ -1172,9 +1174,9 @@ ALTER TABLE `work_functions`
   ADD KEY `fk_work_functions_general_work_functions_idx` (`general_work_function_id`) USING BTREE;
 
 --
--- Индексы таблицы `work_types`
+-- Индексы таблицы `document_types`
 --
-ALTER TABLE `work_types`
+ALTER TABLE `document_types`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name_UNIQUE` (`name`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`) USING BTREE;
@@ -1382,9 +1384,9 @@ ALTER TABLE `work_functions`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT для таблицы `work_types`
+-- AUTO_INCREMENT для таблицы `document_types`
 --
-ALTER TABLE `work_types`
+ALTER TABLE `document_types`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -1484,6 +1486,7 @@ ALTER TABLE `documents`
   ADD CONSTRAINT `fk_documents_disciplines` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_documents_profiles` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_documents_tasks` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_documents_document_types` FOREIGN KEY (`document_type_id`) REFERENCES `document_types`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `study_plan`
