@@ -452,7 +452,7 @@ INSERT INTO `institutes` (`id`, `name`, `description`) VALUES
 CREATE TABLE `missions` (
   `id` int(10) UNSIGNED NOT NULL,
   `document_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(180) NOT NULL
+  `description` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1007,7 +1007,6 @@ ALTER TABLE `institutes`
 --
 ALTER TABLE `missions`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name_UNIQUE` (`name`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`) USING BTREE,
   ADD KEY `fk_missions_documents_idx` (`document_id`) USING BTREE;
 
