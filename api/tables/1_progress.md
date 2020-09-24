@@ -10,7 +10,7 @@
 - [x] control_forms
 - [x] courses
 - [x] disciplines
-- [ ] documents
+- [x] documents
 - [x] document_types
 - [x] educations
 - [x] fgos
