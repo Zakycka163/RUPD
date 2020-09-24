@@ -634,7 +634,6 @@ CREATE TABLE `documents` (
   `discipline_id` int(10) UNSIGNED NOT NULL,
   `profile_id` int(10) UNSIGNED NOT NULL,
   `goal` varchar(180) NOT NULL,
-  `task_id` int(10) UNSIGNED DEFAULT NULL,
   `path` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1077,7 +1076,6 @@ ALTER TABLE `documents`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`) USING BTREE,
   ADD KEY `fk_documents_disciplines_idx` (`discipline_id`) USING BTREE,
-  ADD KEY `fk_documents_tasks_idx` (`task_id`) USING BTREE,
   ADD KEY `fk_documents_document_types_idx` (`document_type_id`) USING BTREE,
   ADD KEY `fk_documents_profiles_idx` (`profile_id`) USING BTREE;
 
@@ -1485,7 +1483,6 @@ ALTER TABLE `pulpits`
 ALTER TABLE `documents`
   ADD CONSTRAINT `fk_documents_disciplines` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_documents_profiles` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_documents_tasks` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
   ADD CONSTRAINT `fk_documents_document_types` FOREIGN KEY (`document_type_id`) REFERENCES `document_types`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
