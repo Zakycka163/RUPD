@@ -722,7 +722,7 @@ CREATE TABLE `study_plan` (
 
 CREATE TABLE `tasks` (
   `id` int(10) UNSIGNED NOT NULL,
-  `objective` varchar(180) NOT NULL,
+  `name` varchar(180) NOT NULL,
   `due_date` date NOT NULL,
   `status_id` int(10) UNSIGNED NOT NULL,
   `account_id` int(10) UNSIGNED NOT NULL
