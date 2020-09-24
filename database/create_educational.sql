@@ -451,7 +451,9 @@ INSERT INTO `institutes` (`id`, `name`, `description`) VALUES
 
 CREATE TABLE `missions` (
   `id` int(10) UNSIGNED NOT NULL,
+  `task_id` int(10) UNSIGNED NOT NULL,
   `document_id` int(10) UNSIGNED NOT NULL,
+  `status_id` int(10) UNSIGNED NOT NULL,
   `description` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1008,6 +1010,8 @@ ALTER TABLE `institutes`
 ALTER TABLE `missions`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`) USING BTREE,
+  ADD KEY `fk_missions_tasks_idx` (`task_id`) USING BTREE,
+  ADD KEY `fk_missions_statuses_idx` (`status_id`) USING BTREE,
   ADD KEY `fk_missions_documents_idx` (`document_id`) USING BTREE;
 
 --
@@ -1456,7 +1460,9 @@ ALTER TABLE `groups`
 -- Ограничения внешнего ключа таблицы `missions`
 --
 ALTER TABLE `missions`
-  ADD CONSTRAINT `fk_missions_documents` FOREIGN KEY (`document_id`) REFERENCES `documents` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_missions_documents` FOREIGN KEY (`document_id`) REFERENCES `documents` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_missions_statuses` FOREIGN KEY (`status_id`) REFERENCES `statuses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_missions_tasks` FOREIGN KEY (`task_id`) REFERENCES `tasks`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `profiles`
