@@ -67,10 +67,10 @@ abstract class Api
         $method = $this->method;
         switch ($method) {
             case 'GET':
-                if(isset($this->requestParams['id']) or isset($this->requestParams['key'])){
-                    return 'viewAction';
-                } else {
+                if(empty($this->requestParams) or isset($this->requestParams['round'])){
                     return 'indexAction';
+                } else {
+                    return 'viewAction';
                 }
                 break;
             case 'POST':
