@@ -77,7 +77,7 @@
                     AND COLUMN_KEY = 'PRI'";
             $result = mysqli_query($link, $sql);
             $link = $database->close_db_link();
-            return $result;
+            return mysqli_fetch_array($result);
         }
 
         // достаем foreign_keys для таблицы
