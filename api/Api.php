@@ -87,6 +87,26 @@ abstract class Api
         }
     }
 
+    public function part_sql()
+    {
+        $database = new Database();
+        $primory_keys = $database->get_primory_keys($this->table_name);
+        $part_sql = '';
+        foreach($this->requestParams as $field => $value){
+            if(in_array($field, $primory_keys)){
+                if (is_string($value)){
+                    $part_sql .= $field." = '".trim($value)."' AND ";
+                } else {
+                    $part_sql .= $field." = ".trim($value)." AND ";
+                }
+            }
+        }
+        if( !empty($part_sql) ){
+            $part_sql = substr($part_sql, 0, -5);
+        }
+        return $part_sql;
+    }
+
     /**
      * Метод GET
      * Вывод списка всех записей
