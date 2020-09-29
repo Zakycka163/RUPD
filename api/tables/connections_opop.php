@@ -22,10 +22,9 @@ class CurrentApi extends Api
 
     /**
      * Метод GET
-     * Просмотр отдельной записи (по general_work_function_id и(или) competence_id)
-     * http://ДОМЕН/${table_name}?general_work_function_id=
-     * http://ДОМЕН/${table_name}?competence_id=
-     * http://ДОМЕН/${table_name}?general_work_function_id={}&competence_id=
+     * Просмотр отдельной записи (primory_key = [general_work_function_id, competence_id])
+     * http://ДОМЕН/${table_name}?{primory_key}=
+     * http://ДОМЕН/${table_name}?{primory_key}={}&{primory_key}=
      * @return string
      */
     public function viewAction()
@@ -107,7 +106,7 @@ class CurrentApi extends Api
 
     /**
      * Метод DELETE
-     * Удаление отдельной записи (по ее id)
+     * Удаление отдельной записи (по general_work_function_id и competence_id)
      * http://ДОМЕН/${table_name}?general_work_function_id={}&competence_id=
      * @return string
      */
