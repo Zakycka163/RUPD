@@ -63,10 +63,24 @@
             $link = $database->get_db_link();
             $sql = "SELECT 1 FROM `".$table_name."` WHERE id = ".$id."";
             $result = mysqli_num_rows(mysqli_query($link, $sql));
+            $link = $database->close_db_link();
             return $result == 1;
         }
 
-        // достаем foreign_keys для полей в таблице
+        // достаем primory_keys для таблицы
+        public function get_primory_keys(string $table_name){
+            $database = new Database();
+            $link = $database->get_db_link();
+            $sql = "SELECT COLUMN_NAME as 'primory_key'
+                    FROM INFORMATION_SCHEMA.COLUMNS 
+                    WHERE table_name = '".$table_name."'
+                    AND COLUMN_KEY = 'PRI'";
+            $result = mysqli_query($link, $sql);
+            $link = $database->close_db_link();
+            return $result;
+        }
+
+        // достаем foreign_keys для таблицы
         private function get_foreign_keys(string $table_name){
             $database = new Database();
             $link = $database->get_db_link();
@@ -81,6 +95,7 @@
                 }
             }
             return $foreign_keys;
+            $link = $database->close_db_link();
         }
 
         // достаем max_length для полей в таблице
