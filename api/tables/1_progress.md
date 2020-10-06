@@ -29,7 +29,7 @@
 - [x] seminars
 - [x] statuses
 - [x] study_forms
-- [ ] study_plan
+- [x] study_plan
 - [x] tasks
 - [x] teachers
 - [x] teacher_educations
