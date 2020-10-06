@@ -32,7 +32,7 @@
 - [ ] study_plan
 - [x] tasks
 - [x] teachers
-- [ ] teacher_educations
+- [x] teacher_educations
 - [x] teacher_positions
 - [x] topics
 - [x] topic_types
