@@ -29,23 +29,20 @@ class CurrentApi extends Api
      */
     public function viewAction()
     {
-        $params = array();
-        if (isset($this->requestParams['general_work_function_id']) and is_numeric($this->requestParams['general_work_function_id'])){
-            $params += array('general_work_function_id' => trim($this->requestParams['general_work_function_id']));
-        }
-        if (isset($this->requestParams['competence_id']) and is_numeric($this->requestParams['competence_id'])){
-            $params += array('competence_id' => trim($this->requestParams['competence_id']));
-        }
-        if( !empty($params) ){
-            $database = new Database();
-            $link = $database->get_db_link();           
-            $sql = "SELECT * FROM `".$this->table_name."` WHERE ";
-            $part_sql = '';
-            foreach ($params as $field => $value){
-                $part_sql .= $field." = ".$value." AND ";
+        $database = new Database();
+        $primory_keys = $database->get_primory_keys($this->table_name);
+        $part_sql = '';
+        foreach($this->requestParams as $field => $value){
+            if(in_array($field, $primory_keys)){
+                if (is_numeric($value)){
+                    $part_sql .= $field." = ".trim($value)." AND ";
+                }
             }
+        }
+        if( !empty($part_sql) ){
             $part_sql = substr($part_sql, 0, -5);
-            $sql .= $part_sql;
+            $link = $database->get_db_link();           
+            $sql = "SELECT * FROM `".$this->table_name."` WHERE ".$part_sql;
             $result = mysqli_query($link, $sql);
             if (mysqli_num_rows($result) > 0) {
                 $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
@@ -79,18 +76,18 @@ class CurrentApi extends Api
     {
         $data = json_decode(file_get_contents("php://input"));
         if($this->json_validation($data)){
+            $part_sql = "general_work_function_id = ".$data->general_work_function_id." 
+                     AND competence_id = ".$data->competence_id."";
             $database = new Database();
             $link = $database->get_db_link();
             $sql = "SELECT * FROM `".$this->table_name."` 
-                    WHERE general_work_function_id = ".$data->general_work_function_id." 
-                    AND competence_id = ".$data->competence_id."";
+                    WHERE ".$part_sql;
             if (mysqli_num_rows(mysqli_query($link, $sql)) > 0){
                 $errors = $database->validate_input_data($this->table_name, $data);
                 if (empty((array)$errors)) {
                     $sql = "UPDATE `".$this->table_name."` 
                             SET `description` = ".isset($data->description)?("'".$data->description."'"):("NULL")."
-                            WHERE `general_work_function_id` = ".$data->general_work_function_id." 
-                            AND `competence_id` = ".$data->competence_id."";
+                            WHERE ".$part_sql;
                     if ($result = mysqli_query($link, $sql)){
                         return $this->response('Object updated', 200);
                     }
@@ -98,8 +95,7 @@ class CurrentApi extends Api
                 } 
                 return $this->response($errors, 400);
             }
-            return $this->response('Not Found object with general_work_function_id = '.$data->general_work_function_id.'
-            AND competence_id = '.$data->competence_id.'', 404);
+            return $this->response('Not Found row with '.$part_sql.'', 404);
         }
         return $this->response('Bad Request', 400);
     }
@@ -115,24 +111,21 @@ class CurrentApi extends Api
         if(   isset($this->requestParams['general_work_function_id']) and is_numeric($this->requestParams['general_work_function_id'])
           and isset($this->requestParams['competence_id']) and is_numeric($this->requestParams['competence_id']) 
           ){     
-            $gwf_id = trim($this->requestParams['general_work_function_id']);
-            $c_id = trim($this->requestParams['competence_id']);
+            $part_sql = "general_work_function_id = ".trim($this->requestParams['general_work_function_id'])." 
+                     AND competence_id = ".trim($this->requestParams['competence_id'])."";
             $database = new Database();
             $link = $database->get_db_link();
             $sql = "SELECT 1 FROM `".$this->table_name."` 
-                    WHERE general_work_function_id = ".$gwf_id." 
-                    AND competence_id = ".$c_id."";
+                    WHERE ".$part_sql;
             if (mysqli_num_rows(mysqli_query($link, $sql)) > 0){
                 $sql = "DELETE FROM `".$this->table_name."` 
-                        WHERE general_work_function_id = ".$gwf_id." 
-                        AND competence_id = ".$c_id."";
+                        WHERE ".$part_sql;
                 if ($result = mysqli_query($link, $sql)){
                     return $this->response('Object deleted', 200);
                 }
                 return $this->response($result, 500);
             }
-            return $this->response('Not Found object with general_work_function_id = '.$gwf_id.' 
-            AND competence_id = '.$c_id.'', 404);
+            return $this->response('Not Found row with '.$part_sql.'', 404);
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
