@@ -33,7 +33,7 @@
 - [x] tasks
 - [x] teachers
 - [ ] teacher_educations
-- [ ] teacher_positions
+- [x] teacher_positions
 - [x] topics
 - [x] topic_types
 - [x] work_functions
