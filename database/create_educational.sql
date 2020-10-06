@@ -706,13 +706,13 @@ CREATE TABLE `study_plan` (
   `seminar_id` int(10) UNSIGNED NOT NULL,
   `discipline_id` int(10) UNSIGNED NOT NULL,
   `study_form_id` int(10) UNSIGNED NOT NULL,
-  `individual_time` int(10) UNSIGNED DEFAULT NULL,
-  `lecture_time` int(10) UNSIGNED DEFAULT NULL,
-  `laboratory_time` int(10) UNSIGNED DEFAULT NULL,
-  `practical_time` int(10) UNSIGNED DEFAULT NULL,
-  `course_work` tinyint(1) UNSIGNED DEFAULT NULL,
-  `course_project` tinyint(1) UNSIGNED DEFAULT NULL,
-  `control_work` tinyint(1) UNSIGNED DEFAULT NULL,
+  `individual_time` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `lecture_time` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `laboratory_time` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `practical_time` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `course_work` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  `course_project` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  `control_work` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `control_form_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
