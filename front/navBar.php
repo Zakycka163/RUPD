@@ -9,7 +9,7 @@
 			if(!empty($_SESSION["id"])){
 				connect();
 				$id=$_SESSION["id"];
-				$admin = mysqli_query($link, "SELECT grant_id FROM accounts WHERE account_id='".$id."'");
+				$admin = mysqli_query($link, "SELECT grant_id FROM accounts WHERE id='".$id."'");
 				$admin=implode(mysqli_fetch_assoc($admin));
 				close();
 				
@@ -28,8 +28,8 @@
     <?php if(!empty($_SESSION["id"])){
 			connect();
 			$id=$_SESSION["id"];
-			$first_name = mysqli_query($link, "SELECT name.first_name FROM accounts as acc, teachers as name WHERE acc.account_id='".$id."' and acc.teacher_id=name.teacher_id");
-			$second_name = mysqli_query($link, "SELECT name.second_name FROM accounts as acc, teachers as name WHERE acc.account_id='".$id."' and acc.teacher_id=name.teacher_id");
+			$first_name = mysqli_query($link, "SELECT name.first_name FROM accounts as acc, teachers as name WHERE acc.id='".$id."' and acc.teacher_id=name.id");
+			$second_name = mysqli_query($link, "SELECT name.second_name FROM accounts as acc, teachers as name WHERE acc.id='".$id."' and acc.teacher_id=name.id");
 			$first=implode(mysqli_fetch_assoc($first_name));
 			$second=implode(mysqli_fetch_assoc($second_name));
 			close();
