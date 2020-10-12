@@ -94,7 +94,7 @@ class CurrentApi extends Api
                         if(is_numeric($row[$i])){
                             $row[$i] = $row[$i] * 1;
                         }
-                        if($columns[$i] = 'password'){
+                        if($columns[$i] == 'password'){
                             $obj[$columns[$i]] = null;
                         } else {
                             $obj[$columns[$i]] = $row[$i];
