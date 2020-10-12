@@ -28,22 +28,22 @@
 				$sql_count = "SELECT count(*) FROM institutes";
 				$sql_count_result = mysqli_query($link, $sql_count);
 				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT    institute_id
+				$sql = "SELECT    id
 								, `name`
 						FROM  institutes
-						ORDER BY institute_id
+						ORDER BY id
 						LIMIT ".$limit[0]."";
 				$result = mysqli_query($link, $sql);
 				while($row = mysqli_fetch_array($result)){
 					$counter++;
 					echo '<tr>'. "\n" . '<td>'.$counter .'</td>'."\n";
 					echo '<td><a href="?page=institutes&insid='.$row[0].'">'.$row[1].'</a></td>'. "\n";
-					$sql2 = "SELECT   kaf.pulpit_id
+					$sql2 = "SELECT   kaf.id
 									, kaf.name
 							 FROM  `institutes` inst
 								 , `pulpits` kaf
-							 WHERE 	inst.institute_id = '".$row[0]."'
-								and inst.institute_id = kaf.institute_id";
+							 WHERE 	inst.id = '".$row[0]."'
+								and inst.id = kaf.institute_id";
 					$result2 = mysqli_query($link, $sql2);
 					$counter2 = 0;
 					echo '<td>'."\n";
