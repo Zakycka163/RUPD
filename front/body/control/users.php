@@ -19,7 +19,7 @@
 				<th scope="col">Отчество</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="accounts">
 			<?php
 				connect();
 				global $link;
@@ -80,6 +80,34 @@
 <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_account.php"); ?> 
 <script src="/front/js/_GET.js"></script>
 <script>
+$(document).ready(function(){
+	var total;
+	var limit;
+	var round;
+	var accounts = new Object();
+	var teachers = new Object();
+	$.ajax({
+		url: "/api/accounts", 
+		type: "GET",
+		success: function(response){
+			total = response.total;
+			limit = response.limit;
+			round = response.round;
+			accounts = response.accounts;
+			for (const [key, account] of Object.entries(accounts)) {
+				$.ajax({
+					url: "/api/teachers?id="+account.id,
+					type: "GET",
+					success: function(response){
+						teachers[key] = response;
+						delete teachers[key].id;
+					}
+				});
+								
+			}
+			//$("#accounts").
+    	}
+	});
 	if ($_GET('action')=="create"){
 		$('#create_account_form').modal('show');
 	};
@@ -87,4 +115,5 @@
 	$("#create_account").click(function(){
 		location.href='/pages/control/users.php?action=create';
 	});
+});	
 </script>
