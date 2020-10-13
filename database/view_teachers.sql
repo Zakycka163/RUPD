@@ -10,7 +10,7 @@ SELECT    tech.id
 		, deg.full_name as deg_name
 		, ac_rank.full_name as ac_rank_name
 		, pos.name as position
-		, acc.id
+		, acc.id as account_id
 		, acc.login as account
 FROM `teachers` tech
 LEFT JOIN (`academic_degrees` deg) 
