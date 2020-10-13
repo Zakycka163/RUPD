@@ -80,12 +80,13 @@
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/edit_account_login.php");		
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/edit_account_pass.php");		
 ?>
+<script src="/front/js/_GET.js"></script>
 <script>
 $(document).ready(function(){
 	var account = new Object();
 	var teacher = new Object();
 	$.ajax({
-		url: "/api/accounts?id=<?php echo $_GET["id"];?>", 
+		url: "/api/accounts?id="+$_GET("id"), 
 		type: "GET",
 		success: function(response){
 			account = response;

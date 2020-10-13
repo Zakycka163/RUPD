@@ -20,63 +20,31 @@
 			</tr>
 		</thead>
 		<tbody id="accounts">
-			<?php
-				connect();
-				global $link;
-				$sql = "SELECT `value` FROM `constants` WHERE `key` = 'limitObj'";
-				$result = mysqli_query($link, $sql);
-				$limit = mysqli_fetch_array($result);
-				$counter = 0;
-				$sql_count = "SELECT count(*) FROM accounts";
-				$sql_count_result = mysqli_query($link, $sql_count);
-				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT * FROM accounts
-						LIMIT ".$limit[0]."";
-				$result = mysqli_query($link, $sql);
-				while($row = mysqli_fetch_array($result)){
-					$counter++;
-					if ($row[2] = 2){
-						$admin = "Да";
-					} else {
-						$admin = "";
-					}
-					echo '<tr>'. "\n" . '<td>'.$counter .'</td>'."\n";
-					echo '<td><a href="?id='.$row[0].'" title="Открыть аккаунт">'.$row[1].'</td>'. "\n";
-					echo '<td>********</td>'. "\n";
-					echo '<td>'.$admin.'</td>'. "\n";
-					echo '<td>'.$row[3].'</td>'. "\n";
-					echo '<td>'.$row[4].'</td>'. "\n";
-					echo '<td>'.$row[5].'</td>'. "\n";
-					echo '</tr>'. "\n";
-				};
-				close();
-			?>
+			<tr>
+				<td colspan="7" style="text-align:center">Пустой список</td>
+			</tr>
 		</tbody>
 	</table>
+	<nav>
+		<ul class="pagination pagination-sm">
+				<li class="page-item disabled">
+					<a class="page-link" href="#">Предыдущая</a>
+				</li>
+				<li class="page-item active">
+					<a class="page-link" href="?round=1">1</a>
+				</li>
+				<li class="page-item disabled">
+					<a class="page-link" href="#">2</a>
+				</li>
+				<li class="page-item disabled">
+					<a class="page-link" href="#">3</a>
+				</li>
+				<li class="page-item disabled">
+					<a class="page-link" href="#">Следующая</a>
+				</li>
+		</ul>
+	</nav>
 </div>
-<nav>
-	<ul class="pagination pagination-sm">
-		<?php if ($count_obj < $limit){ ?>
-		
-		<?php } else { ?>
-			<li class="page-item disabled">
-				<a class="page-link" href="#">Предыдущая</a>
-			</li>
-			<li class="page-item active">
-				<a class="page-link" href="#">1</a>
-			</li>
-			<li class="page-item disabled">
-				<a class="page-link" href="#">2</a>
-			</li>
-			<li class="page-item disabled">
-				<a class="page-link" href="#">3</a>
-			</li>
-			<li class="page-item disabled">
-				<a class="page-link" href="#">Следующая</a>
-			</li>
-		<?php } ?>
-	</ul>
-</nav>
 <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_account.php"); ?> 
 <script src="/front/js/_GET.js"></script>
 <script>
@@ -84,30 +52,42 @@ $(document).ready(function(){
 	var total;
 	var limit;
 	var round;
-	var accounts = new Object();
-	var teachers = new Object();
+	if ($_GET("round") && Number.isInteger($_GET("round"))){
+		round = $_GET("round");
+	} else {
+		round = 1;
+	}
+	var users = new Object();
+	var table_body = '';
 	$.ajax({
-		url: "/api/accounts", 
+		url: "/api/view_users?round="+round, 
 		type: "GET",
 		success: function(response){
 			total = response.total;
 			limit = response.limit;
 			round = response.round;
-			accounts = response.accounts;
-			for (const [key, account] of Object.entries(accounts)) {
-				$.ajax({
-					url: "/api/teachers?id="+account.id,
-					type: "GET",
-					success: function(response){
-						teachers[key] = response;
-						delete teachers[key].id;
+			users = response.view_users;
+			for (const [key, user] of Object.entries(users)) {
+				if (user.grant_id == 2){
+						user.admin = "Да";
+					} else {
+						user.admin = "Нет";
 					}
-				});
-								
+				table_body += '<tr>';
+				table_body += '<td>'+((key*1)+1)+'</td>';
+				table_body += '<td><a href="?id='+user.id+'" title="Открыть аккаунт">'+user.login+'</td>';
+				table_body += '<td>********</td>';
+				table_body += '<td>'+user.admin+'</td>';
+				table_body += '<td>'+user.second_name+'</td>';
+				table_body += '<td>'+user.first_name+'</td>';
+				table_body += '<td>'+user.middle_name+'</td>';
+				table_body += '</tr>';
 			}
-			//$("#accounts").
-    	}
+			$("#accounts").html(table_body);
+			$(".pagination").html();
+		}		
 	});
+	
 	if ($_GET('action')=="create"){
 		$('#create_account_form').modal('show');
 	};
