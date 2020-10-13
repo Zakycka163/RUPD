@@ -27,19 +27,13 @@
 	</table>
 	<nav>
 		<ul class="pagination pagination-sm">
-				<li class="page-item disabled">
+				<li class="page-item disabled" id="next_round">
 					<a class="page-link" href="#">Предыдущая</a>
 				</li>
-				<li class="page-item active">
+				<li class="page-item rounds">
 					<a class="page-link" href="?round=1">1</a>
 				</li>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">2</a>
-				</li>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">3</a>
-				</li>
-				<li class="page-item disabled">
+				<li class="page-item disabled" id="prev_round">
 					<a class="page-link" href="#">Следующая</a>
 				</li>
 		</ul>
@@ -52,6 +46,7 @@ $(document).ready(function(){
 	var total;
 	var limit;
 	var round;
+	var cnt_page;
 	if ($_GET("round") && Number.isInteger($_GET("round"))){
 		round = $_GET("round");
 	} else {
@@ -73,18 +68,30 @@ $(document).ready(function(){
 					} else {
 						user.admin = "Нет";
 					}
-				table_body += '<tr>';
-				table_body += '<td>'+((key*1)+1)+'</td>';
-				table_body += '<td><a href="?id='+user.id+'" title="Открыть аккаунт">'+user.login+'</td>';
-				table_body += '<td>********</td>';
-				table_body += '<td>'+user.admin+'</td>';
-				table_body += '<td>'+user.second_name+'</td>';
-				table_body += '<td>'+user.first_name+'</td>';
-				table_body += '<td>'+user.middle_name+'</td>';
-				table_body += '</tr>';
+				table_body += `<tr>
+								<td>`+((key*1)+1)+`</td>
+								<td><a href="?id=`+user.id+`" title="Открыть аккаунт">`+user.login+`</td>
+								<td>********</td>
+								<td>`+user.admin+`</td>
+								<td>`+user.second_name+`</td>
+								<td>`+user.first_name+`</td>
+								<td>`+user.middle_name+`</td>
+							  </tr>`;
 			}
 			$("#accounts").html(table_body);
-			$(".pagination").html();
+
+			cnt_round = Math.ceil(total / limit);
+			if (cnt_round > 1){
+				let round_list;
+				for (var i = 0; i < cnt_round; i++) {
+					round_list += `<li data-page=` + i * cnt + "  id=\"page" + (i + 1) + "\">" + (i + 1) + "</span>";
+				}
+				<li class="page-item">
+						<a class="page-link" href="#">Предыдущая</a>
+					</li>
+
+				$(".rounds").html(round_list);
+			}
 		}		
 	});
 	
