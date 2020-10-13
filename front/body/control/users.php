@@ -19,7 +19,7 @@
 				<th scope="col">Отчество</th>
 			</tr>
 		</thead>
-		<tbody id="accounts">
+		<tbody id="data">
 			<tr>
 				<td colspan="7" style="text-align:center">Пустой список</td>
 			</tr>
@@ -73,7 +73,7 @@ $(document).ready(function(){
 								<td>`+user.middle_name+`</td>
 							  </tr>`;
 			}
-			$("#accounts").html(table_body);
+			$("#data").html(table_body);
 
 			var cnt_round = Math.ceil(total / limit) + 1;
 			if (cnt_round > 1 && round != 1){
