@@ -59,10 +59,10 @@ $(document).ready(function(){
 			users = response.view_users;
 			for (const [key, user] of Object.entries(users)) {
 				if (user.grant_id == 2){
-						user.admin = "Да";
-					} else {
-						user.admin = "Нет";
-					}
+					user.admin = "Да";
+				} else {
+					user.admin = "Нет";
+				}
 				table_body += `<tr>
 								<td>`+((key*1)+1)+`</td>
 								<td><a href="?id=`+user.id+`" title="Открыть аккаунт">`+user.login+`</td>
