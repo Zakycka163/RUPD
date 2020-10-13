@@ -1,6 +1,5 @@
 # RUPD
-    \back
-[/back](../back)
+[/back](/back)
         \control
             -db_accounts.php
         \data               
