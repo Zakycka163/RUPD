@@ -1,9 +1,10 @@
 # RUPD
 ## [/back](/back)
 ### [/back/control](/back/control)
+- [db_accounts.php](/back/control/db_accounts.php)
 
-            -db_accounts.php
-        \data               
+### [/back/data](/back/data)
+           
             -db_fgos.php    
             -db_teachers.php
             -db_pulpits.php 
