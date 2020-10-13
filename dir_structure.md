@@ -14,6 +14,9 @@
 >#### [/api/config](/api/config)
 >>- [database.php](/api/config/database.php)
 >#### [/api/tables](/api/tables)
+>>- [1_progress.md](/api/tables/1_progress.md)
+>>- [academic_degrees.php](/api/tables/academic_degrees.php)
+>>- etc
 
 ### [/back](/back)
 >- [base.php](/back/base.php)
