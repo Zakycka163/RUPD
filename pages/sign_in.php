@@ -11,15 +11,7 @@
 
     <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/links.php"); ?>
 
-    <link href="/front/css/sign.css" rel="stylesheet" type="text/css">
-    <link href="/front/css/background.css" rel="stylesheet" type="text/css">
-
-    <style type="text/css">
-    body {
-        padding-top: 100px;
-        padding-bottom: 315px;
-    }
-    </style>
+    <link href="/front/css/sign_in.css" rel="stylesheet" type="text/css">
 
 </head>
 
