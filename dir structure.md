@@ -1,24 +1,26 @@
-# RUPD
 ## [/back](/back)
+- [base.php](/back/base.php)
+- [mandatoryBlock.php](/back/mandatoryBlock.php)
+- [phpWordUse.php](/back/phpWordUse.php)
+- [reader.php](/back/reader.php)
+- [switch_functions.php](/back/switch_functions.php)
+- [uploader.php](/back/uploader.php)
+- [writer.php](/back/writer.php)
+
 ### [/back/control](/back/control)
 - [db_accounts.php](/back/control/db_accounts.php)
 
 ### [/back/data](/back/data)
-           
-            -db_fgos.php    
-            -db_teachers.php
-            -db_pulpits.php 
-            -db_teachers.php
-        \security
-            -login.php
-            -validator.php
-        -base.php
-        -mandatoryBlock.php
-        -phpWordUse.php
-        -reader.php
-        -switch_functions.php
-        -uploader.php
-        -writer.php
+- [db_fgos.php](/back/data/db_fgos.php)
+- [db_teachers.php](/back/data/db_teachers.php)
+- [db_pulpits.php](/back/data/db_pulpits.php)
+- [db_teachers.php](/back/data/db_teachers.php)
+
+### [/back/security](/back/security)
+- [login.php](/back/security/login.php)
+- [validator.php](/back/security/validator.php)
+
+
     \database
         -create_educational.sql
         -view_disciplines.sql
