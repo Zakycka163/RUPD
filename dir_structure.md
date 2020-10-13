@@ -9,7 +9,11 @@
 - ![README.md](/README.md)
 
 ### [/api](/api)
-- TODO
+- [Api.php](/api/Api.php)
+- [index.php](/api/index.php)
+#### [/api/config](/api/config)
+- [database.php](/api/config/database.php)
+#### [/api/tables](/api/tables)
 
 ### [/back](/back)
 - [base.php](/back/base.php)
@@ -36,28 +40,10 @@
 - [view_teachers.sql](/database/view_teachers.sql)
 - [view_users.sql](/database/view_users.sql)
 
-### [/Documents](/Documents)
-- [123_03-11-2019-02-28-17.docx](/Documents/123_03-11-2019-02-28-17.docx)
-#### [/Documents/bulk](/Documents/bulk)
-- [teachers.docx](/Documents/bulk/teachers.docx)
-
-### [/Templates](/Templates)
-- [New_template.docx](/Templates/New_template.docx)
-- [переменные.ods](/Templates/New_template.docx)
-#### [/Templates/bulk_templates](/Templates/bulk_templates)
-- [courses_fgos_profstandards.xlsx](/Templates/bulk_templates/courses_fgos_profstandards.xlsx)
-- [disciplines.xlsx](/Templates/bulk_templates/disciplines.xlsx)
-- [profstandards_otf_tf_activities.xlsx](/Templates/bulk_templates/profstandards_otf_tf_activities.xlsx)
-- [teachers.xlsx](/Templates/bulk_templates/teachers.xlsx)
-#### [/Templates/working_files](/Templates/working_files)
-- [courses_fgos_profstandards.xlsx](/Templates/working_files/courses_fgos_profstandards.xlsx)
-- [disciplines.xlsx](/Templates/working_files/disciplines.xlsx)
-- [profstandards_otf_tf_activities.xlsx](/Templates/working_files/profstandards_otf_tf_activities.xlsx)
-- [teachers.xlsx](/Templates/working_files/teachers.xlsx)
-
-
-
-
+### [/documents](/documents)
+- [123_03-11-2019-02-28-17.docx](/documents/123_03-11-2019-02-28-17.docx)
+#### [/documents/bulk](/documents/bulk)
+- [teachers.docx](/documents/bulk/teachers.docx)
 
 ### [/front](/front)
 - [footer.php](/front/footer.php)
@@ -125,17 +111,37 @@
 - [newModel.mwb.bak](/newDBmodel/newModel.mwb.bak)
 
 ### [/pages](/pages)
-    \pages
-        \control      
-            -users.php
-        \doc
-            -rup.php  
-            -rups.php 
-        -404.php
-        -about.php
-        -data.php
-        -home.php 
-        -sign_in.php
-        -users.php
+- [404.php](/pages/404.php)
+- [about.php](/pages/about.php)
+- [data.php](/pages/data.php)
+- [home.php](/pages/home.php)
+- [sign_in.php](/pages/sign_in.php)
+#### [/pages/control](/pages/control) 
+- [users.php](/pages/control/users.php)
+#### [/pages/doc](/pages/doc) 
+- [rup.php](/pages/doc/rup.php)
+- [rups.php](/pages/doc/rups.php)
 
-    \vendor
+### [/templates](/templates)
+- [New_template.docx](/templates/New_template.docx)
+- [переменные.ods](/templates/New_template.docx)
+#### [/templates/bulk_templates](/templates/bulk_templates)
+- [courses_fgos_profstandards.xlsx](/templates/bulk_templates/courses_fgos_profstandards.xlsx)
+- [disciplines.xlsx](/templates/bulk_templates/disciplines.xlsx)
+- [profstandards_otf_tf_activities.xlsx](/templates/bulk_templates/profstandards_otf_tf_activities.xlsx)
+- [teachers.xlsx](/templates/bulk_templates/teachers.xlsx)
+#### [/templates/working_files](/templates/working_files)
+- [courses_fgos_profstandards.xlsx](/templates/working_files/courses_fgos_profstandards.xlsx)
+- [disciplines.xlsx](/templates/working_files/disciplines.xlsx)
+- [profstandards_otf_tf_activities.xlsx](/templates/working_files/profstandards_otf_tf_activities.xlsx)
+- [teachers.xlsx](/templates/working_files/teachers.xlsx)
+
+### [/vendor](/vendor)
+- [.htaccess](/vendor/.htaccess)
+- [autoload.php](/vendor/autoload.php)
+### [/vendor/composer](/vendor/composer)
+### [/vendor/composer](/vendor/markbaker)
+### [/vendor/pclzip](/vendor/pclzip/pclzip)
+### [/vendor/phpoffice](/vendor/phpoffice)
+### [/vendor/psr](/vendor/psr/simple-cache)
+### [/vendor/zendframework](/vendor/zendframework/zend-escaper)
