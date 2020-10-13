@@ -27,15 +27,12 @@
 	</table>
 	<nav>
 		<ul class="pagination pagination-sm">
-				<li class="page-item disabled" id="next_round">
-					<a class="page-link" href="#">Предыдущая</a>
-				</li>
-				<li class="page-item rounds">
-					<a class="page-link" href="?round=1">1</a>
-				</li>
-				<li class="page-item disabled" id="prev_round">
-					<a class="page-link" href="#">Следующая</a>
-				</li>
+			<li class="page-item disabled" id="prev_round">
+				<a class="page-link" href>Предыдущая</a>
+			</li>
+			<li class="page-item disabled" id="next_round">
+				<a class="page-link" href>Следующая</a>
+			</li>
 		</ul>
 	</nav>
 </div>
@@ -46,8 +43,7 @@ $(document).ready(function(){
 	var total;
 	var limit;
 	var round;
-	var cnt_page;
-	if ($_GET("round") && Number.isInteger($_GET("round"))){
+	if ($_GET("round") && parseInt($_GET("round"))){
 		round = $_GET("round");
 	} else {
 		round = 1;
@@ -60,7 +56,6 @@ $(document).ready(function(){
 		success: function(response){
 			total = response.total;
 			limit = response.limit;
-			round = response.round;
 			users = response.view_users;
 			for (const [key, user] of Object.entries(users)) {
 				if (user.grant_id == 2){
@@ -80,18 +75,28 @@ $(document).ready(function(){
 			}
 			$("#accounts").html(table_body);
 
-			cnt_round = Math.ceil(total / limit);
-			if (cnt_round > 1){
-				let round_list;
-				for (var i = 0; i < cnt_round; i++) {
-					round_list += `<li data-page=` + i * cnt + "  id=\"page" + (i + 1) + "\">" + (i + 1) + "</span>";
-				}
-				<li class="page-item">
-						<a class="page-link" href="#">Предыдущая</a>
-					</li>
-
-				$(".rounds").html(round_list);
+			var cnt_round = Math.ceil(total / limit) + 1;
+			if (cnt_round > 1 && round != 1){
+				let prev_round = (round * 1) - 1;
+				$("#prev_round").removeClass("disabled");
+				$("#prev_round").children().prop('href', "?round="+prev_round);
 			}
+			if (cnt_round > 1 && cnt_round != round){
+				let next_round = (round * 1) +1;
+				$("#next_round").removeClass("disabled");
+				$("#next_round").children().prop('href', "?round="+next_round);
+			}
+			var round_list = '';
+			for (var i = 1; i < (cnt_round + 1); i++) {
+				var active = '';
+				if (i == round){
+					active = 'active';
+				}
+				round_list += `<li class="page-item `+ active +`">
+								 <a class="page-link" href="?round=` + i + `">` + i + `</a>
+							   </li>`;
+			}
+			$("#prev_round").after(round_list);
 		}		
 	});
 	
