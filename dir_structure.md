@@ -1,0 +1,141 @@
+## [RUPD](/)
+- [.gitignore](/.gitignore)
+- [.htaccess](/.htaccess)
+- [composer.json](/composer.json)
+- [composer.lock](/composer.lock)
+- [dir_structure.md](/dir_structure.md)
+- [index.php](/index.php)
+- [LICENSE](/LICENSE)
+- ![README.md](/README.md)
+
+### [/api](/api)
+- TODO
+
+### [/back](/back)
+- [base.php](/back/base.php)
+- [mandatoryBlock.php](/back/mandatoryBlock.php)
+- [phpWordUse.php](/back/phpWordUse.php)
+- [reader.php](/back/reader.php)
+- [switch_functions.php](/back/switch_functions.php)
+- [uploader.php](/back/uploader.php)
+- [writer.php](/back/writer.php)
+#### [/back/control](/back/control)
+- [db_accounts.php](/back/control/db_accounts.php)
+#### [/back/data](/back/data)
+- [db_fgos.php](/back/data/db_fgos.php)
+- [db_teachers.php](/back/data/db_teachers.php)
+- [db_pulpits.php](/back/data/db_pulpits.php)
+- [db_teachers.php](/back/data/db_teachers.php)
+#### [/back/security](/back/security)
+- [login.php](/back/security/login.php)
+- [validator.php](/back/security/validator.php)
+
+### [/database](/database)
+- [create_educational.sql](/database/create_educational.sql)
+- [view_disciplines.sql](/database/view_disciplines.sql)
+- [view_teachers.sql](/database/view_teachers.sql)
+- [view_users.sql](/database/view_users.sql)
+
+### [/Documents](/Documents)
+- [123_03-11-2019-02-28-17.docx](/Documents/123_03-11-2019-02-28-17.docx)
+#### [/Documents/bulk](/Documents/bulk)
+- [teachers.docx](/Documents/bulk/teachers.docx)
+
+### [/Templates](/Templates)
+- [New_template.docx](/Templates/New_template.docx)
+- [переменные.ods](/Templates/New_template.docx)
+#### [/Templates/bulk_templates](/Templates/bulk_templates)
+- [courses_fgos_profstandards.xlsx](/Templates/bulk_templates/courses_fgos_profstandards.xlsx)
+- [disciplines.xlsx](/Templates/bulk_templates/disciplines.xlsx)
+- [profstandards_otf_tf_activities.xlsx](/Templates/bulk_templates/profstandards_otf_tf_activities.xlsx)
+- [teachers.xlsx](/Templates/bulk_templates/teachers.xlsx)
+#### [/Templates/working_files](/Templates/working_files)
+- [courses_fgos_profstandards.xlsx](/Templates/working_files/courses_fgos_profstandards.xlsx)
+- [disciplines.xlsx](/Templates/working_files/disciplines.xlsx)
+- [profstandards_otf_tf_activities.xlsx](/Templates/working_files/profstandards_otf_tf_activities.xlsx)
+- [teachers.xlsx](/Templates/working_files/teachers.xlsx)
+
+
+
+
+
+### [/front](/front)
+- [footer.php](/front/footer.php)
+- [links.php](/front/links.php)
+- [navBar.php](/front/navBar.php)
+#### [/front/body](/front/body)
+- [cards.php](/front/body/cards.php)
+- [rup.php](/front/body/rup.php)
+- [tasks.php](/front/body/tasks.php)
+##### [/front/body/control](/front/body/control)
+- [users.php](/front/body/control/users.php)
+##### [/front/body/data](/front/body/data)
+- [bulk.php](/front/body/data/bulk.php)
+- [competencies.php](/front/body/data/competencies.php)
+- [courses.php](/front/body/data/courses.php)
+- [disciplines.php](/front/body/data/disciplines.php)
+- [fgos.php](/front/body/data/fgos.php)
+- [institutes.php](/front/body/data/institutes.php)
+- [otf.php](/front/body/data/otf.php)
+- [prof.php](/front/body/data/prof.php)
+- [teachers.php](/front/body/data/teachers.php)
+##### [/front/body/single_obj](/front/body/single_obj)
+- [user.php](/front/body/single_obj/user.php)
+- [teacher.php](/front/body/single_obj/teacher.php)
+#### [/front/css](/front/css)
+- [background.css](/front/css/background.css)
+- [pointer.css](/front/css/pointer.css)
+- [sign_in.css](/front/css/sign_in.css)
+#### [/front/dialogs](/front/dialogs)
+- [loginFail.php](/front/dialogs/loginFail.php)
+#### [/front/forms](/front/forms)
+- [create_account.php](/front/forms/create_account.php)
+- [create_teacher.php](/front/forms/create_teacher.php)
+- [discipline.php](/front/forms/discipline.php)
+- [edit_account_login.php](/front/forms/edit_account_login.php)
+- [edit_account_pass.php](/front/forms/edit_account_pass.php)
+- [fgos.php](/front/forms/fgos.php)
+- [institute.php](/front/forms/institute.php)
+- [loader_form.php](/front/forms/loader_form.php)
+- [pulpit.php](/front/forms/pulpit.php)
+- [rup.php](/front/forms/rup.php)
+#### [/front/img](/front/img)
+- [Background.jpg](/front/img/Background.jpg)
+- [ico.ico](/front/img/ico.ico)
+- [items.svg](/front/img/items.svg)
+- [onHold.png](/front/img/Background.png)
+- [PVGUS_4_2.jpg](/front/img/PVGUS_4_2.jpg)
+- [pvgus_ico2.jpg](/front/img/pvgus_ico2.jpg)
+#### [/front/img](/front/js)
+- [_GET.js](/front/js/_GET.js)
+- [back.js](/front/js/back.js)
+- [checkEmailMask.js](/front/js/checkEmailMask.js)
+#### [/front/navBars](/front/navBars)
+- [navBarAdm.php](/front/navBars/navBarAdm.php)
+- [navBarAdmMd.php](/front/navBars/navBarAdmMd.php)
+- [navBarAdmSm.php](/front/navBars/navBarAdmSm.php)
+- [navBarTeach.php](/front/navBars/navBarTeach.php)
+- [navBarTeachMd.php](/front/navBars/navBarTeachMd.php)
+- [navBarTeachSm.php](/front/navBars/navBarTeachSm.php)
+
+### [/newDBmodel](/newDBmodel)
+- [db.sql](/newDBmodel/db.sql)
+- [example.svg](/newDBmodel/example.svg)
+- [newModel.mwb](/newDBmodel/newModel.mwb)
+- [newModel.mwb.bak](/newDBmodel/newModel.mwb.bak)
+
+### [/pages](/pages)
+    \pages
+        \control      
+            -users.php
+        \doc
+            -rup.php  
+            -rups.php 
+        -404.php
+        -about.php
+        -data.php
+        -home.php 
+        -sign_in.php
+        -users.php
+
+    \vendor
