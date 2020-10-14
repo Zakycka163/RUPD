@@ -75,13 +75,13 @@ $(document).ready(function(){
 			}
 			$("#data").html(table_body);
 
-			var cnt_round = Math.ceil(total / limit) + 1;
-			if (cnt_round > 1 && round != 1){
+			var cnt_round = Math.ceil(total / limit);
+			if (cnt_round > 0 && round != 1){
 				let prev_round = (round * 1) - 1;
 				$("#prev_round").removeClass("disabled");
 				$("#prev_round").children().prop('href', "?round="+prev_round);
 			}
-			if (cnt_round > 1 && cnt_round != round){
+			if (cnt_round > 0 && cnt_round != round){
 				let next_round = (round * 1) +1;
 				$("#next_round").removeClass("disabled");
 				$("#next_round").children().prop('href', "?round="+next_round);
