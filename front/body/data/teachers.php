@@ -28,65 +28,65 @@
 				<th scope="col">Аккаунт</th>
 			</tr>
 		</thead>
-		<tbody>
-			<?php
-				connect();
-				global $link;
-				$sql = "SELECT `value` FROM `constants` WHERE `key` = 'limitObj'";
-				$result = mysqli_query($link, $sql);
-				$limit = mysqli_fetch_array($result);
-				$counter = 0;
-				$sql_count = "SELECT count(*) FROM view_teachers";
-				$sql_count_result = mysqli_query($link, $sql_count);
-				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT * FROM view_teachers
-						LIMIT ".$limit[0]."";
-				$result = mysqli_query($link, $sql);
-				while($row = mysqli_fetch_array($result)){
-					$counter++;
-					echo '<tr>'. "\n" . '<td>'.$counter .'</td>'."\n";
-					echo '<td><a href="?page=teachers&id='.$row[0].'">'.$row[1].' '.$row[2].' '.$row[3].'</a></td>'. "\n";
-					echo '<td>'.$row[4].'</td>'. "\n";
-					echo '<td>'.$row[5].'</td>'. "\n";
-					echo '<td>'.$row[6].'</td>'. "\n";
-					echo '<td>'.$row[7].'</td>'. "\n";
-					echo '<td><a href="/pages/control/users.php?id='.$row[8].'">'.$row[9].'</a></td>'. "\n";
-					echo '</tr>'. "\n";
-				};
-				close();
-			?>
+		<tbody id="data">
+			<tr>
+				<td colspan="7" style="text-align:center">Пустой список</td>
+			</tr>
 		</tbody>
 	</table>
 	<nav>
 		<ul class="pagination pagination-sm">
-			<?php if ($count_obj < $limit){
-			
-			} else {
-			?>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">Предыдущая</a>
-				</li>
-				<li class="page-item active">
-					<a class="page-link" href="#">1</a>
-				</li>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">2</a>
-				</li>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">3</a>
-				</li>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">Следующая</a>
-				</li>
-			<?php } ?>
+			<li class="page-item disabled" id="prev_round">
+				<a class="page-link" href>Предыдущая</a>
+			</li>
+			<li class="page-item disabled" id="next_round">
+				<a class="page-link" href>Следующая</a>
+			</li>
 		</ul>
-	</nav>	
+	</nav>
 </div>
 
 <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_teacher.php"); ?>
-
+<script src="/front/js/_GET.js"></script>
+<script src="/front/js/pagination.js"></script>
 <script>
+$(document).ready(function(){
+	var total;
+	var limit;
+	var round;
+	if ($_GET("round") && parseInt($_GET("round"))){
+		round = $_GET("round");
+	} else {
+		round = 1;
+	}
+	var teachers = new Object();
+	var table_body = '';
+	$.ajax({
+		url: "/api/view_teachers?round="+round, 
+		type: "GET",
+		success: function(response){
+			total = response.total;
+			limit = response.limit;
+			teachers = response.view_teachers;
+			for (var [key, teacher] of Object.entries(teachers)) {
+				table_body += `<tr>
+								<td>`+((key*1)+1)+`</td>
+								<td><a href="?page=teachers&id=`+teacher.id+`">`+teacher.second_name+' '+teacher.first_name+' '+teacher.middle_name+`</td>
+								<td>`+teacher.email+`</td>
+								<td>`+teacher.deg_name+`</td>
+								<td>`+teacher.ac_rank_name+`</td>
+								<td>`+teacher.position+`</td>
+								<td><a href="/pages/control/users.php?id=`+teacher.account_id+`">`+teacher.account+`</a></td>
+							  </tr>`;
+			}
+			$("#data").html(table_body);
+
+			gen_pagination(total, limit, round);
+		}		
+	});
+
 	$("#create_teacher").click(function(){
 		$('#create_teacher_form').modal('show');
 	});
+});
 </script>

@@ -29,7 +29,7 @@
 								
 								<?php 
 									require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
-									options_present("SELECT teacher_id
+									options_present("SELECT id
 														  , CONCAT_WS(' '
 														  			  ,second_name
 																	  ,CONCAT(LEFT(first_name,1),'.')

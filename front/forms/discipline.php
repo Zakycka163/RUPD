@@ -47,10 +47,10 @@
                                 <option selected value="null"></option>
                                 <?php 
 									require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
-									options_present("SELECT module_id
+									options_present("SELECT id
 														  , `name`
 													 FROM modules  
-													 ORDER BY module_id");
+													 ORDER BY id");
 								?>
                             </select>
                         </td>
@@ -63,10 +63,10 @@
                                 <option selected value="null"></option>
                                 <?php 
 									require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
-									options_present("SELECT part_id
+									options_present("SELECT id
 														  , CONCAT(`name`,' части')
 													 FROM parts  
-													 ORDER BY part_id");
+													 ORDER BY id");
 								?>
                             </select>
                         </td>

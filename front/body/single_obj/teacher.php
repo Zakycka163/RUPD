@@ -11,7 +11,7 @@
 				 , account_id
 				 , account
 			FROM view_teachers
-			WHERE teacher_id = ".$_GET["id"]."";
+			WHERE id = ".$_GET["id"]."";
 	$result = mysqli_query($link, $sql);
 	while($row = mysqli_fetch_array($result)){
 		$second_name 	= $row[0];

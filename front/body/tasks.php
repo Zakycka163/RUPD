@@ -2,7 +2,7 @@
     if(!empty($_SESSION["id"])){
         connect();
         $id=$_SESSION["id"];
-        $admin = mysqli_query($link, "SELECT grant_id FROM accounts WHERE account_id='".$id."'");
+        $admin = mysqli_query($link, "SELECT grant_id FROM accounts WHERE id='".$id."'");
         $admin=implode(mysqli_fetch_assoc($admin));
         close();
 		

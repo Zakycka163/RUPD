@@ -1,1 +1,8 @@
 AddDefaultCharset UTF-8
+
+RewriteEngine On
+
+#Если URI начинается с api/ то перенаправлять все запросы на index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ /api/index.php

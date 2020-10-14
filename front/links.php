@@ -18,5 +18,4 @@
 </script>
 
 <!-- Custom CSS -->
-<link href="/front/css/forSignOnIndex.css" rel="stylesheet" type="text/css">
-<link href="/front/css/background2.css" rel="stylesheet" type="text/css">
+<link href="/front/css/background.css" rel="stylesheet" type="text/css">

@@ -35,10 +35,10 @@
 				$sql_count = "SELECT count(*) FROM prof_standards";
 				$sql_count_result = mysqli_query($link, $sql_count);
 				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT    fgos.fgos_id
+				$sql = "SELECT    fgos.id
 								, course.number
 								, course.name
-								, prof.prof_standard_id
+								, prof.id
 								, prof.code
 								, prof.name
 								, prof.number
@@ -48,8 +48,8 @@
 						FROM  `prof_standards` prof
 							, `fgos` fgos
 							, `courses` course
-						WHERE prof.fgos_id = fgos.fgos_id 
-						  and fgos.course_id = course.course_id 
+						WHERE prof.fgos_id = fgos.id 
+						  and fgos.course_id = course.id 
 						LIMIT ".$limit[0]."";
 				$result = mysqli_query($link, $sql);
 				while($row = mysqli_fetch_array($result)){

@@ -22,112 +22,103 @@
                 <th scope="col">Нагрузка, ч</th>
             </tr>
         </thead>
-        <tbody>
-            <?php
-				connect();
-				global $link;
-				$sql = "SELECT `value` FROM `constants` WHERE `key` = 'limitObj'";
-				$result = mysqli_query($link, $sql);
-				$limit = mysqli_fetch_array($result);
-				$counter = 0;
-				$sql_count = "SELECT count(*) FROM view_disciplines";
-				$sql_count_result = mysqli_query($link, $sql_count);
-				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT    pulpit_id
-								, kaf
-								, discipline_id
-								, `name`
-								, index_info
-								, module
-								, part
-								, `time`
-						FROM  view_disciplines
-						LIMIT ".$limit[0]."";
-				$result = mysqli_query($link, $sql);
-				while($row = mysqli_fetch_array($result)){
-					$counter++;
-					echo '<tr>'."\n".'<td>'.$counter.'</td>'."\n";
-					echo '<td><a href="?page=disciplines&disid='.$row[2].'">'.$row[3].'</a></td>'. "\n";
-					echo '<td><a href="?page=disciplines&kafid='.$row[0].'">'.$row[1].'</a><br>'."\n";
-					echo '<td>'.$row[4].'</td>'."\n";
-					echo '<td>'.$row[5].'</td>'."\n";
-					echo '<td>'.$row[6].'</td>'."\n";
-					echo '<td>'.$row[7].'</td>'."\n";
-					echo '</tr>'."\n";
-				};
-				close();
-			?>
-        </tbody>
+        <tbody id="data">
+			<tr>
+				<td colspan="7" style="text-align:center">Пустой список</td>
+			</tr>
+		</tbody>
     </table>
     <nav>
         <ul class="pagination pagination-sm">
-            <?php if ($count_obj < $limit){
-				
-			} else {
-			?>
-            <li class="page-item disabled">
-                <a class="page-link" href="#">Предыдущая</a>
-            </li>
-            <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item disabled">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item disabled">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item disabled">
-                <a class="page-link" href="#">Следующая</a>
-            </li>
-            <?php } ?>
-        </ul>
+			<li class="page-item disabled" id="prev_round">
+				<a class="page-link" href>Предыдущая</a>
+			</li>
+			<li class="page-item disabled" id="next_round">
+				<a class="page-link" href>Следующая</a>
+			</li>
+		</ul>
     </nav>
 </div>
 <?php 
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/pulpit.php");
 	require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/discipline.php");
 ?>
+<script src="/front/js/_GET.js"></script>
+<script src="/front/js/pagination.js"></script>
 <script>
-$(".close_form").click(function() {
-    location.href = 'data.php?page=disciplines';
-});
-$("#create_discipline").click(function() {
-    $('#discipline_form').modal('show');;
-});
-create_discipline
+$(document).ready(function(){
+	var total;
+	var limit;
+	var round;
+	if ($_GET("round") && parseInt($_GET("round"))){
+		round = $_GET("round");
+	} else {
+		round = 1;
+	}
+	var disciplines = new Object();
+	var table_body = '';
+	$.ajax({
+		url: "/api/view_disciplines?round="+round, 
+		type: "GET",
+		success: function(response){
+			total = response.total;
+			limit = response.limit;
+			disciplines = response.view_disciplines;
+			for (var [key, discipline] of Object.entries(disciplines)) {
+				table_body += `<tr>
+								<td>`+((key*1)+1)+`</td>
+								<td><a href="?page=disciplines&disid=`+discipline.id+`">`+discipline.name+`</td>
+								<td><a href="?page=disciplines&kafid=`+discipline.kaf_id+`">`+discipline.kaf+`</td>
+								<td>`+discipline.index_info+`</td>
+								<td>`+discipline.module+`</td>
+								<td>`+discipline.part+`</td>
+								<td>`+discipline.time+`</td>
+							  </tr>`;
+			}
+			$("#data").html(table_body);
 
-if ($_GET('kafid')) {
-    $('#delete_pulpit').prop('hidden', true);
-    $('#add_parent_inst_name').prop('hidden', true);
-    $('#save_pulpit').prop('hidden', true);
-    $('#pul_name').prop('readonly', true);
-    $('#pul_description').prop('readonly', true);
+			gen_pagination(total, limit, round);
+		}		
+	});
+    $(".close_form").click(function() {
+        location.href = 'data.php?page=disciplines';
+    });
+    $("#create_discipline").click(function() {
+        $('#discipline_form').modal('show');;
+    });
 
-    $('#pulpit_form').modal('show');
-    $('#pulpit_form_title').text('Кафедра:');
-    let pul_id = $_GET('kafid');
-    $.post(
-        "/back/data/db_pulpits.php", {
-            functionname: 'get_pulpit',
-            id: pul_id
-        },
-        function(info) {
-            var pul = $.parseJSON(info);
-            $('#pulpit_form_title').after(pul.name);
-            $('#inst_val option:selected').prop('selected', false);
-            $('#inst_val').val(pul.institute_id).prop('selected', true);
-            $('#pul_name').val(pul.name);
-            $('#pul_description').text(pul.description);
+    if ($_GET('kafid')) {
+        $('#delete_pulpit').prop('hidden', true);
+        $('#add_parent_inst_name').prop('hidden', true);
+        $('#save_pulpit').prop('hidden', true);
+        $('#pul_name').prop('readonly', true);
+        $('#pul_description').prop('readonly', true);
 
-            $("#add_parent_inst_name_form").find("#inst_val option:selected").text()
-            var inst_text = $("#inst_val :selected").text();
-            $("#parent_inst_name").val(inst_text);
-            $("#parent_inst_name").prop('title', inst_text);
-            $("#add_parent_inst_name").removeClass('btn-outline-success');
-            $("#add_parent_inst_name").addClass('btn-outline-primary');
-            $("#add_parent_inst_name").text('Изменить');
-        }
-    );
-}
+        $('#pulpit_form').modal('show');
+        $('#pulpit_form_title').text('Кафедра:');
+        let pul_id = $_GET('kafid');
+        $.post(
+            "/back/data/db_pulpits.php", {
+                functionname: 'get_pulpit',
+                id: pul_id
+            },
+            function(info) {
+                var pul = $.parseJSON(info);
+                $('#pulpit_form_title').after(pul.name);
+                $('#inst_val option:selected').prop('selected', false);
+                $('#inst_val').val(pul.institute_id).prop('selected', true);
+                $('#pul_name').val(pul.name);
+                $('#pul_description').text(pul.description);
+
+                $("#add_parent_inst_name_form").find("#inst_val option:selected").text()
+                var inst_text = $("#inst_val :selected").text();
+                $("#parent_inst_name").val(inst_text);
+                $("#parent_inst_name").prop('title', inst_text);
+                $("#add_parent_inst_name").removeClass('btn-outline-success');
+                $("#add_parent_inst_name").addClass('btn-outline-primary');
+                $("#add_parent_inst_name").text('Изменить');
+            }
+        );
+    }
+}); 
 </script>

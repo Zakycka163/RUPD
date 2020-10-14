@@ -1,0 +1,45 @@
+#### views
+- [x] view_disciplines
+- [x] view_teachers
+- [x] view_users
+
+#### tables
+- [x] academic_degrees
+- [x] academic_ranks
+- [x] accounts
+- [x] activities
+- [x] activity_types
+- [x] competence_types
+- [x] competencies
+- [x] connections_opop
+- [x] constants
+- [x] control_forms
+- [x] courses
+- [x] disciplines
+- [x] documents
+- [x] document_types
+- [x] educations
+- [x] fgos
+- [x] general_work_functions
+- [x] grants
+- [x] groups
+- [x] institutes
+- [x] missions
+- [x] modules
+- [x] parts
+- [x] positions
+- [x] profiles
+- [x] prof_standards
+- [x] pulpits
+- [x] qualifications
+- [x] seminars
+- [x] statuses
+- [x] study_forms
+- [x] study_plan
+- [x] tasks
+- [x] teachers
+- [x] teacher_educations
+- [x] teacher_positions
+- [x] topics
+- [x] topic_types
+- [x] work_functions

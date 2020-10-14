@@ -37,13 +37,13 @@
 				$sql_count = "SELECT count(*) FROM general_work_functions";
 				$sql_count_result = mysqli_query($link, $sql_count);
 				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT prof.prof_standard_id
+				$sql = "SELECT prof.id
 							 , CONCAT_WS(' ',prof.code,prof.name)
-							 , otf.general_work_function_id
+							 , otf.id
 						     , otf.code
 						     , otf.name
 						     , otf.level
-						     , tf.work_function_id
+						     , tf.id
 						     , tf.code
 						     , tf.name
 						     , act.activity_id
@@ -53,9 +53,9 @@
 						FROM prof_standards prof
 						   , general_work_functions otf
 						LEFT JOIN work_functions tf 
-							on otf.general_work_function_id = tf.general_work_function_id
+							on otf.id = tf.general_work_function_id
 						LEFT JOIN activities act 
-							on tf.work_function_id = act.work_function_id
+							on tf.id = act.work_function_id
 						LEFT JOIN activity_types act_t 
 							on act.activity_type_id = act_t.activity_type_id 
 						LIMIT ".$limit[0]."";

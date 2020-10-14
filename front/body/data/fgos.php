@@ -30,7 +30,7 @@
 				$sql_count = "SELECT count(*) FROM fgos";
 				$sql_count_result = mysqli_query($link, $sql_count);
 				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT    fgos.fgos_id
+				$sql = "SELECT    fgos.id
 								, CONCAT_WS(' ',course.number,course.name)
 								, fgos.number
 								, fgos.date
@@ -38,7 +38,7 @@
 								, fgos.reg_date 
 						FROM  `courses` course
 							, `fgos` fgos 
-						WHERE fgos.course_id = course.course_id 
+						WHERE fgos.course_id = course.id 
 						LIMIT ".$limit[0]."";
 				$result = mysqli_query($link, $sql);
 				while($row = mysqli_fetch_array($result)){

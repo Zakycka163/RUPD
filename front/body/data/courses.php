@@ -29,13 +29,13 @@
 				$sql_count = "SELECT count(*) FROM courses";
 				$sql_count_result = mysqli_query($link, $sql_count);
 				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT    cour.course_id
+				$sql = "SELECT    cour.id
 								, cour.number
 								, cour.name
 								, qua.name
 						FROM  `courses` cour
 							, `qualifications` qua
-						WHERE cour.qualification_id = qua.qualification_id
+						WHERE cour.qualification_id = qua.id
 						LIMIT ".$limit[0]."";
 				$result = mysqli_query($link, $sql);
 				while($row = mysqli_fetch_array($result)){
@@ -43,7 +43,7 @@
 					echo '<tr>'."\n".'<td>'.$counter.'</td>'."\n";
 					echo '<td><a href="?page=courses&id='.$row[0].'">'.$row[1].' '.$row[2].'</a></td>'."\n";
 					echo '<td>'.$row[3].'</td>'."\n";
-					$sql2 = "SELECT   prof.profile_id
+					$sql2 = "SELECT   prof.id
 									, prof.name
 							FROM  `profiles` prof
 							WHERE prof.course_id = ".$row[0]."";

@@ -19,67 +19,67 @@
 				<th scope="col">Отчество</th>
 			</tr>
 		</thead>
-		<tbody>
-			<?php
-				connect();
-				global $link;
-				$sql = "SELECT `value` FROM `constants` WHERE `key` = 'limitObj'";
-				$result = mysqli_query($link, $sql);
-				$limit = mysqli_fetch_array($result);
-				$counter = 0;
-				$sql_count = "SELECT count(*) FROM view_users";
-				$sql_count_result = mysqli_query($link, $sql_count);
-				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT * FROM view_users
-						LIMIT ".$limit[0]."";
-				$result = mysqli_query($link, $sql);
-				while($row = mysqli_fetch_array($result)){
-					$counter++;
-					if ($row[2] = 2){
-						$admin = "Да";
-					} else {
-						$admin = "";
-					}
-					echo '<tr>'. "\n" . '<td>'.$counter .'</td>'."\n";
-					echo '<td><a href="?id='.$row[0].'" title="Открыть аккаунт">'.$row[1].'</td>'. "\n";
-					echo '<td>********</td>'. "\n";
-					echo '<td>'.$admin.'</td>'. "\n";
-					echo '<td>'.$row[3].'</td>'. "\n";
-					echo '<td>'.$row[4].'</td>'. "\n";
-					echo '<td>'.$row[5].'</td>'. "\n";
-					echo '</tr>'. "\n";
-				};
-				close();
-			?>
+		<tbody id="data">
+			<tr>
+				<td colspan="7" style="text-align:center">Пустой список</td>
+			</tr>
 		</tbody>
 	</table>
+	<nav>
+		<ul class="pagination pagination-sm">
+			<li class="page-item disabled" id="prev_round">
+				<a class="page-link" href>Предыдущая</a>
+			</li>
+			<li class="page-item disabled" id="next_round">
+				<a class="page-link" href>Следующая</a>
+			</li>
+		</ul>
+	</nav>
 </div>
-<nav>
-	<ul class="pagination pagination-sm">
-		<?php if ($count_obj < $limit){ ?>
-		
-		<?php } else { ?>
-			<li class="page-item disabled">
-				<a class="page-link" href="#">Предыдущая</a>
-			</li>
-			<li class="page-item active">
-				<a class="page-link" href="#">1</a>
-			</li>
-			<li class="page-item disabled">
-				<a class="page-link" href="#">2</a>
-			</li>
-			<li class="page-item disabled">
-				<a class="page-link" href="#">3</a>
-			</li>
-			<li class="page-item disabled">
-				<a class="page-link" href="#">Следующая</a>
-			</li>
-		<?php } ?>
-	</ul>
-</nav>
 <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_account.php"); ?> 
 <script src="/front/js/_GET.js"></script>
+<script src="/front/js/pagination.js"></script>
 <script>
+$(document).ready(function(){
+	var total;
+	var limit;
+	var round;
+	if ($_GET("round") && parseInt($_GET("round"))){
+		round = $_GET("round");
+	} else {
+		round = 1;
+	}
+	var users = new Object();
+	var table_body = '';
+	$.ajax({
+		url: "/api/view_users?round="+round, 
+		type: "GET",
+		success: function(response){
+			total = response.total;
+			limit = response.limit;
+			users = response.view_users;
+			for (const [key, user] of Object.entries(users)) {
+				if (user.grant_id == 2){
+					user.admin = "Да";
+				} else {
+					user.admin = "Нет";
+				}
+				table_body += `<tr>
+								<td>`+((key*1)+1)+`</td>
+								<td><a href="?id=`+user.id+`" title="Открыть аккаунт">`+user.login+`</td>
+								<td>********</td>
+								<td>`+user.admin+`</td>
+								<td>`+user.second_name+`</td>
+								<td>`+user.first_name+`</td>
+								<td>`+user.middle_name+`</td>
+							  </tr>`;
+			}
+			$("#data").html(table_body);
+
+			gen_pagination(total, limit, round);
+		}		
+	});
+	
 	if ($_GET('action')=="create"){
 		$('#create_account_form').modal('show');
 	};
@@ -87,4 +87,5 @@
 	$("#create_account").click(function(){
 		location.href='/pages/control/users.php?action=create';
 	});
+});	
 </script>
