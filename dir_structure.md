@@ -40,6 +40,7 @@
 ### [/database](/database)
 >- [create_educational.sql](/database/create_educational.sql)
 >- [view_disciplines.sql](/database/view_disciplines.sql)
+>- [view_fgos.sql](/database/view_fgos.sql)
 >- [view_teachers.sql](/database/view_teachers.sql)
 >- [view_users.sql](/database/view_users.sql)
 
