@@ -28,7 +28,11 @@
 				<th scope="col">Аккаунт</th>
 			</tr>
 		</thead>
-		<tbody id="data"></tbody>
+		<tbody id="data">
+			<tr>
+				<td colspan="7" style="text-align:center">Пустой список</td>
+			</tr>
+		</tbody>
 	</table>
 	<nav>
 		<ul class="pagination pagination-sm">
