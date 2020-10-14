@@ -44,6 +44,7 @@
 
 <?php require_once ($_SERVER['DOCUMENT_ROOT']."/front/forms/create_teacher.php"); ?>
 <script src="/front/js/_GET.js"></script>
+<script src="/front/js/pagination.js"></script>
 <script>
 $(document).ready(function(){
 	var total;
@@ -76,28 +77,7 @@ $(document).ready(function(){
 			}
 			$("#data").html(table_body);
 
-			var cnt_round = Math.ceil(total / limit);
-			if (cnt_round > 0 && round != 1){
-				let prev_round = (round * 1) - 1;
-				$("#prev_round").removeClass("disabled");
-				$("#prev_round").children().prop('href', "?page=teachers&round="+prev_round);
-			}
-			if (cnt_round > 0 && cnt_round != round){
-				let next_round = (round * 1) +1;
-				$("#next_round").removeClass("disabled");
-				$("#next_round").children().prop('href', "?page=teachers&round="+next_round);
-			}
-			var round_list = '';
-			for (var i = 1; i < (cnt_round + 1); i++) {
-				var active = '';
-				if (i == round){
-					active = 'active';
-				}
-				round_list += `<li class="page-item `+ active +`">
-								 <a class="page-link" href="?page=teachers&round=` + i + `">` + i + `</a>
-							   </li>`;
-			}
-			$("#prev_round").after(round_list);
+			gen_pagination(total, limit, round);
 		}		
 	});
 
