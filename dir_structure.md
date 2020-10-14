@@ -99,6 +99,7 @@
 >>- [_GET.js](/front/js/_GET.js)
 >>- [back.js](/front/js/back.js)
 >>- [checkEmailMask.js](/front/js/checkEmailMask.js)
+>>- [pagination.js](/front/js/pagination.js)
 >#### [/front/navBars](/front/navBars)
 >>- [navBarAdm.php](/front/navBars/navBarAdm.php)
 >>- [navBarAdmMd.php](/front/navBars/navBarAdmMd.php)
