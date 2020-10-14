@@ -5,23 +5,7 @@ require_once './config/database.php';
 class CurrentApi extends Api
 {
     protected $table_name = "view_disciplines";
-
-    /* JSON:
-    {
-        "name": "string",
-        "index_info": "string",
-        "kaf_id": "int",
-        "kaf": "string",
-        "module_id": "int",
-        "module": "string",
-        "part_id": "int",
-        "part": "string",
-        "time": "int"
-    } 
-    */
-    public function json_validation($data){
-        
-    }
+    public function json_validation($data){}
 
     /**
      * Метод POST

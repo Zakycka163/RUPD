@@ -5,20 +5,7 @@ require_once './config/database.php';
 class CurrentApi extends Api
 {
     protected $table_name = "view_users";
-
-    /* JSON:
-    {
-        "login": "string",
-        "grant_id": "int",
-        "second_name": "string",
-        "first_name": "string",
-        "middle_name": "string",
-        "teacher_id": "int"
-    } 
-    */
-    public function json_validation($data){
-        
-    }
+    public function json_validation($data){}
 
     /**
      * Метод POST
