@@ -1,3 +1,9 @@
+#### views
+- [x] view_disciplines
+- [x] view_teachers
+- [x] view_users
+
+#### tables
 - [x] academic_degrees
 - [x] academic_ranks
 - [x] accounts
