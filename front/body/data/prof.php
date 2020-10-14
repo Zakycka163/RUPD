@@ -44,7 +44,7 @@
 						FROM  `prof_standards` prof
 							, `fgos` fgos
 							, `courses` course
-						WHERE prof.fgos_id = fgos.d 
+						WHERE prof.fgos_id = fgos.id 
 						  and fgos.course_id = course.id 
 						LIMIT ".$limit[0]."";
 				$result = mysqli_query($link, $sql);
