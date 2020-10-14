@@ -2,11 +2,11 @@ CREATE
 /* [DEFINER = { user | CURRENT_USER }]*/
 VIEW view_disciplines
 AS (
-SELECT 	  kaf.id
-		, kaf.name as kaf
-		, dis.id as discipline_id
+SELECT 	  dis.id
 		, dis.name
 		, dis.index_info
+		, kaf.id as kaf_id
+		, kaf.name as kaf
 		, module.id as module_id
 		, module.name as module
 		, part.id as part_id
