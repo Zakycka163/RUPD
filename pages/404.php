@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-center py-2">
-        <img src="/front/img/onHold.png" title="404">
+        <img src="/front/img/404" title="404">
     </div>
 </body>
 

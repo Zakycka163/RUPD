@@ -1,9 +1,16 @@
+<?php
+    $city = 'Тольятти';
+    $year = '2020';
+    $link = "http://www.tolgas.ru";
+    $link_info = "Сайт ПВГУС";
+?>
+
 <div class="fixed-bottom">
     <center>
         <div class="p-1 bg-white font-weight-bold text-primary">
-            <?php echo 'Тольятти 2020'. "\n";?>
-            <a href="http://www.tolgas.ru" target="_blank" title="Сайт ПВГУС">
-                <img src="/front/img/pvgus_ico2.png" height="45px" alt="ПВГУС" title="Сайт ПВГУС">
+            <text><?php echo $city.' '.$year?></text>
+            <a href=<?php echo $link?> target="_blank" title="<?php echo $link_info?>">
+                <img src="/front/img/footer_icon" height="45px" alt="<?php echo $link_info?>" title="<?php echo $link_info?>">
             </a>
         </div>
     </center>

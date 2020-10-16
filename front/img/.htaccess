@@ -2,3 +2,7 @@ RewriteEngine On
 RewriteBase /front/img/
 
 RewriteRule ^icon$ ico.ico
+RewriteRule ^sing_in_background PVGUS_4_2.jpg
+RewriteRule ^background Background.jpg
+RewriteRule ^footer_icon pvgus_ico2.png
+RewriteRule ^404 onHold.png
