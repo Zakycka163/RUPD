@@ -24,71 +24,23 @@
 				<th scope="col">Дата регистации</th>
 			</tr>
 		</thead>
-		<tbody>
-			<?php
-				connect();
-				global $link;
-				$sql = "SELECT `value` FROM `constants` WHERE `key` = 'limitObj'";
-				$result = mysqli_query($link, $sql);
-				$limit = mysqli_fetch_array($result);
-				$counter = 0;
-				$sql_count = "SELECT count(*) FROM prof_standards";
-				$sql_count_result = mysqli_query($link, $sql_count);
-				$count_obj = mysqli_fetch_array($sql_count_result);
-				$sql = "SELECT    fgos.id
-								, course.number
-								, course.name
-								, prof.id
-								, prof.code
-								, prof.name
-								, prof.number
-								, prof.date
-								, prof.reg_number
-								, prof.reg_date 
-						FROM  `prof_standards` prof
-							, `fgos` fgos
-							, `courses` course
-						WHERE prof.fgos_id = fgos.id 
-						  and fgos.course_id = course.id 
-						LIMIT ".$limit[0]."";
-				$result = mysqli_query($link, $sql);
-				while($row = mysqli_fetch_array($result)){
-					$counter++;
-					echo '<tr>'."\n".'<td>'.$counter.'</td>'."\n";
-					echo '<td><a href="?page=fgos&id='.$row[0].'">'.$row[1].' '.$row[2].'</a></td>'."\n";
-					echo '<td><a href="?page=prof&id='.$row[3].'">'.$row[4].' '.$row[5].'</td>'."\n";
-					echo '<td>'.$row[6].'</td>'."\n";
-					echo '<td>'.$row[7].'</td>'."\n";
-					echo '<td>'.$row[8].'</td>'."\n";
-					echo '<td>'.$row[9].'</td>'."\n";
-					echo '</tr>'."\n";
-				};
-				close();
-			?>
+		<tbody id="data">
+			<tr>
+				<td colspan="7" style="text-align:center">Пустой список</td>
+			</tr>
 		</tbody>
 	</table>
 	<nav>
 		<ul class="pagination pagination-sm">
-			<?php if ($count_obj < $limit){
-				
-			} else {
-			?>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">Предыдущая</a>
-				</li>
-				<li class="page-item active">
-					<a class="page-link" href="#">1</a>
-				</li>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">2</a>
-				</li>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">3</a>
-				</li>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">Следующая</a>
-				</li> 
-			<?php } ?>
+			<li class="page-item disabled" id="prev_round">
+				<a class="page-link" href>Предыдущая</a>
+			</li>
+			<li class="page-item disabled" id="next_round">
+				<a class="page-link" href>Следующая</a>
+			</li>
 		</ul>
 	</nav>	
 </div>
+
+<script src="/front/js/_GET.js"></script>
+<script src="/front/js/pagination.js"></script>
