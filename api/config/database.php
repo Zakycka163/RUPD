@@ -82,10 +82,10 @@
         public function exist_in_table_by_filter(string $filter, string $table_name){
             $database = new Database();
             $link = $database->get_db_link();
-            $sql = "SELECT 1 FROM `".$table_name."` WHERE ".$filter."";
-            $result = mysqli_num_rows(mysqli_query($link, $sql));
+            $sql = "SELECT count(*) FROM `".$table_name."` WHERE ".$filter."";
+            $result = mysqli_fetch_array(mysqli_query($link, $sql));
             $link = $database->close_db_link();
-            return $result == 1;
+            return $result[0] > 0;
         }
 
         /**
