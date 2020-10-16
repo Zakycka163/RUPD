@@ -258,49 +258,54 @@ abstract class Api
      */
     public function filterAction()
     {
-        if (isset($this->requestParams['round']) and is_numeric($this->requestParams['round'])){
-            $round = trim($this->requestParams['round']) ?? 1;
-        } else { $round = 1; }
         unset($this->requestParams['filter']);
         unset($this->requestParams['round']);
         if( !empty($this->requestParams)){
             $filter = '';
-            foreach($this->requestParams as $field => $value){
-                if (is_numeric($value)){
-                    $filter .= "`".$field."` = ".trim($value)." AND ";
+            foreach($this->requestParams as $field => $values){
+                if (strstr($values, '_') === false and strstr($values, '%') === false){
+                    $filter .= "`".$field."` in (";
+                    (array)$values = explode(",", $values);
+                    foreach($values as $key => $value){
+                        if ($key != 0){
+                            $filter .=", ";
+                        }
+                        if (is_numeric($value)){
+                            $filter .= trim($value);
+                        } else {
+                            $filter .= "'".htmlspecialchars(trim($value))."'";
+                        }
+                    }
+                    $filter .= ") AND ";
                 } else {
-                    $filter .= "`".$field."` = '".htmlspecialchars(trim($value))."' AND ";
+                    $filter .= "`".$field."` like '".(trim($values))."' AND ";
                 }
             }
             $filter = substr($filter, 0, -5);
             $database = new Database();
-            $link = $database->get_db_link();
-            $limit = $database->get_db_limit();
-		    $start = ($round - 1) * $limit;      
+            $link = $database->get_db_link();  
             if ($database->exist_in_table_by_filter($filter, $this->table_name)) {
-                $sql = "SELECT * FROM `".$this->table_name."` WHERE ".$filter." LIMIT ".$start.",".$limit."";
+                $sql = "SELECT * FROM `".$this->table_name."` WHERE ".$filter."";
                 $result = mysqli_query($link, $sql);
-                if ( mysqli_num_rows($result) > 0) {
-                    $response_body = array('total' => (int)mysqli_num_rows($result), 'limit' => (int)$limit,'round' => (int) $round);
-                    $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
-                    $result_columns = mysqli_query($link, $sql_columns);
-                    while($row = mysqli_fetch_array($result_columns)){
-                        $columns[] = $row['Field'];
-                    }
-                    $number = 1;
-                    while($row = mysqli_fetch_array($result)){
-                        for($i = 0, $size = count($columns); $i < $size; ++$i) {
-                            if(is_numeric($row[$i])){
-                                $row[$i] = $row[$i] * 1;
-                            }
-                            $obj[$columns[$i]] = $row[$i];
+                $response_body = array('total' => (int)mysqli_num_rows($result));
+                $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
+                $result_columns = mysqli_query($link, $sql_columns);
+                while($row = mysqli_fetch_array($result_columns)){
+                    $columns[] = $row['Field'];
+                }
+                $number = 1;
+                while($row = mysqli_fetch_array($result)){
+                    for($i = 0, $size = count($columns); $i < $size; ++$i) {
+                        if(is_numeric($row[$i])){
+                            $row[$i] = $row[$i] * 1;
                         }
-                        $number++;
-                        $objs[] = $obj;
+                        $obj[$columns[$i]] = $row[$i];
                     }
-                    $response_body[$this->table_name] = $objs;
-                    return $this->response($response_body, 200);
-                } return $this->response('Not Found object with LIMIT '.$start.','.$limit.'', 404);
+                    $number++;
+                    $objs[] = $obj;
+                }
+                $response_body[$this->table_name] = $objs;
+                return $this->response($response_body, 200);
             } return $this->response('Not Found object with '.$filter.'', 404);
             $link = $database->close_db_link();
         }
