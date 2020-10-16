@@ -1,5 +1,5 @@
 <!-- Tab ico -->
-<link rel="icon" href="/front/img/ico.ico">
+<link rel="icon" href="/front/img/icon">
 
 <!-- Preloads -->
 <link rel="preload" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
