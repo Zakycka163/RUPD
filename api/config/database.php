@@ -8,7 +8,10 @@
         public $link;
         public $limit;
 
-        // получаем соединение с БД 
+        /**
+         * Открытие соединение с БД 
+         * @return $link
+         */ 
         public function get_db_link(){
 
             $this->link = null;
@@ -19,15 +22,18 @@
             return $this->link;
         }
 
-        // закрываем соединение с БД 
+        /**
+         * Закрытие соединения с БД 
+         */ 
         public function close_db_link(){
-
             $this->link = null;
-
             return $this->link;
         }
 
-        // достаем лимит на отображение
+        /**
+         * Получение лимит на отображение
+         * @return int limit
+         */ 
         public function get_db_limit(){
             $database = new Database();
             $link = $database->get_db_link();
@@ -40,10 +46,11 @@
             $this->limit = $limit_arr[0];
 
             return $this->limit;
-
         }
 
-        // трансформация и валидация даты
+        /**
+         * Валидация формата даты
+         */ 
         public function is_date($date)
         {
             $str = str_replace('/', '-', $date);     
@@ -57,7 +64,9 @@
             return false;
         }
 
-        // проверка существования в таблице
+        /**
+         * Проверка существования в таблице по id
+         */
         public function exist_in_table(int $id, string $table_name){
             $database = new Database();
             $link = $database->get_db_link();
@@ -67,7 +76,22 @@
             return $result == 1;
         }
 
-        // достаем primory_keys для таблицы
+        /**
+         * Проверка существования в таблице по фильтру
+         */
+        public function exist_in_table_by_filter(string $filter, string $table_name){
+            $database = new Database();
+            $link = $database->get_db_link();
+            $sql = "SELECT 1 FROM `".$table_name."` WHERE ".$filter."";
+            $result = mysqli_num_rows(mysqli_query($link, $sql));
+            $link = $database->close_db_link();
+            return $result == 1;
+        }
+
+        /**
+         * Получение primory_keys из таблицы
+         * @return array key => value
+         */ 
         public function get_primory_keys(string $table_name){
             $database = new Database();
             $link = $database->get_db_link();
@@ -80,7 +104,7 @@
             return mysqli_fetch_array($result);
         }
 
-        // достаем foreign_keys для таблицы
+        // Получение foreign_keys из таблицы
         private function get_foreign_keys(string $table_name){
             $database = new Database();
             $link = $database->get_db_link();
@@ -116,7 +140,10 @@
             $link = $database->close_db_link();
         }
 
-        // Проверяем, что инфа соответсвует
+        /**
+         * Проверка по внешним ключам и лимита входных данных
+         * @return object errors
+         */ 
         public function validate_input_data(string $table_name, $data){             
             $arr_errors = (object) array();
             // Проверка существования внешних ключей
@@ -138,7 +165,9 @@
             return $arr_errors;
         }
 
-        // Инсерт данных по полям
+        /**
+         * Инсерт данных по полям
+         */ 
         public function insert_data_to_table($data, string $table_name){            
             $database = new Database();
             $link = $database->get_db_link();         
@@ -172,7 +201,9 @@
             $link = $database->close_db_link();
         }
 
-        // Обновление данных по полям
+        /**
+         * Обновление данных по полям
+         */ 
         public function update_data_to_table(int $id, $data, string $table_name){            
             $database = new Database();
             $link = $database->get_db_link();         
