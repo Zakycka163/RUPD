@@ -67,8 +67,10 @@ abstract class Api
         $method = $this->method;
         switch ($method) {
             case 'GET':
-                if(empty($this->requestParams) or isset($this->requestParams['round'])){
+                if(empty($this->requestParams) or (isset($this->requestParams['round']) and !isset($this->requestParams['filter']))){
                     return 'indexAction';
+                } elseif (isset($this->requestParams['filter']) and $this->requestParams['filter'] == 'on'){
+                    return 'filterAction';
                 } else {
                     return 'viewAction';
                 }
@@ -86,6 +88,12 @@ abstract class Api
                 return null;
         }
     }
+
+    /**
+     * Метод проверки получаемого json из запроса
+     * @return bool
+     */
+    abstract function json_validation($data);
 
     /**
      * Метод GET
@@ -242,6 +250,60 @@ abstract class Api
         return $this->response('Bad Request', 400);
     }
 
-    abstract function json_validation($data);
-
+    /**
+     * Метод GET
+     * Просмотр списка использую фильтр
+     * http://ДОМЕН/${table_name}?filter=on&${field}=
+     * @return string
+     */
+    public function filterAction()
+    {
+        if (isset($this->requestParams['round']) and is_numeric($this->requestParams['round'])){
+            $round = trim($this->requestParams['round']) ?? 1;
+        } else { $round = 1; }
+        unset($this->requestParams['filter']);
+        unset($this->requestParams['round']);
+        if( !empty($this->requestParams)){
+            $filter = '';
+            foreach($this->requestParams as $field => $value){
+                if (is_numeric($value)){
+                    $filter .= "`".$field."` = ".trim($value)." AND ";
+                } else {
+                    $filter .= "`".$field."` = '".htmlspecialchars(trim($value))."' AND ";
+                }
+            }
+            $filter = substr($filter, 0, -5);
+            $database = new Database();
+            $link = $database->get_db_link();
+            $limit = $database->get_db_limit();
+		    $start = ($round - 1) * $limit;      
+            if ($database->exist_in_table_by_filter($filter, $this->table_name)) {
+                $sql = "SELECT * FROM `".$this->table_name."` WHERE ".$filter." LIMIT ".$start.",".$limit."";
+                $result = mysqli_query($link, $sql);
+                if ( mysqli_num_rows($result) > 0) {
+                    $response_body = array('total' => (int)mysqli_num_rows($result), 'limit' => (int)$limit,'round' => (int) $round);
+                    $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
+                    $result_columns = mysqli_query($link, $sql_columns);
+                    while($row = mysqli_fetch_array($result_columns)){
+                        $columns[] = $row['Field'];
+                    }
+                    $number = 1;
+                    while($row = mysqli_fetch_array($result)){
+                        for($i = 0, $size = count($columns); $i < $size; ++$i) {
+                            if(is_numeric($row[$i])){
+                                $row[$i] = $row[$i] * 1;
+                            }
+                            $obj[$columns[$i]] = $row[$i];
+                        }
+                        $number++;
+                        $objs[] = $obj;
+                    }
+                    $response_body[$this->table_name] = $objs;
+                    return $this->response($response_body, 200);
+                } return $this->response('Not Found object with LIMIT '.$start.','.$limit.'', 404);
+            } return $this->response('Not Found object with '.$filter.'', 404);
+            $link = $database->close_db_link();
+        }
+        return $this->response('Bad Request', 400);
+    }
 }
