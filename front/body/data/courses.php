@@ -62,26 +62,12 @@
 	</table>
 	<nav>
 		<ul class="pagination pagination-sm">
-			<?php if ($count_obj < $limit){
-				
-			} else {
-			?>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">Предыдущая</a>
-				</li>
-				<li class="page-item active">
-					<a class="page-link" href="#">1</a>
-				</li>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">2</a>
-				</li>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">3</a>
-				</li>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">Следующая</a>
-				</li>
-			<?php } ?>
+			<li class="page-item disabled" id="prev_round">
+				<a class="page-link" href>Предыдущая</a>
+			</li>
+			<li class="page-item disabled" id="next_round">
+				<a class="page-link" href>Следующая</a>
+			</li>
 		</ul>
 	</nav>	
 </div>
