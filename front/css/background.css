@@ -5,3 +5,9 @@ body {
     -o-background-size: 100%; /* Opera 9.6+ */
     background-size: auto;     
 }
+
+a.back{
+    height: 35px;
+    width: 5rem;
+}
+
