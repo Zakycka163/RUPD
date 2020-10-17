@@ -18,7 +18,7 @@
             <h4 id="page_title">Рабочие учебные программы</h4>
         </div>
     </center>
-    <div class="px-4 py-3 bg-light">
+    <div class="px-4 py-3 bg-light" style="margin-bottom: 4rem;">
         <div class="form-group">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-success">Добавить</button>

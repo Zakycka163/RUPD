@@ -4,7 +4,7 @@
 		<div class="h4" id="page_title" style="margin-left: 30%">Профессиональные стандарты</div>
 	</div>
 </div>
-<div class="px-4 py-3 bg-light">
+<div class="px-4 py-3 bg-light" style="margin-bottom: 4rem;">
 	<div class="alert alert-secondary col" style="height: 55px">
 		<input class="btn btn-success btn-sm" type="button" id="create_fgos_button" value="Новый стандарт">
 	</div>
