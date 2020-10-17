@@ -56,7 +56,6 @@ $(document).ready(function(){
 	var institutes = new Object();
 	var pulpits = new Object();
 	var table_body = '';
-	$.ajaxSetup({async:false});
 	$.ajax({
 		url: "/api/institutes?round="+round, 
 		type: "GET",
@@ -71,6 +70,7 @@ $(document).ready(function(){
 			$.ajax({
 				url: "/api/pulpits?filter=on&institute_id="+institute.id, 
 				type: "GET",
+				async: false,
 				success: function(response){
 					rows = response.total;
 					pulpits = response.pulpits;
