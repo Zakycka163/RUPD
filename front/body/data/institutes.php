@@ -47,6 +47,7 @@ $(document).ready(function(){
 	var limit;
 	var round;
 	var rows;
+	var start;
 	if ($_GET("round") && parseInt($_GET("round"))){
 		round = $_GET("round");
 	} else {
@@ -62,6 +63,7 @@ $(document).ready(function(){
 		success: function(data){
 			total = data.total;
 			limit = data.limit;
+			start = ((round-1)*limit)+1;
 			institutes = data.institutes;	
 		}
 	}).done(function() {
@@ -75,7 +77,7 @@ $(document).ready(function(){
 				}
 			}).done(function() {
 				table_body += `<tr>
-								<td rowspan="`+rows+`">`+((key*1)+1)+`</td>
+								<td rowspan="`+rows+`">`+((key*1)+start)+`</td>
 								<td rowspan="`+rows+`"><a href="?page=institutes&insid=`+institute.id+`">`+institute.name+`</td>`;
 				for (var [ind, pulpit] of Object.entries(pulpits)) {
 					table_body += `<td>`+((ind*1)+1)+`</td>

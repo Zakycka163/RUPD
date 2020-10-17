@@ -54,6 +54,7 @@ $(document).ready(function(){
 	var total;
 	var limit;
 	var round;
+	var start;
 	if ($_GET("round") && parseInt($_GET("round"))){
 		round = $_GET("round");
 	} else {
@@ -67,10 +68,11 @@ $(document).ready(function(){
 		success: function(response){
 			total = response.total;
 			limit = response.limit;
+			start = ((round-1)*limit)+1;
 			teachers = response.view_teachers;
 			for (var [key, teacher] of Object.entries(teachers)) {
 				table_body += `<tr>
-								<td>`+((key*1)+1)+`</td>
+								<td>`+((key*1)+start)+`</td>
 								<td><a href="?page=teachers&id=`+teacher.id+`">`+teacher.second_name+' '+teacher.first_name+' '+teacher.middle_name+`</td>
 								<td>`+teacher.email+`</td>
 								<td>`+teacher.deg_name+`</td>

@@ -44,6 +44,7 @@ $(document).ready(function(){
 	var total;
 	var limit;
 	var round;
+	var start;
 	if ($_GET("round") && parseInt($_GET("round"))){
 		round = $_GET("round");
 	} else {
@@ -57,10 +58,11 @@ $(document).ready(function(){
 		success: function(response){
 			total = response.total;
 			limit = response.limit;
+			start = ((round-1)*limit)+1;
 			fgoses = response.view_fgos;
 			for (const [key, fgos] of Object.entries(fgoses)) {
 				table_body += `<tr>
-								<td>`+((key*1)+1)+`</td>
+								<td>`+((key*1)+start)+`</td>
 								<td><a href="?page=fgos&id=`+fgos.id+`">`+fgos.name+`</td>
 								<td>`+fgos.number+`</td>
 								<td>`+fgos.date+`</td>

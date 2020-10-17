@@ -44,6 +44,7 @@ $(document).ready(function(){
 	var total;
 	var limit;
 	var round;
+	var start;
 	if ($_GET("round") && parseInt($_GET("round"))){
 		round = $_GET("round");
 	} else {
@@ -57,6 +58,7 @@ $(document).ready(function(){
 		success: function(response){
 			total = response.total;
 			limit = response.limit;
+			start = ((round-1)*limit)+1;
 			users = response.view_users;
 			for (const [key, user] of Object.entries(users)) {
 				if (user.grant_id == 2){
@@ -65,7 +67,7 @@ $(document).ready(function(){
 					user.admin = "Нет";
 				}
 				table_body += `<tr>
-								<td>`+((key*1)+1)+`</td>
+								<td>`+((key*1)+start)+`</td>
 								<td><a href="?id=`+user.id+`" title="Открыть аккаунт">`+user.login+`</td>
 								<td>********</td>
 								<td>`+user.admin+`</td>
