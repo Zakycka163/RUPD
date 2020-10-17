@@ -110,17 +110,18 @@ abstract class Api
         $database = new Database();
         $link = $database->get_db_link();
         $limit = $database->get_db_limit();
-		$start = ($round - 1) * $limit;
-		$sql = "SELECT * FROM `".$this->table_name."` LIMIT ".$start.",".$limit."";
-		$result = mysqli_query($link, $sql);   
-        if ( mysqli_num_rows($result) > 0) {
-            $response_body = array('total' => (int)mysqli_num_rows($result), 'limit' => (int)$limit,'round' => (int) $round);
+        $start = ($round - 1) * $limit;
+        $count_sql = "SELECT count(*) FROM `".$this->table_name."`";
+        $count_rows = mysqli_fetch_array(mysqli_query($link, $count_sql))[0];
+        if ( $count_rows > 0) {
+            $sql = "SELECT * FROM `".$this->table_name."` LIMIT ".$start.",".$limit."";
+		    $result = mysqli_query($link, $sql);   
+            $response_body = array('total' => (int)$count_rows, 'limit' => (int)$limit,'round' => (int) $round);
             $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";   
             $result_columns = mysqli_query($link, $sql_columns);
             while($row = mysqli_fetch_array($result_columns)){
                 $columns[] = $row['Field'];
             }
-            $number = 1;
             while($row = mysqli_fetch_array($result)){
                 for($i = 0, $size = count($columns); $i < $size; ++$i) {
                     if(is_numeric($row[$i])){
@@ -128,7 +129,6 @@ abstract class Api
                     }
                     $obj[$columns[$i]] = $row[$i];
                 }
-                $number++;
                 $objs[] = $obj;
             }
             $response_body[$this->table_name] = $objs;
@@ -293,7 +293,6 @@ abstract class Api
                 while($row = mysqli_fetch_array($result_columns)){
                     $columns[] = $row['Field'];
                 }
-                $number = 1;
                 while($row = mysqli_fetch_array($result)){
                     for($i = 0, $size = count($columns); $i < $size; ++$i) {
                         if(is_numeric($row[$i])){
@@ -301,7 +300,6 @@ abstract class Api
                         }
                         $obj[$columns[$i]] = $row[$i];
                     }
-                    $number++;
                     $objs[] = $obj;
                 }
                 $response_body[$this->table_name] = $objs;
