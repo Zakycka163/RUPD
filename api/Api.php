@@ -135,7 +135,7 @@ abstract class Api
             return $this->response($response_body, 200);
         }
         $link = $database->close_db_link();
-        return $this->response('Not Found objects', 404);
+        return $this->response('Not Found objects in '.$this->table_name, 200);
     }
 
     /**
@@ -167,7 +167,7 @@ abstract class Api
                     }
                 }
                 return $this->response($obj, 200);
-            } return $this->response('Not Found object with id = '.$id.'', 404);
+            } return $this->response('Not Found object with id = '.$id.'', 200);
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
@@ -304,7 +304,7 @@ abstract class Api
                 }
                 $response_body[$this->table_name] = $objs;
                 return $this->response($response_body, 200);
-            } return $this->response('Not Found object with '.$filter.'', 404);
+            } return $this->response('Not Found object with '.$filter.'', 200);
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);

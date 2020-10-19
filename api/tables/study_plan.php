@@ -77,7 +77,7 @@ class CurrentApi extends Api
                 }
                 return $this->response($obj, 200);
             } 
-            return $this->response('Not Found row with '.$part_sql.'', 404);
+            return $this->response('Not Found row with '.$part_sql.'', 200);
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);

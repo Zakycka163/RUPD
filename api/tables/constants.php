@@ -52,7 +52,7 @@ class CurrentApi extends Api
             return $this->response($response_body, 200);
         }
         $link = $database->close_db_link();
-        return $this->response('Not Found objects', 404);
+        return $this->response('Not Found objects in '.$this->table_name, 200);
     }
 
     /**
@@ -84,7 +84,7 @@ class CurrentApi extends Api
                     }
                 }
                 return $this->response($obj, 200);
-            } return $this->response('Not Found object with key = '.$key.'', 404);
+            } return $this->response('Not Found object with key = '.$key.'', 200);
             $link = $database->close_db_link();
         }
         return $this->response('Bad Request', 400);
