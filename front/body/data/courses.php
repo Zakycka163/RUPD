@@ -106,7 +106,6 @@ $(document).ready(function(){
 		table_body = table_body.substr(0, (table_body.length - 4));
 	}	
 	$("#data").html(table_body);
-	//$("#data").text(JSON.stringify(data));
 	gen_pagination(data.total, data.limit, data.round);	
 });
 </script>
