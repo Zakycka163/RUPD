@@ -41,28 +41,24 @@
 <script src="/front/js/pagination.js"></script>
 <script>
 $(document).ready(function(){
-	var total;
-	var limit;
-	var round;
-	var start;
+	var data = new Object();
 	if ($_GET("round") && parseInt($_GET("round"))){
-		round = $_GET("round");
+		data.round = $_GET("round");
 	} else {
-		round = 1;
+		data.round = 1;
 	}
-	var fgoses = new Object();
 	var table_body = '';
 	$.ajax({
-		url: "/api/view_fgos?round="+round, 
+		url: "/api/view_fgos?round="+data.round, 
 		type: "GET",
 		success: function(response){
-			total = response.total;
-			limit = response.limit;
-			start = ((round-1)*limit)+1;
-			fgoses = response.view_fgos;
-			for (const [key, fgos] of Object.entries(fgoses)) {
+			data.total = response.total;
+			data.limit = response.limit;
+			data.start = ((data.round-1)*data.limit)+1;
+			data.fgoses = response.view_fgos;
+			for (const [key, fgos] of Object.entries(data.fgoses)) {
 				table_body += `<tr>
-								<td>`+((key*1)+start)+`</td>
+								<td>`+((key*1)+data.start)+`</td>
 								<td><a href="?page=fgos&id=`+fgos.id+`">`+fgos.name+`</td>
 								<td>`+fgos.number+`</td>
 								<td>`+fgos.date+`</td>
@@ -72,7 +68,7 @@ $(document).ready(function(){
 			}
 			$("#data").html(table_body);
 
-			gen_pagination(total, limit, round);
+			gen_pagination(data.total, data.limit, data.round);
 		}		
 	});
 

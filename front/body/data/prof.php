@@ -42,28 +42,24 @@
 <script src="/front/js/pagination.js"></script>
 <script>
 $(document).ready(function(){
-	var total;
-	var limit;
-	var round;
-	var start;
+	var data = new Object();
 	if ($_GET("round") && parseInt($_GET("round"))){
-		round = $_GET("round");
+		data.round = $_GET("round");
 	} else {
-		round = 1;
+		data.round = 1;
 	}
-	var profs = new Object();
 	var table_body = '';
 	$.ajax({
-		url: "/api/view_profs?round="+round, 
+		url: "/api/view_profs?round="+data.round, 
 		type: "GET",
 		success: function(response){
-			total = response.total;
-			limit = response.limit;
-			start = ((round-1)*limit)+1;
-			profs = response.view_profs;
-			for (const [key, prof] of Object.entries(profs)) {
+			data.total = response.total;
+			data.limit = response.limit;
+			data.start = ((data.round-1)*data.limit)+1;
+			data.profs = response.view_profs;
+			for (const [key, prof] of Object.entries(data.profs)) {
 				table_body += `<tr>
-								<td>`+((key*1)+start)+`</td>
+								<td>`+((key*1)+data.start)+`</td>
 								<td><a href="?page=prof&id=`+prof.id+`">`+prof.name+`</td>
 								<td><a href="?page=fgos&id=`+prof.fgos_id+`">`+prof.fgos_name+`</td>
 								<td>`+prof.number+`</td>
@@ -74,7 +70,7 @@ $(document).ready(function(){
 			}
 			$("#data").html(table_body);
 
-			gen_pagination(total, limit, round);
+			gen_pagination(data.total, data.limit, data.round);
 		}		
 	});
 	$("#create_fgos_button").click(function(){

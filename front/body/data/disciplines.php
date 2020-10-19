@@ -47,28 +47,24 @@
 <script src="/front/js/pagination.js"></script>
 <script>
 $(document).ready(function(){
-	var total;
-	var limit;
-	var round;
-    var start;
+	var data = new Object();
 	if ($_GET("round") && parseInt($_GET("round"))){
-		round = $_GET("round");
+		data.round = $_GET("round");
 	} else {
-		round = 1;
+		data.round = 1;
 	}
-	var disciplines = new Object();
 	var table_body = '';
 	$.ajax({
-		url: "/api/view_disciplines?round="+round, 
+		url: "/api/view_disciplines?round="+data.round, 
 		type: "GET",
 		success: function(response){
-			total = response.total;
-			limit = response.limit;
-            start = ((round-1)*limit)+1;
-			disciplines = response.view_disciplines;
-			for (var [key, discipline] of Object.entries(disciplines)) {
+			data.total = response.total;
+			data.limit = response.limit;
+            data.start = ((data.round-1)*data.limit)+1;
+			data.disciplines = response.view_disciplines;
+			for (var [key, discipline] of Object.entries(data.disciplines)) {
 				table_body += `<tr>
-								<td>`+((key*1)+start)+`</td>
+								<td>`+((key*1)+data.start)+`</td>
 								<td><a href="?page=disciplines&disid=`+discipline.id+`">`+discipline.name+`</td>
 								<td><a href="?page=disciplines&kafid=`+discipline.kaf_id+`">`+discipline.kaf+`</td>
 								<td>`+discipline.index_info+`</td>
@@ -79,7 +75,7 @@ $(document).ready(function(){
 			}
 			$("#data").html(table_body);
 
-			gen_pagination(total, limit, round);
+			gen_pagination(data.total, data.limit, data.round);
 		}		
 	});
     $(".close_form").click(function() {
