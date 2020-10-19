@@ -43,53 +43,70 @@
 <script src="/front/js/pagination.js"></script>
 <script>
 $(document).ready(function(){
-	var total;
-	var limit;
-	var round;
-	var rows;
-	var start;
+	var data = new Object();
 	if ($_GET("round") && parseInt($_GET("round"))){
-		round = $_GET("round");
+		data.round = $_GET("round");
 	} else {
-		round = 1;
+		data.round = 1;
 	}
-	var institutes = new Object();
-	var pulpits = new Object();
 	var table_body = '';
+	var institutes_id = '';
 	$.ajax({
-		url: "/api/institutes?round="+round, 
+		url: "/api/institutes?round="+data.round, 
 		type: "GET",
-		success: function(data){
-			total = data.total;
-			limit = data.limit;
-			start = ((round-1)*limit)+1;
-			institutes = data.institutes;	
+		async: false,
+		success: function(response){
+			data = response;
+			data.start = ((data.round-1)*data.limit)+1;
+			for (var [key, institutes] of Object.entries(data.institutes)) {
+				institutes_id += institutes.id + ",";
+			}
+			institutes_id = institutes_id.substr(0, (institutes_id.length - 1));
 		}
-	}).done(function() {
-		for (var [key, institute] of Object.entries(institutes)) {
-			$.ajax({
-				url: "/api/pulpits?filter=on&institute_id="+institute.id, 
-				type: "GET",
-				async: false,
-				success: function(response){
-					rows = (response.total > 0)?response.total:1;
-					pulpits = response.pulpits;
-				}
-			}).done(function() {
-				table_body += `<tr>
-								<td rowspan="`+rows+`">`+((key*1)+start)+`</td>
-								<td rowspan="`+rows+`"><a href="?page=institutes&insid=`+institute.id+`">`+institute.name+`</td>`;
-				for (var [ind, pulpit] of Object.entries(pulpits)) {
-					table_body += `<td>`+((ind*1)+1)+`</td>
-									<td><a href="?page=institutes&kafid=`+pulpit.id+`">`+pulpit.name+`</a></td>
-								  </tr><tr>`;
-				}
-				table_body = table_body.substr(0, (table_body.length - 4));
-			});
-		}			
-		$("#data").html(table_body);
-		gen_pagination(total, limit, round);	
 	});
+	$.ajax({
+		url: "/api/pulpits?filter=on&institute_id="+institutes_id, 
+		type: "GET",
+		async: false,
+		success: function(response){
+			for (var [key, institute] of Object.entries(data.institutes)) {
+				for (var [x, pulpit] of Object.entries(response.pulpits)) {
+					if (institute.id == pulpit.institute_id){
+						if (data.institutes[key].pulpits === undefined){
+							data.institutes[key].pulpits = [pulpit];
+						} else {
+							data.institutes[key].pulpits.push(pulpit);
+						}
+						if (data.institutes[key].rows === undefined){
+							data.institutes[key].rows = 1;
+						} else {
+							++data.institutes[key].rows;
+						}
+					}
+				}
+			}
+		}
+	});
+	for (var [x, institute] of Object.entries(data.institutes)) {
+		table_body += `<tr>
+						<td rowspan="`+institute.rows+`">`+((x*1)+data.start)+`</td>
+						<td rowspan="`+institute.rows+`"><a href="?page=institutes&insid=`+institute.id+`">`+institute.name+`</td>`;
+		if (institute.pulpits === undefined){
+			table_body += `<td></td>
+							<td></td>
+						   </tr><tr>`;
+		} else {
+			for (var [y, pulpit] of Object.entries(institute.pulpits)) {
+				table_body += `<td>`+((y*1)+1)+`</td>
+								<td><a href="?page=institutes&kafid=`+pulpit.id+`">`+pulpit.name+`</a></td>
+							</tr><tr>`;
+			}
+		}
+		table_body = table_body.substr(0, (table_body.length - 4));
+	}			
+	$("#data").html(table_body);
+	gen_pagination(data.total, data.limit, data.round);	
+
 
 	if ($_GET('action')=="create_institute"){
 		$('#institute_form').modal('show');
