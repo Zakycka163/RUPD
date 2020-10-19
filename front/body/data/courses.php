@@ -15,6 +15,7 @@
 				<th scope="col" style="width: 2rem">№</th>
 				<th scope="col">Направление</th>
 				<th scope="col">Квалификация</th>
+				<th scope="col" style="width: 2rem">№</th>
 				<th scope="col">Профиль</th>
 			</tr>
 		</thead>
@@ -71,3 +72,56 @@
 		</ul>
 	</nav>	
 </div>
+<script src="/front/js/_GET.js"></script>
+<script src="/front/js/pagination.js"></script>
+<script>
+$(document).ready(function(){
+	var total;
+	var limit;
+	var round;
+	var rows;
+	var start;
+	if ($_GET("round") && parseInt($_GET("round"))){
+		round = $_GET("round");
+	} else {
+		round = 1;
+	}
+	var courses = new Object();
+	var profiles = new Object();
+	var table_body = '';
+	$.ajax({
+		url: "/api/view_courses?round="+round, 
+		type: "GET",
+		success: function(data){
+			total = data.total;
+			limit = data.limit;
+			start = ((round-1)*limit)+1;
+			courses = data.view_courses;	
+		}
+	}).done(function() {
+		for (var [key, course] of Object.entries(courses)) {
+			$.ajax({
+				url: "/api/profiles?filter=on&course_id="+course.id, 
+				type: "GET",
+				async: false,
+				success: function(response){
+					rows = (response.total > 0)?response.total:1;
+					profiles = response.profiles;
+				}
+			}).done(function() {
+				table_body += `<tr>
+								<td rowspan="`+rows+`">`+((key*1)+start)+`</td>
+								<td rowspan="`+rows+`"><a href="?page=institutes&insid=`+institute.id+`">`+institute.name+`</td>`;
+				for (var [ind, pulpit] of Object.entries(pulpits)) {
+					table_body += `<td>`+((ind*1)+1)+`</td>
+									<td><a href="?page=institutes&kafid=`+pulpit.id+`">`+pulpit.name+`</a></td>
+								  </tr><tr>`;
+				}
+				table_body = table_body.substr(0, (table_body.length - 4));
+			});
+		}			
+		$("#data").html(table_body);
+		gen_pagination(total, limit, round);	
+	});
+});
+</script>
