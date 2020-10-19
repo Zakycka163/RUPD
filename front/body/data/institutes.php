@@ -72,7 +72,7 @@ $(document).ready(function(){
 				type: "GET",
 				async: false,
 				success: function(response){
-					rows = response.total;
+					rows = (response.total > 0)?response.total:1;
 					pulpits = response.pulpits;
 				}
 			}).done(function() {
