@@ -11,7 +11,8 @@ class CurrentApi extends Api
                         , "view_fgos"
                         , "view_profs"
                         , "view_teachers"
-                        , "view_tfuns");
+                        , "view_tfuns"
+                        , "view_acts");
     public function json_validation($data){}
 
     /**
