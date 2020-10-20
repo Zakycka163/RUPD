@@ -4,7 +4,14 @@ require_once './config/database.php';
 
 class CurrentApi extends Api
 {
-    protected $table_name = "view_profs";
+    public $table_name;
+    public $views = array("view_users"
+                        , "view_courses"
+                        , "view_disciplines"
+                        , "view_fgos"
+                        , "view_profs"
+                        , "view_teachers"
+                        , "view_tfuns");
     public function json_validation($data){}
 
     /**

@@ -1,10 +1,5 @@
 #### views
-- [x] view_courses
-- [x] view_disciplines
-- [x] view_fgos
-- [x] view_profs
-- [x] view_teachers
-- [x] view_users
+- [x] views
 
 #### tables
 - [x] academic_degrees
