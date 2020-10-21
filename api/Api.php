@@ -258,6 +258,9 @@ abstract class Api
      */
     public function filterAction()
     {
+        if (isset($this->requestParams['round']) and is_numeric($this->requestParams['round'])){
+            $round = htmlspecialchars(trim($this->requestParams['round'])) ?? 1;
+        } else { $round = 1; }
         unset($this->requestParams['filter']);
         unset($this->requestParams['round']);
         if( !empty($this->requestParams)){
@@ -284,10 +287,14 @@ abstract class Api
             $filter = substr($filter, 0, -5);
             $database = new Database();
             $link = $database->get_db_link();  
+            $limit = $database->get_db_limit();
+            $start = ($round - 1) * $limit;
             if ($database->exist_in_table_by_filter($filter, $this->table_name)) {
-                $sql = "SELECT * FROM `".$this->table_name."` WHERE ".$filter."";
+                $count_sql = "SELECT count(*) FROM `".$this->table_name."`";
+                $count_rows = mysqli_fetch_array(mysqli_query($link, $count_sql))[0];
+                $sql = "SELECT * FROM `".$this->table_name."` WHERE ".$filter." LIMIT ".$start.",".$limit."";
                 $result = mysqli_query($link, $sql);
-                $response_body = array('total' => (int)mysqli_num_rows($result));
+                $response_body = array('total' => (int)$count_rows, 'limit' => (int)$limit,'round' => (int)$round,'start' => (int)($start+1));
                 $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
                 $result_columns = mysqli_query($link, $sql_columns);
                 while($row = mysqli_fetch_array($result_columns)){
