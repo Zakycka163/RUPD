@@ -28,3 +28,12 @@ function gen_pagination(total, limit, round) {
 	}
 	$("#prev_round").after(round_list);
 }
+
+function pagination_reset(){
+	$('.pagination').html(` <li class="page-item disabled" id="prev_round">
+								<a class="page-link" href>Предыдущая</a>
+						    </li>
+						    <li class="page-item disabled" id="next_round">
+								<a class="page-link" href>Следующая</a>
+							</li>`);
+}
