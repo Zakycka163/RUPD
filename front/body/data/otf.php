@@ -69,42 +69,20 @@ $(document).ready(function(){
 			$("#fgos").html(fgos_option);
 		}
 	});
+
 	if ($_GET("fgos_id") && parseInt($_GET("fgos_id"))){
 		$("#fgos").trigger("change");
 		if ($_GET("prof_id") && parseInt($_GET("prof_id"))){
 			$("#prof").trigger("change");
 		}
 	}
-	
-	
-	/*
-	for (var [x, course] of Object.entries(data.courses)) {
-		table_body += `<tr>
-						<td rowspan="`+course.rows+`">`+((x*1)+data.start)+`</td>
-						<td rowspan="`+course.rows+`"><a href="?page=courses&id=`+course.id+`">`+course.name+`</td>
-						<td rowspan="`+course.rows+`">`+course.qualification+`</td>`;
-		if (course.profiles === undefined){
-			table_body += `<td></td>
-							<td></td>
-							</tr><tr>`;
-		} else {
-			for (var [y, profile] of Object.entries(course.profiles)) {
-				table_body += `<td>`+((y*1)+1)+`</td>
-								<td><a href="?page=courses&profid=`+profile.id+`">`+profile.name+`</a></td>
-							</tr><tr>`;
-			}
-			
-		}
-		table_body = table_body.substr(0, (table_body.length - 4));
-	}	
-	$("#data").html(table_body);
-	gen_pagination(data.total, data.limit, data.round);	*/
+
 });
 
 $("#fgos").change(function() {
-	$('#data').html('<tr><td colspan="10" style="text-align:center">Пустой список</td></tr>');
-	$('#prof').html('<option value="0"></option>');
-	$('#work_panel').prop('hidden', true);
+	table_reset();
+	prof_reset();
+	pagination_reset();
 	window.history.pushState('', '',window.location.href.replace(/&fgos_id=\d{1,}/g, ""));
 	window.history.pushState('', '',window.location.href.replace(/&prof_id=\d{1,}/g, ""));
 	var fgos_id = '';
@@ -140,8 +118,9 @@ $("#fgos").change(function() {
 });
 
 $("#prof").change(function() {
-	$('#work_panel').prop('hidden', true);
 	window.history.pushState('', '',window.location.href.replace(/&prof_id=\d{1,}/g, ""));
+	pagination_reset();
+	table_reset();
 	var prof_id = '';
 	var fgos_id = '';
 	if ($_GET("fgos_id") && parseInt($_GET("fgos_id"))) {
@@ -152,11 +131,14 @@ $("#prof").change(function() {
 		prof_id = $_GET("prof_id");
 	} else { prof_id = $("#prof").val(); }
 
-	if (prof_id == 0 || prof_id === null) {
-		$('#data').html('<tr><td colspan="10" style="text-align:center">Пустой список</td></tr>');
-	} else {
+	if (prof_id != 0 || prof_id !== null) {
 		window.history.pushState('', '', window.location.href+'&prof_id='+prof_id);
 		var data = new Object();
+		if ($_GET("round") && parseInt($_GET("round"))){
+			data.round = $_GET("round");
+		} else {
+			data.round = 1;
+		}
 		var table_body = '';
 		var tfs_id = '';
 		$.ajax({
@@ -165,6 +147,8 @@ $("#prof").change(function() {
 			async: false,
 			success: function(response){
 				data.total = response.total;
+				data.limit = response.limit;
+				data.start = response.start;
 				data.tfuns = response.view_tfuns;
 				for (var [key, tfun] of Object.entries(data.tfuns)) {
 					if (tfun.tf_id !== null && !tfs_id.includes(tfun.tf_id)){
@@ -174,62 +158,75 @@ $("#prof").change(function() {
 				tfs_id = tfs_id.substr(0, (tfs_id.length - 1));
 			}
 		});
-		$.ajax({
-			url: "/api/view_acts?filter=on&tf_id="+tfs_id, 
-			type: "GET",
-			async: false,
-			success: function(response){
-				for (var [key, tfun] of Object.entries(data.tfuns)) {
-					for (var [x, act] of Object.entries(response.view_acts)) {
-						if (tfun.id == act.work_function_id){
-							if (data.tfuns[key].acts === undefined){
-								data.tfuns[key].acts = [act];
-							} else {
-								data.tfuns[key].acts.push(act);
-							}
-							if (data.tfuns[key].rows === undefined){
-								data.tfuns[key].rows = 1;
-							} else {
-								++data.tfuns[key].rows;
+		if (tfs_id != '') {
+			$.ajax({
+				url: "/api/view_acts?filter=on&tf_id="+tfs_id, 
+				type: "GET",
+				async: false,
+				success: function(response){
+					for (var [key, tfun] of Object.entries(data.tfuns)) {
+						for (var [x, act] of Object.entries(response.view_acts)) {
+							if (tfun.id == act.work_function_id){
+								if (data.tfuns[key].acts === undefined){
+									data.tfuns[key].acts = [act];
+								} else {
+									data.tfuns[key].acts.push(act);
+								}
+								if (data.tfuns[key].rows === undefined){
+									data.tfuns[key].rows = 1;
+								} else {
+									++data.tfuns[key].rows;
+								}
 							}
 						}
-					}
-				}		
-			}
-		});
-		for (var [x, tfun] of Object.entries(data.tfuns)) {
-			table_body += `<tr>
-							<td rowspan="`+tfun.rows+`">`+((x*1)+data.start)+`</td>
-							<td rowspan="`+tfun.rows+`"><a href="?page=courses&id=`+tfun.id+`">`+tfun.name+`</td>
-							<td rowspan="`+tfun.rows+`">`+tfun.qualification+`</td>`;
-			if (tfun.acts === undefined){
-				table_body += `<td></td>
-								<td></td>
-								</tr><tr>`;
-			} else {
-				for (var [y, act] of Object.entries(tfun.acts)) {
-					table_body += `<td>`+((y*1)+1)+`</td>
-									<td><a href="?page=courses&profid=`+act.id+`">`+act.name+`</a></td>
-								</tr><tr>`;
+					}		
 				}
-				
+			});
+			for (var [x, tfun] of Object.entries(data.tfuns)) {
+				table_body += `<tr>
+								<td rowspan="`+tfun.rows+`">`+((x*1)+data.start)+`</td>
+								<td rowspan="`+tfun.rows+`"><a href="?page=courses&id=`+tfun.id+`">`+tfun.name+`</td>
+								<td rowspan="`+tfun.rows+`">`+tfun.qualification+`</td>`;
+				if (tfun.acts === undefined){
+					table_body += `<td></td>
+									<td></td>
+									</tr><tr>`;
+				} else {
+					for (var [y, act] of Object.entries(tfun.acts)) {
+						table_body += `<td>`+((y*1)+1)+`</td>
+										<td><a href="?page=courses&profid=`+act.id+`">`+act.name+`</a></td>
+									</tr><tr>`;
+					}
+					
+				}
 			}
 			table_body = table_body.substr(0, (table_body.length - 4));
+			//$("#data").html(table_body);
+			$('#work_panel').prop('hidden', false);
+			$("#data").text(JSON.stringify(data));
+			gen_pagination(data.total, data.limit, data.round);
 		}
-		//$("#data").html(table_body);
-		$('#work_panel').prop('hidden', false);
-		$("#data").text(JSON.stringify(data));
-		gen_pagination(data.total, data.limit, data.round);
 	}
 });
 
 $("#clear").click(function() {
 	window.history.pushState('', '',window.location.href.replace(/&fgos_id=\d{1,}/g, ""));
 	window.history.pushState('', '',window.location.href.replace(/&prof_id=\d{1,}/g, ""));
-	$('#data').html('<tr><td colspan="10" style="text-align:center">Пустой список</td></tr>');
-	$('#work_panel').prop('hidden', true);
-	$('#prof').html('<option value="0"></option>');
+	table_reset();
+	prof_reset();
 	$('#prof').prop('disabled', true);
-	$("#fgos").val(0).prop('selected', true);
+	$('#fgos').val(0).prop('selected', true);
+	pagination_reset();
 });
+
+function prof_reset(){
+	$('#prof').html('<option value="0"></option>');
+}
+
+function table_reset(){
+	$('#work_panel').prop('hidden', true);
+	$('#data').html(`<tr>
+						<td colspan="10" style="text-align:center">Пустой список</td>
+					 </tr>`);
+}	
 </script>
