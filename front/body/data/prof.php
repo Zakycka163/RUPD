@@ -55,7 +55,7 @@ $(document).ready(function(){
 		success: function(response){
 			data.total = response.total;
 			data.limit = response.limit;
-			data.start = ((data.round-1)*data.limit)+1;
+			data.start = response.start;
 			data.profs = response.view_profs;
 			for (const [key, prof] of Object.entries(data.profs)) {
 				table_body += `<tr>

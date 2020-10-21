@@ -60,7 +60,7 @@ $(document).ready(function(){
 		success: function(response){
 			data.total = response.total;
 			data.limit = response.limit;
-            data.start = ((data.round-1)*data.limit)+1;
+            data.start = response.start;
 			data.disciplines = response.view_disciplines;
 			for (var [key, discipline] of Object.entries(data.disciplines)) {
 				table_body += `<tr>

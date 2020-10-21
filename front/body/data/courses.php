@@ -55,7 +55,7 @@ $(document).ready(function(){
 		success: function(response){
 			data.total = response.total;
 			data.limit = response.limit;
-			data.start = ((data.round-1)*data.limit)+1;
+			data.start = response.start;
 			data.courses = response.view_courses;	
 			for (var [key, course] of Object.entries(data.courses)) {
 				courses_id += course.id + ",";

@@ -64,7 +64,7 @@ $(document).ready(function(){
 		success: function(response){
 			data.total = response.total;
 			data.limit = response.limit;
-			data.start = ((data.round-1)*data.limit)+1;
+			data.start = response.start;
 			data.teachers = response.view_teachers;
 			for (var [key, teacher] of Object.entries(data.teachers)) {
 				table_body += `<tr>

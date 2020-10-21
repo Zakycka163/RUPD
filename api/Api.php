@@ -116,7 +116,7 @@ abstract class Api
         if ( $count_rows > 0) {
             $sql = "SELECT * FROM `".$this->table_name."` LIMIT ".$start.",".$limit."";
 		    $result = mysqli_query($link, $sql);   
-            $response_body = array('total' => (int)$count_rows, 'limit' => (int)$limit,'round' => (int) $round);
+            $response_body = array('total' => (int)$count_rows,'limit' => (int)$limit,'round' => (int)$round,'start' => (int)($start+1));
             $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";   
             $result_columns = mysqli_query($link, $sql_columns);
             while($row = mysqli_fetch_array($result_columns)){

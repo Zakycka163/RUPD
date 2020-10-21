@@ -57,7 +57,6 @@ $(document).ready(function(){
 		async: false,
 		success: function(response){
 			data = response;
-			data.start = ((data.round-1)*data.limit)+1;
 			for (var [key, institutes] of Object.entries(data.institutes)) {
 				institutes_id += institutes.id + ",";
 			}
