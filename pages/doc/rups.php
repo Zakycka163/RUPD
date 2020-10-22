@@ -24,7 +24,7 @@
                 <button type="button" class="btn btn-success">Добавить</button>
             </div>
         </div>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-sm">
             <thead>
                 <tr>
                     <th scope="col" style="width: 2rem">№</th>

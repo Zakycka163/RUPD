@@ -9,7 +9,7 @@
 	<a class="btn btn-success btn-sm" href="data.php?page=courses&action=create_course">Новое направление</a>
 		<a class="btn btn-success btn-sm" href="data.php?page=courses&action=create_profile">Новый профиль</a>
 	</div>
-	<table class="table table-bordered table-striped table-sm">
+	<table class="table table-bordered table-sm">
 		<thead>
 			<tr>
 				<th scope="col" style="width: 2rem">№</th>

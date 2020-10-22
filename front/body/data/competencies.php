@@ -12,7 +12,7 @@
 	<div class="alert alert-secondary col" style="height: 55px">
 		<input class="btn btn-success btn-sm" type="button" id="create_new_teacher" value="Новая компетенция">
 	</div>
-	<table class="table table-bordered table-striped table-sm">
+	<table class="table table-bordered table-sm">
 		<thead>
 			<tr>
 				<th scope="col" style="width: 2rem">№</th>

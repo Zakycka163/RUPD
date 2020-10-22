@@ -9,7 +9,7 @@
 		<a class="btn btn-success btn-sm" href="data.php?page=institutes&action=create_institute">Новый институт</a>
 		<a class="btn btn-success btn-sm" href="data.php?page=institutes&action=create_pulpit">Новая кафедра</a>
 	</div>
-	<table class="table table-bordered table-striped table-sm">
+	<table class="table table-bordered table-sm">
 		<thead>
 			<tr>
 				<th scope="col" style="width: 2rem">№</th>
