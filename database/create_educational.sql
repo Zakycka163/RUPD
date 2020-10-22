@@ -368,6 +368,7 @@ CREATE TABLE `general_work_functions` (
   `prof_standard_id` int(10) UNSIGNED NOT NULL,
   `code` varchar(10) NOT NULL,
   `name` varchar(180) NOT NULL,
+  `full_name` varchar(190) GENERATED ALWAYS AS (concat(`code`,'. ',`name`)) VIRTUAL,
   `level` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -821,7 +822,8 @@ CREATE TABLE `work_functions` (
   `id` int(10) UNSIGNED NOT NULL,
   `general_work_function_id` int(10) UNSIGNED NOT NULL,
   `code` varchar(10) NOT NULL,
-  `name` varchar(180) NOT NULL
+  `name` varchar(180) NOT NULL,
+  `full_name` varchar(190) GENERATED ALWAYS AS (concat(`code`,'. ',`name`)) VIRTUAL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
