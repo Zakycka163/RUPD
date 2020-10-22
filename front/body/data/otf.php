@@ -17,11 +17,9 @@
 		<input class="btn btn-success btn-sm" type="button" id="create_tf" value="Новая ТФ">
 		<input class="btn btn-success btn-sm" type="button" id="create_activity" value="Новая Активность">
 	</div>
-	<table class="table table-bordered table-striped table-sm">
+	<table class="table table-bordered table-sm">
 		<thead>
 			<tr>
-				<th scope="col" style="width: 2rem">№</th>
-				<th scope="col">Проф стандарт</th>
 				<th scope="col" style="width: 2rem">№</th>
 				<th scope="col">ОТФ</th>
 				<th scope="col">Уровень квалификации</th>
@@ -140,70 +138,141 @@ $("#prof").change(function() {
 			data.round = 1;
 		}
 		var table_body = '';
-		var tfs_id = '';
+		var otfs_id = '';
 		$.ajax({
-			url: "/api/view_tfuns?filter=on&prof_id="+prof_id, 
+			url: "/api/general_work_functions?filter=on&prof_standard_id="+prof_id, 
 			type: "GET",
 			async: false,
 			success: function(response){
 				data.total = response.total;
 				data.limit = response.limit;
 				data.start = response.start;
-				data.tfuns = response.view_tfuns;
-				for (var [key, tfun] of Object.entries(data.tfuns)) {
-					if (tfun.tf_id !== null && !tfs_id.includes(tfun.tf_id)){
-						tfs_id += tfun.tf_id + ",";
+				data.otfuns = response.general_work_functions;
+				if (data.otfuns !== undefined) {
+					for (var [key, otfun] of Object.entries(data.otfuns)) {
+						otfs_id += otfun.id + ",";
 					}
+					otfs_id = otfs_id.substr(0, (otfs_id.length - 1));
 				}
-				tfs_id = tfs_id.substr(0, (tfs_id.length - 1));
 			}
 		});
-		if (tfs_id != '') {
+		if (otfs_id != '') {
+			var tfs_id = '';
 			$.ajax({
-				url: "/api/view_acts?filter=on&tf_id="+tfs_id, 
+				url: "/api/work_functions?filter=on&general_work_function_id="+otfs_id, 
 				type: "GET",
 				async: false,
 				success: function(response){
-					for (var [key, tfun] of Object.entries(data.tfuns)) {
-						for (var [x, act] of Object.entries(response.view_acts)) {
-							if (tfun.id == act.work_function_id){
-								if (data.tfuns[key].acts === undefined){
-									data.tfuns[key].acts = [act];
+					for (var [key, otfun] of Object.entries(data.otfuns)) {
+						for (var [x, tfun] of Object.entries(response.work_functions)) {
+							tfs_id += tfun.id + ",";
+							if (otfun.id == tfun.general_work_function_id){
+								if (data.otfuns[key].tfuns === undefined){
+									data.otfuns[key].tfuns = [tfun];
 								} else {
-									data.tfuns[key].acts.push(act);
+									data.otfuns[key].tfuns.push(tfun);
 								}
-								if (data.tfuns[key].rows === undefined){
-									data.tfuns[key].rows = 1;
+								if (data.otfuns[key].rows === undefined){
+									data.otfuns[key].rows = 1;
 								} else {
-									++data.tfuns[key].rows;
+									++data.otfuns[key].rows;
 								}
 							}
 						}
-					}		
+					}
+					tfs_id = tfs_id.substr(0, (tfs_id.length - 1));	
 				}
 			});
-			for (var [x, tfun] of Object.entries(data.tfuns)) {
+			if (tfs_id != '') {
+				$.ajax({
+					url: "/api/view_acts?filter=on&work_function_id="+tfs_id, 
+					type: "GET",
+					async: false,
+					success: function(response){
+						var act_types = new Array();
+						for (var [y, act] of Object.entries(response.view_acts)) {
+							if (act_types === undefined) {
+								act_types = [{"type_id": act.type_id, "type": act.type}];
+							} else if (act_types.findIndex(element => element.type_id == act.type_id) == -1){
+								act_types.push({"type_id": act.type_id, "type": act.type});
+							}
+						}
+						for (var [key, otfun] of Object.entries(data.otfuns)) {
+							if (otfun.tfuns !== undefined){
+								for (var [x, tfun] of Object.entries(otfun.tfuns)) {
+									for (var [y, act] of Object.entries(response.view_acts)) {
+										if (tfun.id == act.work_function_id){
+											if (data.otfuns[key].tfuns[x].act_types === undefined) {
+												data.otfuns[key].tfuns[x].act_types = act_types;
+											} 
+											for (var [z, act_type] of Object.entries(data.otfuns[key].tfuns[x].act_types)){
+												if (act.type_id == act_type.type_id){
+													if (act_type.acts === undefined){
+														data.otfuns[key].tfuns[x].act_types[z].acts = [act];
+													} else {
+														data.otfuns[key].tfuns[x].act_types[z].acts.push(act);
+													}
+													if (data.otfuns[key].tfuns[x].act_types[z].rows === undefined){
+														data.otfuns[key].tfuns[x].act_types[z].rows = 1;
+													} else {
+														++data.otfuns[key].tfuns[x].act_types[z].rows;
+													}
+												}			
+											}
+											if (data.otfuns[key].tfuns[x].rows === undefined){
+												data.otfuns[key].tfuns[x].rows = 1;
+											} else {
+												++data.otfuns[key].tfuns[x].rows;
+											}
+											++data.otfuns[key].rows;
+										}
+									}
+								}
+							}
+						}
+					}
+				});
+			}
+
+			for (var [x, otfun] of Object.entries(data.otfuns)) {
 				table_body += `<tr>
-								<td rowspan="`+tfun.rows+`">`+((x*1)+data.start)+`</td>
-								<td rowspan="`+tfun.rows+`"><a href="?page=courses&id=`+tfun.id+`">`+tfun.name+`</td>
-								<td rowspan="`+tfun.rows+`">`+tfun.qualification+`</td>`;
-				if (tfun.acts === undefined){
+								<td rowspan="`+otfun.rows+`">`+((x*1)+data.start)+`</td>
+								<td rowspan="`+otfun.rows+`"><a href="?page=otf&id=`+otfun.id+`">`+otfun.full_name+`</td>
+								<td rowspan="`+otfun.rows+`">`+otfun.level+`</td>`;
+				if (otfun.tfuns === undefined){
 					table_body += `<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
 									<td></td>
 									</tr><tr>`;
 				} else {
-					for (var [y, act] of Object.entries(tfun.acts)) {
-						table_body += `<td>`+((y*1)+1)+`</td>
-										<td><a href="?page=courses&profid=`+act.id+`">`+act.name+`</a></td>
+					for (var [y, tfun] of Object.entries(otfun.tfuns)) {
+						table_body += `<td rowspan="`+tfun.rows+`">`+((y*1)+1)+`</td>
+										<td rowspan="`+tfun.rows+`"><a href="?page=otf&tfid=`+tfun.id+`">`+tfun.name+`</a></td>`;
+						if (tfun.act_types === undefined){
+							table_body += `<td></td>
+									<td></td>
+									<td></td>
 									</tr><tr>`;
+						} else {
+							for (var [z, act_type] of Object.entries(tfun.act_types)) {
+								table_body += `<td rowspan="`+act_type.rows+`">`+act_type.type+`</td>`;
+								for (var [u, act] of Object.entries(act_type.acts)) {
+									table_body += `<td rowspan="`+act.rows+`">`+((u*1)+1)+`</td>
+													<td rowspan="`+act.rows+`"><a href="?page=otf&tfid=`+act.id+`">`+act.name+`</a></td>
+												</tr><tr>`;
+								}
+							}
+						}
 					}
 					
 				}
 			}
 			table_body = table_body.substr(0, (table_body.length - 4));
-			//$("#data").html(table_body);
+			$("#data").html(table_body);
 			$('#work_panel').prop('hidden', false);
-			$("#data").text(JSON.stringify(data));
+			//$("#data").text(JSON.stringify(data));
 			gen_pagination(data.total, data.limit, data.round);
 		}
 	}
