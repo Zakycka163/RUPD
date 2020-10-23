@@ -57,32 +57,36 @@ $(document).ready(function(){
 		async: false,
 		success: function(response){
 			data = response;
-			data.institutes.forEach(function(institute){
-				institutes_id += institute.id + ",";
-			});
-			institutes_id = institutes_id.substr(0, (institutes_id.length - 1));
+			if (data.institutes !== undefined) {
+				data.institutes.forEach(function(institute){
+					institutes_id += institute.id + ",";
+				});
+				institutes_id = institutes_id.substr(0, (institutes_id.length - 1));
+			}
 		}
 	});
-	$.ajax({
-		url: "/api/pulpits?filter=on&institute_id="+institutes_id, 
-		type: "GET",
-		async: false,
-		success: function(response){
-			response.pulpits.forEach(function(pulpit){
-				let y = data.institutes.findIndex(institute => institute.id == pulpit.institute_id);
-				if (data.institutes[y].pulpits === undefined){
-					data.institutes[y].pulpits = [pulpit];
-				} else {
-					data.institutes[y].pulpits.push(pulpit);
-				}
-				if (data.institutes[y].rows === undefined){
-					data.institutes[y].rows = 1;
-				} else {
-					++data.institutes[y].rows;
-				}					
-			});
-		}
-	});
+	if (institutes_id != '') {
+		$.ajax({
+			url: "/api/pulpits?filter=on&institute_id="+institutes_id, 
+			type: "GET",
+			async: false,
+			success: function(response){
+				response.pulpits.forEach(function(pulpit){
+					let y = data.institutes.findIndex(institute => institute.id == pulpit.institute_id);
+					if (data.institutes[y].pulpits === undefined){
+						data.institutes[y].pulpits = [pulpit];
+					} else {
+						data.institutes[y].pulpits.push(pulpit);
+					}
+					if (data.institutes[y].rows === undefined){
+						data.institutes[y].rows = 1;
+					} else {
+						++data.institutes[y].rows;
+					}					
+				});
+			}
+		});
+	}
 	for (var [x, institute] of Object.entries(data.institutes)) {
 		table_body += `<tr>
 						<td rowspan="`+institute.rows+`">`+((x*1)+data.start)+`</td>

@@ -57,32 +57,36 @@ $(document).ready(function(){
 			data.limit = response.limit;
 			data.start = response.start;
 			data.courses = response.view_courses;	
-			data.courses.forEach(function(course){
-				courses_id += course.id + ",";
-			});
-			courses_id = courses_id.substr(0, (courses_id.length - 1));
+			if (data.courses !== undefined) {
+				data.courses.forEach(function(course){
+					courses_id += course.id + ",";
+				});
+				courses_id = courses_id.substr(0, (courses_id.length - 1));
+			}
 		}
 	});
-	$.ajax({
-		url: "/api/profiles?filter=on&course_id="+courses_id, 
-		type: "GET",
-		async: false,
-		success: function(response){
-			response.profiles.forEach(function(profile){
-				let y = data.courses.findIndex(course => course.id == profile.course_id);
-				if (data.courses[y].profiles === undefined){
-					data.courses[y].profiles = [profile];
-				} else {
-					data.courses[y].profiles.push(profile);
-				}
-				if (data.courses[y].rows === undefined){
-					data.courses[y].rows = 1;
-				} else {
-					++data.courses[y].rows;
-				}					
-			});		
-		}
-	});
+	if (courses_id != '') {
+		$.ajax({
+			url: "/api/profiles?filter=on&course_id="+courses_id, 
+			type: "GET",
+			async: false,
+			success: function(response){
+				response.profiles.forEach(function(profile){
+					let y = data.courses.findIndex(course => course.id == profile.course_id);
+					if (data.courses[y].profiles === undefined){
+						data.courses[y].profiles = [profile];
+					} else {
+						data.courses[y].profiles.push(profile);
+					}
+					if (data.courses[y].rows === undefined){
+						data.courses[y].rows = 1;
+					} else {
+						++data.courses[y].rows;
+					}					
+				});		
+			}
+		});
+	}
 	for (var [x, course] of Object.entries(data.courses)) {
 		table_body += `<tr>
 						<td rowspan="`+course.rows+`">`+((x*1)+data.start)+`</td>
