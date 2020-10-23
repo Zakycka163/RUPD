@@ -52,6 +52,65 @@
 <script src="/front/js/pagination.js"></script>
 <script>
 $(document).ready(function(){
+	get_fgos();
+	if ($_GET("fgos_id") && parseInt($_GET("fgos_id"))){
+		get_prof_by_fgos($_GET("fgos_id"));
+		if ($_GET("prof_id") && parseInt($_GET("prof_id"))){
+			get_data_by_prof($_GET("prof_id"));
+		} else { del_prof_href(); }
+	} else { 
+		del_prof_href();
+		del_fgos_href();
+	}
+
+});
+
+$("#fgos").change(function() {
+	prof_reset();
+	table_reset();
+	
+	var fgos_id = '';
+	fgos_id = $("#fgos").val();
+	if (fgos_id == 0 || fgos_id === null) {
+		del_fgos_href();
+	} else {
+		if (window.location.search.search('&fgos_id=') > -1){
+			window.history.pushState('fgos_id', '',window.location.href.replace(/&fgos_id=[^&\n]{1,}/g, '&fgos_id='+fgos_id+''));
+		} else {
+			window.history.pushState('', '', window.location.href+'&fgos_id='+fgos_id);
+		}
+		get_prof_by_fgos(fgos_id);
+	}
+});
+
+$("#prof").change(function() {
+	table_reset();
+	var prof_id = '';
+	prof_id = $("#prof").val();
+	
+	if (prof_id == 0 || prof_id === null) {
+		del_prof_href();
+	} else {
+		if (window.location.search.search('&prof_id=') > -1){
+			window.history.pushState('prof_id', '',window.location.href.replace(/&prof_id=[^&\n]{1,}/g, '&prof_id='+prof_id+''));
+		} else {
+			window.history.pushState('', '', window.location.href+'&prof_id='+prof_id);
+		}
+		get_data_by_prof(prof_id);
+	}
+});
+
+$("#clear").click(function() {
+	del_fgos_href();
+	$('#fgos').val(0).prop('selected', true);
+
+	prof_reset();
+	$('#prof').prop('disabled', true);
+
+	table_reset();
+});
+
+function get_fgos(){
 	$.ajax({
 		url: "/api/view_fgos", 
 		type: "GET",
@@ -64,235 +123,195 @@ $(document).ready(function(){
 				}
 				fgos_option += `<option value="`+fgos.id+`"`+state+`>`+fgos.name+`</option>`;
 			}
+			if (fgos_option.search('selected') == -1){
+				del_fgos_href();
+				del_prof_href();
+			}
 			$("#fgos").html(fgos_option);
 		}
 	});
+}
 
-	if ($_GET("fgos_id") && parseInt($_GET("fgos_id"))){
-		$("#fgos").trigger("change");
-		if ($_GET("prof_id") && parseInt($_GET("prof_id"))){
-			$("#prof").trigger("change");
-		}
-	}
-
-});
-
-$("#fgos").change(function() {
-	table_reset();
-	prof_reset();
-	pagination_reset();
-	window.history.pushState('', '',window.location.href.replace(/&fgos_id=\d{1,}/g, ""));
-	window.history.pushState('', '',window.location.href.replace(/&prof_id=\d{1,}/g, ""));
-	var fgos_id = '';
-	fgos_id = $("#fgos").val();
-	if (fgos_id !== undefined) {
-		if ($_GET("fgos_id") && parseInt($_GET("fgos_id"))) {
-			fgos_id = $_GET("fgos_id");
-		}
-	}
-	if (fgos_id == 0 || fgos_id === null) {
-		$('#prof').prop('disabled', true);
-	} else {
-		window.history.pushState('', '', window.location.href+'&fgos_id='+fgos_id);
-		$.ajax({
-			url: "/api/view_profs?filter=on&fgos_id="+fgos_id, 
-			type: "GET",
-			success: function(response){
-				var prof_option = '<option value="0"></option>';
-				if (response.view_profs !== undefined){
-					for (var [key, prof] of Object.entries(response.view_profs)) {
-						var state = '';
-						if ($_GET("prof_id") && $_GET("prof_id") == prof.id){
-							state = 'selected';
-						}
-						prof_option += `<option value="`+prof.id+`"`+state+`>`+prof.name+`</option>`;
+function get_prof_by_fgos(fgos_id){
+	$.ajax({
+		url: "/api/view_profs?filter=on&fgos_id="+fgos_id, 
+		type: "GET",
+		success: function(response){
+			var prof_option = '<option value="0"></option>';
+			if (response.view_profs !== undefined){
+				for (var [key, prof] of Object.entries(response.view_profs)) {
+					var state = '';
+					if ($_GET("prof_id") && $_GET("prof_id") == prof.id){
+						state = 'selected';
 					}
+					prof_option += `<option value="`+prof.id+`"`+state+`>`+prof.name+`</option>`;
 				}
-				$("#prof").html(prof_option);
-				$('#prof').prop('disabled', false);
 			}
-		});
-	}
-});
-
-$("#prof").change(function() {
-	window.history.pushState('', '',window.location.href.replace(/&prof_id=\d{1,}/g, ""));
-	pagination_reset();
-	table_reset();
-	var prof_id = '';
-	var fgos_id = '';
-	if ($_GET("fgos_id") && parseInt($_GET("fgos_id"))) {
-		fgos_id = $_GET("fgos_id");
-	} else { fgos_id = $("#fgos").val(); }
-	
-	if ($_GET("prof_id") && parseInt($_GET("prof_id"))) {
-		prof_id = $_GET("prof_id");
-	} else { prof_id = $("#prof").val(); }
-
-	if (prof_id != 0 || prof_id !== null) {
-		window.history.pushState('', '', window.location.href+'&prof_id='+prof_id);
-		var data = new Object();
-		if ($_GET("round") && parseInt($_GET("round"))){
-			data.round = $_GET("round");
-		} else {
-			data.round = 1;
+			$("#prof").html(prof_option);
+			$('#prof').prop('disabled', false);
 		}
-		var table_body = '';
-		var otfs_id = '';
+	});
+}
+function get_data_by_prof(prof_id){
+	var data = new Object();
+	if ($_GET("round") && parseInt($_GET("round"))){
+		data.round = $_GET("round");
+	} else {
+		data.round = 1;
+	}
+	var table_body = '';
+	var otfs_id = '';
+	$.ajax({
+		url: "/api/general_work_functions?filter=on&prof_standard_id="+prof_id, 
+		type: "GET",
+		async: false,
+		success: function(response){
+			data.total = response.total;
+			data.limit = response.limit;
+			data.start = response.start;
+			data.otfuns = response.general_work_functions;
+			if (data.otfuns !== undefined) {
+				for (var [key, otfun] of Object.entries(data.otfuns)) {
+					otfs_id += otfun.id + ",";
+				}
+				otfs_id = otfs_id.substr(0, (otfs_id.length - 1));
+			}
+		}
+	});
+	if (otfs_id != '') {
+		var tfs_id = '';
 		$.ajax({
-			url: "/api/general_work_functions?filter=on&prof_standard_id="+prof_id, 
+			url: "/api/work_functions?filter=on&general_work_function_id="+otfs_id, 
 			type: "GET",
 			async: false,
 			success: function(response){
-				data.total = response.total;
-				data.limit = response.limit;
-				data.start = response.start;
-				data.otfuns = response.general_work_functions;
-				if (data.otfuns !== undefined) {
-					for (var [key, otfun] of Object.entries(data.otfuns)) {
-						otfs_id += otfun.id + ",";
+				for (var [key, otfun] of Object.entries(data.otfuns)) {
+					for (var [x, tfun] of Object.entries(response.work_functions)) {
+						tfs_id += tfun.id + ",";
+						if (otfun.id == tfun.general_work_function_id){
+							if (data.otfuns[key].tfuns === undefined){
+								data.otfuns[key].tfuns = [tfun];
+							} else {
+								data.otfuns[key].tfuns.push(tfun);
+							}
+							if (data.otfuns[key].rows === undefined){
+								data.otfuns[key].rows = 1;
+							} else {
+								++data.otfuns[key].rows;
+							}
+						}
 					}
-					otfs_id = otfs_id.substr(0, (otfs_id.length - 1));
 				}
+				tfs_id = tfs_id.substr(0, (tfs_id.length - 1));	
 			}
 		});
-		if (otfs_id != '') {
-			var tfs_id = '';
+		if (tfs_id != '') {
 			$.ajax({
-				url: "/api/work_functions?filter=on&general_work_function_id="+otfs_id, 
+				url: "/api/view_acts?filter=on&work_function_id="+tfs_id, 
 				type: "GET",
 				async: false,
 				success: function(response){
-					for (var [key, otfun] of Object.entries(data.otfuns)) {
-						for (var [x, tfun] of Object.entries(response.work_functions)) {
-							tfs_id += tfun.id + ",";
-							if (otfun.id == tfun.general_work_function_id){
-								if (data.otfuns[key].tfuns === undefined){
-									data.otfuns[key].tfuns = [tfun];
-								} else {
-									data.otfuns[key].tfuns.push(tfun);
-								}
-								if (data.otfuns[key].rows === undefined){
-									data.otfuns[key].rows = 1;
-								} else {
-									++data.otfuns[key].rows;
-								}
-							}
+					var act_types = new Array();
+					for (var [y, act] of Object.entries(response.view_acts)) {
+						if (act_types === undefined) {
+							act_types = [{"type_id": act.type_id, "type": act.type}];
+						} else if (act_types.findIndex(element => element.type_id == act.type_id) == -1){
+							act_types.push({"type_id": act.type_id, "type": act.type});
 						}
 					}
-					tfs_id = tfs_id.substr(0, (tfs_id.length - 1));	
-				}
-			});
-			if (tfs_id != '') {
-				$.ajax({
-					url: "/api/view_acts?filter=on&work_function_id="+tfs_id, 
-					type: "GET",
-					async: false,
-					success: function(response){
-						var act_types = new Array();
-						for (var [y, act] of Object.entries(response.view_acts)) {
-							if (act_types === undefined) {
-								act_types = [{"type_id": act.type_id, "type": act.type}];
-							} else if (act_types.findIndex(element => element.type_id == act.type_id) == -1){
-								act_types.push({"type_id": act.type_id, "type": act.type});
-							}
-						}
-						for (var [key, otfun] of Object.entries(data.otfuns)) {
-							if (otfun.tfuns !== undefined){
-								for (var [x, tfun] of Object.entries(otfun.tfuns)) {
-									for (var [y, act] of Object.entries(response.view_acts)) {
-										if (tfun.id == act.work_function_id){
-											if (data.otfuns[key].tfuns[x].act_types === undefined) {
-												data.otfuns[key].tfuns[x].act_types = act_types;
-											} 
-											for (var [z, act_type] of Object.entries(data.otfuns[key].tfuns[x].act_types)){
-												if (act.type_id == act_type.type_id){
-													if (act_type.acts === undefined){
-														data.otfuns[key].tfuns[x].act_types[z].acts = [act];
-													} else {
-														data.otfuns[key].tfuns[x].act_types[z].acts.push(act);
-													}
-													if (data.otfuns[key].tfuns[x].act_types[z].rows === undefined){
-														data.otfuns[key].tfuns[x].act_types[z].rows = 1;
-													} else {
-														++data.otfuns[key].tfuns[x].act_types[z].rows;
-													}
-												}			
-											}
-											if (data.otfuns[key].tfuns[x].rows === undefined){
-												data.otfuns[key].tfuns[x].rows = 1;
-											} else {
-												++data.otfuns[key].tfuns[x].rows;
-											}
-											++data.otfuns[key].rows;
+					for (var [key, otfun] of Object.entries(data.otfuns)) {
+						if (otfun.tfuns !== undefined){
+							for (var [x, tfun] of Object.entries(otfun.tfuns)) {
+								for (var [y, act] of Object.entries(response.view_acts)) {
+									if (tfun.id == act.work_function_id){
+										if (data.otfuns[key].tfuns[x].act_types === undefined) {
+											data.otfuns[key].tfuns[x].act_types = act_types;
+										} 
+										for (var [z, act_type] of Object.entries(data.otfuns[key].tfuns[x].act_types)){
+											if (act.type_id == act_type.type_id){
+												if (act_type.acts === undefined){
+													data.otfuns[key].tfuns[x].act_types[z].acts = [act];
+												} else {
+													data.otfuns[key].tfuns[x].act_types[z].acts.push(act);
+												}
+												if (data.otfuns[key].tfuns[x].act_types[z].rows === undefined){
+													data.otfuns[key].tfuns[x].act_types[z].rows = 1;
+												} else {
+													++data.otfuns[key].tfuns[x].act_types[z].rows;
+												}
+											}			
 										}
+										if (data.otfuns[key].tfuns[x].rows === undefined){
+											data.otfuns[key].tfuns[x].rows = 1;
+										} else {
+											++data.otfuns[key].tfuns[x].rows;
+										}
+										++data.otfuns[key].rows;
 									}
 								}
 							}
 						}
 					}
-				});
-			}
+				}
+			});
+		}
 
-			for (var [x, otfun] of Object.entries(data.otfuns)) {
-				table_body += `<tr>
-								<td rowspan="`+otfun.rows+`">`+((x*1)+data.start)+`</td>
-								<td rowspan="`+otfun.rows+`"><a href="?page=otf&id=`+otfun.id+`">`+otfun.full_name+`</td>
-								<td rowspan="`+otfun.rows+`">`+otfun.level+`</td>`;
-				if (otfun.tfuns === undefined){
-					table_body += `<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									</tr><tr>`;
-				} else {
-					for (var [y, tfun] of Object.entries(otfun.tfuns)) {
-						table_body += `<td rowspan="`+tfun.rows+`">`+((y*1)+1)+`</td>
-										<td rowspan="`+tfun.rows+`"><a href="?page=otf&tfid=`+tfun.id+`">`+tfun.name+`</a></td>`;
-						if (tfun.act_types === undefined){
-							table_body += `<td></td>
-									<td></td>
-									<td></td>
-									</tr><tr>`;
-						} else {
-							for (var [z, act_type] of Object.entries(tfun.act_types)) {
-								table_body += `<td rowspan="`+act_type.rows+`">`+act_type.type+`</td>`;
-								for (var [u, act] of Object.entries(act_type.acts)) {
-									table_body += `<td rowspan="`+act.rows+`">`+((u*1)+1)+`</td>
-													<td rowspan="`+act.rows+`"><a href="?page=otf&tfid=`+act.id+`">`+act.name+`</a></td>
-												</tr><tr>`;
-								}
+		for (var [x, otfun] of Object.entries(data.otfuns)) {
+			table_body += `<tr>
+							<td rowspan="`+otfun.rows+`">`+((x*1)+data.start)+`</td>
+							<td rowspan="`+otfun.rows+`"><a href="?page=otf&id=`+otfun.id+`">`+otfun.full_name+`</td>
+							<td rowspan="`+otfun.rows+`">`+otfun.level+`</td>`;
+			if (otfun.tfuns === undefined){
+				table_body += `<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								</tr><tr>`;
+			} else {
+				for (var [y, tfun] of Object.entries(otfun.tfuns)) {
+					table_body += `<td rowspan="`+tfun.rows+`">`+((y*1)+1)+`</td>
+									<td rowspan="`+tfun.rows+`"><a href="?page=otf&tfid=`+tfun.id+`">`+tfun.name+`</a></td>`;
+					if (tfun.act_types === undefined){
+						table_body += `<td></td>
+								<td></td>
+								<td></td>
+								</tr><tr>`;
+					} else {
+						for (var [z, act_type] of Object.entries(tfun.act_types)) {
+							table_body += `<td rowspan="`+act_type.rows+`">`+act_type.type+`</td>`;
+							for (var [u, act] of Object.entries(act_type.acts)) {
+								table_body += `<td rowspan="`+act.rows+`">`+((u*1)+1)+`</td>
+												<td rowspan="`+act.rows+`"><a href="?page=otf&tfid=`+act.id+`">`+act.name+`</a></td>
+											</tr><tr>`;
 							}
 						}
 					}
-					
 				}
+				
 			}
-			table_body = table_body.substr(0, (table_body.length - 4));
-			$("#data").html(table_body);
-			$('#work_panel').prop('hidden', false);
-			//$("#data").text(JSON.stringify(data));
-			gen_pagination(data.total, data.limit, data.round);
 		}
+		table_body = table_body.substr(0, (table_body.length - 4));
+		$("#data").html(table_body);
+		$('#work_panel').prop('hidden', false);
+		gen_pagination(data.total, data.limit, data.round);
 	}
-});
+}
 
-$("#clear").click(function() {
-	window.history.pushState('', '',window.location.href.replace(/&fgos_id=\d{1,}/g, ""));
-	window.history.pushState('', '',window.location.href.replace(/&prof_id=\d{1,}/g, ""));
-	table_reset();
-	prof_reset();
-	$('#prof').prop('disabled', true);
-	$('#fgos').val(0).prop('selected', true);
-	pagination_reset();
-});
+function del_prof_href(){
+	window.history.pushState('', '',window.location.href.replace(/&prof_id=[^&\n]{1,}/g, ""));
+}
+function del_fgos_href(){
+	window.history.pushState('', '',window.location.href.replace(/&fgos_id=[^&\n]{1,}/g, ""));
+}
 
 function prof_reset(){
 	$('#prof').html('<option value="0"></option>');
+	del_prof_href();
 }
 
 function table_reset(){
+	pagination_reset();
 	$('#work_panel').prop('hidden', true);
 	$('#data').html(`<tr>
 						<td colspan="10" style="text-align:center">Пустой список</td>
