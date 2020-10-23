@@ -10,7 +10,7 @@
 	</div>
 	<table class="table table-bordered table-sm">
 		<thead>
-			<tr>
+			<tr style="text-align:center">
 				<th scope="col" style="width: 2rem">№</th>
 				<th scope="col">Направление</th>
 				<th scope="col">Номер приказа</th>
