@@ -111,13 +111,13 @@ function get_fgos(){
 		type: "GET",
 		success: function(response){
 			var fgos_option = '<option value="0"></option>';
-			for (var [key, fgos] of Object.entries(response.view_fgos)) {
+			response.view_fgos.forEach(function(fgos){
 				var state = '';
 				if ($_GET("fgos_id") && $_GET("fgos_id") == fgos.id){
 					state = 'selected';
 				}
 				fgos_option += `<option value="`+fgos.id+`"`+state+`>`+fgos.name+`</option>`;
-			}
+			});
 			if (fgos_option.search('selected') == -1){
 				del_fgos_href();
 				del_prof_href();
@@ -134,13 +134,13 @@ function get_prof_by_fgos(fgos_id){
 		success: function(response){
 			var prof_option = '<option value="0"></option>';
 			if (response.view_profs !== undefined){
-				for (var [key, prof] of Object.entries(response.view_profs)) {
+				response.view_profs.forEach(function(prof){
 					var state = '';
 					if ($_GET("prof_id") && $_GET("prof_id") == prof.id){
 						state = 'selected';
 					}
 					prof_option += `<option value="`+prof.id+`"`+state+`>`+prof.name+`</option>`;
-				}
+				});
 			}
 			$("#prof").html(prof_option);
 			$('#prof').prop('disabled', false);
@@ -166,9 +166,9 @@ function get_data_by_prof(prof_id){
 			data.start = response.start;
 			data.otfuns = response.general_work_functions;
 			if (data.otfuns !== undefined) {
-				for (var [key, otfun] of Object.entries(data.otfuns)) {
+				data.otfuns.forEach(function(otfun){
 					otfs_id += otfun.id + ",";
-				}
+				});
 				otfs_id = otfs_id.substr(0, (otfs_id.length - 1));
 			}
 		}
@@ -180,24 +180,21 @@ function get_data_by_prof(prof_id){
 			type: "GET",
 			async: false,
 			success: function(response){
-				for (var [key, otfun] of Object.entries(data.otfuns)) {
-					for (var [x, tfun] of Object.entries(response.work_functions)) {
+				if (response.work_functions !== undefined) {
+					response.work_functions.forEach(function(tfun){
 						tfs_id += tfun.id + ",";
-						if (otfun.id == tfun.general_work_function_id){
-							if (data.otfuns[key].tfuns === undefined){
-								data.otfuns[key].tfuns = [tfun];
-							} else {
-								data.otfuns[key].tfuns.push(tfun);
-							}
-							if (data.otfuns[key].rows === undefined){
-								data.otfuns[key].rows = 1;
-							} else {
-								++data.otfuns[key].rows;
-							}
+						let x = data.otfuns.findIndex(otfun => otfun.id == tfun.general_work_function_id);
+						if (data.otfuns[x].tfuns === undefined){
+							data.otfuns[x].tfuns = [];
 						}
-					}
+						if (data.otfuns[x].rows === undefined){
+							data.otfuns[x].rows = 0;
+						}
+						data.otfuns[x].tfuns.push(tfun);
+						++data.otfuns[x].rows;					
+					});
+					tfs_id = tfs_id.substr(0, (tfs_id.length - 1));	
 				}
-				tfs_id = tfs_id.substr(0, (tfs_id.length - 1));	
 			}
 		});
 		if (tfs_id != '') {
@@ -206,52 +203,46 @@ function get_data_by_prof(prof_id){
 				type: "GET",
 				async: false,
 				success: function(response){
-					var act_types = new Array();
-					for (var [y, act] of Object.entries(response.view_acts)) {
-						if (act_types === undefined) {
-							act_types = [{"type_id": act.type_id, "type": act.type}];
-						} else if (act_types.findIndex(element => element.type_id == act.type_id) == -1){
-							act_types.push({"type_id": act.type_id, "type": act.type});
-						}
-					}
-					for (var [key, otfun] of Object.entries(data.otfuns)) {
-						if (otfun.tfuns !== undefined){
-							for (var [x, tfun] of Object.entries(otfun.tfuns)) {
-								for (var [y, act] of Object.entries(response.view_acts)) {
-									if (tfun.id == act.work_function_id){
-										if (data.otfuns[key].tfuns[x].act_types === undefined) {
-											data.otfuns[key].tfuns[x].act_types = act_types;
-										} 
-										for (var [z, act_type] of Object.entries(data.otfuns[key].tfuns[x].act_types)){
-											if (act.type_id == act_type.type_id){
-												if (act_type.acts === undefined){
-													data.otfuns[key].tfuns[x].act_types[z].acts = [act];
-												} else {
-													data.otfuns[key].tfuns[x].act_types[z].acts.push(act);
-												}
-												if (data.otfuns[key].tfuns[x].act_types[z].rows === undefined){
-													data.otfuns[key].tfuns[x].act_types[z].rows = 1;
-												} else {
-													++data.otfuns[key].tfuns[x].act_types[z].rows;
-												}
-											}			
-										}
-										if (data.otfuns[key].tfuns[x].rows === undefined){
-											data.otfuns[key].tfuns[x].rows = 1;
-										} else {
-											++data.otfuns[key].tfuns[x].rows;
-										}
-										++data.otfuns[key].rows;
-									}
-								}
+					if (response.view_acts !== undefined) {
+						var act_types = [];
+						response.view_acts.forEach(function(act){
+							if (!act_types.some(act_type => act_type.type_id == act.type_id)){
+								act_types.push({"type_id": act.type_id, "type": act.type});
 							}
-						}
+						});
+						response.view_acts.forEach(function(act){
+							data.otfuns.forEach(function(otfun, x){
+								if (otfun.tfuns !== undefined){
+									otfun.tfuns.forEach(function(tfun, y){
+										if (tfun.id == act.work_function_id){
+											if (data.otfuns[x].tfuns[y].act_types === undefined) {
+												data.otfuns[x].tfuns[y].act_types = act_types;
+											}
+											let z = data.otfuns[x].tfuns[y].act_types.findIndex(act_type => act_type.type_id == act.type_id);
+											if (data.otfuns[x].tfuns[y].act_types[z].acts === undefined){
+												data.otfuns[x].tfuns[y].act_types[z].acts = [];
+											}
+											if (data.otfuns[x].tfuns[y].act_types[z].rows === undefined){
+												data.otfuns[x].tfuns[y].act_types[z].rows = 0;
+											}
+											if (data.otfuns[x].tfuns[y].rows === undefined){
+												data.otfuns[x].tfuns[y].rows = 0;
+											}
+											data.otfuns[x].tfuns[y].act_types[z].acts.push(act);
+											++data.otfuns[x].tfuns[y].act_types[z].rows;
+											++data.otfuns[x].tfuns[y].rows;
+											++data.otfuns[x].rows;
+										}
+									});
+								}
+							});
+						});
 					}
 				}
 			});
 		}
 
-		for (var [x, otfun] of Object.entries(data.otfuns)) {
+		data.otfuns.forEach(function(otfun, x){
 			table_body += `<tr>
 							<td rowspan="`+otfun.rows+`">`+((x*1)+data.start)+`</td>
 							<td rowspan="`+otfun.rows+`"><a href="?page=otf&id=`+otfun.id+`">`+otfun.full_name+`</td>
@@ -264,7 +255,7 @@ function get_data_by_prof(prof_id){
 								<td></td>
 								</tr><tr>`;
 			} else {
-				for (var [y, tfun] of Object.entries(otfun.tfuns)) {
+				otfun.tfuns.forEach(function(tfun, y){
 					table_body += `<td rowspan="`+tfun.rows+`">`+((y*1)+1)+`</td>
 									<td rowspan="`+tfun.rows+`"><a href="?page=otf&tfid=`+tfun.id+`">`+tfun.name+`</a></td>`;
 					if (tfun.act_types === undefined){
@@ -273,19 +264,24 @@ function get_data_by_prof(prof_id){
 								<td></td>
 								</tr><tr>`;
 					} else {
-						for (var [z, act_type] of Object.entries(tfun.act_types)) {
+						tfun.act_types.forEach(function(act_type){
 							table_body += `<td rowspan="`+act_type.rows+`">`+act_type.type+`</td>`;
-							for (var [u, act] of Object.entries(act_type.acts)) {
-								table_body += `<td rowspan="`+act.rows+`">`+((u*1)+1)+`</td>
-												<td rowspan="`+act.rows+`"><a href="?page=otf&tfid=`+act.id+`">`+act.name+`</a></td>
-											</tr><tr>`;
+							if (act_type.acts === undefined){
+								table_body += `<td></td>
+												<td></td>
+												</tr><tr>`;
+							} else {
+								act_type.acts.forEach(function(act, z){
+									table_body += `<td rowspan="`+act.rows+`">`+((z*1)+1)+`</td>
+													<td rowspan="`+act.rows+`"><a href="?page=otf&tfid=`+act.id+`">`+act.name+`</a></td>
+												</tr><tr>`;
+								});
 							}
-						}
+						});
 					}
-				}
-				
+				});
 			}
-		}
+		});
 		table_body = table_body.substr(0, (table_body.length - 4));
 		$("#data").html(table_body);
 		gen_pagination(data.total, data.limit, data.round);
