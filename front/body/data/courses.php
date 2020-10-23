@@ -57,9 +57,9 @@ $(document).ready(function(){
 			data.limit = response.limit;
 			data.start = response.start;
 			data.courses = response.view_courses;	
-			for (var [key, course] of Object.entries(data.courses)) {
+			data.courses.forEach(function(course){
 				courses_id += course.id + ",";
-			}
+			});
 			courses_id = courses_id.substr(0, (courses_id.length - 1));
 		}
 	});
@@ -68,22 +68,19 @@ $(document).ready(function(){
 		type: "GET",
 		async: false,
 		success: function(response){
-			for (var [key, course] of Object.entries(data.courses)) {
-				for (var [x, profile] of Object.entries(response.profiles)) {
-					if (course.id == profile.course_id){
-						if (data.courses[key].profiles === undefined){
-							data.courses[key].profiles = [profile];
-						} else {
-							data.courses[key].profiles.push(profile);
-						}
-						if (data.courses[key].rows === undefined){
-							data.courses[key].rows = 1;
-						} else {
-							++data.courses[key].rows;
-						}
-					}
+			response.profiles.forEach(function(profile){
+				let y = data.courses.findIndex(course => course.id == profile.course_id);
+				if (data.courses[y].profiles === undefined){
+					data.courses[y].profiles = [profile];
+				} else {
+					data.courses[y].profiles.push(profile);
 				}
-			}		
+				if (data.courses[y].rows === undefined){
+					data.courses[y].rows = 1;
+				} else {
+					++data.courses[y].rows;
+				}					
+			});		
 		}
 	});
 	for (var [x, course] of Object.entries(data.courses)) {
@@ -96,12 +93,11 @@ $(document).ready(function(){
 							<td></td>
 							</tr><tr>`;
 		} else {
-			for (var [y, profile] of Object.entries(course.profiles)) {
-				table_body += `<td>`+((y*1)+1)+`</td>
+			course.profiles.forEach(function(profile, index){
+				table_body += `<td>`+((index*1)+1)+`</td>
 								<td><a href="?page=courses&profid=`+profile.id+`">`+profile.name+`</a></td>
 							</tr><tr>`;
-			}
-			
+			});
 		}
 		table_body = table_body.substr(0, (table_body.length - 4));
 	}	
