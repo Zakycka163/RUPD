@@ -72,22 +72,20 @@ $(document).ready(function(){
 			async: false,
 			success: function(response){
 				response.profiles.forEach(function(profile){
-					let y = data.courses.findIndex(course => course.id == profile.course_id);
-					if (data.courses[y].profiles === undefined){
-						data.courses[y].profiles = [profile];
-					} else {
-						data.courses[y].profiles.push(profile);
+					let x = data.courses.findIndex(course => course.id == profile.course_id);
+					if (data.courses[x].profiles === undefined){
+						data.courses[x].profiles = [];
+					} 
+					if (data.courses[x].rows === undefined){
+						data.courses[x].rows = 0;
 					}
-					if (data.courses[y].rows === undefined){
-						data.courses[y].rows = 1;
-					} else {
-						++data.courses[y].rows;
-					}					
+					data.courses[x].profiles.push(profile);
+					++data.courses[x].rows;			
 				});		
 			}
 		});
 	}
-	data.courses.forEach(function(course, y){
+	data.courses.forEach(function(course, x){
 		table_body += `<tr>
 						<td rowspan="`+course.rows+`">`+((x*1)+data.start)+`</td>
 						<td rowspan="`+course.rows+`"><a href="?page=courses&id=`+course.id+`">`+course.name+`</td>

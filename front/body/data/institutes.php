@@ -72,17 +72,15 @@ $(document).ready(function(){
 			async: false,
 			success: function(response){
 				response.pulpits.forEach(function(pulpit){
-					let y = data.institutes.findIndex(institute => institute.id == pulpit.institute_id);
-					if (data.institutes[y].pulpits === undefined){
-						data.institutes[y].pulpits = [pulpit];
-					} else {
-						data.institutes[y].pulpits.push(pulpit);
+					let x = data.institutes.findIndex(institute => institute.id == pulpit.institute_id);
+					if (data.institutes[x].pulpits === undefined){
+						data.institutes[x].pulpits = [];
 					}
-					if (data.institutes[y].rows === undefined){
-						data.institutes[y].rows = 1;
-					} else {
-						++data.institutes[y].rows;
-					}					
+					if (data.institutes[x].rows === undefined){
+						data.institutes[x].rows = 0;
+					}
+					data.institutes[x].pulpits.push(pulpit);
+					++data.institutes[x].rows;			
 				});
 			}
 		});
