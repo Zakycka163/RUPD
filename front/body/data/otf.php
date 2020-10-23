@@ -12,22 +12,17 @@
 		<label for="prof" class="form-control-sm">Проф стандарт: </label>
 		<select class="form-control form-control-sm col-sm-3" id="prof" disabled></select>
 	</div>
-	<div class="alert alert-secondary col" style="height: 55px" hidden id="work_panel">
-		<input class="btn btn-success btn-sm" type="button" id="create_otf" value="Новая ОТФ">
-		<input class="btn btn-success btn-sm" type="button" id="create_tf" value="Новая ТФ">
-		<input class="btn btn-success btn-sm" type="button" id="create_activity" value="Новая Активность">
-	</div>
 	<table class="table table-bordered table-sm">
 		<thead>
 			<tr style="text-align:center">
 				<th scope="col" style="width: 2rem">№</th>
-				<th scope="col">ОТФ</th>
+				<th scope="col">ОТФ <input class="btn btn-outline-success btn-sm work_buttons" type="button" id="create_otf" value="Новая ОТФ"></th>
 				<th scope="col">Уровень квалификации</th>
 				<th scope="col" style="width: 2rem">№</th>
-				<th scope="col">ТФ</th>
+				<th scope="col">ТФ <input class="btn btn-outline-success btn-sm work_buttons" type="button" id="create_tf" value="Новая ТФ"></th>
 				<th scope="col">Тип активности</th>
 				<th scope="col" style="width: 2rem">№</th>
-				<th scope="col">Активность</th>
+				<th scope="col">Активность <input class="btn btn-outline-success btn-sm work_buttons" type="button" id="create_activity" value="Новая Активность"></th>
 			</tr>
 		</thead>
 		<tbody id="data">
@@ -293,9 +288,9 @@ function get_data_by_prof(prof_id){
 		}
 		table_body = table_body.substr(0, (table_body.length - 4));
 		$("#data").html(table_body);
-		$('#work_panel').prop('hidden', false);
 		gen_pagination(data.total, data.limit, data.round);
 	}
+	$('.work_buttons').prop('hidden', false);
 }
 
 function del_prof_href(){
@@ -312,7 +307,7 @@ function prof_reset(){
 
 function table_reset(){
 	pagination_reset();
-	$('#work_panel').prop('hidden', true);
+	$('.work_buttons').prop('hidden', true);
 	$('#data').html(`<tr>
 						<td colspan="10" style="text-align:center">Пустой список</td>
 					 </tr>`);
