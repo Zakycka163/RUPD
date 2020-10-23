@@ -57,9 +57,9 @@ $(document).ready(function(){
 		async: false,
 		success: function(response){
 			data = response;
-			for (var [key, institutes] of Object.entries(data.institutes)) {
-				institutes_id += institutes.id + ",";
-			}
+			data.institutes.forEach(function(institute){
+				institutes_id += institute.id + ",";
+			});
 			institutes_id = institutes_id.substr(0, (institutes_id.length - 1));
 		}
 	});
@@ -68,22 +68,19 @@ $(document).ready(function(){
 		type: "GET",
 		async: false,
 		success: function(response){
-			for (var [key, institute] of Object.entries(data.institutes)) {
-				for (var [x, pulpit] of Object.entries(response.pulpits)) {
-					if (institute.id == pulpit.institute_id){
-						if (data.institutes[key].pulpits === undefined){
-							data.institutes[key].pulpits = [pulpit];
-						} else {
-							data.institutes[key].pulpits.push(pulpit);
-						}
-						if (data.institutes[key].rows === undefined){
-							data.institutes[key].rows = 1;
-						} else {
-							++data.institutes[key].rows;
-						}
-					}
+			response.pulpits.forEach(function(pulpit){
+				y = data.institutes.findIndex(element => element.id == pulpit.institute_id);
+				if (data.institutes[y].pulpits === undefined){
+					data.institutes[y].pulpits = [pulpit];
+				} else {
+					data.institutes[y].pulpits.push(pulpit);
 				}
-			}
+				if (data.institutes[y].rows === undefined){
+					data.institutes[y].rows = 1;
+				} else {
+					++data.institutes[y].rows;
+				}					
+			});
 		}
 	});
 	for (var [x, institute] of Object.entries(data.institutes)) {
@@ -95,11 +92,11 @@ $(document).ready(function(){
 							<td></td>
 						   </tr><tr>`;
 		} else {
-			for (var [y, pulpit] of Object.entries(institute.pulpits)) {
-				table_body += `<td>`+((y*1)+1)+`</td>
+			institute.pulpits.forEach(function(pulpit, index){
+				table_body += `<td>`+((index*1)+1)+`</td>
 								<td><a href="?page=institutes&kafid=`+pulpit.id+`">`+pulpit.name+`</a></td>
 							</tr><tr>`;
-			}
+			});
 		}
 		table_body = table_body.substr(0, (table_body.length - 4));
 	}			
