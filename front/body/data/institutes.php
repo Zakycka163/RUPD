@@ -69,7 +69,7 @@ $(document).ready(function(){
 		async: false,
 		success: function(response){
 			response.pulpits.forEach(function(pulpit){
-				y = data.institutes.findIndex(element => element.id == pulpit.institute_id);
+				let y = data.institutes.findIndex(institute => institute.id == pulpit.institute_id);
 				if (data.institutes[y].pulpits === undefined){
 					data.institutes[y].pulpits = [pulpit];
 				} else {
