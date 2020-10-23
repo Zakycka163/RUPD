@@ -87,7 +87,7 @@ $(document).ready(function(){
 			}
 		});
 	}
-	for (var [x, course] of Object.entries(data.courses)) {
+	data.courses.forEach(function(course, y){
 		table_body += `<tr>
 						<td rowspan="`+course.rows+`">`+((x*1)+data.start)+`</td>
 						<td rowspan="`+course.rows+`"><a href="?page=courses&id=`+course.id+`">`+course.name+`</td>
@@ -97,14 +97,14 @@ $(document).ready(function(){
 							<td></td>
 							</tr><tr>`;
 		} else {
-			course.profiles.forEach(function(profile, index){
-				table_body += `<td>`+((index*1)+1)+`</td>
+			course.profiles.forEach(function(profile, y){
+				table_body += `<td>`+((y*1)+1)+`</td>
 								<td><a href="?page=courses&profid=`+profile.id+`">`+profile.name+`</a></td>
 							</tr><tr>`;
 			});
 		}
 		table_body = table_body.substr(0, (table_body.length - 4));
-	}	
+	});
 	$("#data").html(table_body);
 	gen_pagination(data.total, data.limit, data.round);	
 });

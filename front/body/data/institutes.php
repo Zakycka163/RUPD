@@ -87,7 +87,7 @@ $(document).ready(function(){
 			}
 		});
 	}
-	for (var [x, institute] of Object.entries(data.institutes)) {
+	data.institutes.forEach(function(institute, x){
 		table_body += `<tr>
 						<td rowspan="`+institute.rows+`">`+((x*1)+data.start)+`</td>
 						<td rowspan="`+institute.rows+`"><a href="?page=institutes&insid=`+institute.id+`">`+institute.name+`</td>`;
@@ -96,14 +96,14 @@ $(document).ready(function(){
 							<td></td>
 						   </tr><tr>`;
 		} else {
-			institute.pulpits.forEach(function(pulpit, index){
-				table_body += `<td>`+((index*1)+1)+`</td>
+			institute.pulpits.forEach(function(pulpit, y){
+				table_body += `<td>`+((y*1)+1)+`</td>
 								<td><a href="?page=institutes&kafid=`+pulpit.id+`">`+pulpit.name+`</a></td>
 							</tr><tr>`;
 			});
 		}
 		table_body = table_body.substr(0, (table_body.length - 4));
-	}			
+	});		
 	$("#data").html(table_body);
 	gen_pagination(data.total, data.limit, data.round);	
 
