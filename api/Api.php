@@ -105,7 +105,7 @@ abstract class Api
     public function indexAction()
     {
         if (isset($this->requestParams['round']) and is_numeric($this->requestParams['round'])){
-            $round = htmlspecialchars(trim($this->requestParams['round'])) ?? 1;
+            $round = htmlspecialchars(trim($this->requestParams['round']));
         } else { $round = 1; }
         $database = new Database();
         $link = $database->get_db_link();
@@ -147,7 +147,7 @@ abstract class Api
     public function viewAction()
     {
         if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) ){
-            $id = htmlspecialchars(trim($this->requestParams['id'] ?? ''));
+            $id = htmlspecialchars(trim($this->requestParams['id']));
             $database = new Database();
             $link = $database->get_db_link();           
             if ($database->exist_in_table($id, $this->table_name)) {
@@ -207,7 +207,7 @@ abstract class Api
     {
         $data = json_decode(file_get_contents("php://input"));
         if(isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) and $this->json_validation($data)){
-            $id = htmlspecialchars(trim($this->requestParams['id'] ?? ''));
+            $id = htmlspecialchars(trim($this->requestParams['id']));
             $database = new Database();
             if ($database->exist_in_table($id, $this->table_name)){
                 $errors = $database->validate_input_data($this->table_name, $data);
@@ -234,7 +234,7 @@ abstract class Api
     public function deleteAction()
     {
         if( isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) ){     
-            $id = htmlspecialchars(trim($this->requestParams['id'])) ?? '';
+            $id = htmlspecialchars(trim($this->requestParams['id']));
             $database = new Database();
             $link = $database->get_db_link();
             if ($database->exist_in_table($id, $this->table_name)){
@@ -258,11 +258,18 @@ abstract class Api
      */
     public function filterAction()
     {
-        if (isset($this->requestParams['round']) and is_numeric($this->requestParams['round'])){
-            $round = htmlspecialchars(trim($this->requestParams['round'])) ?? 1;
-        } else { $round = 1; }
+        if (isset($this->requestParams['limit']) and $this->requestParams['limit'] == 'off'){
+            $is_limit = 'no';
+        } else { 
+            $is_limit = 'yes'; 
+            if (isset($this->requestParams['round']) and is_numeric($this->requestParams['round'])){
+                $round = htmlspecialchars(trim($this->requestParams['round']));
+            } else { $round = 1; }
+        }
         unset($this->requestParams['filter']);
+        unset($this->requestParams['limit']);
         unset($this->requestParams['round']);
+        $filter = '1';
         if( !empty($this->requestParams)){
             $filter = '';
             foreach($this->requestParams as $field => $values){
@@ -285,35 +292,38 @@ abstract class Api
                 }
             }
             $filter = substr($filter, 0, -5);
-            $database = new Database();
-            $link = $database->get_db_link();  
-            $limit = $database->get_db_limit();
-            $start = ($round - 1) * $limit;
-            if ($database->exist_in_table_by_filter($filter, $this->table_name)) {
-                $count_sql = "SELECT count(*) FROM `".$this->table_name."`";
-                $count_rows = mysqli_fetch_array(mysqli_query($link, $count_sql))[0];
-                $sql = "SELECT * FROM `".$this->table_name."` WHERE ".$filter." LIMIT ".$start.",".$limit."";
-                $result = mysqli_query($link, $sql);
-                $response_body = array('total' => (int)$count_rows, 'limit' => (int)$limit,'round' => (int)$round,'start' => (int)($start+1));
-                $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
-                $result_columns = mysqli_query($link, $sql_columns);
-                while($row = mysqli_fetch_array($result_columns)){
-                    $columns[] = $row['Field'];
-                }
-                while($row = mysqli_fetch_array($result)){
-                    for($i = 0, $size = count($columns); $i < $size; ++$i) {
-                        if(is_numeric($row[$i])){
-                            $row[$i] = $row[$i] * 1;
-                        }
-                        $obj[$columns[$i]] = $row[$i];
-                    }
-                    $objs[] = $obj;
-                }
-                $response_body[$this->table_name] = $objs;
-                return $this->response($response_body, 200);
-            } return $this->response('Not Found object with '.$filter.'', 200);
-            $link = $database->close_db_link();
         }
-        return $this->response('Bad Request', 400);
+        $database = new Database();
+        $link = $database->get_db_link();  
+        if ($database->exist_in_table_by_filter($filter, $this->table_name)) {
+            $count_sql = "SELECT count(*) FROM `".$this->table_name."`";
+            $count_rows = mysqli_fetch_array(mysqli_query($link, $count_sql))[0];
+            $response_body = array('total' => (int)$count_rows);
+            $sql = "SELECT * FROM `".$this->table_name."` WHERE ".$filter."";
+            if ($is_limit == 'yes'){
+                $limit = $database->get_db_limit();
+                $start = ($round - 1) * $limit;
+                $sql .=" LIMIT ".$start.",".$limit."";
+                $response_body += array('limit' => (int)$limit,'round' => (int)$round,'start' => (int)($start+1));
+            }
+            $result = mysqli_query($link, $sql);
+            $sql_columns = "SHOW COLUMNS FROM `".$this->table_name."`";
+            $result_columns = mysqli_query($link, $sql_columns);
+            while($row = mysqli_fetch_array($result_columns)){
+                $columns[] = $row['Field'];
+            }
+            while($row = mysqli_fetch_array($result)){
+                for($i = 0, $size = count($columns); $i < $size; ++$i) {
+                    if(is_numeric($row[$i])){
+                        $row[$i] = $row[$i] * 1;
+                    }
+                    $obj[$columns[$i]] = $row[$i];
+                }
+                $objs[] = $obj;
+            }
+            $response_body[$this->table_name] = $objs;
+            return $this->response($response_body, 200);
+        } return $this->response('Not Found object with '.$filter.'', 200);
+        $link = $database->close_db_link();
     }
 }
