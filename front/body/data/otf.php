@@ -274,7 +274,7 @@ function get_data_by_prof(prof_id){
 							} else {
 								act_type.acts.forEach(function(act, z){
 									table_body += `<td rowspan="`+act.rows+`">`+((z*1)+1)+`</td>
-													<td rowspan="`+act.rows+`"><a href="?page=otf&tfid=`+act.id+`">`+act.name+`</a></td>
+													<td rowspan="`+act.rows+`"><a href="?page=otf&actid=`+act.id+`">`+act.name+`</a></td>
 												</tr><tr>`;
 								});
 							}
