@@ -80,7 +80,7 @@ $("#fgos").change(function() {
 
 $("#prof").change(function() {
 	table_reset();
-	var prof_id = '';
+	let prof_id = '';
 	prof_id = $("#prof").val();
 	
 	if (prof_id == 0 || prof_id === null) {
@@ -107,7 +107,7 @@ $("#clear").click(function() {
 
 function get_fgos(){
 	$.ajax({
-		url: "/api/view_fgos", 
+		url: "/api/view_fgos?filter=on&limit=off", 
 		type: "GET",
 		success: function(response){
 			var fgos_option = '<option value="0"></option>';
@@ -129,13 +129,13 @@ function get_fgos(){
 
 function get_prof_by_fgos(fgos_id){
 	$.ajax({
-		url: "/api/view_profs?filter=on&fgos_id="+fgos_id, 
+		url: "/api/view_profs?filter=on&limit=off&fgos_id="+fgos_id, 
 		type: "GET",
 		success: function(response){
-			var prof_option = '<option value="0"></option>';
+			let prof_option = '<option value="0"></option>';
 			if (response.view_profs !== undefined){
 				response.view_profs.forEach(function(prof){
-					var state = '';
+					let state = '';
 					if ($_GET("prof_id") && $_GET("prof_id") == prof.id){
 						state = 'selected';
 					}
@@ -148,16 +148,17 @@ function get_prof_by_fgos(fgos_id){
 	});
 }
 function get_data_by_prof(prof_id){
-	var data = new Object();
+	delete data;
+	let data = new Object();
 	if ($_GET("round") && parseInt($_GET("round"))){
 		data.round = $_GET("round");
 	} else {
 		data.round = 1;
 	}
-	var table_body = '';
-	var otfs_id = '';
+	let table_body = '';
+	let otfs_id = '';
 	$.ajax({
-		url: "/api/general_work_functions?filter=on&prof_standard_id="+prof_id, 
+		url: "/api/general_work_functions?filter=on&round="+data.round+"&prof_standard_id="+prof_id, 
 		type: "GET",
 		async: false,
 		success: function(response){
@@ -174,9 +175,9 @@ function get_data_by_prof(prof_id){
 		}
 	});
 	if (otfs_id != '') {
-		var tfs_id = '';
+		let tfs_id = '';
 		$.ajax({
-			url: "/api/work_functions?filter=on&general_work_function_id="+otfs_id, 
+			url: "/api/work_functions?filter=on&limit=off&general_work_function_id="+otfs_id, 
 			type: "GET",
 			async: false,
 			success: function(response){
@@ -199,12 +200,12 @@ function get_data_by_prof(prof_id){
 		});
 		if (tfs_id != '') {
 			$.ajax({
-				url: "/api/view_acts?filter=on&work_function_id="+tfs_id, 
+				url: "/api/view_acts?filter=on&limit=off&work_function_id="+tfs_id, 
 				type: "GET",
 				async: false,
 				success: function(response){
 					if (response.view_acts !== undefined) {
-						var act_types = [];
+						let act_types = [];
 						response.view_acts.forEach(function(act){
 							if (!act_types.some(act_type => act_type.type_id == act.type_id)){
 								act_types.push({"type_id": act.type_id, "type": act.type});

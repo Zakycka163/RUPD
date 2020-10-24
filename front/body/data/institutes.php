@@ -67,7 +67,7 @@ $(document).ready(function(){
 	});
 	if (institutes_id != '') {
 		$.ajax({
-			url: "/api/pulpits?filter=on&institute_id="+institutes_id, 
+			url: "/api/pulpits?filter=on&limit=off&institute_id="+institutes_id, 
 			type: "GET",
 			async: false,
 			success: function(response){

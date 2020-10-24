@@ -67,7 +67,7 @@ $(document).ready(function(){
 	});
 	if (courses_id != '') {
 		$.ajax({
-			url: "/api/profiles?filter=on&course_id="+courses_id, 
+			url: "/api/profiles?filter=on&limit=off&course_id="+courses_id, 
 			type: "GET",
 			async: false,
 			success: function(response){
