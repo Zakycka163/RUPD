@@ -1,8 +1,7 @@
 <div class="px-4 py-2 bg-primary font-weight-bold text-white container-fluid">
     <div class="row">
-        <a class="btn btn-warning back" href="/pages/data.php"
-            style="margin-left: 1rem" title="Назад" data-toggle="tooltip"
-            data-placement="right">&#8592; Назад</a>
+        <a class="btn btn-warning btn-sm back" href="/pages/data.php"
+            title="Назад" data-toggle="tooltip" data-placement="right">&#8592; Назад</a>
         <div class="h4" id="page_title" style="margin-left: 35%">Дисциплины</div>
     </div>
 </div>

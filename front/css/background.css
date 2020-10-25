@@ -9,5 +9,6 @@ body {
 a.back{
     height: 35px;
     width: 5rem;
+    margin-left: 1rem;
 }
 
