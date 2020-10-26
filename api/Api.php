@@ -127,6 +127,9 @@ abstract class Api
                     if(is_numeric($row[$i])){
                         $row[$i] = $row[$i] * 1;
                     }
+                    if($columns[$i] == 'password'){
+                        $row[$i] = null;
+                    }
                     $obj[$columns[$i]] = $row[$i];
                 }
                 $objs[] = $obj;
@@ -163,6 +166,9 @@ abstract class Api
                         if(is_numeric($row[$i])){
                             $row[$i] = $row[$i] * 1;
                         }
+                        if($columns[$i] == 'password'){
+                            $row[$i] = null;
+                        }
                         $obj[$columns[$i]] = $row[$i];
                     }
                 }
@@ -183,6 +189,9 @@ abstract class Api
     {
         $data = json_decode(file_get_contents("php://input"));  
         if($this->json_validation($data)){
+            if (isset($data->password)){
+                $data->password = htmlspecialchars(md5(md5(trim($data->password))));
+            }
             $database = new Database();
             $errors = $database->validate_input_data($this->table_name, $data);
             if (empty((array)$errors)) {
@@ -208,6 +217,9 @@ abstract class Api
         $data = json_decode(file_get_contents("php://input"));
         if(isset($this->requestParams['id']) and is_numeric($this->requestParams['id']) and $this->json_validation($data)){
             $id = htmlspecialchars(trim($this->requestParams['id']));
+            if (isset($data->password)){
+                $data->password = htmlspecialchars(md5(md5(trim($data->password))));
+            }
             $database = new Database();
             if ($database->exist_in_table($id, $this->table_name)){
                 $errors = $database->validate_input_data($this->table_name, $data);
@@ -266,6 +278,9 @@ abstract class Api
                 $round = htmlspecialchars(trim($this->requestParams['round']));
             } else { $round = 1; }
         }
+        if (isset($this->requestParams['password'])){
+            $this->requestParams['password'] = htmlspecialchars(md5(md5(trim($this->requestParams['password']))));
+        }
         unset($this->requestParams['filter']);
         unset($this->requestParams['limit']);
         unset($this->requestParams['round']);
@@ -316,6 +331,9 @@ abstract class Api
                 for($i = 0, $size = count($columns); $i < $size; ++$i) {
                     if(is_numeric($row[$i])){
                         $row[$i] = $row[$i] * 1;
+                    }
+                    if($columns[$i] == 'password'){
+                        $row[$i] = null;
                     }
                     $obj[$columns[$i]] = $row[$i];
                 }
