@@ -7,66 +7,30 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
-				<table class="table table-borderless table-sm">
-					<tr>
-						<td class="align-middle">Фамилия<span style="color: red">*</span></td>
-						<td width="70%">
-							<input type="text" id="second_name" maxlength="30" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! Должно быть больше 2 символов!">
-						</td>
-					</tr>
-					<tr>
-						<td class="align-middle">Имя<span style="color: red">*</span></td>
-						<td>
-							<input type="text" id="first_name" maxlength="30" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! Должно быть больше 2 символов!">
-						</td>
-					</tr>
-					<tr>
-						<td class="align-middle">Отчество</td>
-						<td>
-							<input type="text" id="middle_name" maxlength="30" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Должно быть больше 2 символов!">
-						</td>
-					</tr>
-					<tr>
-						<td class="align-middle">Email</td>
-						<td>
-							<input type="email" id="email" maxlength="50" class="form-control form-control-sm" data-toggle="popover" data-placement="right" data-content="Нужно заполнить! Email должен быть валидным!">
-						</td>
-					</tr>
-					<tr>
-						<td class="align-middle">Степень</td>
-						<td>
-							<div class="input-group input-group-sm">
-								<input type="text" id="deg_name" class="form-control form-control-sm" value="Отсутствует" readonly>
-								<div class="input-group-append">
-									<button class="btn btn-outline-success btn-sm" id="add_deg_name" type="button">Установить</button>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="align-middle">Звание</td>
-						<td>
-							<div class="input-group input-group-sm">
-								<input type="text" id="ac_rank_name" class="form-control form-control-sm" value="Отсутствует" readonly>
-								<div class="input-group-append">
-									<button class="btn btn-outline-success btn-sm" id="add_ac_rank_name" type="button">Установить</button>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="align-middle">Должность</td>
-						<td>
-							<div class="input-group input-group-sm">
-								<input type="text" id="position" class="form-control form-control-sm" value="Отсутствует" readonly>
-								<div class="input-group-append">
-									<button class="btn btn-outline-success btn-sm" id="add_position" type="button">Установить</button>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</table>
+			<div class="modal-body container">
+				<div class="row justify-content-center">
+					<label class="col-3">Фамилия<span style="color: red">*</span></label>
+					<input type="text" id="second_name" maxlength="30" class="form-control form-control-sm col-8" data-toggle="popover" 
+						data-placement="right" data-content="Нужно заполнить! Должно быть больше 2 символов!">
+					<label class="col-3">Имя<span style="color: red">*</span></label>
+					<input type="text" id="first_name" maxlength="30" class="form-control form-control-sm col-8" data-toggle="popover" 
+						data-placement="right" data-content="Нужно заполнить! Должно быть больше 2 символов!">
+					<label class="col-3">Отчество</label>
+					<input type="text" id="middle_name" maxlength="30" class="form-control form-control-sm col-8" data-toggle="popover" 
+						data-placement="right" data-content="Должно быть больше 2 символов!">
+					<label class="col-3">Email</label>
+					<input type="email" id="email" maxlength="50" class="form-control form-control-sm col-8" data-toggle="popover" 
+						data-placement="right" data-content="Нужно заполнить! Email должен быть валидным!">
+					<label class="col-3">Степень</label>
+					<input type="text" id="deg_name" class="form-control form-control-sm col-5" value="Отсутствует" readonly>
+					<button class="btn btn-outline-success btn-sm col-3" id="add_deg_name" type="button">Установить</button>
+					<label class="col-3">Звание</label>
+					<input type="text" id="ac_rank_name" class="form-control form-control-sm col-5" value="Отсутствует" readonly>
+					<button class="btn btn-outline-success btn-sm col-3" id="add_ac_rank_name" type="button">Установить</button>
+					<label class="col-3">Должность</label>
+					<input type="text" id="position" class="form-control form-control-sm col-5" value="Отсутствует" readonly>
+					<button class="btn btn-outline-success btn-sm col-3" id="add_position" type="button">Установить</button>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-sm btn-primary" id="create_teach">Создать</button>
@@ -86,24 +50,23 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<table class="table table-borderless table-sm">
-					<tr>
-						<td>
-							<select class="form-control form-control-sm" id="deg_name_val">
-								<option selected value="null">Отсутствует</option>
-								
-								<?php 
-									require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
-									options_present("SELECT academic_degree_id
-														  , full_name 
-													 FROM academic_degrees  
-													 ORDER BY academic_degree_id");
-								?>
-							
-							</select>
-						</td>
-					</tr>
-				</table>
+				<select class="form-control form-control-sm" id="deg_name_val">
+					<script> 
+						$.ajax({
+							url: "/api/academic_degrees?filter=on&limit=off", 
+							type: "GET",
+							success: function(response){
+								let option = '<option selected value="null">Отсутствует</option>';
+								if (response.academic_degrees !== undefined) {
+									response.academic_degrees.forEach(function(deg){
+										option += `<option value="`+deg.id+`">`+deg.full_name+`</option>`;
+									});
+								}
+								$("#deg_name_val").html(option);
+							}
+						});
+					</script>
+				</select>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-sm btn-success" id="save_deg_name_button">Сохранить</button>
@@ -123,24 +86,23 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<table class="table table-borderless table-sm">
-					<tr>
-						<td>
-							<select class="form-control form-control-sm" id="ac_rank_name_val">
-								<option selected value="null">Отсутствует</option>
-								
-								<?php 
-									require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
-									options_present("SELECT academic_rank_id
-														  , full_name 
-													 FROM academic_ranks  
-													 ORDER BY academic_rank_id");
-								?>
-							
-							</select>
-						</td>
-					</tr>
-				</table>
+				<select class="form-control form-control-sm" id="ac_rank_name_val">
+					<script> 
+						$.ajax({
+							url: "/api/academic_ranks?filter=on&limit=off", 
+							type: "GET",
+							success: function(response){
+								let option = '<option selected value="null">Отсутствует</option>';
+								if (response.academic_ranks !== undefined) {
+									response.academic_ranks.forEach(function(rank){
+										option += `<option value="`+rank.id+`">`+rank.full_name+`</option>`;
+									});
+								}
+								$("#ac_rank_name_val").html(option);
+							}
+						});
+					</script>
+				</select>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-sm btn-success" id="save_ac_rank_name_button">Сохранить</button>
@@ -160,24 +122,23 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<table class="table table-borderless table-sm">
-					<tr>
-						<td>
-							<select class="form-control form-control-sm" id="position_val">
-								<option selected value="null">Отсутствует</option>
-								
-								<?php 
-									require_once ($_SERVER['DOCUMENT_ROOT']."/back/base.php");
-									options_present("SELECT position_id
-														  , `name` 
-													 FROM positions  
-													 ORDER BY position_id");
-								?>
-							
-							</select>
-						</td>
-					</tr>
-				</table>
+				<select class="form-control form-control-sm" id="position_val">
+					<script> 
+						$.ajax({
+							url: "/api/positions?filter=on&limit=off", 
+							type: "GET",
+							success: function(response){
+								let option = '<option selected value="null">Отсутствует</option>';
+								if (response.positions !== undefined) {
+									response.positions.forEach(function(pos){
+										option += `<option value="`+pos.id+`">`+pos.name+`</option>`;
+									});
+								}
+								$("#position_val").html(option);
+							}
+						});
+					</script>						
+				</select>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-sm btn-success" id="save_position_button">Сохранить</button>
@@ -325,7 +286,7 @@
 	});
 
 	$("#close").click(function(){
-		location.reload();
+		$('#create_techer_form').modal('hide');
 	});
 
 	$("#second_name").mouseenter (function(){
