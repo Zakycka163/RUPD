@@ -166,7 +166,7 @@
         }
 
         /**
-         * Инсерт данных по полям
+         * Инсерт данных
          */ 
         public function insert_data_to_table($data, string $table_name){            
             $database = new Database();
@@ -202,37 +202,50 @@
         }
 
         /**
-         * Обновление данных по полям
+         * Обновление данных по id или по фильтру
          */ 
-        public function update_data_to_table(int $id, $data, string $table_name){            
-            $database = new Database();
-            $link = $database->get_db_link();         
-            $sql_fields = "SELECT COLUMN_NAME as 'Field'
-                           FROM INFORMATION_SCHEMA.COLUMNS 
-                           WHERE table_name = '".$table_name."'";
-            $fields = mysqli_query($link, $sql_fields);
-            $arr_fields = array();
-            while($row = mysqli_fetch_array($fields)){
-                $arr_fields += array($row[0] => null);
+        public function update_data_to_table($param, $data, string $table_name){            
+            $condition = '';
+            if (is_numeric($param)) {
+                $condition = 'id = '.$param;
+            } else if (is_string($param)){
+                $condition = $param;
             }
-            $data_to_update = '';
-            foreach($data as $field => $value){ 
-                if (array_key_exists($field, $arr_fields)){
-                    if (empty($data_to_update)){
-                        $data_to_update .= '`'.$field.'` = ';
-                        $data_to_update .= isset($value)?("'".$value."'"):("NULL").'';
-                    } else {
-                        $data_to_update .= ', `'.$field.'` = ';
-                        $data_to_update .= isset($value)?("'".$value."'"):("NULL").'';
+            if ($condition != ''){
+                $database = new Database();
+                $link = $database->get_db_link();  
+                $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE ".$condition."'";
+                $result_check = mysqli_query($link, $sql_check);
+                if (mysqli_num_rows($result_check) == 1){
+                    $sql_fields = "SELECT COLUMN_NAME as 'Field'
+                                FROM INFORMATION_SCHEMA.COLUMNS 
+                                WHERE table_name = '".$table_name."'";
+                    $fields = mysqli_query($link, $sql_fields);
+                    $arr_fields = array();
+                    while($row = mysqli_fetch_array($fields)){
+                        $arr_fields += array($row[0] => null);
                     }
-                }
-            }
-            $sql = "UPDATE `".$table_name."` SET ".$data_to_update." WHERE id = ".$id."";
-            if(mysqli_query($link, $sql)){
-                return "ok";
-            }
-            return $sql.' - '.mysqli_error($link);
-            $link = $database->close_db_link();
+                    $data_to_update = '';
+                    foreach($data as $field => $value){ 
+                        if (array_key_exists($field, $arr_fields)){
+                            if (empty($data_to_update)){
+                                $data_to_update .= '`'.$field.'` = ';
+                                $data_to_update .= isset($value)?("'".$value."'"):("NULL").'';
+                            } else {
+                                $data_to_update .= ', `'.$field.'` = ';
+                                $data_to_update .= isset($value)?("'".$value."'"):("NULL").'';
+                            }
+                        }
+                    }
+                    $sql = "UPDATE `".$table_name."` SET ".$data_to_update." WHERE ".$condition."";
+                    if(mysqli_query($link, $sql)){
+                        return "ok";
+                    }
+                    return $sql.' - '.mysqli_error($link);
+                } 
+                $link = $database->close_db_link();
+                return 'Not Found object with '.$condition;
+            } return 'Invalid condition';
         }
     }
 ?>
