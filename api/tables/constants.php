@@ -106,28 +106,26 @@ class CurrentApi extends Api
             } elseif ( isset($data->text_val) ){
                 $data->int_val = null;
             }
+            $filter = "`key` = '".$key."'";
             $database = new Database();
             $link = $database->get_db_link();
-            $errors = $database->validate_input_data($this->table_name, $data);
-            if (empty((array)$errors)) {
-                $sql_check = "SELECT 1 FROM `".$this->table_name."` WHERE `key` = '".$key."'";
-                $result_check = mysqli_query($link, $sql_check);
-                if (mysqli_num_rows($result_check) == 1){               
-                    $sql = "UPDATE `".$this->table_name."` 
-                            SET int_val = ";
-                    $sql .= isset($data->int_val)?($data->int_val):("NULL");
-                    $sql .= ", text_val = ";
-                    $sql .= isset($data->text_val)?("'".$data->text_val."'"):("NULL");
-                    $sql .= " WHERE `key` = '".$key."'";
-                    if (mysqli_query($link, $sql)) {
-                        return $this->response('Object updated.', 200);
-                    }
-                    return $this->response(mysqli_error($link), 500);
-                } 
-                return $this->response('Not Found object with key = '.$key.'', 404);
-            }
-            return $this->response($errors, 400);
+            if ($database->exist_in_table_by_filter($filter, $this->table_name)) {
+                $errors = $database->validate_input_data($this->table_name, $data);
+                if (empty((array)$errors)) {           
+                        $sql = "UPDATE `".$this->table_name."` 
+                                SET int_val = ";
+                        $sql .= isset($data->int_val)?($data->int_val):("NULL");
+                        $sql .= ", text_val = ";
+                        $sql .= isset($data->text_val)?("'".$data->text_val."'"):("NULL");
+                        $sql .= " WHERE `key` = '".$key."'";
+                        if (mysqli_query($link, $sql)) {
+                            return $this->response('Object updated.', 200);
+                        }
+                        return $this->response(mysqli_error($link), 500);
+                } return $this->response($errors, 400); 
+            } 
             $link = $database->close_db_link();
+            return $this->response('Not Found object with '.$filter.'', 404);
         }
         return $this->response('Bad Request', 400);
     }
