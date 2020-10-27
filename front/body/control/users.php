@@ -82,12 +82,9 @@ $(document).ready(function(){
 		}		
 	});
 	
-	if ($_GET('action')=="create"){
-		$('#create_account_form').modal('show');
-	};
-	
 	$("#create_account").click(function(){
-		location.href='/pages/control/users.php?action=create';
+		$('#create_account_form').modal('show');
 	});
+
 });	
 </script>

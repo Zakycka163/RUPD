@@ -103,7 +103,7 @@
 	});
 
 	$("#close").click(function(){
-		location.href='/pages/control/users.php';
+		$('#create_account_form').modal('hide');
 	});
 
 	$("#name_acc").mouseenter (function(){
